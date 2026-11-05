@@ -24,3 +24,9 @@ The repository holds a scaffold. No part of the system runs yet.
 | Data transfer | Not started. `data_transfer.h` and `data_transfer.cpp` are placeholders. |
 | WiFi path | Under evaluation with the Arduino Yún shield. |
 | Bill of materials | Drafted. No parts are ordered. |
+
+## How it works
+
+The UNO R4 Minima has six analog inputs. The design uses four of them, one for each sensor, on pins A0 to A3. Two inputs stay free.
+
+Two sensors on one limb measure the angle between its segments. One sensor on a limb shows only that the limb moved. The pair is the reason the device can tell a full repetition from a shallow one.
