@@ -30,3 +30,9 @@ The repository holds a scaffold. No part of the system runs yet.
 The UNO R4 Minima has six analog inputs. The design uses four of them, one for each sensor, on pins A0 to A3. Two inputs stay free.
 
 Two sensors on one limb measure the angle between its segments. One sensor on a limb shows only that the limb moved. The pair is the reason the device can tell a full repetition from a shallow one.
+
+A repetition is a shape in the signal. The limb rises, it returns, and a counter passes its threshold. A hysteresis band stops the same motion from counting twice.
+
+The screen shows the count and the pace during the session. Three buttons start a session, calibrate the sensors, and reset the count.
+
+The host model reads the samples, scores each repetition, and writes one summary for the instructor.
