@@ -59,3 +59,17 @@ Datasheets for the board and the shield are in `hardware/resources/`.
 | Continuous run | 60 minutes without a reset |
 
 These numbers are requirements, not results. No measurement exists yet.
+
+## Repository layout
+
+```text
+198-Project/
+├── hardware/
+│   ├── 198project/          Arduino sketch and source files
+│   ├── resources/           datasheets for the board and the WiFi shield
+│   └── notes.txt            pin notes for the Yún shield
+├── model/
+│   └── model.py             host model, empty
+├── assets/                  the figure above, light and dark versions
+└── README.md
+```
