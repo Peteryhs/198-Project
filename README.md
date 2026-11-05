@@ -49,3 +49,13 @@ The host model reads the samples, scores each repetition, and writes one summary
 | Armband | 4 | Holds each sensor in the same position on every session. |
 
 Datasheets for the board and the shield are in `hardware/resources/`.
+
+## Design targets
+
+| Measure | Target |
+| --- | --- |
+| Counting error | At most 1 error per 10 repetitions |
+| Samples recorded | 95% or more of the session |
+| Continuous run | 60 minutes without a reset |
+
+These numbers are requirements, not results. No measurement exists yet.
