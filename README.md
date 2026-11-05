@@ -73,3 +73,15 @@ These numbers are requirements, not results. No measurement exists yet.
 ├── assets/                  the figure above, light and dark versions
 └── README.md
 ```
+
+## Build and upload
+
+The sketch does not run yet. These steps describe the intended loop.
+
+1. Install the Arduino IDE, version 2.x.
+2. Add the *Arduino UNO R4 Boards* package in the board manager.
+3. Select **Arduino UNO R4 Minima** and the port of the board.
+4. Open `hardware/198project/198project.ino`.
+5. Upload the sketch.
+
+Note: the Arduino core calls `loop()` after `setup()`. The sketch declares `main()` instead, so the link step fails. See Known gaps.
