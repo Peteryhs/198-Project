@@ -96,3 +96,7 @@ Note: the Arduino core calls `loop()` after `setup()`. The sketch declares `main
 ## AI assistance
 
 Hermes Agent, with a DeepSeek V4.1 model, drafted this README and drew the figure. The design facts come from the team's Solution 2 report, the ECE 198 parts list, and the code in this repository.
+
+## Course
+
+ECE 198 Design Project, University of Waterloo, Fall 2026.
