@@ -36,3 +36,16 @@ A repetition is a shape in the signal. The limb rises, it returns, and a counter
 The screen shows the count and the pace during the session. Three buttons start a session, calibrate the sensors, and reset the count.
 
 The host model reads the samples, scores each repetition, and writes one summary for the instructor.
+
+## Hardware
+
+| Part | Qty | Role |
+| --- | --- | --- |
+| Arduino UNO R4 Minima (`ABX00080`) | 1 | Reads four analog channels and counts repetitions. RA4M1 at 48 MHz, 5 V logic, 256 kB flash. |
+| ADXL335 3-axis accelerometer | 4 | Two per limb on one matched pair. Analog output on three axes, sensor range ±3 g. |
+| Arduino Yún shield | 1 | WiFi 802.11 b/g/n and a LAN port, for the link to the host model. Under evaluation. |
+| OLED display | 1 | Shows the repetition count and the pace. |
+| Pushbutton | 3 | Start, calibrate, reset. |
+| Armband | 4 | Holds each sensor in the same position on every session. |
+
+Datasheets for the board and the shield are in `hardware/resources/`.
