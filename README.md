@@ -92,3 +92,7 @@ Note: the Arduino core calls `loop()` after `setup()`. The sketch declares `main
 - `accelerometer_reading.cpp`, `data_transfer.h`, and `data_transfer.cpp` are empty.
 - The host model is an empty file.
 - The WiFi path is untested. The Yún shield manual asks for power on the VIN pin and the SPI pins in the ICSP header. Both conditions appear to hold on the UNO R4 Minima. No one has tested the pair.
+
+## AI assistance
+
+Hermes Agent, with a DeepSeek V4.1 model, drafted this README and drew the figure. The design facts come from the team's Solution 2 report, the ECE 198 parts list, and the code in this repository.
