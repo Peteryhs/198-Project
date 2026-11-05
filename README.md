@@ -85,3 +85,10 @@ The sketch does not run yet. These steps describe the intended loop.
 5. Upload the sketch.
 
 Note: the Arduino core calls `loop()` after `setup()`. The sketch declares `main()` instead, so the link step fails. See Known gaps.
+
+## Known gaps
+
+- The sketch declares `main()`. The Arduino core needs `loop()`.
+- `accelerometer_reading.cpp`, `data_transfer.h`, and `data_transfer.cpp` are empty.
+- The host model is an empty file.
+- The WiFi path is untested. The Yún shield manual asks for power on the VIN pin and the SPI pins in the ICSP header. Both conditions appear to hold on the UNO R4 Minima. No one has tested the pair.
