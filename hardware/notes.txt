@@ -1,0 +1,14 @@
+Accelerometer model: ADXL335 3-Axis Analog Accelerometer Breakout Board
+
+Shield Pinout: 
+
+i think for the acc wifi capabilities
+D0 -> Rx
+D1 -> Tx
+
+spi stuff
+D11 -> MOSI
+D12 -> MISO
+
+clock
+D13 -> SCK
