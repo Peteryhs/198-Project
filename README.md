@@ -6,3 +6,9 @@ Sensors for older adults who exercise at home alone. The device counts repetitio
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Peteryhs/198-Project/main/assets/data-flow-dark.svg">
   <img src="https://raw.githubusercontent.com/Peteryhs/198-Project/main/assets/data-flow-light.svg" alt="Data path: four ADXL335 accelerometers on one matched pair of limbs feed an Arduino UNO R4 Minima, which counts repetitions and drives an OLED screen. A planned Python model on a host computer scores each session." width="100%">
 </picture>
+
+## What the project does
+
+CCCARE (Centre for Community, Clinical and Applied Research Excellence) runs supervised exercise programs for older adults at the University of Waterloo. One instructor supervises up to 30 participants in one session. When a participant goes home, no one measures the exercises.
+
+This project measures those exercises. Four accelerometers sit on one pair of limbs. An Arduino UNO R4 Minima reads the sensors, counts each repetition, and shows the count and the pace on a small screen. A Python model on a host computer scores the quality of the session and writes a summary for the instructor.
