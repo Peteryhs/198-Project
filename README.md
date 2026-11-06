@@ -7,6 +7,21 @@ Sensors for older adults who exercise at home alone. The device counts repetitio
   <img src="https://raw.githubusercontent.com/Peteryhs/198-Project/main/assets/data-flow-light.svg" alt="Data path: four ADXL335 accelerometers on one matched pair of limbs feed an Arduino UNO R4 Minima, which counts repetitions and drives an OLED screen. A planned Python model on a host computer scores each session." width="100%">
 </picture>
 
+## Table of contents
+
+- [What the project does](#what-the-project-does)
+- [Status](#status)
+- [How it works](#how-it-works)
+- [Hardware](#hardware)
+- [Design targets](#design-targets)
+- [Repository layout](#repository-layout)
+- [Build and upload](#build-and-upload)
+- [Known gaps](#known-gaps)
+- [Roadmap](#roadmap)
+- [Team](#team)
+- [AI assistance](#ai-assistance)
+- [Course](#course)
+
 ## What the project does
 
 CCCARE (Centre for Community, Clinical and Applied Research Excellence) runs supervised exercise programs for older adults at the University of Waterloo. One instructor supervises up to 30 participants in one session. When a participant goes home, no one measures the exercises.
@@ -84,7 +99,7 @@ The sketch does not run yet. These steps describe the intended loop.
 4. Open `hardware/198project/198project.ino`.
 5. Upload the sketch.
 
-Note: the Arduino core calls `loop()` after `setup()`. The sketch declares `main()` instead, so the link step fails. See Known gaps.
+Note: the Arduino core calls `loop()` after `setup()`. The sketch declares `main()` instead, so the link step fails. See [Known gaps](#known-gaps).
 
 ## Known gaps
 
@@ -92,6 +107,20 @@ Note: the Arduino core calls `loop()` after `setup()`. The sketch declares `main
 - `accelerometer_reading.cpp`, `data_transfer.h`, and `data_transfer.cpp` are empty.
 - The host model is an empty file.
 - The WiFi path is untested. The Yún shield manual asks for power on the VIN pin and the SPI pins in the ICSP header. Both conditions appear to hold on the UNO R4 Minima. No one has tested the pair.
+
+## Roadmap
+
+- [ ] Rename `main()` to `loop()` and get the sketch building
+- [ ] Implement `accelerometer_reading.cpp` and read all four channels
+- [ ] Implement `data_transfer.h` / `data_transfer.cpp`
+- [ ] Order the bill of materials
+- [ ] Test the Yún shield WiFi path end to end
+- [ ] Write `model/model.py` and define the scoring output format
+- [ ] Run the design targets above against a real session and record results
+
+## Team
+
+ECE 198 Design Project team, University of Waterloo.
 
 ## AI assistance
 
