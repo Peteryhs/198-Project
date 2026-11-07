@@ -1,0 +1,10 @@
+<!-- The Tally mark in Ink, for the splash screen on the Paper background. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="240dp"
+    android:height="240dp"
+    android:viewportWidth="240"
+    android:viewportHeight="240">
+    <path
+        android:fillColor="@color/tally_ink"
+        android:pathData="M84,56 h28 v76 h-28 z M84,132 h24 v24 h-24 z M116,146 h40 v31 h-40 z" />
+</vector>

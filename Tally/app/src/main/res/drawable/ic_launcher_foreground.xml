@@ -1,0 +1,10 @@
+<!-- The Tally mark: two blocks, the brand's "split angle" glyph — in Ink on the Paper adaptive-icon background. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="@color/tally_ink"
+        android:pathData="M40,26 h13 v34 h-13 z M40,60 h11 v11 h-11 z M55,66 h18 v14 h-18 z" />
+</vector>

@@ -1,0 +1,18 @@
+<resources>
+    <style name="Theme.Tally.Main.Base" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:colorAccent">@color/tally_ink</item>
+        <item name="android:fontFamily">@font/atkinson_hyperlegible</item>
+        <item name="android:statusBarColor">@color/tally_ink</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:navigationBarColor">@color/tally_ink</item>
+        <item name="android:windowBackground">@color/splash_background</item>
+    </style>
+
+    <style name="Theme.Tally.Main" parent="Theme.Tally.Main.Base" />
+
+    <style name="Theme.Tally" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/splash_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash</item>
+        <item name="postSplashScreenTheme">@style/Theme.Tally.Main</item>
+    </style>
+</resources>

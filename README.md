@@ -15,6 +15,7 @@ Sensors for older adults who exercise at home alone. The device counts repetitio
 - [Hardware](#hardware)
 - [Design targets](#design-targets)
 - [Repository layout](#repository-layout)
+- [Tally Android app](#tally-android-app)
 - [Build and upload](#build-and-upload)
 - [Known gaps](#known-gaps)
 - [Roadmap](#roadmap)
@@ -30,10 +31,11 @@ This project measures those exercises. Four accelerometers sit on one pair of li
 
 ## Status
 
-The repository holds a scaffold. No part of the system runs yet.
+The embedded firmware and host model remain scaffolds. The Tally Android app builds and has JVM tests; end-to-end validation with the final hardware is still pending.
 
 | Part | State |
 | --- | --- |
+| `Tally/` | Android Studio source: generic Arduino telemetry channels, charts, recordings, CSV export, and Material 3 Expressive UI. |
 | `hardware/198project/` | Sketch entry point and an `Accelerometer` class header. The sketch is a stub. |
 | `model/model.py` | Empty file. |
 | Data transfer | Not started. `data_transfer.h` and `data_transfer.cpp` are placeholders. |
@@ -79,6 +81,7 @@ These numbers are requirements, not results. No measurement exists yet.
 
 ```text
 198-Project/
+├── Tally/                   Android Studio project (current app source)
 ├── hardware/
 │   ├── 198project/          Arduino sketch and source files
 │   ├── resources/           datasheets for the board and the WiFi shield
@@ -88,6 +91,14 @@ These numbers are requirements, not results. No measurement exists yet.
 ├── assets/                  the figure above, light and dark versions
 └── README.md
 ```
+
+## Tally Android app
+
+Open [`Tally/`](Tally/) as the project folder in Android Studio. See the [app README](Tally/README.md) for connection setup, the plug advertisement protocol, and build instructions.
+
+The app supports data-driven sensor channels, legacy accelerometer/gyroscope messages, buffered acquisition, live plots, saved recordings, and CSV export. It uses Material3 1.5.0-rc01, Gradle 9.3.1, AGP 9.1.1, and compile SDK 37. Local validation: 50 JVM tests pass, debug assembly succeeds, and lint has no errors. Real-board timing and measurement accuracy remain unverified.
+
+`Tally/` is the maintained source. `Tally.zip` is an older uploaded snapshot.
 
 ## Build and upload
 

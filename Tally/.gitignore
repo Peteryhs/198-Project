@@ -1,0 +1,17 @@
+*.iml
+.gradle/
+/local.properties
+/.idea/
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Keep the wrapper jar tracked — it's required for ./gradlew to run without Android Studio.
+!gradle/wrapper/gradle-wrapper.jar
+
+# Generated Kotlin and module outputs
+.kotlin/
+**/build/
