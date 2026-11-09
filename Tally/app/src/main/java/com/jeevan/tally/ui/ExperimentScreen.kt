@@ -66,12 +66,12 @@ fun ExperimentScreen(entry: ExperimentEntry, session: ExperimentSession, recordi
     val locale = LocalLocale.current.platformLocale
     var menu by remember { mutableStateOf(false) }
     var timing by remember { mutableStateOf(false) }
-    var saveDialog by remember { mutableStateOf(false) }
+    var saveDialog by rememberSaveable { mutableStateOf(false) }
     var leaveDialog by remember { mutableStateOf(false) }
     var clearDialog by remember { mutableStateOf(false) }
     var expanded by rememberSaveable { mutableStateOf(false) }
     var exporting by remember { mutableStateOf(false) }
-    var saveAndLeave by remember { mutableStateOf(false) }
+    var saveAndLeave by rememberSaveable { mutableStateOf(false) }
     val darkSurface = MaterialTheme.colorScheme.surface.luminance() < 0.3f
     val colors = remember(entry.id, darkSurface) { stream.axisColorsHex.map {
         val channel = Color(android.graphics.Color.parseColor(it))
@@ -132,7 +132,7 @@ fun ExperimentScreen(entry: ExperimentEntry, session: ExperimentSession, recordi
         Column(Modifier.fillMaxWidth().imePadding().verticalScroll(rememberScrollState()).padding(20.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)) {
             Text("Connect your board", style = MaterialTheme.typography.headlineSmall)
-            Text("Your measurements stay here while you reconnect.", style = MaterialTheme.typography.bodyMedium)
+            Text("Connect to the same Wi-Fi network as your board.", style = MaterialTheme.typography.bodyMedium)
             ArduinoConnectionBar(context)
             TextButton(onClick = { connectionSheet = false }, modifier = Modifier.align(Alignment.End)) {
                 Text("Back to experiment")
@@ -197,7 +197,7 @@ fun ExperimentScreen(entry: ExperimentEntry, session: ExperimentSession, recordi
         Column(Modifier.fillMaxSize().padding(padding)) {
             Row(Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
                 StatusLed(if (session.running) StatusConnected else if (session.countdown > 0) StatusConnecting else StatusOff, session.running)
-                Text(when { session.countdown > 0 -> "Starts in ${session.countdown} s"; session.running -> "Recording"; history.isNotEmpty() && !session.dirty -> "Saved"; history.isNotEmpty() -> "Unsaved run"; !matchingPlug -> "Not connected"; else -> "Ready to record" },
+                Text(when { session.countdown > 0 -> "Starts in ${session.countdown} s"; session.running -> "Recording"; history.isNotEmpty() && !session.dirty -> "Saved"; history.isNotEmpty() -> "Unsaved run"; connected && !matchingPlug -> "Channel unavailable"; !connected -> "Disconnected"; else -> "Ready to record" },
                     modifier = Modifier.weight(1f).padding(start = 8.dp), style = MaterialTheme.typography.labelLarge)
                 Text("${history.size} samples  /  ${"%.1f".format(session.elapsed)} s", style = ReadoutSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
@@ -215,17 +215,15 @@ fun ExperimentScreen(entry: ExperimentEntry, session: ExperimentSession, recordi
                     }
                 }
                 if (connected && !matchingPlug) Text("This board has no matching plug definition. You can review this recording; open the current channel from Experiments to record again.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error)
-                if (!connected) OutlinedCard(Modifier.fillMaxWidth()) {
-                    Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Text(if (history.isEmpty()) "Connect to start recording" else "Your measurements are safe here",
-                            style = MaterialTheme.typography.titleMedium)
-                        Text(if (history.isEmpty()) "Connect your Arduino, then tap Record."
-                            else "Review, save, or export this run. Reconnect your board to resume recording.",
-                            style = MaterialTheme.typography.bodyMedium)
-                        FilledTonalButton(onClick = { connectionSheet = true }, shapes = ButtonDefaults.shapes()) {
-                            Icon(Icons.Filled.Wifi, null, Modifier.size(18.dp))
-                            Spacer(Modifier.width(8.dp)); Text("Connect board")
+                if (!connected) {
+                    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                        Column(Modifier.weight(1f)) {
+                            Text("Board disconnected", style = MaterialTheme.typography.titleSmall)
+                            Text(if (history.isEmpty()) "Connect to record." else "Reconnect to resume. Save to keep this run.",
+                                style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
+                        OutlinedButton(onClick = { connectionSheet = true }) { Text("Connect") }
                     }
                 }
                 if (session.running && session.elapsed - session.lastReceived > 3f) Text("Waiting for sensor data. Check that your sketch is sending this channel.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error)

@@ -49,12 +49,12 @@ fun ArduinoConnectionBar(context: Context, modifier: Modifier = Modifier) {
         ArduinoLink.Status.CONNECTED -> "Connected"
         ArduinoLink.Status.CONNECTING -> "Connecting…"
         ArduinoLink.Status.ERROR -> "Connection failed"
-        else -> "Ready to connect"
+        else -> "Disconnected"
     }
-    Card(modifier.fillMaxWidth(), shape = MaterialTheme.shapes.extraLarge,
+    Card(modifier.fillMaxWidth(), shape = MaterialTheme.shapes.large,
         colors = CardDefaults.cardColors(containerColor = scheme.surfaceContainerLow)) {
         Column(Modifier.animateContentSize(animationSpec = MaterialTheme.motionScheme.defaultSpatialSpec())
-            .padding(20.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+            .padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 Icon(if (connected) Icons.Filled.CheckCircle else Icons.Filled.Wifi, null,
                     tint = scheme.primary, modifier = Modifier.size(24.dp))
@@ -94,7 +94,7 @@ fun ArduinoConnectionBar(context: Context, modifier: Modifier = Modifier) {
                 if (status == ArduinoLink.Status.ERROR) Text(error ?: "Check the address and Wi-Fi connection.",
                     color = scheme.error, style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite })
-                else if (!connecting) Text("Keep your phone and board on the same Wi-Fi network.",
+                else if (!connecting) Text("Use the same Wi-Fi network as your board.",
                     color = scheme.onSurfaceVariant, style = MaterialTheme.typography.bodySmall)
             } else Text("${host.trim()}:$port", style = ReadoutSmall, color = scheme.onSurfaceVariant)
             if (connected || connecting) OutlinedButton(onClick = { ArduinoLink.disconnect() },

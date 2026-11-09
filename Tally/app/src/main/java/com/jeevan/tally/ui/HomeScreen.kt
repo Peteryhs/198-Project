@@ -71,11 +71,11 @@ fun HomeScreen(context: Context, onSelect: (String) -> Unit, onOpenRecording: (S
                     NavigationRailItem(selected = section == 0, onClick = { section = 0 }, icon = { Icon(Icons.Filled.Science, null) }, label = { Text("Experiments") })
                     NavigationRailItem(selected = section == 1, onClick = { section = 1 }, icon = { Icon(Icons.Filled.FolderOpen, null) }, label = { Text("Recordings") })
                 }
-                LazyColumn(Modifier.weight(1f), state = if (section == 0) experimentsScroll else recordingsScroll, contentPadding = PaddingValues(24.dp), verticalArrangement = Arrangement.spacedBy(20.dp)) {
+                LazyColumn(Modifier.weight(1f), state = if (section == 0) experimentsScroll else recordingsScroll, contentPadding = PaddingValues(20.dp), verticalArrangement = Arrangement.spacedBy(20.dp)) {
                     item {
-                        Text(if (section == 0) "Experiments" else "Recordings", style = MaterialTheme.typography.displaySmallEmphasized, modifier = Modifier.semantics { heading() })
-                        Text(if (section == 0) "Record and inspect your board’s sensor channels." else "Your measurements, saved on this device.",
-                            style = MaterialTheme.typography.bodyLarge, color = scheme.onSurfaceVariant, modifier = Modifier.padding(top = 8.dp, bottom = 8.dp))
+                        Text(if (section == 0) "Experiments" else "Recordings", style = MaterialTheme.typography.headlineMedium, modifier = Modifier.semantics { heading() })
+                        Text(if (section == 0) "Arduino measurements" else "Saved on this device",
+                            style = MaterialTheme.typography.bodyMedium, color = scheme.onSurfaceVariant, modifier = Modifier.padding(top = 4.dp))
                     }
                     if (section == 0) {
                         if (wide) item {
@@ -87,7 +87,6 @@ fun HomeScreen(context: Context, onSelect: (String) -> Unit, onOpenRecording: (S
                             item { ArduinoConnectionBar(context) }
                             item { SensorList(context, onSelect) }
                         }
-                        item { Text("Measurements use the units configured on your board.", color = scheme.onSurfaceVariant, style = MaterialTheme.typography.bodySmall) }
                     } else {
                         if (loading) item { LinearProgressIndicator(Modifier.fillMaxWidth()) }
                         if (loadError) item {
@@ -97,12 +96,12 @@ fun HomeScreen(context: Context, onSelect: (String) -> Unit, onOpenRecording: (S
                             }
                         }
                         if (!loading && recordings.isEmpty() && !loadError) item {
-                            Surface(color = scheme.surfaceContainerLow, shape = MaterialTheme.shapes.extraLarge) {
+                            Surface(color = scheme.surfaceContainerLow, shape = MaterialTheme.shapes.large) {
                                 Column(Modifier.fillMaxWidth().padding(24.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                                     Icon(Icons.Filled.FolderOpen, null, tint = scheme.primary, modifier = Modifier.size(40.dp))
-                                    Text("Your first recording starts here", style = MaterialTheme.typography.headlineSmall)
-                                    Text("Open an experiment, record a run, then save it for later.", style = MaterialTheme.typography.bodyMedium, color = scheme.onSurfaceVariant)
-                                    FilledTonalButton(onClick = { section = 0 }) { Text("Browse experiments") }
+                                    Text("No saved recordings", style = MaterialTheme.typography.titleLarge)
+                                    Text("Record a run, then tap Save to keep it here.", style = MaterialTheme.typography.bodyMedium, color = scheme.onSurfaceVariant)
+                                    FilledTonalButton(onClick = { section = 0 }) { Text("Open experiments") }
                                 }
                             }
                         }
@@ -133,18 +132,16 @@ private fun SensorList(context: Context, onSelect: (String) -> Unit) {
             Text("Sensors", style = MaterialTheme.typography.titleMediumEmphasized, modifier = Modifier.semantics { heading() })
             Text("${plugs.size} channels", style = MaterialTheme.typography.labelMedium, color = scheme.onSurfaceVariant)
         }
-        Surface(color = scheme.surfaceContainerLow, shape = MaterialTheme.shapes.extraLarge) {
+        Surface(color = scheme.surfaceContainerLow, shape = MaterialTheme.shapes.large) {
             Column {
                 plugs.map(::ExperimentEntry).forEachIndexed { index, entry ->
                     val stream = remember(entry.spec) { entry.factory(context.applicationContext) }
                     if (index > 0) HorizontalDivider(Modifier.padding(horizontal = 20.dp), color = scheme.outlineVariant)
-                    ListItem(modifier = Modifier.clickable { onSelect(entry.id) }.padding(vertical = 8.dp),
+                    ListItem(modifier = Modifier.clickable { onSelect(entry.id) }.padding(vertical = 4.dp),
                         content = { Text(stream.title, style = MaterialTheme.typography.titleMedium) },
-                        supportingContent = { Text("${entry.spec.axisCount} ${if (entry.spec.axisCount == 1) "axis" else "axes"} · ${entry.spec.unit} · ${entry.spec.kind.name.lowercase()}") },
+                        supportingContent = { Text("${entry.spec.axisCount} ${if (entry.spec.axisCount == 1) "axis" else "axes"} · ${entry.spec.unit}") },
                         leadingContent = {
-                            Surface(color = if (index == 0) scheme.primaryContainer else scheme.tertiaryContainer, shape = MaterialTheme.shapes.large) {
-                                Icon(entry.icon, null, tint = entry.accent, modifier = Modifier.padding(12.dp).size(24.dp))
-                            }
+                            Icon(entry.icon, null, tint = entry.accent, modifier = Modifier.size(24.dp))
                         }, trailingContent = { Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, null) },
                         colors = ListItemDefaults.colors(containerColor = scheme.surfaceContainerLow))
                 }
