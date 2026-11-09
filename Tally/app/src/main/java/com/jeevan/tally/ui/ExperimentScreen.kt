@@ -20,6 +20,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.platform.LocalLocale
+import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -40,13 +44,12 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
-import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExperimentScreen(entry: ExperimentEntry, session: ExperimentSession, recordingId: String? = null, onBack: () -> Unit) {
     val context = LocalContext.current
-    val stream = remember(entry.id) { entry.factory(context.applicationContext) }
+    val stream = remember(entry.spec) { entry.factory(context.applicationContext) }
     SideEffect { session.recordingSpec = entry.spec }
     val store = remember { RecordingStore(File(context.filesDir, "recordings")) }
     val scope = rememberCoroutineScope()
@@ -56,6 +59,11 @@ fun ExperimentScreen(entry: ExperimentEntry, session: ExperimentSession, recordi
     val matchingPlug = connected && plugs.any { it == entry.spec }
     val history = session.samples
     var tab by rememberSaveable { mutableStateOf(0) }
+    val graphScroll = rememberScrollState()
+    val readingsScroll = rememberScrollState()
+    val statisticsScroll = rememberScrollState()
+    var connectionSheet by rememberSaveable { mutableStateOf(false) }
+    val locale = LocalLocale.current.platformLocale
     var menu by remember { mutableStateOf(false) }
     var timing by remember { mutableStateOf(false) }
     var saveDialog by remember { mutableStateOf(false) }
@@ -110,7 +118,7 @@ fun ExperimentScreen(entry: ExperimentEntry, session: ExperimentSession, recordi
         confirmButton = { TextButton(onClick = { session.clear(); clearDialog = false }) { Text("Clear", color = MaterialTheme.colorScheme.error) } },
         dismissButton = { TextButton(onClick = { clearDialog = false }) { Text("Cancel") } })
     if (saveDialog) {
-        var name by remember { mutableStateOf("${stream.title} · ${SimpleDateFormat("MMM d, HH:mm", Locale.getDefault()).format(Date())}") }
+        var name by rememberSaveable { mutableStateOf("${stream.title} · ${SimpleDateFormat("MMM d, HH:mm", locale).format(Date())}") }
         AlertDialog(onDismissRequest = { saveDialog = false; saveAndLeave = false }, title = { Text("Save recording") },
             text = { Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Text("Stored on this device. Export CSV to share a copy.", style = MaterialTheme.typography.bodyMedium)
@@ -119,6 +127,17 @@ fun ExperimentScreen(entry: ExperimentEntry, session: ExperimentSession, recordi
                 saveDialog = false
                 session.save(store, entry.id, name) { if (saveAndLeave) onBack(); saveAndLeave = false }
             }) { Text("Save") } }, dismissButton = { TextButton(onClick = { saveDialog = false; saveAndLeave = false }) { Text("Cancel") } })
+    }
+    if (connectionSheet) ModalBottomSheet(onDismissRequest = { connectionSheet = false }) {
+        Column(Modifier.fillMaxWidth().imePadding().verticalScroll(rememberScrollState()).padding(20.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)) {
+            Text("Connect your board", style = MaterialTheme.typography.headlineSmall)
+            Text("Your measurements stay here while you reconnect.", style = MaterialTheme.typography.bodyMedium)
+            ArduinoConnectionBar(context)
+            TextButton(onClick = { connectionSheet = false }, modifier = Modifier.align(Alignment.End)) {
+                Text("Back to experiment")
+            }
+        }
     }
     if (timing) TimingDialog(session, onDismiss = { timing = false })
     if (expanded) Dialog(onDismissRequest = { expanded = false }, properties = DialogProperties(usePlatformDefaultWidth = false)) {
@@ -138,10 +157,13 @@ fun ExperimentScreen(entry: ExperimentEntry, session: ExperimentSession, recordi
         TopAppBar(title = { Text(stream.title) },
             subtitle = { Text(session.savedName ?: "Arduino · Wi-Fi", color = MaterialTheme.colorScheme.onPrimary, maxLines = 1) }, navigationIcon = { IconButton(onClick = { if (!session.busy) leave() }) { Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back to experiments") } },
             actions = {
+                IconButton(onClick = { export() }, enabled = history.isNotEmpty() && !session.active && !session.busy && !exporting) {
+                    Icon(Icons.Filled.IosShare, "Export CSV")
+                }
                 IconButton(onClick = { menu = true }, enabled = !session.busy) { Icon(Icons.Filled.MoreVert, "Experiment actions") }
                 DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
-                    DropdownMenuItem(text = { Text("Export CSV") }, leadingIcon = { Icon(Icons.Filled.IosShare, null) }, enabled = history.isNotEmpty() && !session.active && !exporting,
-                        onClick = { menu = false; export() })
+                    DropdownMenuItem(text = { Text("Connection settings") }, leadingIcon = { Icon(Icons.Filled.Wifi, null) }, enabled = !session.active,
+                        onClick = { menu = false; connectionSheet = true })
                     DropdownMenuItem(text = { Text("Clear measurements") }, leadingIcon = { Icon(Icons.Filled.DeleteOutline, null) }, enabled = history.isNotEmpty() && !session.active,
                         onClick = { menu = false; clearDialog = true })
                 }
@@ -153,7 +175,7 @@ fun ExperimentScreen(entry: ExperimentEntry, session: ExperimentSession, recordi
                     Icon(Icons.Filled.Timer, null, tint = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.size(18.dp))
                     Text(if (session.duration == 0) "Manual · ${session.startDelay} s delay" else "${session.duration} s run · ${session.startDelay} s delay",
                         style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.weight(1f).padding(start = 8.dp))
-                    TextButton(onClick = { timing = true }, enabled = !session.active && !session.busy) { Text("Configure") }
+                    TextButton(onClick = { timing = true }, enabled = !session.active && !session.busy) { Text("Recording timer") }
                 }
                 Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                     Button(onClick = { if (session.active) session.pause() else session.start(stream) },
@@ -175,25 +197,37 @@ fun ExperimentScreen(entry: ExperimentEntry, session: ExperimentSession, recordi
         Column(Modifier.fillMaxSize().padding(padding)) {
             Row(Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
                 StatusLed(if (session.running) StatusConnected else if (session.countdown > 0) StatusConnecting else StatusOff, session.running)
-                Text(when { session.countdown > 0 -> "Starts in ${session.countdown} s"; session.running -> "Recording"; history.isNotEmpty() -> "Paused"; else -> "Ready" },
+                Text(when { session.countdown > 0 -> "Starts in ${session.countdown} s"; session.running -> "Recording"; history.isNotEmpty() && !session.dirty -> "Saved"; history.isNotEmpty() -> "Unsaved run"; !matchingPlug -> "Not connected"; else -> "Ready to record" },
                     modifier = Modifier.weight(1f).padding(start = 8.dp), style = MaterialTheme.typography.labelLarge)
                 Text("${history.size} samples  /  ${"%.1f".format(session.elapsed)} s", style = ReadoutSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
             PrimaryTabRow(selectedTabIndex = tab, containerColor = MaterialTheme.colorScheme.surface) {
                 listOf("Graph", "Readings", "Statistics").forEachIndexed { i, label -> Tab(selected = tab == i, onClick = { tab = i }, text = { Text(label) }) }
             }
-            Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(20.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                if (session.busy) LinearProgressIndicator(Modifier.fillMaxWidth())
+            Column(Modifier.weight(1f).verticalScroll(when (tab) { 0 -> graphScroll; 1 -> readingsScroll; else -> statisticsScroll }).padding(20.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                if (session.busy || exporting) LinearProgressIndicator(Modifier.fillMaxWidth())
                 session.message?.let { message ->
                     Surface(color = MaterialTheme.colorScheme.surfaceContainerLowest, shape = RoundedCornerShape(8.dp), border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)) {
                         Row(Modifier.padding(start = 12.dp), verticalAlignment = Alignment.CenterVertically) {
-                            Text(message, style = MaterialTheme.typography.bodySmall, modifier = Modifier.weight(1f).padding(vertical = 12.dp))
+                            Text(message, style = MaterialTheme.typography.bodySmall, modifier = Modifier.weight(1f).padding(vertical = 12.dp).semantics { liveRegion = LiveRegionMode.Polite })
                             IconButton(onClick = { session.message = null }) { Icon(Icons.Filled.Close, "Dismiss message", Modifier.size(16.dp)) }
                         }
                     }
                 }
                 if (connected && !matchingPlug) Text("This board has no matching plug definition. You can review this recording; open the current channel from Experiments to record again.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error)
-                if (!connected && history.isEmpty()) Text("Connect a board from Experiments to start measuring.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                if (!connected) OutlinedCard(Modifier.fillMaxWidth()) {
+                    Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Text(if (history.isEmpty()) "Connect to start recording" else "Your measurements are safe here",
+                            style = MaterialTheme.typography.titleMedium)
+                        Text(if (history.isEmpty()) "Connect your Arduino, then tap Record."
+                            else "Review, save, or export this run. Reconnect your board to resume recording.",
+                            style = MaterialTheme.typography.bodyMedium)
+                        FilledTonalButton(onClick = { connectionSheet = true }, shapes = ButtonDefaults.shapes()) {
+                            Icon(Icons.Filled.Wifi, null, Modifier.size(18.dp))
+                            Spacer(Modifier.width(8.dp)); Text("Connect board")
+                        }
+                    }
+                }
                 if (session.running && session.elapsed - session.lastReceived > 3f) Text("Waiting for sensor data. Check that your sketch is sending this channel.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error)
                 when (tab) {
                     0 -> {
