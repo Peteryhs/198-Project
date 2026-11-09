@@ -1,16 +1,20 @@
 #pragma once
 
 class Accelerometer{
-    public: 
+    private: 
         int xPin;
         int yPin;
         int zPin; 
 
 
     public:
-        Accelerometer(int xPin, int yPin, int zPin){
-            this-> xPin = xPin;
-            this-> yPin = yPin;
-            this-> zPin = zPin; 
-        }
+        Accelerometer(int xPin, int yPin, int zPin);
+
+        int readX();
+        int readY();
+        int readZ();
+
+        float convertX();
+        float convertY();
+        float convertZ();
 }; 
