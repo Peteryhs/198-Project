@@ -1,0 +1,34 @@
+range/path self-check passed
+Traceback (most recent call last):
+  File "/home/peter/work/198-Project/scripts/fetch_upper_range.py", line 207, in <module>
+    main()
+  File "/home/peter/work/198-Project/scripts/fetch_upper_range.py", line 203, in main
+    fetch(args.out)
+  File "/home/peter/work/198-Project/scripts/fetch_upper_range.py", line 157, in fetch
+    reader = RangeReader(URL)
+             ^^^^^^^^^^^^^^^^
+  File "/home/peter/work/198-Project/scripts/fetch_upper_range.py", line 54, in __init__
+    self.total = self._request(0, 63, None)[1]
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/peter/work/198-Project/scripts/fetch_upper_range.py", line 69, in _request
+    self.downloaded += len(body)
+    ^^^^^^^^^^^^^^^
+AttributeError: 'RangeReader' object has no attribute 'downloaded'
+range/path self-check passed
+verified 100/1484 upper-limb files
+verified 200/1484 upper-limb files
+verified 300/1484 upper-limb files
+verified 400/1484 upper-limb files
+verified 500/1484 upper-limb files
+verified 600/1484 upper-limb files
+verified 700/1484 upper-limb files
+verified 800/1484 upper-limb files
+verified 900/1484 upper-limb files
+verified 1000/1484 upper-limb files
+verified 1100/1484 upper-limb files
+verified 1200/1484 upper-limb files
+verified 1300/1484 upper-limb files
+verified 1400/1484 upper-limb files
+verified 1484/1484 upper-limb files
+verified 1484 files; transferred 204,759,173 bytes in 25 range blocks
+saved under /home/peter/work/198-Project/data/phytmo/inertial; provenance: /home/peter/work/198-Project/data/phytmo/inertial/fetch-upper-manifest.json

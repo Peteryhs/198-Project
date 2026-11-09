@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1800" width="1400" height="1800">
+  <rect width="1400" height="1800" fill="#F5F0E6"/>
+
+  <!-- header -->
+  <g transform="translate(64 92) scale(0.42)"><path d="M 128 376 L 168 376 A 88 88 0 0 1 344 376 L 384 376" fill="none" stroke="#1C1917" stroke-width="42" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <text x="330" y="204" font-family="Fraunces" font-size="118" font-weight="600"
+        letter-spacing="-2" fill="#1C1917">form</text>
+  <text x="334" y="262" font-family="Inter" font-size="26" fill="#9A3B12">Good form counts.</text>
+  <text x="334" y="300" font-family="Inter" font-size="15" fill="#6B6157">
+    Repetition quality for home physiotherapy  ·  ECE 198 design project</text>
+  <line x1="64" y1="336" x2="1336" y2="336" stroke="#DED7C9"/>
+
+  <!-- construction -->
+  <rect x="64" y="372" width="620.0" height="372" fill="#FFFFFF" stroke="#E2DCD0" stroke-width="1"/><text x="88" y="406" font-family="Inter" font-size="13" letter-spacing="2.2" fill="#6B6157">THE MARK</text>
+  <g transform="translate(120 470) scale(0.52)"><path d="M 128 376 L 168 376 A 88 88 0 0 1 344 376 L 384 376" fill="none" stroke="#1C1917" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/></g><text x="120" y="700" font-family="Inter" font-size="13" fill="#6B6157">bar, hump, bar — one path</text><g transform="translate(420 470) scale(0.52)"><path d="M 128 376 L 168 376 A 88 88 0 0 1 344 376 L 384 376" fill="none" stroke="#1C1917" stroke-width="42" stroke-linecap="round" stroke-linejoin="round"/></g><text x="420" y="700" font-family="Inter" font-size="13" fill="#6B6157">stroke 42 / 512 — round caps</text>
+
+  <!-- palette -->
+  <rect x="716.0" y="372" width="620.0" height="372" fill="#FFFFFF" stroke="#E2DCD0" stroke-width="1"/><text x="740.0" y="406" font-family="Inter" font-size="13" letter-spacing="2.2" fill="#6B6157">COLOUR</text>
+  <rect x="740" y="560" width="100" height="100" fill="#1C1917" stroke="#D8D2C6"/><text x="740" y="694" font-family="Inter" font-size="15" fill="#1C1917">Ink</text><text x="740" y="714" font-family="Inter" font-size="13" fill="#6B6157">#1C1917</text><text x="740" y="732" font-family="Inter" font-size="11" fill="#6B6157">15.4:1 vs paper</text><rect x="854" y="560" width="100" height="100" fill="#F5F0E6" stroke="#D8D2C6"/><text x="854" y="694" font-family="Inter" font-size="15" fill="#1C1917">Paper</text><text x="854" y="714" font-family="Inter" font-size="13" fill="#6B6157">#F5F0E6</text><text x="854" y="732" font-family="Inter" font-size="11" fill="#6B6157">6.7:1 vs paper</text><rect x="969" y="560" width="100" height="100" fill="#9A3B12" stroke="#D8D2C6"/><text x="969" y="694" font-family="Inter" font-size="15" fill="#1C1917">Clay</text><text x="969" y="714" font-family="Inter" font-size="13" fill="#6B6157">#9A3B12</text><text x="969" y="732" font-family="Inter" font-size="11" fill="#6B6157">6.1:1 vs paper</text><rect x="1083" y="560" width="100" height="100" fill="#3F5A46" stroke="#D8D2C6"/><text x="1083" y="694" font-family="Inter" font-size="15" fill="#1C1917">Sage</text><text x="1083" y="714" font-family="Inter" font-size="13" fill="#6B6157">#3F5A46</text><text x="1083" y="732" font-family="Inter" font-size="11" fill="#6B6157">6.7:1 vs paper</text><rect x="1198" y="560" width="100" height="100" fill="#6B6157" stroke="#D8D2C6"/><text x="1198" y="694" font-family="Inter" font-size="15" fill="#1C1917">Ash</text><text x="1198" y="714" font-family="Inter" font-size="13" fill="#6B6157">#6B6157</text><text x="1198" y="732" font-family="Inter" font-size="11" fill="#6B6157">5.3:1 vs paper</text>
+
+  <!-- type -->
+  <rect x="64" y="776" width="620.0" height="424" fill="#FFFFFF" stroke="#E2DCD0" stroke-width="1"/><text x="88" y="810" font-family="Inter" font-size="13" letter-spacing="2.2" fill="#6B6157">TYPE</text>
+  <text x="104" y="960" font-family="Fraunces" font-size="112" font-weight="600"
+        letter-spacing="-2" fill="#1C1917">form</text>
+  <text x="104" y="1004" font-family="Fraunces" font-size="34" fill="#1C1917">
+    Fraunces — wordmark</text>
+  <text x="104" y="1046" font-family="Inter" font-size="19" fill="#1C1917">
+    Inter — counts, labels, instructions</text>
+  <text x="104" y="1132" font-family="Inter" font-size="56" font-weight="600" fill="#1C1917">
+    12  reps  94%</text>
+  <text x="104" y="1176" font-family="Inter" font-size="14" fill="#6B6157">
+    Counts in Inter semibold at 56 px: the size an older reader needs for a kitchen-table glance.</text>
+
+  <!-- in use -->
+  <rect x="716.0" y="776" width="620.0" height="424" fill="#FFFFFF" stroke="#E2DCD0" stroke-width="1"/><text x="740.0" y="810" font-family="Inter" font-size="13" letter-spacing="2.2" fill="#6B6157">IN USE</text>
+  <rect x="756.0" y="856" width="300" height="150" rx="10" fill="#1C1917"/>
+  <g transform="translate(774.0 872) scale(0.2)"><path d="M 128 376 L 168 376 A 88 88 0 0 1 344 376 L 384 376" fill="none" stroke="#F5F0E6" stroke-width="42" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <text x="848.0" y="946" font-family="Inter" font-size="52"
+        font-weight="600" fill="#F5F0E6">12 / 12</text>
+  <text x="756.0" y="1036" font-family="Inter" font-size="14" fill="#6B6157">
+    one-bit screen, 2 cm wide: the mark survives as a solid hump</text>
+  <rect x="756.0" y="1060" width="300" height="46" rx="23" fill="#9A3B12"/>
+  <text x="778.0" y="1090" font-family="Inter" font-size="19"
+        fill="#F5F0E6">form&#183;band</text>
+  <text x="756.0" y="1140" font-family="Inter" font-size="14" fill="#6B6157">
+    band print: one colour, 46 mm wide, legible at a glance</text>
+
+  <!-- tagline -->
+  <line x1="64" y1="1240" x2="1336" y2="1240" stroke="#DED7C9"/>
+  <text x="64" y="1390" font-family="Fraunces" font-size="92" fill="#1C1917">Good form counts.</text>
+  <text x="64" y="1450" font-family="Inter" font-size="22" fill="#6B6157">
+    Two readings, one sentence: it tallies repetitions, and it takes form seriously.</text>
+
+  <!-- name rationale -->
+  <text x="64" y="1520" font-family="Inter" font-size="15" fill="#6B6157">
+    Alternative headlines, if this one is too dry: “Every rep, honestly.”  / 
+    “Form worth keeping.”</text>
+  <text x="64" y="1560" font-family="Inter" font-size="15" fill="#6B6157">
+    Name rejected: Tally (reads as bookkeeping, collides with an accounting brand),
+    Steady (collides with a US Medicare brand).</text>
+  <line x1="64" y1="1620" x2="1336" y2="1620" stroke="#DED7C9"/>
+  <text x="64" y="1664" font-family="Inter" font-size="13" fill="#6B6157">
+    Measured contrast, WCAG AA needs 4.5:1 for text: ink 15.4, clay 6.1,
+    sage 6.7, ash 5.3 — all against paper #F5F0E6.</text>
+  <text x="64" y="1692" font-family="Inter" font-size="13" fill="#6B6157">
+    Mark: single continuous stroke, no overlapping cap at the join. Version 2 — version 1 read
+    as a bridge or a stray letter.</text>
+</svg>

@@ -1,0 +1,6 @@
+window: 29871 rows, train acc 0.920
+reps: 24632 rows, 1368 series
+repetition model LOSO accuracy: 0.883
+  form-rep-rf.joblib          2,583,770 B
+  form-window-rf.joblib       2,763,777 B
+  metadata.json                   1,844 B

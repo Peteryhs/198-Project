@@ -1,0 +1,238 @@
+{
+  "verifier": "independent read-only audit; recomputes joins, fold exclusions and paired metrics",
+  "baseline_revision": "61ede24",
+  "sides": [
+    {
+      "side": "L",
+      "result_hash_matches_current_code": true,
+      "exact_source_join": true,
+      "folds_exclude_heldout_subject": true,
+      "metrics": {
+        "quality": {
+          "rnn_agreement": 0.8837209302325582,
+          "baseline_agreement": 0.9235880398671097,
+          "difference_percentage_points": -3.9867109634551534,
+          "majority_floor": 0.5016611295681063
+        },
+        "exercise": {
+          "rnn_agreement": 0.9700996677740864,
+          "baseline_agreement": 0.9800664451827242,
+          "difference_percentage_points": -0.9966777408637828,
+          "majority_floor": 0.34551495016611294
+        }
+      },
+      "lineage": {
+        "result": {
+          "path": "docs/runs/phase6-rnn/results-L.json",
+          "sha256": "be9d6749a6cdfa87f43d60a5d30bd91dd923a20e559c4e83aa0776fc72421863"
+        },
+        "data_manifest": {
+          "path": "docs/runs/phase6-rnn/data-L.json",
+          "sha256": "f735c49c7e8687c9aa7de5cc0038375001c334066e3629bbefce4cc70b4da8be"
+        },
+        "raw_sources": {
+          "file_count": 684,
+          "path_to_sha256_map_sha256": "d826289da072804f9ffb7a1353197ae1095309c47e3a64ab01f24e3aac6271c5"
+        },
+        "pipeline_hashes": {
+          "scripts/rnn_data.py": "e3c113b6900cc049312a86d83ddf7a35890e2bf68a5d469b9197a864c83aacdc",
+          "scripts/paired_pipeline.py": "b29a413feeddf32306d65ffda2b513f747b9413e402590d2b6e761549dde7c42",
+          "model/streaming/paired_stream.c": "4d97af88d8831438d13f41173fa818391ba03197bd8108154021ee96e09af5ec",
+          "model/streaming/paired_stream.h": "88036b39f91e6c74bdf26b1bae6989b4ccc5a17fb9c2d81166e0c20a7bfe7350"
+        },
+        "config": {
+          "path": "configs/tiny-rnn.json",
+          "sha256": "d1437349bdd0c5c90ffe473a57d7c8f22fd329ce54f6e69475b19fa00841a111"
+        },
+        "training_code": {
+          "configs/tiny-rnn.json": "d1437349bdd0c5c90ffe473a57d7c8f22fd329ce54f6e69475b19fa00841a111",
+          "scripts/tiny_rnn.py": "5e30bc4a3b288c41f50d47aa4fbc673e7be95e73c2b9ae1d6ce2d8bd5d60ec51",
+          "scripts/rnn_data.py": "e3c113b6900cc049312a86d83ddf7a35890e2bf68a5d469b9197a864c83aacdc",
+          "scripts/paired_pipeline.py": "b29a413feeddf32306d65ffda2b513f747b9413e402590d2b6e761549dde7c42",
+          "model/streaming/paired_stream.c": "4d97af88d8831438d13f41173fa818391ba03197bd8108154021ee96e09af5ec",
+          "model/streaming/paired_stream.h": "88036b39f91e6c74bdf26b1bae6989b4ccc5a17fb9c2d81166e0c20a7bfe7350"
+        },
+        "fold_files": {
+          "fold-L-A01.json": "d5ffad99d78e49b45b28f042d954ed6c7a881ffa377808630265e41e71abe1d5",
+          "fold-L-A02.json": "f0ce519f704ce9b68e7155635f33c9a13edc24a82aa93ebb1b6ce1f2f5c4c100",
+          "fold-L-A03.json": "b82d82c04c0a0a6358515d5bc68eb2617a8c046757b411b3148a99ddc461b0bf",
+          "fold-L-A04.json": "66c6a033c653f8b548fd6e42cae10fa37596d2303dd4a7bdcfaac8bdb1199bcc",
+          "fold-L-A05.json": "1e8982a5cbe5317718e6aadbb341b51aba4eba4060eeacf944f2593a2a19d603",
+          "fold-L-A06.json": "5d44fd7d13384a27e88a10b15b60a6d33a218d48a4a926b16630e4dff91236c1",
+          "fold-L-A07.json": "16a8ebfc17b3e0f00b0948764952c91cb48905eae74fbaa3835c2f94f4fb78ec",
+          "fold-L-A08.json": "db1db46d1f27bca3e253e8974d10dda8cfb297a06f48b5d2fd844846c9c248de",
+          "fold-L-A09.json": "c11569307bdbbd52d235f28699ac1ed86132d6ce875c25ad3283928a5fd26a34",
+          "fold-L-A10.json": "4a1c2ba0a33de3cc5eb22a2eda08b922dc13854ba9970d3c07fe292c2a3b927d",
+          "fold-L-B01.json": "9dd0e742e56b18c0beaba23c61cefb6425522ce4e60a8f995e976c6b0c53b820",
+          "fold-L-B02.json": "d39a50bad028e440e5d59f0403ebfc10065c575c89f42853f33cf9255c6afc59",
+          "fold-L-B03.json": "8bdb3eab369e7bf7d6e8ab395dd4748c8b52bc5b9a766fb6e9916c98cdb8e6a6",
+          "fold-L-B04.json": "738463a2d75922864ff648a5a799c235bff49f13d127367623d72dc47a32fdad",
+          "fold-L-B05.json": "ce725e0afcc569366cd1723595a6063b5a626a92768cdb245a6a29b210d1f37a",
+          "fold-L-C01.json": "36ab900c2a8fd48dcf292860095df9fdbfb7fddc50d2553126b7be00bb9074c0",
+          "fold-L-C02.json": "a54e3deb9272dd094460eb164743a318daa71fe1f31c61e6da103b0e050ac15b",
+          "fold-L-C03.json": "e5628cd99e2d95607a9d0e888bf27c36c7c9fcc2f7312f41cd417f79ae07e869",
+          "fold-L-C04.json": "eb71e52b2ce0ece966f218f6aca719758589ac381108edf2df2a26e08e490fde",
+          "fold-L-C05.json": "93b8d21ad15b612278e322c716182cfd8b47ebe0429e1e8d05a7f730b4350a90",
+          "fold-L-D01.json": "b53306e7fbb9073dd65863629c4080d27b35a11422afd7dd32facfa55f351213",
+          "fold-L-D02.json": "e913a31222dfbb6551a97c50f1a15c473e1018e251d9be6ba36e77c3208bf9df",
+          "fold-L-D03.json": "b33912afd4a134b1f0a3f64876ba2f104f7f160d6cd5d0c6b3fc2fb3c9fcdf23",
+          "fold-L-D04.json": "c9f2770a007ea9ef4b358efdfc87cf307797ee212d1ff11e759b745114facf9f",
+          "fold-L-D05.json": "528081b236d8c272001e4ff162190f1498a8c8b4292d2cb5f631dfb5226732ba",
+          "fold-L-E01.json": "d820a15587ae45d1959180aa0378f1692f6b6380238ce710d1793af76cec3a80",
+          "fold-L-E02.json": "6fb601c967bd0e59d2851ce93fd92c846a438b696b2e89fd37c01f76f91aa2ba",
+          "fold-L-E03.json": "4a598d41ab752126e682d04751932824fea6723f2abe5c2ae86454a248b874c1",
+          "fold-L-E04.json": "cb5aebe3253021f7655c9bbedbc6547c61b0e144a7b6cb9dd64b3b8562c20a69",
+          "fold-L-E05.json": "37eee1ab6ec5a52c41e463bc0ef642756a0d2906bff095bb26580c3de196e2a6"
+        },
+        "accepted_baseline": {
+          "predictions.csv": {
+            "sha256": "62976e517d029b29a2f550986f9cb191ec52032fcd0a380f924a4447bd0fa207",
+            "matches_git_revision": true,
+            "git_revision": "61ede24",
+            "git_blob_oid": "029f437879c1870e96899e3a5d2d7e4df91f4589"
+          },
+          "results.json": {
+            "sha256": "e40d39940238a3fcb2bcb144215e567cf85ae3c2aad20ae9f724cb06af20e192",
+            "matches_git_revision": true,
+            "git_revision": "61ede24",
+            "git_blob_oid": "c4464d866d587b9824dfec89db2be3a59e0457b2"
+          },
+          "metadata.json": {
+            "sha256": "983aa4ae875e68f9c343ab94411c0b26ec507893f002f952eb9a356c41c7011f",
+            "matches_git_revision": true,
+            "git_revision": "61ede24",
+            "git_blob_oid": "d754abe216460c642f13fea8bac38eda98f91945"
+          },
+          "realtime_model.h": {
+            "sha256": "91eef1389292f184a751497018f64af4a00ef92d6af319f6631650ca4a8db2bc",
+            "matches_git_revision": true,
+            "git_revision": "61ede24",
+            "git_blob_oid": "4b7eed19e8d69de6390fd7eaa94ec91ec0a7dbce"
+          },
+          "realtime_model.npz": {
+            "sha256": "c4154bbb6f274de97f1ec3f66cc0dacd7132d009dfac89f621756bd934051269",
+            "matches_git_revision": true,
+            "git_revision": "61ede24",
+            "git_blob_oid": "f2ed9533409a1859c4b0ef1591ec814900a74c0f"
+          }
+        }
+      }
+    },
+    {
+      "side": "R",
+      "result_hash_matches_current_code": true,
+      "exact_source_join": true,
+      "folds_exclude_heldout_subject": true,
+      "metrics": {
+        "quality": {
+          "rnn_agreement": 0.8660130718954249,
+          "baseline_agreement": 0.8986928104575164,
+          "difference_percentage_points": -3.26797385620915,
+          "majority_floor": 0.5065359477124183
+        },
+        "exercise": {
+          "rnn_agreement": 0.9575163398692811,
+          "baseline_agreement": 0.9705882352941176,
+          "difference_percentage_points": -1.3071895424836555,
+          "majority_floor": 0.33986928104575165
+        }
+      },
+      "lineage": {
+        "result": {
+          "path": "docs/runs/phase6-rnn/results-R.json",
+          "sha256": "acf93babc4212bd4333c610ad29e0cf2dd48a7f68892690a81b6396678ad52c9"
+        },
+        "data_manifest": {
+          "path": "docs/runs/phase6-rnn/data-R.json",
+          "sha256": "05a92063d5f6bbcde3bc66887f4348e92c3689fc41d96ab4e0a332fcee1cd6ed"
+        },
+        "raw_sources": {
+          "file_count": 684,
+          "path_to_sha256_map_sha256": "74bb19c5f9f0a6140669e7c458e323011c1e65fb89fc50c9bea47c9c5d0b35a2"
+        },
+        "pipeline_hashes": {
+          "scripts/rnn_data.py": "e3c113b6900cc049312a86d83ddf7a35890e2bf68a5d469b9197a864c83aacdc",
+          "scripts/paired_pipeline.py": "b29a413feeddf32306d65ffda2b513f747b9413e402590d2b6e761549dde7c42",
+          "model/streaming/paired_stream.c": "4d97af88d8831438d13f41173fa818391ba03197bd8108154021ee96e09af5ec",
+          "model/streaming/paired_stream.h": "88036b39f91e6c74bdf26b1bae6989b4ccc5a17fb9c2d81166e0c20a7bfe7350"
+        },
+        "config": {
+          "path": "configs/tiny-rnn.json",
+          "sha256": "d1437349bdd0c5c90ffe473a57d7c8f22fd329ce54f6e69475b19fa00841a111"
+        },
+        "training_code": {
+          "configs/tiny-rnn.json": "d1437349bdd0c5c90ffe473a57d7c8f22fd329ce54f6e69475b19fa00841a111",
+          "scripts/tiny_rnn.py": "5e30bc4a3b288c41f50d47aa4fbc673e7be95e73c2b9ae1d6ce2d8bd5d60ec51",
+          "scripts/rnn_data.py": "e3c113b6900cc049312a86d83ddf7a35890e2bf68a5d469b9197a864c83aacdc",
+          "scripts/paired_pipeline.py": "b29a413feeddf32306d65ffda2b513f747b9413e402590d2b6e761549dde7c42",
+          "model/streaming/paired_stream.c": "4d97af88d8831438d13f41173fa818391ba03197bd8108154021ee96e09af5ec",
+          "model/streaming/paired_stream.h": "88036b39f91e6c74bdf26b1bae6989b4ccc5a17fb9c2d81166e0c20a7bfe7350"
+        },
+        "fold_files": {
+          "fold-R-A01.json": "adce106ec7daab03212b9d2e039e55d367874a43ad7acee9f8802e51c2dea276",
+          "fold-R-A02.json": "1085b57f0812a677ea266875efd68f12954e1382ba8d60a63030437418bb204f",
+          "fold-R-A03.json": "35f1e8fe309b4c619e3d0da4a5d495ff29375ec915e470af39cb7c618e46dd5a",
+          "fold-R-A04.json": "e795d00a9245fdbb781de1a730e4bfb2bd0281a9a0f739c67dc34dfff4e9adad",
+          "fold-R-A05.json": "c7f95e3b66ab27e099c22d01281bb6a5cb6b76bbacd229f6e86ffe3636d59fa6",
+          "fold-R-A06.json": "fc887649c2ef304c03debb359c5600adb2a4d0134dc4f63092cb7adf7ee70ca5",
+          "fold-R-A07.json": "6b0c92f0299ebe31074e96b1fa7b933c1390e566a9a76a3f8a7f9dd832733726",
+          "fold-R-A08.json": "f3aa598d4926c53a2ff84243c86d5fb95156b89f8673d4a299ea37c0f29e726f",
+          "fold-R-A09.json": "e3b47bc5c0415b7dfa7184694c482b46d500fadaf7f0030abc13bb3fe80da245",
+          "fold-R-A10.json": "1a24b77623fb39e9a82ecb3a77699105562386da9726589fbf913c69f97f3be5",
+          "fold-R-B01.json": "a0b15733bb180692d7794f3cd45d3079de4de6a2905cf60d7e66b1958fbc6389",
+          "fold-R-B02.json": "a62c2efdb9f5a57ae373f3c062152e3eedfc7ca282cadb4157a8afb95e6e9db9",
+          "fold-R-B03.json": "5d7ab7d4a1f24f05189c68218aa02d48c69a0724de5b0f167a3494ec99dbae2a",
+          "fold-R-B04.json": "6dab5fe9d49b649a9b3b55ae98bdf77d177395e03e0d3284c8d0b37d9cc6ac26",
+          "fold-R-B05.json": "57c2bbaec7282141eabfd5e1629f09235879583b37d0f5ef3e91a4fc38e8f62f",
+          "fold-R-C01.json": "20b6c4da436a81f6e14e6a57a5b5fa370ca227bfbdfc478c2cf8edf7f922ac62",
+          "fold-R-C02.json": "313af06ff57b118418bebe1e4d3ebb67d028eb74859314a0733a557e5cc5e55b",
+          "fold-R-C03.json": "b79063640ed615e5556e12c3a3baf0b17e7876a802fe4c89aa3bb2a89e49ab69",
+          "fold-R-C04.json": "47d7e39b0de8b6573c57be1e83c78f69e6bf15b93afa5b21dae2995958172c99",
+          "fold-R-C05.json": "f84fb532dee2b572ee5f30ee951cd94ded4d9b8c2312d2c90fc8bae4c5cb5bfb",
+          "fold-R-D01.json": "5f28d669df46da23990072dbc406d434f3ebcc4438b11d40953f8c10116688f3",
+          "fold-R-D02.json": "778a1dce192122f03207b8145914457b0f2ecc105e2afb5047705af3ccc4fe74",
+          "fold-R-D03.json": "78423bf5b3c9ac88455e1432045c025e0c334cdc9980a624ad2d39bcb0b54149",
+          "fold-R-D04.json": "125db068680d99881c0b092ab6bf41749c396d0d1862cdfa3b814fd891445684",
+          "fold-R-D05.json": "7f413646b530090b1e4636d183a5ddb4abb2e22f53735905abff941461f48ebd",
+          "fold-R-E01.json": "a3a99bcd001e953fd37a8e3586c57b205a46576ef1c25fb8f5ecded5ddc422ed",
+          "fold-R-E02.json": "7a6fb17b481fa4adce36a23185790c7fa2e634280216e38dd893fdf935ef6e36",
+          "fold-R-E03.json": "e8d5468e464e23edd2630a1e72e14f5bb0fce43fcdb1c2c4ae7aad6ee6166f3b",
+          "fold-R-E04.json": "259bfcf429748afd2346ea8df91dceb2be87fb6e95ee96e439a868a06cbd9a35",
+          "fold-R-E05.json": "d8d00f41b1cb88f6b4498b93944ad49bf2cb10421c43ef300c31c094199b7318"
+        },
+        "accepted_baseline": {
+          "predictions.csv": {
+            "sha256": "f193a790a42c189446e32ed7fc359c9147df2f45712a88659789429db7dc5b0e",
+            "matches_git_revision": true,
+            "git_revision": "61ede24",
+            "git_blob_oid": "57d6733f876375b4568df735b75c1467c506573e"
+          },
+          "results.json": {
+            "sha256": "9e8da798cd341cf104f6c21284cb47680bb7dd04b0d3e26f4c3095d49cfe70ea",
+            "matches_git_revision": true,
+            "git_revision": "61ede24",
+            "git_blob_oid": "a747904b4bc6d553cf8275c483e6662795705692"
+          },
+          "metadata.json": {
+            "sha256": "983aa4ae875e68f9c343ab94411c0b26ec507893f002f952eb9a356c41c7011f",
+            "matches_git_revision": true,
+            "git_revision": "61ede24",
+            "git_blob_oid": "d754abe216460c642f13fea8bac38eda98f91945"
+          },
+          "realtime_model.h": {
+            "sha256": "01dd837aaeefeaaf94b4163e907b66ee630788f368fea726fb5bb965e705601f",
+            "matches_git_revision": true,
+            "git_revision": "61ede24",
+            "git_blob_oid": "4d2fd53b818c082c2c97e410e15e9234d65d45ec"
+          },
+          "realtime_model.npz": {
+            "sha256": "6b4556e0f254c85fb3ab08ee3bdc8cf555574ef37e7772687ff70dcfdd169f7e",
+            "matches_git_revision": true,
+            "git_revision": "61ede24",
+            "git_blob_oid": "50eed0edd4080c3684521d9fe7baeacfffa464a4"
+          }
+        }
+      }
+    }
+  ]
+}

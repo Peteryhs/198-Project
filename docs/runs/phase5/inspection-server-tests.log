@@ -1,0 +1,12 @@
+127.0.0.1 - - [07/Nov/2026 16:00:18] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 16:00:18] "GET /api/bootstrap HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 16:00:18] "POST /api/preview HTTP/1.1" 200 -
+127.0.0.1 - - [07/Nov/2026 16:00:18] "POST /api/preview HTTP/1.1" 403 -
+127.0.0.1 - - [07/Nov/2026 16:00:18] "GET /api/bootstrap HTTP/1.1" 403 -
+127.0.0.1 - - [07/Nov/2026 16:00:18] "POST /api/preview HTTP/1.1" 400 -
+127.0.0.1 - - [07/Nov/2026 16:00:18] "POST /api/preview HTTP/1.1" 400 -
+127.0.0.1 - - [07/Nov/2026 16:00:18] "POST /api/preview HTTP/1.1" 400 -
+127.0.0.1 - - [07/Nov/2026 16:00:18] "GET /../data/phytmo/inertial/upper/A/Larm/A01EFE0_1.csv HTTP/1.1" 404 -
+127.0.0.1 - - [07/Nov/2026 16:00:18] "POST /api/unknown HTTP/1.1" 404 -
+Inspection preview: exact Python transform parity, 100 Hz timing, seeded reproducibility, source/counterpart lineage and C-event markers passed
+HTTP: read-only allowlist, source traversal, malformed configuration, size/type limits, loopback Host and cross-origin rejection passed

@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "protocol_id": "phase4-placement-coarse-v1",
+  "grid": {
+    "upper_fraction": [0.3, 0.5, 0.7],
+    "forearm_fraction": [0.3, 0.5, 0.7],
+    "upper_surface_deg": [0, 45, 90],
+    "forearm_surface_deg": [0, 45, 90]
+  },
+  "geometry": {
+    "upper_length_m": 0.30,
+    "upper_radius_m": 0.045,
+    "forearm_length_m": 0.25,
+    "forearm_radius_m": 0.035,
+    "length_radius_stress_fraction": 0.20,
+    "surface_stress_deg": 15,
+    "remount_rotation_stress_deg": [0, 15, 30]
+  },
+  "analysis": {
+    "detector": "actual C PairStream and fixed 61-feature causal path",
+    "classifier": "existing weighted per-series logistic heads, C=1, no tuning",
+    "folds": "leave one source volunteer out; models train on paired measured data from other volunteers only",
+    "source_cap": null,
+    "coverage_denominator": "all eligible source series before placement-specific rejection; abstentions count as failures in primary score",
+    "primary_gate": "no patient-placement accuracy or ranking unless predeclared calibration gate passes on held-out people",
+    "calibration_fit": "training volunteers only; no per-test clock, transform, scaling, or threshold fit",
+    "comparisons": "each candidate uses the exact same held-out source cohort within side and task",
+    "decision_rule": "no candidate selection from outer held-out curves; any observed winner is exploratory"
+  },
+  "diagnostic_fallback": {
+    "allowed_if_gate_fails": true,
+    "label": "model-response / series-label-agreement diagnostic; not patient accuracy",
+    "forbid": ["validated placement accuracy", "patient accuracy", "placement ranking", "winner", "optimum"]
+  },
+  "sensor_constraints": {
+    "input_range_g": [-3, 3],
+    "channels": 6,
+    "notes": "The assumed ±3 g rail is a rig approximation; feasibility reports clipping and feature coverage."
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "provenance": "synthetic fixture cases with hand-checked expected outputs; no video, patient, or real repetition was validated",
+  "cases": [
+    {"name":"inside-inclusive-lower-edge", "measured_seconds":1.2, "valid":true, "boundary_validated":true, "evidence_id":"fixture-boundary-01", "scope":"test-fixture:synthetic-boundaries", "expected":"ON_TARGET"},
+    {"name":"too-fast", "measured_seconds":1.0, "valid":true, "boundary_validated":true, "evidence_id":"fixture-boundary-02", "scope":"test-fixture:synthetic-boundaries", "expected":"TOO_FAST"},
+    {"name":"too-slow", "measured_seconds":2.0, "valid":true, "boundary_validated":true, "evidence_id":"fixture-boundary-03", "scope":"test-fixture:synthetic-boundaries", "expected":"TOO_SLOW"},
+    {"name":"unvalidated-current-detector-boundary", "measured_seconds":1.0, "valid":true, "boundary_validated":false, "evidence_id":"", "scope":"", "expected":"ABSTAIN"},
+    {"name":"missing-evidence-scope", "measured_seconds":1.0, "valid":true, "boundary_validated":true, "evidence_id":"fixture-boundary-05", "scope":"", "expected":"ABSTAIN"}
+  ]
+}

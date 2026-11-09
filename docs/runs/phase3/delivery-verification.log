@@ -1,0 +1,19 @@
+Repository: /home/peter/work/198-Project
+Branch: codex/modelling-augmentation-feedback
+Pre-delivery HEAD: e244b0c779ed525b53a2370fadbf41201ffa5fc2
+Accepted coefficients, runtime, firmware, training matrices and dependency pins: unchanged from 57aa2b6
+All changed tracked files <50 MB; generated datasets remain under ignored data/
+Python: 3.12.14
+Numerical dependencies: {"numpy": "2.3.4", "scipy": "1.16.3", "scikit-learn": "1.7.2", "mujoco": "3.3.7"}
+clang: /usr/bin/clang
+llvm-size: /usr/bin/llvm-size
+llvm-nm: /usr/bin/llvm-nm
+arduino-cli: not installed/on PATH
+arm-none-eabi-gcc: not installed/on PATH
+arm-none-eabi-ld: not installed/on PATH
+ld.lld: not installed/on PATH
+clang version 21.1.8 (Fedora 21.1.8-6.fc43)
+Prior export verification: all 10 exact saved coefficient refits, C parity and every stored LOSO decision passed; no assertions modified
+Original regression scripts: 9 passed (regression-tests.log)
+New augmentation, fidelity, placement, feedback, saved-result audit and HTTP/browser checks: passed (separate logs)
+Desktop/mobile screenshots inspected; no physical board, linked Arduino image, bench timing or patient validation performed

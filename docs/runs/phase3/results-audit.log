@@ -1,0 +1,3 @@
+L: scores independently recomputed; 301 matched baseline sources, 41 rejected, 30 disjoint folds; 301 variants retain volunteer/labels/hashes/version; four-task saved decisions checked; sampled NPZ replay bit-identical
+R: scores independently recomputed; 306 matched baseline sources, 36 rejected, 30 disjoint folds; 306 variants retain volunteer/labels/hashes/version; four-task saved decisions checked; sampled NPZ replay bit-identical
+Optical reference summaries use identical source cohorts for virtual and measured RMS; missing calibration remains explicit

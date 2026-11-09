@@ -1,0 +1,1 @@
+C/NumPy/PyTorch GRU parity passed for lengths 1, 2, 7, 31 and 8 detector cycles; reset/abstain passed; 11 real held-out series max errors q=6e-08, ex=1.2e-07

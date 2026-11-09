@@ -1,0 +1,88 @@
+$ /tmp/tally-round2-env/bin/python scripts/test_error_evidence.py
+held-out values cannot change references; multi-deviation evidence preserves explicit mechanism refusal
+$ OPENBLAS_NUM_THREADS=1 /tmp/tally-round2-env/bin/python scripts/error_evidence.py data/phytmo/inertial/upper
+{
+  "summary": [
+    {
+      "source": "real recordings; descriptive deviations, not mechanism accuracy",
+      "series_label": 0,
+      "series": 306,
+      "feature_flag_fraction": {
+        "cycle_duration_s": 0.1503267973856209,
+        "upper_envelope_g": 0.016339869281045753,
+        "forearm_envelope_g": 0.0,
+        "magnitude_correlation": 0.042483660130718956
+      },
+      "any_flag_fraction": 0.19607843137254902,
+      "multiple_flags_fraction": 0.013071895424836602
+    },
+    {
+      "source": "real recordings; descriptive deviations, not mechanism accuracy",
+      "series_label": 1,
+      "series": 301,
+      "feature_flag_fraction": {
+        "cycle_duration_s": 0.03322259136212625,
+        "upper_envelope_g": 0.31893687707641194,
+        "forearm_envelope_g": 0.07973421926910298,
+        "magnitude_correlation": 0.1461794019933555
+      },
+      "any_flag_fraction": 0.46511627906976744,
+      "multiple_flags_fraction": 0.09302325581395349
+    }
+  ],
+  "planning_estimates": {
+    "people": 12,
+    "exercises": 3,
+    "conditions": 5,
+    "repetitions": 8,
+    "total_repetitions": 1440,
+    "collection_hours": 9.0,
+    "rater_hours": 8.0
+  }
+}
+Example evidence (not a diagnosis): {
+  "source": "A/Larm/A01EAH0_1.csv",
+  "subject": "A01",
+  "exercise": "EAH",
+  "label": 0,
+  "side": "L",
+  "values": [
+    1.1999999284744263,
+    0.39350878177946336,
+    0.6980913210253011,
+    0.9019949213170241
+  ],
+  "error_category": "not enough evidence to say",
+  "measurements": {
+    "cycle_duration_s": 1.1999999284744263,
+    "upper_envelope_g": 0.39350878177946336,
+    "forearm_envelope_g": 0.6980913210253011,
+    "magnitude_correlation": 0.9019949213170241
+  },
+  "training_reference_median": {
+    "cycle_duration_s": 1.1999999284744263,
+    "upper_envelope_g": 0.6262628140416836,
+    "forearm_envelope_g": 1.2664883901540511,
+    "magnitude_correlation": 0.8670435184294356
+  },
+  "training_reference_scale": {
+    "cycle_duration_s": 0.05,
+    "upper_envelope_g": 0.2619117564993143,
+    "forearm_envelope_g": 0.4820205068082431,
+    "magnitude_correlation": 0.06347409123561754
+  },
+  "robust_z": {
+    "cycle_duration_s": 0.0,
+    "upper_envelope_g": -0.8886734806149476,
+    "forearm_envelope_g": -1.1791968621676694,
+    "magnitude_correlation": 0.5506404614419436
+  },
+  "deviation_flags": {
+    "cycle_duration_s": false,
+    "upper_envelope_g": false,
+    "forearm_envelope_g": false,
+    "magnitude_correlation": false
+  },
+  "interpretation": "exploratory physical-quantity deviations; not prescribed targets, range of motion, muscle effort or named errors"
+}
+Mechanism accuracy: unavailable; zero mechanism ground-truth labels; no mechanism classifier exported.

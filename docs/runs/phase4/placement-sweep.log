@@ -1,0 +1,23 @@
+L: replayed 1/171 optical sources
+L: replayed 26/171 optical sources
+L: replayed 51/171 optical sources
+L: replayed 76/171 optical sources
+L: replayed 101/171 optical sources
+L: replayed 126/171 optical sources
+L: replayed 151/171 optical sources
+L: finished 81 candidate sites
+R: replayed 1/171 optical sources
+R: replayed 26/171 optical sources
+R: replayed 51/171 optical sources
+R: replayed 76/171 optical sources
+R: replayed 101/171 optical sources
+R: replayed 126/171 optical sources
+R: replayed 151/171 optical sources
+R: finished 81 candidate sites
+{
+  "summary": "docs/runs/phase4/placement-sweep.json",
+  "per_source": "docs/runs/phase4/placement-sweep-sources.csv",
+  "candidates": 81,
+  "rows": 486,
+  "calibration_gate_passed": false
+}

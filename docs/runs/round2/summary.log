@@ -1,0 +1,71 @@
+$ /tmp/tally-round2-env/bin/python scripts/round2_summary.py
+Accepted historical baseline, read only (not rerun): {"n_series": 1368, "quality_loso_accuracy": 0.8698830409356725, "quality_majority_class_floor": 0.5, "exercise_loso_accuracy": 0.945906432748538, "exercise_majority_class_floor": 0.34502923976608185}
+| Source / configuration | series | quality accuracy / majority floor | exercise accuracy / majority floor |
+| --- | ---: | ---: | ---: |
+| REAL recordings / L paired offline | 301 | 91.03% / 50.17% | 98.01% / 34.55% |
+retention offline/L: 301/342 = 0.880117; rejected reasons: {'timestamps not near 100 Hz, reversed or gap >50 ms': 41}
+| REAL recordings / R paired offline | 306 | 88.89% / 50.65% | 96.41% / 33.99% |
+retention offline/R: 306/342 = 0.894737; rejected reasons: {'timestamps not near 100 Hz, reversed or gap >50 ms': 36}
+| REAL recordings / L paired causal | 301 | 92.36% / 50.17% | 98.01% / 34.55% |
+retention causal/L: 301/342 = 0.880117; rejected reasons: {'timestamps not near 100 Hz, reversed or gap >50 ms': 41}
+| REAL recordings / R paired causal | 306 | 89.87% / 50.65% | 97.06% / 33.99% |
+retention causal/R: 306/342 = 0.894737; rejected reasons: {'timestamps not near 100 Hz, reversed or gap >50 ms': 36}
+| real recordings; common cohort; L-pair; common C boundaries | 269 | 91.08% / 50.56% | 97.77% / 33.83% |
+| real recordings; common cohort; L-upper; common C boundaries | 269 | 88.85% / 50.56% | 95.17% / 33.83% |
+| real recordings; common cohort; L-forearm; common C boundaries | 269 | 86.99% / 50.56% | 96.28% / 33.83% |
+| real recordings L 0deg | 269 | 91.08% / 50.56% | 97.77% / 33.83% |
+| simulation: mount rotation applied to held-out real recordings L 15deg | 269 | 91.08% / 50.56% | 95.91% / 33.83% |
+| simulation: mount rotation applied to held-out real recordings L 30deg | 269 | 87.36% / 50.56% | 89.96% / 33.83% |
+| simulation: mount rotation applied to held-out real recordings L 60deg | 269 | 71.38% / 50.56% | 59.85% / 33.83% |
+| real recordings; common cohort; R-pair; common C boundaries | 269 | 90.71% / 50.56% | 97.40% / 33.83% |
+| real recordings; common cohort; R-upper; common C boundaries | 269 | 87.36% / 50.56% | 95.54% / 33.83% |
+| real recordings; common cohort; R-forearm; common C boundaries | 269 | 88.48% / 50.56% | 97.03% / 33.83% |
+| real recordings R 0deg | 269 | 90.71% / 50.56% | 97.40% / 33.83% |
+| simulation: mount rotation applied to held-out real recordings R 15deg | 269 | 86.99% / 50.56% | 95.54% / 33.83% |
+| simulation: mount rotation applied to held-out real recordings R 30deg | 269 | 77.70% / 50.56% | 91.45% / 33.83% |
+| simulation: mount rotation applied to held-out real recordings R 60deg | 269 | 65.80% / 50.56% | 65.43% / 33.83% |
+Common-cohort retained fraction: 0.7865497076023392
+Side difference/subject-bootstrap intervals: {"quality": {"left_minus_right": 0.0037174721189591076, "subject_bootstrap_95_interval": [-0.03309128771434773, 0.042556977360490626], "interpretation": "exploratory side comparison; no model selection or tuning"}, "exercise": {"left_minus_right": 0.0037174721189591076, "subject_bootstrap_95_interval": [-0.011363636363636364, 0.01976480644958905], "interpretation": "exploratory side comparison; no model selection or tuning"}}
+Simulation empirical gate: False passed 0 of 84
+| Source: real vs SIMULATION / left forearm | real p10/p50/p90 | simulation p10/p50/p90 |
+| --- | --- | --- |
+| EAH envelope_g | 0.6433, 1.2523, 1.7137 | 2.3273, 2.3273, 2.3273 |
+| EAH dominant_hz | 0.3000, 0.5000, 0.6000 | 0.8000, 0.8000, 0.8000 |
+| EAH peak_p50_g | 1.3567, 1.7925, 2.2354 | 2.8585, 2.8585, 2.8585 |
+| EAH peak_p90_g | 1.5355, 2.0214, 2.6585 | 2.9488, 2.9488, 2.9488 |
+| EAH duration_p50_s | 1.2000, 1.2000, 1.4350 | 1.2000, 1.2000, 1.2000 |
+| EAH duration_p90_s | 1.4600, 1.5830, 1.9960 | 1.2060, 1.2060, 1.2060 |
+| EAH hf_fraction | 0.0032, 0.0062, 0.0273 | 0.0624, 0.0624, 0.0624 |
+| EFE envelope_g | 0.3255, 0.6385, 0.8789 | 1.0916, 1.0916, 1.0916 |
+| EFE dominant_hz | 0.4900, 0.7000, 1.2100 | 0.8000, 0.8000, 0.8000 |
+| EFE peak_p50_g | 1.1748, 1.3401, 1.4870 | 1.7490, 1.7490, 1.7490 |
+| EFE peak_p90_g | 1.2492, 1.4286, 1.5937 | 1.8655, 1.8655, 1.8655 |
+| EFE duration_p50_s | 1.2000, 1.2000, 1.3825 | 1.2000, 1.2000, 1.2000 |
+| EFE duration_p90_s | 1.3081, 1.4560, 1.5993 | 1.2000, 1.2000, 1.2000 |
+| EFE hf_fraction | 0.0044, 0.0182, 0.0335 | 0.1414, 0.1414, 0.1414 |
+| SQZ envelope_g | 0.2030, 0.3377, 0.5874 | 1.5989, 1.5989, 1.5989 |
+| SQZ dominant_hz | 0.7000, 1.2000, 2.2000 | 0.8000, 0.8000, 0.8000 |
+| SQZ peak_p50_g | 1.1261, 1.2141, 1.3558 | 2.0517, 2.0517, 2.0517 |
+| SQZ peak_p90_g | 1.1578, 1.3184, 1.5287 | 2.1654, 2.1654, 2.1654 |
+| SQZ duration_p50_s | 1.2000, 1.2000, 1.3905 | 1.2000, 1.2000, 1.2000 |
+| SQZ duration_p90_s | 1.3708, 1.4860, 1.8058 | 1.2000, 1.2000, 1.2000 |
+| SQZ hf_fraction | 0.0593, 0.1014, 0.2055 | 0.1349, 0.1349, 0.1349 |
+Optical reference: {"selected_files": 30, "comparisons": 39, "interpretation": "not synchronized; Y-up and origin at board rather than chip; derivative filtering attenuates high frequency; reference diagnostics only, no model accuracy or angle validation"}
+Physical deviation summaries (NOT mechanism accuracy): [{"source": "real recordings; descriptive deviations, not mechanism accuracy", "series_label": 0, "series": 306, "feature_flag_fraction": {"cycle_duration_s": 0.1503267973856209, "upper_envelope_g": 0.016339869281045753, "forearm_envelope_g": 0.0, "magnitude_correlation": 0.042483660130718956}, "any_flag_fraction": 0.19607843137254902, "multiple_flags_fraction": 0.013071895424836602}, {"source": "real recordings; descriptive deviations, not mechanism accuracy", "series_label": 1, "series": 301, "feature_flag_fraction": {"cycle_duration_s": 0.03322259136212625, "upper_envelope_g": 0.31893687707641194, "forearm_envelope_g": 0.07973421926910298, "magnitude_correlation": 0.1461794019933555}, "any_flag_fraction": 0.46511627906976744, "multiple_flags_fraction": 0.09302325581395349}]
+Annotation planning ESTIMATES: {"people": 12, "exercises": 3, "conditions": 5, "repetitions": 8, "total_repetitions": 1440, "collection_hours": 9.0, "rater_hours": 8.0}
+| Model | parameter B | classifier allocated text B | complete causal allocated text B | causal BSS B |
+| --- | ---: | ---: | ---: | ---: |
+| model/paired-synchronized-causal/L | 992 | 1332 | 2546 | 14488 |
+| model/paired-synchronized-causal/R | 992 | 1332 | 2546 | 14488 |
+| model/paired-synchronized-offline/L | 992 | 1332 | offline control | offline control |
+| model/paired-synchronized-offline/R | 992 | 1332 | offline control | offline control |
+| model/placement-controls/L-forearm | 512 | 852 | 2090 | 14488 |
+| model/placement-controls/L-pair | 992 | 1332 | 2546 | 14488 |
+| model/placement-controls/L-upper | 512 | 852 | 2066 | 14488 |
+| model/placement-controls/R-forearm | 512 | 852 | 2090 | 14488 |
+| model/placement-controls/R-pair | 992 | 1332 | 2546 | 14488 |
+| model/placement-controls/R-upper | 512 | 852 | 2066 | 14488 |
+Target state/reserves ESTIMATES: {"static_bytes": 14488, "stack_reserve": 4096, "core_reserve": 4096, "oled_reserve": 1024, "interrupt_reserve": 1024, "total": 24728, "headroom_of_32768": 8040}
+Actual feature arithmetic contract: {"max_samples": 600, "axes": 6, "buffer_bytes": 14400, "axis_sample_visits_per_cycle": 7200, "approx_multiplications_before_scalar_normalization": 14400, "approx_add_sub_before_scalar_normalization": 21600, "square_roots_per_cycle_features": 12, "classifier_mac_per_pair_cycle": 244, "classifier_expf_per_cycle": 4}
+Latency components / limits: {"confirmation_component_s": 0.2, "ema_time_constant_s": 0.04481420117724551, "true_repetition_end_to_display": "not measured; unknown anatomical boundary, hysteresis wait, refractoriness, MCU feature/libm/ADC/display timing", "mid_repetition": "not validated"}
+Two runtime states plus core reserve ESTIMATE: 33040

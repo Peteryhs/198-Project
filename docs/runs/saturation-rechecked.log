@@ -1,0 +1,6 @@
+1368 files, peak |accel| per axis
+
+  EAH  n= 464 median= 1.79g p90= 4.12g  over 1.5g:  71.8%  over 2.0g:  37.3%  over 3.0g:  19.4%  over 6.0g:   3.7%
+  EFE  n= 432 median= 1.49g p90= 3.61g  over 1.5g:  49.3%  over 2.0g:  27.8%  over 3.0g:  13.9%  over 6.0g:   2.5%
+  SQZ  n= 472 median= 1.33g p90= 2.08g  over 1.5g:  34.1%  over 2.0g:  10.8%  over 3.0g:   3.0%  over 6.0g:   0.4%
+  ALL  n=1368 median= 1.52g p90= 3.27g  over 1.5g:  51.7%  over 2.0g:  25.1%  over 3.0g:  12.0%  over 6.0g:   2.2%

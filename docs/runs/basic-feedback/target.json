@@ -1,0 +1,816 @@
+{
+  "generated_utc": "2026-11-08T04:00:49.073242+00:00",
+  "measurement": "Cortex-M4F relocatable object with declaration-only Arduino shim; no board core or firmware link",
+  "sources": [
+    "hardware/198project/tally_processing.c",
+    "hardware/198project/198project.ino"
+  ],
+  "processing_compile": {
+    "command": [
+      "clang",
+      "--target=arm-none-eabi",
+      "-mcpu=cortex-m4",
+      "-mthumb",
+      "-mfpu=fpv4-sp-d16",
+      "-mfloat-abi=hard",
+      "-Oz",
+      "-ffreestanding",
+      "-fno-builtin",
+      "-fdata-sections",
+      "-ffunction-sections",
+      "-fstack-usage",
+      "-I",
+      "/tmp/tally-arm-6i2pwskc",
+      "-I",
+      "/home/peter/work/198-Project/model/streaming",
+      "-I",
+      "/home/peter/work/198-Project/model/feedback",
+      "-I",
+      "/home/peter/work/198-Project/model/application",
+      "-I",
+      "/home/peter/work/198-Project/model/paired-synchronized-causal/L",
+      "-I",
+      "/home/peter/work/198-Project/hardware/198project",
+      "-c",
+      "/home/peter/work/198-Project/hardware/198project/tally_processing.c",
+      "-o",
+      "/tmp/tally-arm-6i2pwskc/tally_processing.o"
+    ],
+    "stdout": "",
+    "stderr": ""
+  },
+  "sketch_compile": {
+    "command": [
+      "clang++",
+      "--target=arm-none-eabi",
+      "-mcpu=cortex-m4",
+      "-mthumb",
+      "-mfpu=fpv4-sp-d16",
+      "-mfloat-abi=hard",
+      "-Oz",
+      "-ffreestanding",
+      "-fno-builtin",
+      "-fno-exceptions",
+      "-fno-rtti",
+      "-fdata-sections",
+      "-ffunction-sections",
+      "-fstack-usage",
+      "-I",
+      "/tmp/tally-arm-6i2pwskc",
+      "-I",
+      "/home/peter/work/198-Project/hardware/198project",
+      "-x",
+      "c++",
+      "-c",
+      "/home/peter/work/198-Project/hardware/198project/198project.ino",
+      "-o",
+      "/tmp/tally-arm-6i2pwskc/198project.o"
+    ],
+    "stdout": "",
+    "stderr": ""
+  },
+  "relocatable_combine": {
+    "command": [
+      "/usr/lib64/rocm/llvm/bin/ld.lld",
+      "-r",
+      "-o",
+      "/tmp/tally-arm-6i2pwskc/arduino_path.o",
+      "/tmp/tally-arm-6i2pwskc/tally_processing.o",
+      "/tmp/tally-arm-6i2pwskc/198project.o"
+    ],
+    "stdout": "",
+    "stderr": ""
+  },
+  "baseline_compile": {
+    "command": [
+      "clang",
+      "--target=arm-none-eabi",
+      "-mcpu=cortex-m4",
+      "-mthumb",
+      "-mfpu=fpv4-sp-d16",
+      "-mfloat-abi=hard",
+      "-Oz",
+      "-ffreestanding",
+      "-fno-builtin",
+      "-fdata-sections",
+      "-ffunction-sections",
+      "-fstack-usage",
+      "-I",
+      "/tmp/tally-arm-6i2pwskc",
+      "-I",
+      "/home/peter/work/198-Project/model/streaming",
+      "-I",
+      "/home/peter/work/198-Project/model/feedback",
+      "-I",
+      "/home/peter/work/198-Project/model/application",
+      "-I",
+      "/home/peter/work/198-Project/model/paired-synchronized-causal/L",
+      "-c",
+      "/tmp/tally-arm-6i2pwskc/baseline.c",
+      "-o",
+      "/tmp/tally-arm-6i2pwskc/baseline.o"
+    ],
+    "stdout": "",
+    "stderr": ""
+  },
+  "baseline_section_report": "/tmp/tally-arm-6i2pwskc/baseline.o  :\nsection                                  size   addr\n.text                                       0      0\n.text.stream_reset                         12      0\n.ARM.exidx.text.stream_reset                8      0\n.text.stream_features                     420      0\n.ARM.exidx.text.stream_features             8      0\n.text.stream_push                         436      0\n.ARM.exidx.text.stream_push                 8      0\n.text.pair_reset                           12      0\n.ARM.exidx.text.pair_reset                  8      0\n.text.pair_push                           126      0\n.ARM.exidx.text.pair_push                   8      0\n.text.rt_predict_rep                      316      0\n.ARM.exidx.text.rt_predict_rep              8      0\n.text.pair_series                          72      0\n.ARM.exidx.text.pair_series                 8      0\n.text.ingest                               32      0\n.ARM.exidx.text.ingest                      8      0\n.text.finish                               20      0\n.ARM.exidx.text.finish                      8      0\n.text.OUTLINED_FUNCTION_0                  14      0\n.ARM.exidx.text.OUTLINED_FUNCTION_0         8      0\n.text.OUTLINED_FUNCTION_1                  10      0\n.ARM.exidx.text.OUTLINED_FUNCTION_1         8      0\n.bss.live                               14472      0\n.bss.result                                16      0\n.rodata.rt_exercise_intercept              12      0\n.rodata.rt_exercise_coef                  732      0\n.rodata.rt_quality_coef                   244      0\n.comment                                   45      0\n.note.GNU-stack                             0      0\n.ARM.attributes                            73      0\n.llvm_addrsig                               2      0\nTotal                                   17154\n\n\n",
+  "baseline_size_totals": "   text\t   data\t    bss\t    dec\t    hex\tfilename\n   2546\t      0\t  14488\t  17034\t   428a\t/tmp/tally-arm-6i2pwskc/baseline.o\n",
+  "baseline_totals": {
+    "text_bytes": 2546,
+    "data_bytes": 0,
+    "bss_bytes": 14488,
+    "dec_bytes": 17034
+  },
+  "state_size_compile": {
+    "command": [
+      "clang",
+      "--target=arm-none-eabi",
+      "-mcpu=cortex-m4",
+      "-mthumb",
+      "-mfpu=fpv4-sp-d16",
+      "-mfloat-abi=hard",
+      "-Oz",
+      "-ffreestanding",
+      "-fno-builtin",
+      "-fdata-sections",
+      "-ffunction-sections",
+      "-fstack-usage",
+      "-I",
+      "/tmp/tally-arm-6i2pwskc",
+      "-I",
+      "/home/peter/work/198-Project/model/streaming",
+      "-I",
+      "/home/peter/work/198-Project/model/feedback",
+      "-I",
+      "/home/peter/work/198-Project/model/application",
+      "-I",
+      "/home/peter/work/198-Project/model/paired-synchronized-causal/L",
+      "-c",
+      "/tmp/tally-arm-6i2pwskc/sizes.c",
+      "-o",
+      "/tmp/tally-arm-6i2pwskc/sizes.o"
+    ],
+    "stdout": "",
+    "stderr": ""
+  },
+  "state_size_symbols": "00000000 00003888 R pair_runtime_size\n00000000 000038f8 R tally_app_size\n",
+  "state_sizes_bytes": {
+    "pair_runtime": 14472,
+    "tally_app": 14584
+  },
+  "section_report": {
+    "command": [
+      "llvm-size",
+      "-A",
+      "/tmp/tally-arm-6i2pwskc/arduino_path.o"
+    ],
+    "stdout": "/tmp/tally-arm-6i2pwskc/arduino_path.o  :\nsection                                            size   addr\n.text                                                 0      0\n.text.stream_reset                                    8      0\n.ARM.exidx.text.stream_reset                          8      0\n.text.stream_features                               420      0\n.ARM.exidx.text.stream_features                       8      0\n.text.stream_push                                   432      0\n.ARM.exidx.text.stream_push                           8      0\n.text.pair_reset                                      8      0\n.ARM.exidx.text.pair_reset                            8      0\n.text.pair_push                                     122      0\n.ARM.exidx.text.pair_push                             8      0\n.text.rt_predict_rep                                316      0\n.ARM.exidx.text.rt_predict_rep                        8      0\n.text.pair_series                                    72      0\n.ARM.exidx.text.pair_series                           8      0\n.text.feedback_evaluate                             352      0\n.ARM.exidx.text.feedback_evaluate                     8      0\n.text.feedback_policy_reset                          12      0\n.ARM.exidx.text.feedback_policy_reset                 8      0\n.text.feedback_cue_text                              24      0\n.ARM.exidx.text.feedback_cue_text                     8      0\n.text.feedback_policy_update                        116      0\n.ARM.exidx.text.feedback_policy_update                8      0\n.text.tally_configure                               146      0\n.ARM.exidx.text.tally_configure                       8      0\n.text.quiet                                          28      0\n.ARM.exidx.text.quiet                                 8      0\n.text.tally_start                                    68      0\n.ARM.exidx.text.tally_start                           8      0\n.text.tally_pause                                    52      0\n.ARM.exidx.text.tally_pause                           8      0\n.text.tick                                           38      0\n.ARM.exidx.text.tick                                  8      0\n.text.tally_resume                                   40      0\n.ARM.exidx.text.tally_resume                          8      0\n.text.tally_finish                                  110      0\n.ARM.exidx.text.tally_finish                          8      0\n.text.tally_push                                    340      0\n.ARM.exidx.text.tally_push                            8      0\n.text.reject                                         36      0\n.ARM.exidx.text.reject                                8      0\n.text.OUTLINED_FUNCTION_0                            16      0\n.ARM.exidx.text.OUTLINED_FUNCTION_0                  16      0\n.text.OUTLINED_FUNCTION_1                            14      0\n.ARM.exidx.text.OUTLINED_FUNCTION_1                  16      0\n.text.OUTLINED_FUNCTION_2                             8      0\n.ARM.exidx.text.OUTLINED_FUNCTION_2                   8      0\n.text.OUTLINED_FUNCTION_3                            10      0\n.ARM.exidx.text.OUTLINED_FUNCTION_3                   8      0\n.text.OUTLINED_FUNCTION_4                            14      0\n.ARM.exidx.text.OUTLINED_FUNCTION_4                   8      0\n.text.OUTLINED_FUNCTION_5                             6      0\n.ARM.exidx.text.OUTLINED_FUNCTION_5                   8      0\n.rodata.str1.1                                     1056      0\n.rodata.rt_exercise_intercept                        12      0\n.rodata.rt_exercise_coef                            732      0\n.rodata.rt_quality_coef                             244      0\n.rodata..Lswitch.table.feedback_policy_update        12      0\n.comment                                             45      0\n.ARM.attributes                                      73      0\n.llvm_addrsig                                         4      0\n.text._Z19submitAccelerationGjPKf                    44      0\n.ARM.exidx.text._Z19submitAccelerationGjPKf           8      0\n.text._ZL13displayOutputv                           336      0\n.ARM.exidx.text._ZL13displayOutputv                   8      0\n.text._Z5setupv                                      72      0\n.ARM.exidx.text._Z5setupv                             8      0\n.text._Z4loopv                                      624      0\n.ARM.exidx.text._Z4loopv                              8      0\n.text._ZL11rejectInputv                              56      0\n.ARM.exidx.text._ZL11rejectInputv                     8      0\n.text._ZL13unsignedValuePKcPj                        66      0\n.ARM.exidx.text._ZL13unsignedValuePKcPj               8      0\n.text._ZL10floatValuePKcPf                           34      0\n.ARM.exidx.text._ZL10floatValuePKcPf                  8      0\n.bss._ZL3app                                      14584      0\n.bss._ZL4line                                       160      0\n.bss..L_MergedGlobals                                56      0\n.note.GNU-stack                                       0      0\nTotal                                             21298\n\n\n",
+    "stderr": ""
+  },
+  "size_totals": {
+    "command": [
+      "llvm-size",
+      "/tmp/tally-arm-6i2pwskc/arduino_path.o"
+    ],
+    "stdout": "   text\t   data\t    bss\t    dec\t    hex\tfilename\n   6376\t      0\t  14800\t  21176\t   52b8\t/tmp/tally-arm-6i2pwskc/arduino_path.o\n",
+    "stderr": ""
+  },
+  "totals": {
+    "text_bytes": 6376,
+    "data_bytes": 0,
+    "bss_bytes": 14800,
+    "dec_bytes": 21176
+  },
+  "sections": [
+    {
+      "name": ".text",
+      "bytes": 0
+    },
+    {
+      "name": ".text.stream_reset",
+      "bytes": 8
+    },
+    {
+      "name": ".ARM.exidx.text.stream_reset",
+      "bytes": 8
+    },
+    {
+      "name": ".text.stream_features",
+      "bytes": 420
+    },
+    {
+      "name": ".ARM.exidx.text.stream_features",
+      "bytes": 8
+    },
+    {
+      "name": ".text.stream_push",
+      "bytes": 432
+    },
+    {
+      "name": ".ARM.exidx.text.stream_push",
+      "bytes": 8
+    },
+    {
+      "name": ".text.pair_reset",
+      "bytes": 8
+    },
+    {
+      "name": ".ARM.exidx.text.pair_reset",
+      "bytes": 8
+    },
+    {
+      "name": ".text.pair_push",
+      "bytes": 122
+    },
+    {
+      "name": ".ARM.exidx.text.pair_push",
+      "bytes": 8
+    },
+    {
+      "name": ".text.rt_predict_rep",
+      "bytes": 316
+    },
+    {
+      "name": ".ARM.exidx.text.rt_predict_rep",
+      "bytes": 8
+    },
+    {
+      "name": ".text.pair_series",
+      "bytes": 72
+    },
+    {
+      "name": ".ARM.exidx.text.pair_series",
+      "bytes": 8
+    },
+    {
+      "name": ".text.feedback_evaluate",
+      "bytes": 352
+    },
+    {
+      "name": ".ARM.exidx.text.feedback_evaluate",
+      "bytes": 8
+    },
+    {
+      "name": ".text.feedback_policy_reset",
+      "bytes": 12
+    },
+    {
+      "name": ".ARM.exidx.text.feedback_policy_reset",
+      "bytes": 8
+    },
+    {
+      "name": ".text.feedback_cue_text",
+      "bytes": 24
+    },
+    {
+      "name": ".ARM.exidx.text.feedback_cue_text",
+      "bytes": 8
+    },
+    {
+      "name": ".text.feedback_policy_update",
+      "bytes": 116
+    },
+    {
+      "name": ".ARM.exidx.text.feedback_policy_update",
+      "bytes": 8
+    },
+    {
+      "name": ".text.tally_configure",
+      "bytes": 146
+    },
+    {
+      "name": ".ARM.exidx.text.tally_configure",
+      "bytes": 8
+    },
+    {
+      "name": ".text.quiet",
+      "bytes": 28
+    },
+    {
+      "name": ".ARM.exidx.text.quiet",
+      "bytes": 8
+    },
+    {
+      "name": ".text.tally_start",
+      "bytes": 68
+    },
+    {
+      "name": ".ARM.exidx.text.tally_start",
+      "bytes": 8
+    },
+    {
+      "name": ".text.tally_pause",
+      "bytes": 52
+    },
+    {
+      "name": ".ARM.exidx.text.tally_pause",
+      "bytes": 8
+    },
+    {
+      "name": ".text.tick",
+      "bytes": 38
+    },
+    {
+      "name": ".ARM.exidx.text.tick",
+      "bytes": 8
+    },
+    {
+      "name": ".text.tally_resume",
+      "bytes": 40
+    },
+    {
+      "name": ".ARM.exidx.text.tally_resume",
+      "bytes": 8
+    },
+    {
+      "name": ".text.tally_finish",
+      "bytes": 110
+    },
+    {
+      "name": ".ARM.exidx.text.tally_finish",
+      "bytes": 8
+    },
+    {
+      "name": ".text.tally_push",
+      "bytes": 340
+    },
+    {
+      "name": ".ARM.exidx.text.tally_push",
+      "bytes": 8
+    },
+    {
+      "name": ".text.reject",
+      "bytes": 36
+    },
+    {
+      "name": ".ARM.exidx.text.reject",
+      "bytes": 8
+    },
+    {
+      "name": ".text.OUTLINED_FUNCTION_0",
+      "bytes": 16
+    },
+    {
+      "name": ".ARM.exidx.text.OUTLINED_FUNCTION_0",
+      "bytes": 16
+    },
+    {
+      "name": ".text.OUTLINED_FUNCTION_1",
+      "bytes": 14
+    },
+    {
+      "name": ".ARM.exidx.text.OUTLINED_FUNCTION_1",
+      "bytes": 16
+    },
+    {
+      "name": ".text.OUTLINED_FUNCTION_2",
+      "bytes": 8
+    },
+    {
+      "name": ".ARM.exidx.text.OUTLINED_FUNCTION_2",
+      "bytes": 8
+    },
+    {
+      "name": ".text.OUTLINED_FUNCTION_3",
+      "bytes": 10
+    },
+    {
+      "name": ".ARM.exidx.text.OUTLINED_FUNCTION_3",
+      "bytes": 8
+    },
+    {
+      "name": ".text.OUTLINED_FUNCTION_4",
+      "bytes": 14
+    },
+    {
+      "name": ".ARM.exidx.text.OUTLINED_FUNCTION_4",
+      "bytes": 8
+    },
+    {
+      "name": ".text.OUTLINED_FUNCTION_5",
+      "bytes": 6
+    },
+    {
+      "name": ".ARM.exidx.text.OUTLINED_FUNCTION_5",
+      "bytes": 8
+    },
+    {
+      "name": ".rodata.str1.1",
+      "bytes": 1056
+    },
+    {
+      "name": ".rodata.rt_exercise_intercept",
+      "bytes": 12
+    },
+    {
+      "name": ".rodata.rt_exercise_coef",
+      "bytes": 732
+    },
+    {
+      "name": ".rodata.rt_quality_coef",
+      "bytes": 244
+    },
+    {
+      "name": ".rodata..Lswitch.table.feedback_policy_update",
+      "bytes": 12
+    },
+    {
+      "name": ".comment",
+      "bytes": 45
+    },
+    {
+      "name": ".ARM.attributes",
+      "bytes": 73
+    },
+    {
+      "name": ".llvm_addrsig",
+      "bytes": 4
+    },
+    {
+      "name": ".text._Z19submitAccelerationGjPKf",
+      "bytes": 44
+    },
+    {
+      "name": ".ARM.exidx.text._Z19submitAccelerationGjPKf",
+      "bytes": 8
+    },
+    {
+      "name": ".text._ZL13displayOutputv",
+      "bytes": 336
+    },
+    {
+      "name": ".ARM.exidx.text._ZL13displayOutputv",
+      "bytes": 8
+    },
+    {
+      "name": ".text._Z5setupv",
+      "bytes": 72
+    },
+    {
+      "name": ".ARM.exidx.text._Z5setupv",
+      "bytes": 8
+    },
+    {
+      "name": ".text._Z4loopv",
+      "bytes": 624
+    },
+    {
+      "name": ".ARM.exidx.text._Z4loopv",
+      "bytes": 8
+    },
+    {
+      "name": ".text._ZL11rejectInputv",
+      "bytes": 56
+    },
+    {
+      "name": ".ARM.exidx.text._ZL11rejectInputv",
+      "bytes": 8
+    },
+    {
+      "name": ".text._ZL13unsignedValuePKcPj",
+      "bytes": 66
+    },
+    {
+      "name": ".ARM.exidx.text._ZL13unsignedValuePKcPj",
+      "bytes": 8
+    },
+    {
+      "name": ".text._ZL10floatValuePKcPf",
+      "bytes": 34
+    },
+    {
+      "name": ".ARM.exidx.text._ZL10floatValuePKcPf",
+      "bytes": 8
+    },
+    {
+      "name": ".bss._ZL3app",
+      "bytes": 14584
+    },
+    {
+      "name": ".bss._ZL4line",
+      "bytes": 160
+    },
+    {
+      "name": ".bss..L_MergedGlobals",
+      "bytes": 56
+    },
+    {
+      "name": ".note.GNU-stack",
+      "bytes": 0
+    }
+  ],
+  "symbols": [
+    {
+      "address": 0,
+      "bytes": 1,
+      "type": "b",
+      "name": "_ZL10discarding"
+    },
+    {
+      "address": 4,
+      "bytes": 4,
+      "type": "b",
+      "name": "_ZL4used"
+    },
+    {
+      "address": 10,
+      "bytes": 6,
+      "type": "t",
+      "name": "OUTLINED_FUNCTION_0"
+    },
+    {
+      "address": 8,
+      "bytes": 6,
+      "type": "t",
+      "name": "OUTLINED_FUNCTION_1"
+    },
+    {
+      "address": 0,
+      "bytes": 6,
+      "type": "t",
+      "name": "OUTLINED_FUNCTION_5"
+    },
+    {
+      "address": 0,
+      "bytes": 8,
+      "type": "t",
+      "name": "OUTLINED_FUNCTION_1"
+    },
+    {
+      "address": 0,
+      "bytes": 8,
+      "type": "t",
+      "name": "OUTLINED_FUNCTION_2"
+    },
+    {
+      "address": 0,
+      "bytes": 8,
+      "type": "T",
+      "name": "pair_reset"
+    },
+    {
+      "address": 0,
+      "bytes": 8,
+      "type": "T",
+      "name": "stream_reset"
+    },
+    {
+      "address": 0,
+      "bytes": 10,
+      "type": "t",
+      "name": "OUTLINED_FUNCTION_0"
+    },
+    {
+      "address": 0,
+      "bytes": 10,
+      "type": "t",
+      "name": "OUTLINED_FUNCTION_3"
+    },
+    {
+      "address": 0,
+      "bytes": 12,
+      "type": "T",
+      "name": "feedback_policy_reset"
+    },
+    {
+      "address": 0,
+      "bytes": 12,
+      "type": "r",
+      "name": "rt_exercise_intercept"
+    },
+    {
+      "address": 0,
+      "bytes": 14,
+      "type": "t",
+      "name": "OUTLINED_FUNCTION_4"
+    },
+    {
+      "address": 0,
+      "bytes": 24,
+      "type": "T",
+      "name": "feedback_cue_text"
+    },
+    {
+      "address": 0,
+      "bytes": 28,
+      "type": "t",
+      "name": "quiet"
+    },
+    {
+      "address": 0,
+      "bytes": 34,
+      "type": "t",
+      "name": "_ZL10floatValuePKcPf"
+    },
+    {
+      "address": 0,
+      "bytes": 36,
+      "type": "t",
+      "name": "reject"
+    },
+    {
+      "address": 0,
+      "bytes": 38,
+      "type": "t",
+      "name": "tick"
+    },
+    {
+      "address": 0,
+      "bytes": 40,
+      "type": "T",
+      "name": "tally_resume"
+    },
+    {
+      "address": 0,
+      "bytes": 44,
+      "type": "T",
+      "name": "_Z19submitAccelerationGjPKf"
+    },
+    {
+      "address": 8,
+      "bytes": 48,
+      "type": "b",
+      "name": "_ZL12prescription"
+    },
+    {
+      "address": 0,
+      "bytes": 52,
+      "type": "T",
+      "name": "tally_pause"
+    },
+    {
+      "address": 0,
+      "bytes": 56,
+      "type": "t",
+      "name": "_ZL11rejectInputv"
+    },
+    {
+      "address": 0,
+      "bytes": 66,
+      "type": "t",
+      "name": "_ZL13unsignedValuePKcPj"
+    },
+    {
+      "address": 0,
+      "bytes": 68,
+      "type": "T",
+      "name": "tally_start"
+    },
+    {
+      "address": 0,
+      "bytes": 72,
+      "type": "T",
+      "name": "_Z5setupv"
+    },
+    {
+      "address": 0,
+      "bytes": 72,
+      "type": "T",
+      "name": "pair_series"
+    },
+    {
+      "address": 0,
+      "bytes": 110,
+      "type": "T",
+      "name": "tally_finish"
+    },
+    {
+      "address": 0,
+      "bytes": 116,
+      "type": "T",
+      "name": "feedback_policy_update"
+    },
+    {
+      "address": 0,
+      "bytes": 122,
+      "type": "T",
+      "name": "pair_push"
+    },
+    {
+      "address": 0,
+      "bytes": 146,
+      "type": "T",
+      "name": "tally_configure"
+    },
+    {
+      "address": 0,
+      "bytes": 160,
+      "type": "b",
+      "name": "_ZL4line"
+    },
+    {
+      "address": 0,
+      "bytes": 244,
+      "type": "r",
+      "name": "rt_quality_coef"
+    },
+    {
+      "address": 0,
+      "bytes": 316,
+      "type": "t",
+      "name": "rt_predict_rep"
+    },
+    {
+      "address": 0,
+      "bytes": 336,
+      "type": "t",
+      "name": "_ZL13displayOutputv"
+    },
+    {
+      "address": 0,
+      "bytes": 340,
+      "type": "T",
+      "name": "tally_push"
+    },
+    {
+      "address": 0,
+      "bytes": 352,
+      "type": "T",
+      "name": "feedback_evaluate"
+    },
+    {
+      "address": 0,
+      "bytes": 420,
+      "type": "T",
+      "name": "stream_features"
+    },
+    {
+      "address": 0,
+      "bytes": 432,
+      "type": "T",
+      "name": "stream_push"
+    },
+    {
+      "address": 0,
+      "bytes": 624,
+      "type": "T",
+      "name": "_Z4loopv"
+    },
+    {
+      "address": 0,
+      "bytes": 732,
+      "type": "r",
+      "name": "rt_exercise_coef"
+    },
+    {
+      "address": 0,
+      "bytes": 14584,
+      "type": "b",
+      "name": "_ZL3app"
+    }
+  ],
+  "unresolved_helpers": [
+    "         U Serial",
+    "         U _ZN14HardwareSerial4readEv",
+    "         U _ZN14HardwareSerial5beginEm",
+    "         U _ZN14HardwareSerial5printEPKc",
+    "         U _ZN14HardwareSerial5printEc",
+    "         U _ZN14HardwareSerial5printEfi",
+    "         U _ZN14HardwareSerial5printEi",
+    "         U _ZN14HardwareSerial5printEj",
+    "         U _ZN14HardwareSerial7printlnEPKc",
+    "         U _ZN14HardwareSerial7printlnEfi",
+    "         U _ZN14HardwareSerial7printlnEi",
+    "         U _ZN14HardwareSerial7printlnEv",
+    "         U _ZN14HardwareSerial9availableEv",
+    "         U __aeabi_memclr4",
+    "         U __aeabi_memcpy",
+    "         U expf",
+    "         U fmaxf",
+    "         U fminf",
+    "         U sqrtf",
+    "         U strcmp",
+    "         U strcpy",
+    "         U strlen",
+    "         U strtof"
+  ],
+  "stack_usage": "[198project.su]\nhardware/198project/198project.ino:38:_Z19submitAccelerationGjPKf\t24\tstatic\nhardware/198project/198project.ino:13:_ZL13displayOutputv\t24\tstatic\nhardware/198project/198project.ino:114:_Z5setupv\t16\tstatic\nhardware/198project/198project.ino:121:_Z4loopv\t136\tstatic\nhardware/198project/198project.ino:73:_ZL11rejectInputv\t8\tstatic\nhardware/198project/198project.ino:56:_ZL13unsignedValuePKcPj\t16\tstatic\nhardware/198project/198project.ino:68:_ZL10floatValuePKcPf\t24\tstatic\nhardware/198project/198project.ino:0:OUTLINED_FUNCTION_0\t0\tstatic\nhardware/198project/198project.ino:0:OUTLINED_FUNCTION_1\t0\tstatic\n[baseline.su]\nmodel/streaming/paired_stream.c:3:stream_reset\t8\tstatic\nmodel/streaming/paired_stream.c:4:stream_features\t96\tstatic\nmodel/streaming/paired_stream.c:32:stream_push\t72\tstatic\nmodel/streaming/paired_runtime.c:6:pair_reset\t8\tstatic\nmodel/streaming/paired_runtime.c:7:pair_push\t264\tstatic\nmodel/paired-synchronized-causal/L/realtime_model.h:12:rt_predict_rep\t56\tdynamic\nmodel/streaming/paired_runtime.c:21:pair_series\t8\tstatic\n/tmp/tally-arm-6i2pwskc/baseline_probe.c:3:ingest\t16\tstatic\n/tmp/tally-arm-6i2pwskc/baseline_probe.c:4:finish\t0\tstatic\nmodel/streaming/paired_stream.c:0:OUTLINED_FUNCTION_0\t0\tstatic\nmodel/streaming/paired_stream.c:0:OUTLINED_FUNCTION_1\t0\tstatic\n[tally_processing.su]\nhardware/198project/../../model/streaming/paired_stream.c:3:stream_reset\t8\tstatic\nhardware/198project/../../model/streaming/paired_stream.c:4:stream_features\t96\tstatic\nhardware/198project/../../model/streaming/paired_stream.c:32:stream_push\t72\tstatic\nhardware/198project/../../model/streaming/paired_runtime.c:6:pair_reset\t8\tstatic\nhardware/198project/../../model/streaming/paired_runtime.c:7:pair_push\t264\tstatic\nhardware/198project/../../model/streaming/../paired-synchronized-causal/L/realtime_model.h:12:rt_predict_rep\t56\tdynamic\nhardware/198project/../../model/streaming/paired_runtime.c:21:pair_series\t8\tstatic\nhardware/198project/../../model/feedback/feedback.c:7:feedback_evaluate\t16\tstatic\nhardware/198project/../../model/feedback/feedback_policy.c:2:feedback_policy_reset\t0\tstatic\nhardware/198project/../../model/feedback/feedback_policy.c:3:feedback_cue_text\t0\tstatic\nhardware/198project/../../model/feedback/feedback_policy.c:11:feedback_policy_update\t16\tstatic\nhardware/198project/../../model/application/tally_app.c:18:tally_configure\t136\tstatic\nhardware/198project/../../model/application/tally_app.c:4:quiet\t0\tstatic\nhardware/198project/../../model/application/tally_app.c:32:tally_start\t16\tstatic\nhardware/198project/../../model/application/tally_app.c:42:tally_pause\t16\tstatic\nhardware/198project/../../model/application/tally_app.c:11:tick\t8\tstatic\nhardware/198project/../../model/application/tally_app.c:49:tally_resume\t8\tstatic\nhardware/198project/../../model/application/tally_app.c:56:tally_finish\t16\tstatic\nhardware/198project/../../model/application/tally_app.c:74:tally_push\t136\tstatic\nhardware/198project/../../model/application/tally_app.c:67:reject\t16\tstatic\nhardware/198project/../../model/streaming/paired_stream.c:0:OUTLINED_FUNCTION_0\t0\tstatic\nhardware/198project/../../model/streaming/paired_runtime.c:0:OUTLINED_FUNCTION_1\t0\tstatic\nhardware/198project/../../model/streaming/paired_stream.c:0:OUTLINED_FUNCTION_2\t0\tstatic\nhardware/198project/../../model/feedback/feedback.c:0:OUTLINED_FUNCTION_3\t0\tstatic\nhardware/198project/../../model/streaming/paired_stream.c:0:OUTLINED_FUNCTION_4\t0\tstatic\nhardware/198project/../../model/application/tally_app.c:0:OUTLINED_FUNCTION_5\t0\tstatic\n",
+  "persistent_storage": {
+    "bss_bytes": 14800,
+    "data_bytes": 0,
+    "bss_plus_data_bytes": 14800
+  },
+  "added_application_state_bytes": 112,
+  "scaffold_static_overhead_bytes": 312,
+  "application_and_parser_over_pairruntime_bytes": 328,
+  "text_growth_over_baseline_bytes": 3830,
+  "budget_checks": {
+    "static_extra_max_bytes": 512,
+    "static_extra_pass": true,
+    "provisional_text_growth_max_bytes": 8192,
+    "text_growth_pass": true
+  },
+  "reserves_bytes": {
+    "stack": 4096,
+    "core": 4096,
+    "display": 1024,
+    "interrupt": 1024
+  },
+  "reserved_memory_bytes": 10240,
+  "bss_data_plus_reserves_bytes": 25040,
+  "limitations": [
+    "Relocatable object section sizes are not linked firmware totals.",
+    "Arduino.h is a declaration-only compile shim; the Arduino core is not included.",
+    "Unresolved Arduino, stdio, and math helpers require platform toolchain/runtime resolution at link time."
+  ]
+}

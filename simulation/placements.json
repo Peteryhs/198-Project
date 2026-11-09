@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "angle_convention": "surface_deg is rotation about the segment long axis; 0 is exterior-lateral, 90 is anterior. fraction is distance from the proximal anatomical landmark divided by joint-to-joint segment length.",
+  "candidates": [
+    {
+      "id": "lateral_midpoint",
+      "name": "Exterior-lateral midpoint hypothesis",
+      "upper": {"fraction": 0.50, "surface_deg": 0},
+      "forearm": {"fraction": 0.50, "surface_deg": 0},
+      "definitions": {"upper": "Hypothetical midpoint between acromion and lateral epicondyle; exterior-lateral surface. PHYTMO confirms the surface only, not this landmark distance.", "forearm": "Hypothetical midpoint between lateral epicondyle and ulnar styloid; exterior-lateral surface. PHYTMO confirms the surface only, not this landmark distance."}
+    },
+    {
+      "id": "proximal_lateral",
+      "name": "Proximal lateral pair",
+      "upper": {"fraction": 0.30, "surface_deg": 0},
+      "forearm": {"fraction": 0.30, "surface_deg": 0},
+      "definitions": {"upper": "30% from acromion toward lateral epicondyle; exterior-lateral surface.", "forearm": "30% from lateral epicondyle toward ulnar styloid; exterior-lateral surface."}
+    },
+    {
+      "id": "distal_lateral",
+      "name": "Distal lateral pair",
+      "upper": {"fraction": 0.72, "surface_deg": 0},
+      "forearm": {"fraction": 0.72, "surface_deg": 0},
+      "definitions": {"upper": "72% from acromion toward lateral epicondyle; exterior-lateral surface.", "forearm": "72% from lateral epicondyle toward ulnar styloid; exterior-lateral surface."}
+    },
+    {
+      "id": "proximal_anterior",
+      "name": "Proximal anterolateral pair",
+      "upper": {"fraction": 0.30, "surface_deg": 45},
+      "forearm": {"fraction": 0.30, "surface_deg": 90},
+      "definitions": {"upper": "30% from acromion toward lateral epicondyle; halfway from lateral to anterior.", "forearm": "30% from lateral epicondyle toward ulnar styloid; anterior surface."}
+    }
+  ]
+}

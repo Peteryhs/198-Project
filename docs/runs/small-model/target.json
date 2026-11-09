@@ -1,0 +1,208 @@
+{
+  "measurement": "Cortex-M4F object sizes, not linked flash",
+  "models": {
+    "form_rep": {
+      "nodes": 1450,
+      "trees": 50,
+      "compile": {
+        "command": [
+          "clang",
+          "--target=arm-none-eabi",
+          "-mcpu=cortex-m4",
+          "-mthumb",
+          "-mfpu=fpv4-sp-d16",
+          "-mfloat-abi=hard",
+          "-Oz",
+          "-std=c99",
+          "-ffreestanding",
+          "-fno-builtin",
+          "-fdata-sections",
+          "-ffunction-sections",
+          "-fstack-usage",
+          "-I",
+          "/tmp/small-target-dvdasepu",
+          "-I",
+          "/home/peter/work/198-Project/model/small",
+          "-c",
+          "/home/peter/work/198-Project/model/small/form_rep.c",
+          "-o",
+          "/tmp/small-target-dvdasepu/form_rep.o"
+        ],
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "sections": {
+        "command": [
+          "llvm-size",
+          "-A",
+          "/tmp/small-target-dvdasepu/form_rep.o"
+        ],
+        "returncode": 0,
+        "stdout": "/tmp/small-target-dvdasepu/form_rep.o  :\nsection                              size   addr\n.text                                   0      0\n.text.form_rep_predict                212      0\n.ARM.exidx.text.form_rep_predict        8      0\n.rodata.root                          100      0\n.rodata.feature                      1450      0\n.rodata.value                        5800      0\n.rodata.left                         2900      0\n.rodata.right                        2900      0\n.comment                               45      0\n.note.GNU-stack                         0      0\n.ARM.attributes                        73      0\n.llvm_addrsig                           0      0\nTotal                               13488\n\n\n",
+        "stderr": ""
+      },
+      "totals": {
+        "text": 212,
+        "rodata": 13150,
+        "exidx": 8,
+        "data": 0,
+        "bss": 0,
+        "flash_object_bytes": 13370
+      },
+      "unresolved": "         U expf\n",
+      "stack_usage": "model/small/form_rep.c:505:form_rep_predict\t24\tstatic\n"
+    },
+    "form_window": {
+      "nodes": 2900,
+      "trees": 100,
+      "compile": {
+        "command": [
+          "clang",
+          "--target=arm-none-eabi",
+          "-mcpu=cortex-m4",
+          "-mthumb",
+          "-mfpu=fpv4-sp-d16",
+          "-mfloat-abi=hard",
+          "-Oz",
+          "-std=c99",
+          "-ffreestanding",
+          "-fno-builtin",
+          "-fdata-sections",
+          "-ffunction-sections",
+          "-fstack-usage",
+          "-I",
+          "/tmp/small-target-dvdasepu",
+          "-I",
+          "/home/peter/work/198-Project/model/small",
+          "-c",
+          "/home/peter/work/198-Project/model/small/form_window.c",
+          "-o",
+          "/tmp/small-target-dvdasepu/form_window.o"
+        ],
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "sections": {
+        "command": [
+          "llvm-size",
+          "-A",
+          "/tmp/small-target-dvdasepu/form_window.o"
+        ],
+        "returncode": 0,
+        "stdout": "/tmp/small-target-dvdasepu/form_window.o  :\nsection                                  size   addr\n.text                                       0      0\n.text.form_window_predict                 212      0\n.ARM.exidx.text.form_window_predict         8      0\n.rodata.root                              200      0\n.rodata.feature                          2900      0\n.rodata.value                           11600      0\n.rodata.left                             5800      0\n.rodata.right                            5800      0\n.comment                                   45      0\n.note.GNU-stack                             0      0\n.ARM.attributes                            73      0\n.llvm_addrsig                               0      0\nTotal                                   26638\n\n\n",
+        "stderr": ""
+      },
+      "totals": {
+        "text": 212,
+        "rodata": 26300,
+        "exidx": 8,
+        "data": 0,
+        "bss": 0,
+        "flash_object_bytes": 26520
+      },
+      "unresolved": "         U expf\n",
+      "stack_usage": "model/small/form_window.c:993:form_window_predict\t24\tstatic\n"
+    }
+  },
+  "state_sizes": {
+    "compile": {
+      "command": [
+        "clang",
+        "--target=arm-none-eabi",
+        "-mcpu=cortex-m4",
+        "-mthumb",
+        "-mfpu=fpv4-sp-d16",
+        "-mfloat-abi=hard",
+        "-Oz",
+        "-std=c99",
+        "-ffreestanding",
+        "-fno-builtin",
+        "-fdata-sections",
+        "-ffunction-sections",
+        "-fstack-usage",
+        "-I",
+        "/home/peter/work/198-Project/model/application",
+        "-c",
+        "/tmp/small-target-dvdasepu/state_sizes.c",
+        "-o",
+        "/tmp/small-target-dvdasepu/state_sizes.o"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "symbols": {
+      "command": [
+        "llvm-nm",
+        "-S",
+        "/tmp/small-target-dvdasepu/state_sizes.o"
+      ],
+      "returncode": 0,
+      "stdout": "00000000 0000007c R feature_vector_size\n00000000 00003888 R pair_runtime_size\n00000000 00000e10 R single_ring_size\n00000000 000038f8 R tally_app_size\n",
+      "stderr": ""
+    },
+    "bytes": {
+      "feature_vector": 124,
+      "pair_runtime": 14472,
+      "single_ring": 3600,
+      "tally_app": 14584
+    }
+  },
+  "combined_model_object_bytes": 39890,
+  "model_budget_bytes": 120000,
+  "model_budget_pass": true,
+  "ram_arithmetic": {
+    "single_sensor_window_ring": "300 samples * 3 axes * sizeof(float)=3600 B",
+    "feature_vector": "31 * sizeof(float)=124 B",
+    "inference_static_ram_bytes": 0,
+    "stack_reserve_bytes": 4096,
+    "scope": "The real link below includes the existing paired app state and an extra single-sensor ring; stack/interrupt high-water is unmeasured.",
+    "linked_static_plus_stack_reserve_bytes": 26920,
+    "headroom_after_stack_reserve_bytes": 5848
+  },
+  "arduino": {
+    "compile": {
+      "command": [
+        "/home/peter/work/198-Project/tmp/small-arduino/arduino-cli",
+        "compile",
+        "--fqbn",
+        "arduino:renesas_uno:minima",
+        "--build-path",
+        "/tmp/small-target-dvdasepu/arduino-build",
+        "/tmp/small-target-dvdasepu/small_model_probe"
+      ],
+      "returncode": 0,
+      "stdout": "Sketch uses 96164 bytes (36%) of program storage space. Maximum is 262144 bytes.\nGlobal variables use 22824 bytes (69%) of dynamic memory, leaving 9944 bytes for local variables. Maximum is 32768 bytes.\n",
+      "stderr": ""
+    },
+    "cli_version": {
+      "command": [
+        "/home/peter/work/198-Project/tmp/small-arduino/arduino-cli",
+        "version"
+      ],
+      "returncode": 0,
+      "stdout": "arduino-cli  Version: 1.5.2-rc.1 Commit: fef6e48df Date: 2026-07-23T11:13:39Z\n",
+      "stderr": ""
+    },
+    "installed_cores": {
+      "command": [
+        "/home/peter/work/198-Project/tmp/small-arduino/arduino-cli",
+        "core",
+        "list"
+      ],
+      "returncode": 0,
+      "stdout": "ID                  Installed Latest Name\narduino:renesas_uno 1.6.0     1.6.0  Arduino UNO R4 Boards\n\n",
+      "stderr": ""
+    },
+    "sketch": "#include <Arduino.h>\n#include \"form_rep.h\"\n#include \"form_window.h\"\n#define setup tally_probe_setup\n#define loop tally_probe_loop\n#include \"/home/peter/work/198-Project/hardware/198project/198project.ino\"\n#undef setup\n#undef loop\n\n#include <math.h>\nstatic float small_ring[300][3], small_features[31];\nstatic void small_window_features(void) {\n  for (unsigned a=0; a<3; ++a) {\n    float mean=0, energy=0, lo=small_ring[0][a], hi=lo;\n    for (unsigned i=0; i<300; ++i) {\n      float x=small_ring[i][a]; mean+=x; energy+=x*x;\n      if(x<lo)lo=x; if(x>hi)hi=x;\n    }\n    mean/=300; energy/=300;\n    float variance=0, third=0, fourth=0; unsigned crossings=0;\n    int previous=0;\n    for (unsigned i=0; i<300; ++i) {\n      float d=small_ring[i][a]-mean, sq=d*d;\n      variance+=sq; third+=sq*d; fourth+=sq*sq;\n      int sign=(d>0)-(d<0); if(i && sign!=previous)++crossings; previous=sign;\n    }\n    variance/=300; float sd=sqrtf(variance), scale=sd>0 ? sd : 1;\n    small_features[1+a]=mean; small_features[4+a]=sd;\n    small_features[7+a]=lo; small_features[10+a]=hi;\n    small_features[13+a]=hi-lo; small_features[16+a]=sqrtf(energy);\n    small_features[19+a]=third/(300*scale*scale*scale);\n    small_features[22+a]=fourth/(300*scale*scale*scale*scale)-3;\n    small_features[25+a]=energy; small_features[28+a]=crossings/300.0f;\n  }\n}\n\nvoid setup(){tally_probe_setup();}\nvoid loop(){\n  tally_probe_loop();\n  unsigned row=micros()%300;\n  for(unsigned a=0;a<3;++a)small_ring[row][a]=(float)analogRead(A0+a)/1024.0f;\n  small_features[0]=3.0f; small_window_features();\n  Serial.println(form_rep_predict(small_features),6);\n  Serial.println(form_window_predict(small_features+1),6);\n}\n",
+    "scope": "Real board-core link of existing tally sketch/paired model plus both small models, actual statistic extraction and an additional single-sensor ring. Resource probe only; no physical validation or production model substitution.",
+    "linked_flash_bytes": 96164,
+    "flash_limit_bytes": 262144,
+    "linked_static_ram_bytes": 22824,
+    "ram_limit_bytes": 32768,
+    "flash_headroom_bytes": 165980,
+    "conservative_entire_probe_within_model_ceiling": true
+  }
+}

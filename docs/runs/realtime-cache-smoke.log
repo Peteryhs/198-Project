@@ -1,0 +1,20 @@
+status=smoke-test only; source=cached features (clipping cannot be reconstructed); series=12 repetitions=302 subjects=2; sensor=all; seed=0
+| Task / approach (recording-level LOSO) | Accuracy | Majority-class floor | Train-majority baseline |
+| --- | ---: | ---: | ---: |
+| Quality / weighted linear | 0.500000 | 0.500000 | 0.500000 |
+| Quality / original unweighted linear | 0.416667 | 0.500000 | 0.500000 |
+| Quality / duration only | 0.500000 | 0.500000 | 0.500000 |
+| Exercise / weighted linear | 0.583333 | 0.333333 | 0.333333 |
+| Exercise / quality | Accuracy | Majority-class floor |
+| --- | ---: | ---: |
+| EAH | 0.750000 | 0.500000 |
+| EFE | 0.250000 | 0.500000 |
+| SQZ | 0.500000 | 0.500000 |
+| Held subject | Quality accuracy | Quality floor | Exercise accuracy | Exercise floor |
+| --- | ---: | ---: | ---: | ---: |
+| A01 | 0.333333 | 0.500000 | 0.666667 | 0.333333 |
+| B01 | 0.666667 | 0.500000 | 0.500000 | 0.333333 |
+| Training subjects / quality learning curve | Accuracy | Train-majority floor |
+| --- | ---: | ---: |
+| 1 | 0.500000 | 0.500000 |
+Exported bounded linear model and fold results to /tmp/tally-cache-smoke

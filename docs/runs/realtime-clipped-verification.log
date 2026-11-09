@@ -1,0 +1,25 @@
+{
+  "series": 1368,
+  "repetitions": 24634,
+  "max_exercise_probability_error": 8.517581172595712e-07,
+  "max_quality_probability_error": 7.322665985243226e-07,
+  "implementation_rep_class_differences": 0,
+  "series_quality_decision_differences": 0,
+  "series_exercise_decision_differences": 0,
+  "interpretation": "class differences compare C against sklearn implementation only; repetition correctness has no ground truth",
+  "error_category": "not enough evidence to say",
+  "coefficient_max_abs_errors": {
+    "exercise_coef": 0.0,
+    "exercise_intercept": 0.0,
+    "quality_coef": 0.0,
+    "quality_intercept": 0.0
+  },
+  "coefficient_float32_bytes_excluding_class_labels": 512,
+  "header_bytes": 3001,
+  "npz_bytes": 1617,
+  "host_compile_command": "cc -shared -fPIC -O2 -I model/realtime-linear-clipped /tmp/verify-linear-rf8tx5mr/wrapper.c -lm -o /tmp/verify-linear-rf8tx5mr/wrapper.so",
+  "arm_compile_command": "clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -I /tmp/verify-linear-rf8tx5mr -I model/realtime-linear-clipped -c /tmp/verify-linear-rf8tx5mr/wrapper.c -o /tmp/verify-linear-rf8tx5mr/arm.o",
+  "arm_object_sections": "/tmp/verify-linear-rf8tx5mr/arm.o  :\nsection                            size   addr\n.text                                 0      0\n.text.predict                         4      0\n.ARM.exidx.text.predict               8      0\n.text.rt_predict_rep                324      0\n.ARM.exidx.text.rt_predict_rep        8      0\n.text.error_category                  8      0\n.ARM.exidx.text.error_category        8      0\n.rodata.rt_exercise_intercept        12      0\n.rodata.rt_exercise_coef            372      0\n.rodata.rt_quality_coef             124      0\n.rodata.str1.1                       27      0\n.comment                             45      0\n.note.GNU-stack                       0      0\n.ARM.attributes                      73      0\n.llvm_addrsig                         0      0\nTotal                              1013\n\n\n",
+  "arm_size_command": "llvm-size -A /tmp/verify-linear-rf8tx5mr/arm.o",
+  "arm_measurement_scope": "unlinked Cortex-M4 object; expf unresolved; excludes board/core/libm/runtime"
+}

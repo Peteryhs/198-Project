@@ -1,0 +1,26 @@
+$ /tmp/tally-round2-env/bin/python scripts/test_streaming_pipeline.py (adds 0, 0.1 and 3g constant-axis regression)
+C/Python 61-statistic parity, prefix causality, idle overflow, timestamp gap and NaN rejection passed
+sizeof(PairStream) host bytes: 14452
+$ OPENBLAS_NUM_THREADS=1 /tmp/tally-round2-env/bin/python scripts/verify_paired_export.py data/phytmo/inertial/upper --causal --model model/paired-synchronized-causal
+{
+  "model": "model/paired-synchronized-causal/L",
+  "coefficient_errors": {
+    "quality_coef": 0.0,
+    "quality_intercept": 0.0,
+    "exercise_coef": 0.0,
+    "exercise_intercept": 0.0
+  },
+  "max_probability_error": 1.1176542424884417e-06,
+  "series_decision_differences": 0
+}
+{
+  "model": "model/paired-synchronized-causal/R",
+  "coefficient_errors": {
+    "quality_coef": 0.0,
+    "quality_intercept": 0.0,
+    "exercise_coef": 0.0,
+    "exercise_intercept": 0.0
+  },
+  "max_probability_error": 9.611880746329682e-07,
+  "series_decision_differences": 0
+}

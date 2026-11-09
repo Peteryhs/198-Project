@@ -1,0 +1,169 @@
+RUN test_modelling_environment
+Python 3.12; requirements/project/lock agree: {'numpy': '2.3.4', 'scipy': '1.16.3', 'scikit-learn': '1.7.2'}
+mismatched installed versions fail before fitting with repair command
+RUN test_realtime_pipeline
+raw timestamps: duplicates=1, maximum gap=0.039548397 s; nominal 100 Hz, no resampling
+realtime pipeline assertions passed
+RUN test_paired_pipeline
+pair alignment, duplicate averaging, shared boundaries, feature order and gap rejection passed
+RUN test_streaming_pipeline
+C/Python 61-statistic parity, prefix causality, idle overflow, timestamp gap and NaN rejection passed
+sizeof(PairStream) host bytes: 14452
+RUN test_paired_runtime
+L integrated runtime parity passed; cycles 11 sizeof(PairRuntime) 14472
+R integrated runtime parity passed; cycles 11 sizeof(PairRuntime) 14472
+L-forearm integrated runtime parity passed; cycles 11 sizeof(PairRuntime) 14472
+L-pair integrated runtime parity passed; cycles 11 sizeof(PairRuntime) 14472
+L-upper integrated runtime parity passed; cycles 11 sizeof(PairRuntime) 14472
+R-forearm integrated runtime parity passed; cycles 11 sizeof(PairRuntime) 14472
+R-pair integrated runtime parity passed; cycles 11 sizeof(PairRuntime) 14472
+R-upper integrated runtime parity passed; cycles 11 sizeof(PairRuntime) 14472
+RUN test_augmentation_pipeline
+augmentation math, deterministic lineage keys, config refusal, clipping and LOSO split checks passed
+RUN test_augmentation_fidelity
+Fidelity diagnostics: analytic 1 Hz, rigid-rotation magnitude invariance, pair relation, rail fractions, constant/invalid edge cases passed
+RUN test_placement_replay
+placement replay schema, static/analytic acceleration, centripetal offset, gap and boundary checks passed
+RUN test_calibrated_replay
+calibrated replay synthetic recovery, timing, gravity/frame, surface, gap and immutability checks passed
+RUN test_phase4_reference_data
+PHYTMO reference selection checks passed
+RUN test_placement_model_sweep
+placement_model_sweep tests passed
+RUN test_anatomical_reference
+Anatomy constraint checks: known fixed/shared center recovery, mobile joint, hinge-axis non-identifiability and missing-data rejection passed
+RUN test_feedback
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 0.077s
+
+OK
+RUN test_clock_reconstruction_audit
+Split clock checks passed: known offset/origins/crops, local means, future mismatch, periodic ambiguity, gaps, units and golden waveform metrics
+RUN test_sensor_location_followup
+Sensor-location follow-up checks: exact split-half center recovery, A03 normalization and filename rejection passed
+RUN test_audit_phase4_reporting
+independent reporting-audit known-value checks passed
+RUN verify_round2
+{
+  "model": "model/paired-synchronized-offline/L",
+  "coefficient_errors": {
+    "quality_coef": 0.0,
+    "quality_intercept": 0.0,
+    "exercise_coef": 0.0,
+    "exercise_intercept": 0.0
+  },
+  "max_probability_error": 8.752523740218621e-07,
+  "series_decision_differences": 0
+}
+stored LOSO predictions unchanged model/paired-synchronized-offline/L: quality=0.910299 / majority=0.501661; exercise=0.980066 / majority=0.345515
+{
+  "model": "model/paired-synchronized-offline/R",
+  "coefficient_errors": {
+    "quality_coef": 0.0,
+    "quality_intercept": 0.0,
+    "exercise_coef": 0.0,
+    "exercise_intercept": 0.0
+  },
+  "max_probability_error": 8.260868219478468e-07,
+  "series_decision_differences": 0
+}
+stored LOSO predictions unchanged model/paired-synchronized-offline/R: quality=0.888889 / majority=0.506536; exercise=0.964052 / majority=0.339869
+{
+  "model": "model/paired-synchronized-causal/L",
+  "coefficient_errors": {
+    "quality_coef": 0.0,
+    "quality_intercept": 0.0,
+    "exercise_coef": 0.0,
+    "exercise_intercept": 0.0
+  },
+  "max_probability_error": 1.1176542424884417e-06,
+  "series_decision_differences": 0
+}
+stored LOSO predictions unchanged model/paired-synchronized-causal/L: quality=0.923588 / majority=0.501661; exercise=0.980066 / majority=0.345515
+{
+  "model": "model/paired-synchronized-causal/R",
+  "coefficient_errors": {
+    "quality_coef": 0.0,
+    "quality_intercept": 0.0,
+    "exercise_coef": 0.0,
+    "exercise_intercept": 0.0
+  },
+  "max_probability_error": 9.611880746329682e-07,
+  "series_decision_differences": 0
+}
+stored LOSO predictions unchanged model/paired-synchronized-causal/R: quality=0.898693 / majority=0.506536; exercise=0.970588 / majority=0.339869
+{
+  "model": "model/placement-controls/L-pair",
+  "coefficient_errors": {
+    "quality_coef": 0.0,
+    "quality_intercept": 0.0,
+    "exercise_coef": 0.0,
+    "exercise_intercept": 0.0
+  },
+  "max_probability_error": 8.425027795966322e-07,
+  "series_decision_differences": 0
+}
+stored LOSO predictions unchanged model/placement-controls/L-pair: quality=0.910781 / majority=0.505576; exercise=0.977695 / majority=0.338290
+{
+  "model": "model/placement-controls/L-upper",
+  "coefficient_errors": {
+    "quality_coef": 0.0,
+    "quality_intercept": 0.0,
+    "exercise_coef": 0.0,
+    "exercise_intercept": 0.0
+  },
+  "max_probability_error": 1.4083160250200066e-06,
+  "series_decision_differences": 0
+}
+stored LOSO predictions unchanged model/placement-controls/L-upper: quality=0.888476 / majority=0.505576; exercise=0.951673 / majority=0.338290
+{
+  "model": "model/placement-controls/L-forearm",
+  "coefficient_errors": {
+    "quality_coef": 0.0,
+    "quality_intercept": 0.0,
+    "exercise_coef": 0.0,
+    "exercise_intercept": 0.0
+  },
+  "max_probability_error": 7.431601857232906e-07,
+  "series_decision_differences": 0
+}
+stored LOSO predictions unchanged model/placement-controls/L-forearm: quality=0.869888 / majority=0.505576; exercise=0.962825 / majority=0.338290
+{
+  "model": "model/placement-controls/R-pair",
+  "coefficient_errors": {
+    "quality_coef": 0.0,
+    "quality_intercept": 0.0,
+    "exercise_coef": 0.0,
+    "exercise_intercept": 0.0
+  },
+  "max_probability_error": 8.128637123405724e-07,
+  "series_decision_differences": 0
+}
+stored LOSO predictions unchanged model/placement-controls/R-pair: quality=0.907063 / majority=0.505576; exercise=0.973978 / majority=0.338290
+{
+  "model": "model/placement-controls/R-upper",
+  "coefficient_errors": {
+    "quality_coef": 0.0,
+    "quality_intercept": 0.0,
+    "exercise_coef": 0.0,
+    "exercise_intercept": 0.0
+  },
+  "max_probability_error": 9.143962221291879e-07,
+  "series_decision_differences": 0
+}
+stored LOSO predictions unchanged model/placement-controls/R-upper: quality=0.873606 / majority=0.505576; exercise=0.955390 / majority=0.338290
+{
+  "model": "model/placement-controls/R-forearm",
+  "coefficient_errors": {
+    "quality_coef": 0.0,
+    "quality_intercept": 0.0,
+    "exercise_coef": 0.0,
+    "exercise_intercept": 0.0
+  },
+  "max_probability_error": 7.942187413845225e-07,
+  "series_decision_differences": 0
+}
+stored LOSO predictions unchanged model/placement-controls/R-forearm: quality=0.884758 / majority=0.505576; exercise=0.970260 / majority=0.338290
+All 10 valid models: exact saved coefficients, C probability parity and every LOSO series decision verified.
+All 17 post-fix numerical, causal-runtime, reconstruction and export checks passed; historical Phase4 verified separately with explicit source ref

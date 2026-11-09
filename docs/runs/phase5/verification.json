@@ -1,0 +1,10 @@
+{
+  "source_versions": "matched",
+  "matched_baseline_and_cohorts": "unchanged",
+  "fold_exclusion": "passed",
+  "timing_screens_and_summary": "independently reproduced",
+  "late_raw_source_metrics": "reproduced",
+  "fit_score_boundary_max_error_g": 4.440892098500626e-15,
+  "physical_validation": "still failed",
+  "accepted_models": "verified separately by verify_round2.py"
+}

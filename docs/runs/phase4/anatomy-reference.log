@@ -1,0 +1,23 @@
+{
+  "people": 30,
+  "rows": 60,
+  "rejected": 0,
+  "summary": {
+    "shoulder_fixed_world_hypothesis": {
+      "fits": 60,
+      "passed_engineering_screens": 22,
+      "rank_counts": {
+        "6": 60
+      },
+      "median_constraint_rms_m": 0.02303102915107918
+    },
+    "elbow_shared_point_hypothesis": {
+      "fits": 60,
+      "passed_engineering_screens": 54,
+      "rank_counts": {
+        "6": 60
+      },
+      "median_constraint_rms_m": 0.007878828141182095
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "calibration": {
+    "primary_train_mapped": {
+      "records": 611,
+      "people": 30,
+      "baseline_median_rmse_g": 0.3840605630656959,
+      "calibrated_median_rmse_g": 0.3595075130183099,
+      "median_rmse_reduction_percent": 6.393015167033966
+    },
+    "oracle_diagnostic": {
+      "records": 571,
+      "people": 30,
+      "baseline_median_rmse_g": 0.10866649947080392,
+      "calibrated_median_rmse_g": 0.13424951385084702,
+      "median_rmse_reduction_percent": -23.54268749304531
+    }
+  },
+  "example": {
+    "path": "data/phase4-cache/example-A01-EAH-0-L-upper-primary.npz",
+    "metadata": {
+      "person": "A01",
+      "exercise": "EAH",
+      "quality": 0,
+      "side": "L",
+      "segment": "upper",
+      "optical_path": "data/phytmo/optical raw/rigid_bodies/upper/A/A01EAH0_1.csv",
+      "inertial_path": "data/phytmo/inertial/upper/A/Larm/A01EAH0_1.csv"
+    },
+    "selection": "lexicographically first available primary-track cache"
+  },
+  "plotting_environment": {
+    "matplotlib": "3.11.0",
+    "numpy": "2.3.5"
+  },
+  "interpretation": "Plots summarize saved evidence only; no new model fits or site selection"
+}

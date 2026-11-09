@@ -1,0 +1,87 @@
+$ /tmp/tally-round2-env/bin/python scripts/audit_pair_timing.py data/phytmo/inertial/upper
+{
+  "L": {
+    "eah_pairs": 116,
+    "median_absolute_uptime_start_offset_s": 1.429543256499997,
+    "median_absolute_relative_duration_difference_s": 0.0018613340000079859,
+    "median_absolute_relative_grid_gyro_lag_s": 0.02,
+    "median_relative_grid_gyro_correlation": 0.8933474850159475
+  },
+  "R": {
+    "eah_pairs": 116,
+    "median_absolute_uptime_start_offset_s": 1.6070137024999962,
+    "median_absolute_relative_duration_difference_s": 0.003006934999991273,
+    "median_absolute_relative_grid_gyro_lag_s": 0.02,
+    "median_relative_grid_gyro_correlation": 0.8816906101356787
+  }
+}
+Clock decision: use author-synchronized recording starts and within-file relative timestamps, never raw device uptime. No per-record lag fitting or gyro model features.
+$ /tmp/tally-round2-env/bin/python scripts/test_paired_pipeline.py
+pair alignment, duplicate averaging, shared boundaries, feature order and gap rejection passed
+$ OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 /tmp/tally-round2-env/bin/python scripts/paired_pipeline.py data/phytmo/inertial/upper
+{
+  "source": "real recordings; L upper arm + forearm; \u00b13 g; offline common boundaries",
+  "subjects": 30,
+  "series": 301,
+  "cycles": 5190,
+  "features": 61,
+  "quality_accuracy": 0.9102990033222591,
+  "quality_majority_floor": 0.5016611295681063,
+  "exercise_accuracy": 0.9800664451827242,
+  "exercise_majority_floor": 0.34551495016611294,
+  "quality_train_majority": 0.4684385382059801,
+  "exercise_train_majority": 0.33222591362126247,
+  "parameter_bytes": 992,
+  "protocol": "fixed C=1; weighted per series; LOSO; series-level labels only; no held-out tuning"
+}
+rejected: 41
+{
+  "source": "real recordings; R upper arm + forearm; \u00b13 g; offline common boundaries",
+  "subjects": 30,
+  "series": 306,
+  "cycles": 5265,
+  "features": 61,
+  "quality_accuracy": 0.8888888888888888,
+  "quality_majority_floor": 0.5065359477124183,
+  "exercise_accuracy": 0.9640522875816994,
+  "exercise_majority_floor": 0.33986928104575165,
+  "quality_train_majority": 0.5065359477124183,
+  "exercise_train_majority": 0.30392156862745096,
+  "parameter_bytes": 992,
+  "protocol": "fixed C=1; weighted per series; LOSO; series-level labels only; no held-out tuning"
+}
+rejected: 36
+$ OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 /tmp/tally-round2-env/bin/python scripts/streaming_pipeline.py data/phytmo/inertial/upper
+{
+  "source": "real recordings; L pair; \u00b13 g; actual C causal detector + features",
+  "subjects": 30,
+  "series": 301,
+  "cycles": 6998,
+  "features": 61,
+  "quality_accuracy": 0.9235880398671097,
+  "quality_majority_floor": 0.5016611295681063,
+  "exercise_accuracy": 0.9800664451827242,
+  "exercise_majority_floor": 0.34551495016611294,
+  "quality_train_majority": 0.4684385382059801,
+  "exercise_train_majority": 0.33222591362126247,
+  "parameter_bytes": 992,
+  "protocol": "fixed C=1; weighted per series; LOSO; series-level labels only; no held-out tuning"
+}
+rejected: 41
+{
+  "source": "real recordings; R pair; \u00b13 g; actual C causal detector + features",
+  "subjects": 30,
+  "series": 306,
+  "cycles": 7169,
+  "features": 61,
+  "quality_accuracy": 0.8986928104575164,
+  "quality_majority_floor": 0.5065359477124183,
+  "exercise_accuracy": 0.9705882352941176,
+  "exercise_majority_floor": 0.33986928104575165,
+  "quality_train_majority": 0.5065359477124183,
+  "exercise_train_majority": 0.30392156862745096,
+  "parameter_bytes": 992,
+  "protocol": "fixed C=1; weighted per series; LOSO; series-level labels only; no held-out tuning"
+}
+rejected: 36
+C buffer overflows (cycles discarded): 54

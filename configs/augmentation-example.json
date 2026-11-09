@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "seed": 20261107,
+  "augmentation_count": 1,
+  "sample_rate_hz": 100.0,
+  "bias_g": [0.02, -0.02, 0.02],
+  "gain": [1.0, 1.0, 1.0],
+  "noise_std_g": 0.001,
+  "lowpass_hz": 20.0,
+  "orientation": {"max_degrees": 15.0},
+  "quantization_step_g": 0.001017,
+  "clip_g": 3.0
+}

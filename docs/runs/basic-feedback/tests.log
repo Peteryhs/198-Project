@@ -1,0 +1,59 @@
+Host verification 2026-11-08T04:00:29.922086+00:00
+$ /tmp/tally-round2-env/bin/python scripts/test_modelling_environment.py
+Python 3.12; requirements/project/lock agree: {'numpy': '2.3.4', 'scipy': '1.16.3', 'scikit-learn': '1.7.2'}
+mismatched installed versions fail before fitting with repair command
+$ /tmp/tally-round2-env/bin/python scripts/test_feedback.py
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 0.090s
+
+OK
+$ /tmp/tally-round2-env/bin/python scripts/test_streaming_pipeline.py
+C/Python 61-statistic parity, prefix causality, idle overflow, timestamp gap and NaN rejection passed
+sizeof(PairStream) host bytes: 14452
+$ /tmp/tally-round2-env/bin/python scripts/test_paired_runtime.py
+L integrated runtime parity passed; cycles 11 sizeof(PairRuntime) 14472
+R integrated runtime parity passed; cycles 11 sizeof(PairRuntime) 14472
+L-forearm integrated runtime parity passed; cycles 11 sizeof(PairRuntime) 14472
+L-pair integrated runtime parity passed; cycles 11 sizeof(PairRuntime) 14472
+L-upper integrated runtime parity passed; cycles 11 sizeof(PairRuntime) 14472
+R-forearm integrated runtime parity passed; cycles 11 sizeof(PairRuntime) 14472
+R-pair integrated runtime parity passed; cycles 11 sizeof(PairRuntime) 14472
+R-upper integrated runtime parity passed; cycles 11 sizeof(PairRuntime) 14472
+$ /tmp/tally-round2-env/bin/python scripts/test_tally_app.py
+$ cc -std=c99 -O1 -g -Wall -Wextra -Werror -I /home/peter/work/198-Project/model/application -I /home/peter/work/198-Project/model/paired-synchronized-causal/L /home/peter/work/198-Project/tests/tally_app_test.c /home/peter/work/198-Project/hardware/198project/tally_processing.c -lm -o /tmp/tally-app-test-ij3qoe9n/tests
+synthetic duration=1.000 cue=Faster than target (fixture only)
+synthetic duration=3.000 cue=Slower than target (fixture only)
+synthetic duration=2.000 cue=Pace on target (fixture only)
+synthetic duration=1.800 cue=Pace on target (fixture only)
+synthetic duration=2.200 cue=Pace on target (fixture only)
+app/direct parity: cadence mode=8 (0=alternating 8/12 ms) cycles=11 quality=0.978728 no real timing cues
+app/direct parity: cadence mode=10 (0=alternating 8/12 ms) cycles=11 quality=0.978728 no real timing cues
+app/direct parity: cadence mode=12 (0=alternating 8/12 ms) cycles=11 quality=0.978728 no real timing cues
+app/direct parity: cadence mode=0 (0=alternating 8/12 ms) cycles=11 quality=0.978728 no real timing cues
+lifecycle, partial cycles, insufficient cycles, pause pooling, reset, faults and clock wrap passed
+All Tally application tests passed.
+Arduino declaration-stub host tests: configuration, lifecycle, strict parsing, fault suppression passed (not Arduino core/hardware).
+$ /tmp/tally-round2-env/bin/python scripts/test_tally_replay.py
+.......
+----------------------------------------------------------------------
+Ran 7 tests in 0.450s
+
+OK
+
+Final additional Serial/direct parity regression:
+$ /tmp/tally-round2-env/bin/python scripts/test_tally_app.py
+$ cc -std=c99 -O1 -g -Wall -Wextra -Werror -I /home/peter/work/198-Project/model/application -I /home/peter/work/198-Project/model/paired-synchronized-causal/L /home/peter/work/198-Project/tests/tally_app_test.c /home/peter/work/198-Project/hardware/198project/tally_processing.c -lm -o /tmp/tally-app-test-yqwp7zf2/tests
+synthetic duration=1.000 cue=Faster than target (fixture only)
+synthetic duration=3.000 cue=Slower than target (fixture only)
+synthetic duration=2.000 cue=Pace on target (fixture only)
+synthetic duration=1.800 cue=Pace on target (fixture only)
+synthetic duration=2.200 cue=Pace on target (fixture only)
+app/direct parity: cadence mode=8 (0=alternating 8/12 ms) cycles=11 quality=0.978728 no real timing cues
+app/direct parity: cadence mode=10 (0=alternating 8/12 ms) cycles=11 quality=0.978728 no real timing cues
+app/direct parity: cadence mode=12 (0=alternating 8/12 ms) cycles=11 quality=0.978728 no real timing cues
+app/direct parity: cadence mode=0 (0=alternating 8/12 ms) cycles=11 quality=0.978728 no real timing cues
+lifecycle, partial cycles, insufficient cycles, pause pooling, reset, faults and clock wrap passed
+All Tally application tests passed.
+Serial CSV ingestion matches direct application cycle statuses and pooled probabilities.
+Arduino declaration-stub host tests: configuration, lifecycle, strict parsing, fault suppression passed (not Arduino core/hardware).

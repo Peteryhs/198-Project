@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "protocol": {
+    "outer_split": "leave one volunteer out",
+    "fit_units": "shared by physical side and sensor segment; training volunteers only",
+    "clock_primary": "median gyro-derived event lag over training records in each side/segment; apply unchanged to held-out records",
+    "clock_oracle": "held-out gyro/optical rotation cross-correlation is diagnostic only and never used for primary scoring or calibration",
+    "basis": "published PHYTMO IMU-to-board basis, with train-fitted bounded correction",
+    "offset": "board-local rigid sensor origin fitted on training records",
+    "filter": "existing SG window 11, polynomial order 3; no fitted filter parameter",
+    "cohort": "same continuous optical/IMU spans and samples for baseline and calibrated waveform metrics"
+  },
+  "bounds": {
+    "rotation_correction_deg": 25,
+    "origin_board_m_each_axis": 0.10,
+    "axis_gain": [0.8, 1.2],
+    "axis_bias_g": [-0.15, 0.15],
+    "segment_length_radius_m": {
+      "upper": [0.30, 0.045],
+      "forearm": [0.25, 0.035]
+    }
+  },
+  "timing": {
+    "max_relative_lag_search_s": 60,
+    "minimum_gyro_magnitude_correlation": 0.20,
+    "minimum_peak_margin": 0.02
+  },
+  "acceptance": {
+    "clock_residual_abs_p95_s_max": 0.01,
+    "minimum_heldout_clock_coverage": 0.95,
+    "minimum_transform_jacobian_rank": 12,
+    "minimum_dynamic_correlation": 0.70,
+    "maximum_dynamic_nrmse": 0.50,
+    "minimum_measured_dynamic_rms_g": 0.05,
+    "maximum_abs_axis_bias_g": 0.10,
+    "minimum_dynamic_rmse_improvement_fraction": 0.10,
+    "legacy_distribution_gate": {
+      "median_ratio_range": [0.75, 1.33],
+      "normalized_wasserstein_max": 0.5,
+      "statistics": ["envelope", "dominant_frequency", "peak", "duration", "high_frequency_fraction"]
+    }
+  },
+  "notes": [
+    "The legacy simulation gate remains unchanged; its unmatched 0/84 result is not a before/after effect estimate.",
+    "The held-out waveform gate applies only to matched original-site waveforms. A failed timing gate blocks validation claims even when oracle-assisted diagnostic errors improve.",
+    "No ADXL335 transfer correction is applied because these are NGIMU source recordings and no hardware reference capture exists."
+  ]
+}

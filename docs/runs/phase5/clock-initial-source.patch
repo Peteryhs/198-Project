@@ -1,0 +1,11 @@
+--- current/scripts/clock_reconstruction_audit.py
++++ initial/scripts/clock_reconstruction_audit.py
+@@ -30,7 +30,7 @@
+     t, values, grid = (np.asarray(x, float) for x in (t, values, grid))
+     if t.ndim != 1 or values.shape != t.shape or grid.ndim != 1 or len(t) < 2:
+         raise ValueError('expected >=2 timestamped scalar values and a 1D target grid')
+-    if not np.isfinite(t).all() or not np.isfinite(grid).all() or np.any(np.diff(t) <= 0):
++    if not np.isfinite(t).all() or np.any(np.diff(t) <= 0):
+         raise ValueError('timestamps must be finite and strictly increasing')
+     dt = float(np.median(np.diff(t)))
+     ix = np.flatnonzero(np.isfinite(values))

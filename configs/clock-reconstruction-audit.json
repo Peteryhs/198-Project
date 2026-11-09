@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "early_fraction": 0.4,
+  "late_start_fraction": 0.6,
+  "relative_search_seconds": 60.0,
+  "minimum_overlap_seconds": 5.0,
+  "minimum_overlap_fraction": 0.8,
+  "separate_peak_seconds": 0.5,
+  "screen_minimum_correlation": 0.8,
+  "screen_minimum_peak_margin": 0.05,
+  "screen_maximum_lag_disagreement_seconds": 0.01,
+  "scope": "reference-assisted timing diagnostic, not blind held-out calibration validation"
+}

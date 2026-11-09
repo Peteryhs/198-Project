@@ -1,0 +1,38 @@
+{
+  "models": {
+    "rep": {
+      "real_rows": 24632,
+      "max_absolute_probability_deviation": 1.8080669461628673e-07,
+      "predicted_label_agreement": 1.0,
+      "quantisation_step": null,
+      "storage": "float32 thresholds and leaf values; thresholds rounded downward",
+      "reference_input": "real extracted rows cast to the deployment float32 contract for both sklearn and C",
+      "series_predicted_label_agreement": 1.0
+    },
+    "window": {
+      "real_rows": 29871,
+      "max_absolute_probability_deviation": 2.3355989675621913e-07,
+      "predicted_label_agreement": 1.0,
+      "quantisation_step": null,
+      "storage": "float32 thresholds and leaf values; thresholds rounded downward",
+      "reference_input": "real extracted rows cast to the deployment float32 contract for both sklearn and C"
+    }
+  },
+  "host_compile_command": [
+    "cc",
+    "-std=c99",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-pedantic",
+    "-shared",
+    "-fPIC",
+    "-O2",
+    "/home/peter/work/198-Project/model/small/form_rep.c",
+    "/home/peter/work/198-Project/model/small/form_window.c",
+    "-lm",
+    "-o",
+    "/tmp/verify-small-kp2xv09_/small.so"
+  ],
+  "interpretation": "Implementation parity only: per-repetition ground truth does not exist."
+}

@@ -1,0 +1,1 @@
+Tiny GRU checks passed:424 parameters, sequence order, padding immunity, equal source weights, held-out mutation invariance, deterministic training and paired bootstrap

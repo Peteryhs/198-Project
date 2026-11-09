@@ -1,0 +1,160 @@
+{
+  "source": "real PHYTMO recordings; paired accelerations; augmentation applied to training subjects only",
+  "dataset_version": "PHYTMO Zenodo 6319979",
+  "pipeline_version": 1,
+  "side": "L",
+  "subjects": 30,
+  "series": 301,
+  "cycles": 6998,
+  "quality_majority_class_floor": 0.5016611295681063,
+  "exercise_majority_class_floor": 0.34551495016611294,
+  "training_fold_majority_floors": {
+    "quality": 0.4684385382059801,
+    "exercise": 0.33222591362126247
+  },
+  "real_only": {
+    "quality_accuracy": 0.9235880398671097,
+    "exercise_accuracy": 0.9800664451827242
+  },
+  "augmented_train_only": {
+    "quality_accuracy": 0.9235880398671097,
+    "exercise_accuracy": 0.9867109634551495,
+    "quality_subject_bootstrap_95_difference_interval": [
+      -0.013114754098360656,
+      0.013201320132013201
+    ],
+    "exercise_subject_bootstrap_95_difference_interval": [
+      0.0,
+      0.01644872546465172
+    ]
+  },
+  "config": {
+    "version": 1,
+    "seed": 20261107,
+    "augmentation_count": 1,
+    "sample_rate_hz": 100.0,
+    "bias_g": [
+      0.02,
+      -0.02,
+      0.02
+    ],
+    "gain": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "noise_std_g": 0.001,
+    "lowpass_hz": 20.0,
+    "orientation": {
+      "max_degrees": 15.0
+    },
+    "quantization_step_g": 0.001017,
+    "clip_g": 3.0
+  },
+  "config_sha256": "a8b178fd5d082abd5d417b7d8903d9e78c8d447782c8df3a1d4248c366a2865c",
+  "training": "fixed C=1 paired C pipeline, LOSO; each source series total weight 1, divided over its original and successfully transformed copies; transformed copies use training subjects only",
+  "held_out": "unaltered measured real series only; no tuning on held-out scores",
+  "split_audit": {
+    "method": "LOSO by source volunteer",
+    "fold_count": 30,
+    "all_30_subjects_tested": true,
+    "train_test_subject_overlap": [],
+    "training_subject_count_per_fold": 29
+  },
+  "validation": "series-level pseudo-labels only; no repetition ground truth; no anatomical or clinical error labels",
+  "provenance": {
+    "argv": [
+      "scripts/augmentation_pipeline.py",
+      "data/phytmo/inertial/upper",
+      "--config",
+      "configs/augmentation-example.json",
+      "--out",
+      "data/phase3-augmentation"
+    ],
+    "python": "3.12.14",
+    "numpy": "2.3.4",
+    "scipy": "1.16.3",
+    "scikit_learn": "1.7.2",
+    "seed": 20261107
+  }
+}
+{
+  "source": "real PHYTMO recordings; paired accelerations; augmentation applied to training subjects only",
+  "dataset_version": "PHYTMO Zenodo 6319979",
+  "pipeline_version": 1,
+  "side": "R",
+  "subjects": 30,
+  "series": 306,
+  "cycles": 7169,
+  "quality_majority_class_floor": 0.5065359477124183,
+  "exercise_majority_class_floor": 0.33986928104575165,
+  "training_fold_majority_floors": {
+    "quality": 0.5065359477124183,
+    "exercise": 0.30392156862745096
+  },
+  "real_only": {
+    "quality_accuracy": 0.8986928104575164,
+    "exercise_accuracy": 0.9705882352941176
+  },
+  "augmented_train_only": {
+    "quality_accuracy": 0.9019607843137255,
+    "exercise_accuracy": 0.9705882352941176,
+    "quality_subject_bootstrap_95_difference_interval": [
+      -0.006735148091080294,
+      0.016233766233766232
+    ],
+    "exercise_subject_bootstrap_95_difference_interval": [
+      0.0,
+      0.0
+    ]
+  },
+  "config": {
+    "version": 1,
+    "seed": 20261107,
+    "augmentation_count": 1,
+    "sample_rate_hz": 100.0,
+    "bias_g": [
+      0.02,
+      -0.02,
+      0.02
+    ],
+    "gain": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "noise_std_g": 0.001,
+    "lowpass_hz": 20.0,
+    "orientation": {
+      "max_degrees": 15.0
+    },
+    "quantization_step_g": 0.001017,
+    "clip_g": 3.0
+  },
+  "config_sha256": "a8b178fd5d082abd5d417b7d8903d9e78c8d447782c8df3a1d4248c366a2865c",
+  "training": "fixed C=1 paired C pipeline, LOSO; each source series total weight 1, divided over its original and successfully transformed copies; transformed copies use training subjects only",
+  "held_out": "unaltered measured real series only; no tuning on held-out scores",
+  "split_audit": {
+    "method": "LOSO by source volunteer",
+    "fold_count": 30,
+    "all_30_subjects_tested": true,
+    "train_test_subject_overlap": [],
+    "training_subject_count_per_fold": 29
+  },
+  "validation": "series-level pseudo-labels only; no repetition ground truth; no anatomical or clinical error labels",
+  "provenance": {
+    "argv": [
+      "scripts/augmentation_pipeline.py",
+      "data/phytmo/inertial/upper",
+      "--config",
+      "configs/augmentation-example.json",
+      "--out",
+      "data/phase3-augmentation"
+    ],
+    "python": "3.12.14",
+    "numpy": "2.3.4",
+    "scipy": "1.16.3",
+    "scikit_learn": "1.7.2",
+    "seed": 20261107
+  }
+}

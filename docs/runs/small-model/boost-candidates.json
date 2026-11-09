@@ -1,0 +1,635 @@
+{
+  "protocol": "LOSO over all 30 subjects, all training rows; repetition mean probability pooling; window per-row accuracy; input precision explicitly recorded per candidate",
+  "model": "HistGradientBoostingClassifier; defaults except reported params; early_stopping=False, min_samples_leaf=20, max_bins=255",
+  "candidates": [
+    {
+      "name": "rep-hgb-l7-n50-lr0.15-l20.0",
+      "kind": "rep",
+      "params": {
+        "max_iter": 50,
+        "max_leaf_nodes": 7,
+        "learning_rate": 0.15,
+        "l2_regularization": 0.0,
+        "early_stopping": false,
+        "random_state": 0
+      },
+      "accuracy": 0.8896198830409356,
+      "correct": 1217,
+      "n": 1368,
+      "per_exercise": {
+        "EAH": {
+          "accuracy": 0.9267241379310345,
+          "n": 464
+        },
+        "EFE": {
+          "accuracy": 0.8842592592592593,
+          "n": 432
+        },
+        "SQZ": {
+          "accuracy": 0.8580508474576272,
+          "n": 472
+        }
+      },
+      "nodes": 650,
+      "subjects": 30,
+      "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=2 .venv/bin/python scripts/small_boost_candidates.py --leaves 7 --iterations 50 100 200 --out tmp/boost-l7.json",
+      "input_precision": "float64",
+      "deployment_status": "exploratory; original float64 feature precision, not the shipped float32 contract"
+    },
+    {
+      "name": "rep-hgb-l7-n100-lr0.15-l20.0",
+      "kind": "rep",
+      "params": {
+        "max_iter": 100,
+        "max_leaf_nodes": 7,
+        "learning_rate": 0.15,
+        "l2_regularization": 0.0,
+        "early_stopping": false,
+        "random_state": 0
+      },
+      "accuracy": 0.8888888888888888,
+      "correct": 1216,
+      "n": 1368,
+      "per_exercise": {
+        "EAH": {
+          "accuracy": 0.9245689655172413,
+          "n": 464
+        },
+        "EFE": {
+          "accuracy": 0.8819444444444444,
+          "n": 432
+        },
+        "SQZ": {
+          "accuracy": 0.8601694915254238,
+          "n": 472
+        }
+      },
+      "nodes": 1300,
+      "subjects": 30,
+      "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=2 .venv/bin/python scripts/small_boost_candidates.py --leaves 7 --iterations 50 100 200 --out tmp/boost-l7.json",
+      "input_precision": "float64",
+      "deployment_status": "exploratory; original float64 feature precision, not the shipped float32 contract"
+    },
+    {
+      "name": "rep-hgb-l7-n200-lr0.15-l20.0",
+      "kind": "rep",
+      "params": {
+        "max_iter": 200,
+        "max_leaf_nodes": 7,
+        "learning_rate": 0.15,
+        "l2_regularization": 0.0,
+        "early_stopping": false,
+        "random_state": 0
+      },
+      "accuracy": 0.8918128654970761,
+      "correct": 1220,
+      "n": 1368,
+      "per_exercise": {
+        "EAH": {
+          "accuracy": 0.9288793103448276,
+          "n": 464
+        },
+        "EFE": {
+          "accuracy": 0.8865740740740741,
+          "n": 432
+        },
+        "SQZ": {
+          "accuracy": 0.8601694915254238,
+          "n": 472
+        }
+      },
+      "nodes": 2600,
+      "subjects": 30,
+      "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=2 .venv/bin/python scripts/small_boost_candidates.py --leaves 7 --iterations 50 100 200 --out tmp/boost-l7.json",
+      "input_precision": "float64",
+      "deployment_status": "exploratory; original float64 feature precision, not the shipped float32 contract"
+    },
+    {
+      "name": "window-hgb-l7-n50-lr0.15-l20.0",
+      "kind": "window",
+      "params": {
+        "max_iter": 50,
+        "max_leaf_nodes": 7,
+        "learning_rate": 0.15,
+        "l2_regularization": 0.0,
+        "early_stopping": false,
+        "random_state": 0
+      },
+      "accuracy": 0.8051287201633691,
+      "correct": 24050,
+      "n": 29871,
+      "per_exercise": {
+        "EAH": {
+          "accuracy": 0.8378333053831963,
+          "n": 11926
+        },
+        "EFE": {
+          "accuracy": 0.80178671133445,
+          "n": 8955
+        },
+        "SQZ": {
+          "accuracy": 0.7650723025583982,
+          "n": 8990
+        }
+      },
+      "nodes": 650,
+      "subjects": 30,
+      "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=2 .venv/bin/python scripts/small_boost_candidates.py --leaves 7 --iterations 50 100 200 --out tmp/boost-l7.json",
+      "input_precision": "float64",
+      "deployment_status": "exploratory; original float64 feature precision, not the shipped float32 contract"
+    },
+    {
+      "name": "window-hgb-l7-n100-lr0.15-l20.0",
+      "kind": "window",
+      "params": {
+        "max_iter": 100,
+        "max_leaf_nodes": 7,
+        "learning_rate": 0.15,
+        "l2_regularization": 0.0,
+        "early_stopping": false,
+        "random_state": 0
+      },
+      "accuracy": 0.8071373573030699,
+      "correct": 24110,
+      "n": 29871,
+      "per_exercise": {
+        "EAH": {
+          "accuracy": 0.8433674325004192,
+          "n": 11926
+        },
+        "EFE": {
+          "accuracy": 0.8036850921273032,
+          "n": 8955
+        },
+        "SQZ": {
+          "accuracy": 0.7625139043381535,
+          "n": 8990
+        }
+      },
+      "nodes": 1300,
+      "subjects": 30,
+      "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=2 .venv/bin/python scripts/small_boost_candidates.py --leaves 7 --iterations 50 100 200 --out tmp/boost-l7.json",
+      "input_precision": "float64",
+      "deployment_status": "exploratory; original float64 feature precision, not the shipped float32 contract"
+    },
+    {
+      "name": "window-hgb-l7-n200-lr0.15-l20.0",
+      "kind": "window",
+      "params": {
+        "max_iter": 200,
+        "max_leaf_nodes": 7,
+        "learning_rate": 0.15,
+        "l2_regularization": 0.0,
+        "early_stopping": false,
+        "random_state": 0
+      },
+      "accuracy": 0.8105520404405611,
+      "correct": 24212,
+      "n": 29871,
+      "per_exercise": {
+        "EAH": {
+          "accuracy": 0.8454636927720945,
+          "n": 11926
+        },
+        "EFE": {
+          "accuracy": 0.8100502512562814,
+          "n": 8955
+        },
+        "SQZ": {
+          "accuracy": 0.7647385984427141,
+          "n": 8990
+        }
+      },
+      "nodes": 2600,
+      "subjects": 30,
+      "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=2 .venv/bin/python scripts/small_boost_candidates.py --leaves 7 --iterations 50 100 200 --out tmp/boost-l7.json",
+      "input_precision": "float64",
+      "deployment_status": "exploratory; original float64 feature precision, not the shipped float32 contract"
+    },
+    {
+      "name": "rep-hgb-l15-n50-lr0.15-l20.0",
+      "kind": "rep",
+      "params": {
+        "max_iter": 50,
+        "max_leaf_nodes": 15,
+        "learning_rate": 0.15,
+        "l2_regularization": 0.0,
+        "early_stopping": false,
+        "random_state": 0
+      },
+      "accuracy": 0.8940058479532164,
+      "correct": 1223,
+      "n": 1368,
+      "per_exercise": {
+        "EAH": {
+          "accuracy": 0.9288793103448276,
+          "n": 464
+        },
+        "EFE": {
+          "accuracy": 0.8888888888888888,
+          "n": 432
+        },
+        "SQZ": {
+          "accuracy": 0.864406779661017,
+          "n": 472
+        }
+      },
+      "nodes": 1450,
+      "subjects": 30,
+      "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=2 .venv/bin/python scripts/small_boost_candidates.py --leaves 15 --iterations 50 100 150 --out tmp/boost-l15.json",
+      "input_precision": "float64",
+      "deployment_status": "exploratory; original float64 feature precision, not the shipped float32 contract"
+    },
+    {
+      "name": "rep-hgb-l15-n100-lr0.15-l20.0",
+      "kind": "rep",
+      "params": {
+        "max_iter": 100,
+        "max_leaf_nodes": 15,
+        "learning_rate": 0.15,
+        "l2_regularization": 0.0,
+        "early_stopping": false,
+        "random_state": 0
+      },
+      "accuracy": 0.8918128654970761,
+      "correct": 1220,
+      "n": 1368,
+      "per_exercise": {
+        "EAH": {
+          "accuracy": 0.9353448275862069,
+          "n": 464
+        },
+        "EFE": {
+          "accuracy": 0.8842592592592593,
+          "n": 432
+        },
+        "SQZ": {
+          "accuracy": 0.8559322033898306,
+          "n": 472
+        }
+      },
+      "nodes": 2900,
+      "subjects": 30,
+      "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=2 .venv/bin/python scripts/small_boost_candidates.py --leaves 15 --iterations 50 100 150 --out tmp/boost-l15.json",
+      "input_precision": "float64",
+      "deployment_status": "exploratory; original float64 feature precision, not the shipped float32 contract"
+    },
+    {
+      "name": "rep-hgb-l15-n150-lr0.15-l20.0",
+      "kind": "rep",
+      "params": {
+        "max_iter": 150,
+        "max_leaf_nodes": 15,
+        "learning_rate": 0.15,
+        "l2_regularization": 0.0,
+        "early_stopping": false,
+        "random_state": 0
+      },
+      "accuracy": 0.8903508771929824,
+      "correct": 1218,
+      "n": 1368,
+      "per_exercise": {
+        "EAH": {
+          "accuracy": 0.9310344827586207,
+          "n": 464
+        },
+        "EFE": {
+          "accuracy": 0.8865740740740741,
+          "n": 432
+        },
+        "SQZ": {
+          "accuracy": 0.8538135593220338,
+          "n": 472
+        }
+      },
+      "nodes": 4350,
+      "subjects": 30,
+      "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=2 .venv/bin/python scripts/small_boost_candidates.py --leaves 15 --iterations 50 100 150 --out tmp/boost-l15.json",
+      "input_precision": "float64",
+      "deployment_status": "exploratory; original float64 feature precision, not the shipped float32 contract"
+    },
+    {
+      "name": "window-hgb-l15-n50-lr0.15-l20.0",
+      "kind": "window",
+      "params": {
+        "max_iter": 50,
+        "max_leaf_nodes": 15,
+        "learning_rate": 0.15,
+        "l2_regularization": 0.0,
+        "early_stopping": false,
+        "random_state": 0
+      },
+      "accuracy": 0.8092129490140939,
+      "correct": 24172,
+      "n": 29871,
+      "per_exercise": {
+        "EAH": {
+          "accuracy": 0.8398457152440046,
+          "n": 11926
+        },
+        "EFE": {
+          "accuracy": 0.8117252931323283,
+          "n": 8955
+        },
+        "SQZ": {
+          "accuracy": 0.7660734149054506,
+          "n": 8990
+        }
+      },
+      "nodes": 1450,
+      "subjects": 30,
+      "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=2 .venv/bin/python scripts/small_boost_candidates.py --leaves 15 --iterations 50 100 150 --out tmp/boost-l15.json",
+      "input_precision": "float64",
+      "deployment_status": "exploratory; original float64 feature precision, not the shipped float32 contract"
+    },
+    {
+      "name": "window-hgb-l15-n100-lr0.15-l20.0",
+      "kind": "window",
+      "params": {
+        "max_iter": 100,
+        "max_leaf_nodes": 15,
+        "learning_rate": 0.15,
+        "l2_regularization": 0.0,
+        "early_stopping": false,
+        "random_state": 0
+      },
+      "accuracy": 0.8107863814401929,
+      "correct": 24219,
+      "n": 29871,
+      "per_exercise": {
+        "EAH": {
+          "accuracy": 0.8403488177092068,
+          "n": 11926
+        },
+        "EFE": {
+          "accuracy": 0.8154103852596315,
+          "n": 8955
+        },
+        "SQZ": {
+          "accuracy": 0.7669632925472748,
+          "n": 8990
+        }
+      },
+      "nodes": 2900,
+      "subjects": 30,
+      "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=2 .venv/bin/python scripts/small_boost_candidates.py --leaves 15 --iterations 50 100 150 --out tmp/boost-l15.json",
+      "input_precision": "float64",
+      "deployment_status": "exploratory; original float64 feature precision, not the shipped float32 contract"
+    },
+    {
+      "name": "window-hgb-l15-n150-lr0.15-l20.0",
+      "kind": "window",
+      "params": {
+        "max_iter": 150,
+        "max_leaf_nodes": 15,
+        "learning_rate": 0.15,
+        "l2_regularization": 0.0,
+        "early_stopping": false,
+        "random_state": 0
+      },
+      "accuracy": 0.8101168357269593,
+      "correct": 24199,
+      "n": 29871,
+      "per_exercise": {
+        "EAH": {
+          "accuracy": 0.8421935267482811,
+          "n": 11926
+        },
+        "EFE": {
+          "accuracy": 0.8120603015075377,
+          "n": 8955
+        },
+        "SQZ": {
+          "accuracy": 0.7656284760845383,
+          "n": 8990
+        }
+      },
+      "nodes": 4350,
+      "subjects": 30,
+      "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=2 .venv/bin/python scripts/small_boost_candidates.py --leaves 15 --iterations 50 100 150 --out tmp/boost-l15.json",
+      "input_precision": "float64",
+      "deployment_status": "exploratory; original float64 feature precision, not the shipped float32 contract"
+    },
+    {
+      "name": "rep-hgb-l3-n25-lr0.15-l20.0",
+      "kind": "rep",
+      "params": {
+        "max_iter": 25,
+        "max_leaf_nodes": 3,
+        "learning_rate": 0.15,
+        "l2_regularization": 0.0,
+        "early_stopping": false,
+        "random_state": 0
+      },
+      "accuracy": 0.8662280701754386,
+      "correct": 1185,
+      "n": 1368,
+      "per_exercise": {
+        "EAH": {
+          "accuracy": 0.915948275862069,
+          "n": 464
+        },
+        "EFE": {
+          "accuracy": 0.8611111111111112,
+          "n": 432
+        },
+        "SQZ": {
+          "accuracy": 0.8220338983050848,
+          "n": 472
+        }
+      },
+      "nodes": 125,
+      "subjects": 30,
+      "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=2 .venv/bin/python scripts/small_boost_candidates.py --leaves 3 --iterations 25 50 100 --kinds rep --out tmp/boost-l3.json",
+      "input_precision": "float64",
+      "deployment_status": "exploratory; original float64 feature precision, not the shipped float32 contract"
+    },
+    {
+      "name": "rep-hgb-l3-n50-lr0.15-l20.0",
+      "kind": "rep",
+      "params": {
+        "max_iter": 50,
+        "max_leaf_nodes": 3,
+        "learning_rate": 0.15,
+        "l2_regularization": 0.0,
+        "early_stopping": false,
+        "random_state": 0
+      },
+      "accuracy": 0.8830409356725146,
+      "correct": 1208,
+      "n": 1368,
+      "per_exercise": {
+        "EAH": {
+          "accuracy": 0.9353448275862069,
+          "n": 464
+        },
+        "EFE": {
+          "accuracy": 0.875,
+          "n": 432
+        },
+        "SQZ": {
+          "accuracy": 0.8389830508474576,
+          "n": 472
+        }
+      },
+      "nodes": 250,
+      "subjects": 30,
+      "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=2 .venv/bin/python scripts/small_boost_candidates.py --leaves 3 --iterations 25 50 100 --kinds rep --out tmp/boost-l3.json",
+      "input_precision": "float64",
+      "deployment_status": "exploratory; original float64 feature precision, not the shipped float32 contract"
+    },
+    {
+      "name": "rep-hgb-l3-n100-lr0.15-l20.0",
+      "kind": "rep",
+      "params": {
+        "max_iter": 100,
+        "max_leaf_nodes": 3,
+        "learning_rate": 0.15,
+        "l2_regularization": 0.0,
+        "early_stopping": false,
+        "random_state": 0
+      },
+      "accuracy": 0.8910818713450293,
+      "correct": 1219,
+      "n": 1368,
+      "per_exercise": {
+        "EAH": {
+          "accuracy": 0.9375,
+          "n": 464
+        },
+        "EFE": {
+          "accuracy": 0.875,
+          "n": 432
+        },
+        "SQZ": {
+          "accuracy": 0.8601694915254238,
+          "n": 472
+        }
+      },
+      "nodes": 500,
+      "subjects": 30,
+      "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=2 .venv/bin/python scripts/small_boost_candidates.py --leaves 3 --iterations 25 50 100 --kinds rep --out tmp/boost-l3.json",
+      "input_precision": "float64",
+      "deployment_status": "exploratory; original float64 feature precision, not the shipped float32 contract"
+    },
+    {
+      "name": "rep-hgb-l7-n50-lr0.15-l20.0-f13",
+      "kind": "rep",
+      "params": {
+        "max_iter": 50,
+        "max_leaf_nodes": 7,
+        "learning_rate": 0.15,
+        "l2_regularization": 0.0,
+        "early_stopping": false,
+        "random_state": 0
+      },
+      "accuracy": 0.875,
+      "correct": 1197,
+      "n": 1368,
+      "per_exercise": {
+        "EAH": {
+          "accuracy": 0.8900862068965517,
+          "n": 464
+        },
+        "EFE": {
+          "accuracy": 0.8726851851851852,
+          "n": 432
+        },
+        "SQZ": {
+          "accuracy": 0.8622881355932204,
+          "n": 472
+        }
+      },
+      "nodes": 650,
+      "features": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        13,
+        14,
+        15,
+        28,
+        29,
+        30
+      ],
+      "subjects": 30,
+      "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=2 .venv/bin/python scripts/small_boost_candidates.py --leaves 7 --iterations 50 --kinds rep --features 0 1 2 3 4 5 6 13 14 15 28 29 30 --out tmp/boost-reduced.json",
+      "input_precision": "float64",
+      "deployment_status": "exploratory; original float64 feature precision, not the shipped float32 contract"
+    },
+    {
+      "name": "rep-hgb-l15-n50-lr0.15-l20.0-float32",
+      "kind": "rep",
+      "params": {
+        "max_iter": 50,
+        "max_leaf_nodes": 15,
+        "learning_rate": 0.15,
+        "l2_regularization": 0.0,
+        "early_stopping": false,
+        "random_state": 0
+      },
+      "accuracy": 0.8932748538011696,
+      "correct": 1222,
+      "n": 1368,
+      "per_exercise": {
+        "EAH": {
+          "accuracy": 0.9288793103448276,
+          "n": 464
+        },
+        "EFE": {
+          "accuracy": 0.8888888888888888,
+          "n": 432
+        },
+        "SQZ": {
+          "accuracy": 0.8622881355932204,
+          "n": 472
+        }
+      },
+      "nodes": 1450,
+      "features": null,
+      "input_precision": "float32",
+      "subjects": 30,
+      "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=2 .venv/bin/python scripts/small_boost_candidates.py --leaves 15 --iterations 50 --kinds rep --float32 --out tmp/boost-float32-rep.json",
+      "deployment_status": "selected deployment float32 fit"
+    },
+    {
+      "name": "window-hgb-l15-n100-lr0.15-l20.0-float32",
+      "kind": "window",
+      "params": {
+        "max_iter": 100,
+        "max_leaf_nodes": 15,
+        "learning_rate": 0.15,
+        "l2_regularization": 0.0,
+        "early_stopping": false,
+        "random_state": 0
+      },
+      "accuracy": 0.8107863814401929,
+      "correct": 24219,
+      "n": 29871,
+      "per_exercise": {
+        "EAH": {
+          "accuracy": 0.8403488177092068,
+          "n": 11926
+        },
+        "EFE": {
+          "accuracy": 0.8154103852596315,
+          "n": 8955
+        },
+        "SQZ": {
+          "accuracy": 0.7669632925472748,
+          "n": 8990
+        }
+      },
+      "nodes": 2900,
+      "features": null,
+      "input_precision": "float32",
+      "subjects": 30,
+      "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=2 .venv/bin/python scripts/small_boost_candidates.py --leaves 15 --iterations 100 --kinds window --float32 --out tmp/boost-float32-window.json",
+      "deployment_status": "selected deployment float32 fit"
+    }
+  ]
+}

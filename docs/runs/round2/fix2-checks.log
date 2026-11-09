@@ -1,0 +1,29 @@
+$ /tmp/tally-modelling-venv/bin/python scripts/test_streaming_pipeline.py
+C/Python 61-statistic parity, prefix causality, idle overflow, timestamp gap and NaN rejection passed
+sizeof(PairStream) host bytes: 14452
+$ OPENBLAS_NUM_THREADS=1 /tmp/tally-modelling-venv/bin/python scripts/test_paired_runtime.py
+L integrated runtime parity passed; cycles 11 sizeof(PairRuntime) 14472
+R integrated runtime parity passed; cycles 11 sizeof(PairRuntime) 14472
+$ OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 /tmp/tally-modelling-venv/bin/python scripts/verify_paired_export.py data/phytmo/inertial/upper --causal --model model/paired-causal
+{
+  "model": "model/paired-causal/L",
+  "coefficient_errors": {
+    "quality_coef": 0.0,
+    "quality_intercept": 0.0,
+    "exercise_coef": 0.0,
+    "exercise_intercept": 0.0
+  },
+  "max_probability_error": 1.0203219087956406e-06,
+  "series_decision_differences": 0
+}
+{
+  "model": "model/paired-causal/R",
+  "coefficient_errors": {
+    "quality_coef": 0.0,
+    "quality_intercept": 0.0,
+    "exercise_coef": 0.0,
+    "exercise_intercept": 0.0
+  },
+  "max_probability_error": 1.4460243947800322e-06,
+  "series_decision_differences": 0
+}

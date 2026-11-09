@@ -1,0 +1,27 @@
+{
+  "implementation_head": "b3741695a42fd1c827041e89c11b8d6e7cad90ec",
+  "source_sha256": {
+    "hardware/198project/198project.ino": "57bbe2792d5c36f11e28d92d69881c19ce5159126cb8c444f4b2c1771524d669",
+    "hardware/198project/tally_processing.c": "555374ac8c7ca7fd5e4d99aa031b6afacc875c4e73ee572873fa3815041ff168",
+    "model/application/tally_app.c": "ff236d952754f544baf53d4d5ec90f157d0db99fefe4ac1e013d2301aebfdf53",
+    "model/application/tally_app.h": "3e7d8150cd72c46d3c51424300775b90bd02dca3f889fc326c038a7fa3eb526b",
+    "model/feedback/feedback.c": "6b654f8c0a47aec6942e8da8b742d0fb3ac0cd4c3345c9543969d57e5f943c55",
+    "model/feedback/feedback.h": "f62a1737ccf31b2c9788ffb0f90bad406f43d6b02bf36b238d07187c29fb57f0",
+    "model/feedback/feedback_policy.c": "04c17fa62ea173718831ba908d4b6dd7245821be9ba725330b0603760980e749",
+    "model/feedback/feedback_policy.h": "bf73af9f5ee35c33d1ea9f9f87f05a276d653bacb4df974a2c742eed273bb5ea",
+    "model/streaming/paired_stream.c": "4d97af88d8831438d13f41173fa818391ba03197bd8108154021ee96e09af5ec",
+    "model/streaming/paired_runtime.c": "8de2d45ef2c9d831f06c9128de8eed7631f0122617c8b2b4ffab5b3b46da39d3",
+    "model/paired-synchronized-causal/L/realtime_model.h": "91eef1389292f184a751497018f64af4a00ef92d6af319f6631650ca4a8db2bc"
+  },
+  "tracked_protected_paths_unchanged_from_start": [
+    "data",
+    "model/paired-synchronized-causal",
+    "model/paired-synchronized-offline",
+    "model/placement-controls",
+    "docs/runs/round2",
+    "docs/runs/phase3",
+    "docs/runs/phase4",
+    "docs/runs/phase5",
+    "docs/runs/phase6-rnn"
+  ]
+}

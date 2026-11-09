@@ -1,0 +1,145 @@
+{
+  "scope": "internal reporting and pipeline arithmetic consistency only; not physical validation",
+  "known_value_checks": "passed",
+  "calibration": {
+    "tracks": {
+      "primary_train_mapped": {
+        "matched": 611,
+        "active_measured_rms_ge_0_05g": 591,
+        "quiet": 20,
+        "mean_active_dynamic_rmse_baseline_g": 0.42460026917629085,
+        "mean_active_dynamic_rmse_calibrated_g": 0.3892856551392375,
+        "active_dynamic_rmse_reduction_percent": 8.317143582024189,
+        "median_total_rmse_baseline_calibrated_g": [
+          0.3840605630656959,
+          0.3595075130183099
+        ],
+        "max_abs_calibrated_axis_bias_g_all_matched": 0.9018841587962211,
+        "dynamic_correlation_median_active": 0.12021172775185733,
+        "dynamic_nrmse_median_active": 1.1953121338491035,
+        "per_axis_median_correlation_baseline": [
+          0.1324386904855365,
+          0.09138520867004277,
+          0.10956569624832775
+        ],
+        "per_axis_median_correlation_calibrated": [
+          0.1340320667941541,
+          0.09862255124771271,
+          0.11963502389300616
+        ]
+      },
+      "oracle_diagnostic": {
+        "matched": 571,
+        "active_measured_rms_ge_0_05g": 380,
+        "quiet": 191,
+        "mean_active_dynamic_rmse_baseline_g": 0.19776446001167503,
+        "mean_active_dynamic_rmse_calibrated_g": 0.18916581610626337,
+        "active_dynamic_rmse_reduction_percent": 4.347921717028447,
+        "median_total_rmse_baseline_calibrated_g": [
+          0.10866649947080392,
+          0.13424951385084702
+        ],
+        "max_abs_calibrated_axis_bias_g_all_matched": 0.8663556582175821,
+        "dynamic_correlation_median_active": 0.685571778252581,
+        "dynamic_nrmse_median_active": 0.8239829250627139,
+        "per_axis_median_correlation_baseline": [
+          0.10652348202782663,
+          0.1593378866342133,
+          0.14443050732051402
+        ],
+        "per_axis_median_correlation_calibrated": [
+          0.10799892795911027,
+          0.15197734893726292,
+          0.14725050577598528
+        ]
+      }
+    },
+    "clock_coverage": 1.0,
+    "transform_count": 120,
+    "folds": 30,
+    "gate_passed": false,
+    "cache_numpy_golden_metrics": {
+      "baseline": {
+        "n_samples": 1799,
+        "rmse_g": 0.5589444842824004,
+        "bias_g": [
+          0.11159690571646333,
+          0.0932045525052904,
+          0.04049281433661413
+        ],
+        "correlation_xyz": [
+          -0.14926240424022397,
+          0.03798839192251523,
+          0.6036337871491992
+        ],
+        "dynamic_rmse_g": 0.5521099478494765,
+        "dynamic_nrmse": 1.323883917881618,
+        "dynamic_correlation": 0.011597880469190249,
+        "measured_dynamic_rms_g": 0.4170380351269185
+      },
+      "calibrated": {
+        "n_samples": 1799,
+        "rmse_g": 0.5143544252281202,
+        "bias_g": [
+          0.020600455494478025,
+          0.15042960253551524,
+          0.07723786201522823
+        ],
+        "correlation_xyz": [
+          -0.12584047169374113,
+          0.08108142028762509,
+          0.61974753597995
+        ],
+        "dynamic_rmse_g": 0.5048637746432177,
+        "dynamic_nrmse": 1.2105940756448534,
+        "dynamic_correlation": 0.021380411408938826,
+        "measured_dynamic_rms_g": 0.4170380351269185
+      }
+    },
+    "fit_input_alignment": {
+      "records_checked": 24,
+      "lag_s": 0.0037,
+      "max_boundary_discrepancy_g": 0.14747369275595018,
+      "median_record_max_discrepancy_g": 0.018648968839531405,
+      "mean_fraction_of_samples_differing": 0.0011105813034872783,
+      "interpretation": "Current fit preprocessing drops source samples just before/after the target grid before interpolation; np.interp then holds endpoint values. Differences are localized to chunk boundaries but can peak above 0.1 g in this sample."
+    }
+  },
+  "placement": {
+    "scenarios": 486,
+    "source_decisions": 83106,
+    "all_summaries_match_source_csv": true,
+    "zero_rotation_ranges": {
+      "L": {
+        "quality_series_label_agreement_all_denominator": [
+          0.4619883040935672,
+          0.5789473684210527
+        ],
+        "exercise_series_label_agreement_all_denominator": [
+          0.3684210526315789,
+          0.6608187134502924
+        ],
+        "coverage": [
+          0.7251461988304093,
+          0.7368421052631579
+        ]
+      },
+      "R": {
+        "quality_series_label_agreement_all_denominator": [
+          0.5847953216374269,
+          0.7485380116959064
+        ],
+        "exercise_series_label_agreement_all_denominator": [
+          0.6666666666666666,
+          0.8070175438596491
+        ],
+        "coverage": [
+          0.8830409356725146,
+          0.9064327485380117
+        ]
+      }
+    },
+    "calibration_gate_passed": false
+  },
+  "physical_correctness": "not established; clock and waveform calibration gates fail, virtual geometry and sensor registration remain assumptions"
+}

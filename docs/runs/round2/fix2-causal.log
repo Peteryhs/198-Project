@@ -1,0 +1,37 @@
+$ /tmp/tally-modelling-venv/bin/python scripts/test_streaming_pipeline.py
+C/Python 61-statistic parity, prefix causality, idle overflow, timestamp gap and NaN rejection passed
+sizeof(PairStream) host bytes: 14452
+$ OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 /tmp/tally-modelling-venv/bin/python scripts/streaming_pipeline.py data/phytmo/inertial/upper
+{
+  "source": "real recordings; L pair; \u00b13 g; actual C causal detector + features",
+  "subjects": 30,
+  "series": 301,
+  "cycles": 6732,
+  "features": 61,
+  "quality_accuracy": 0.9136212624584718,
+  "quality_majority_floor": 0.5016611295681063,
+  "exercise_accuracy": 0.9767441860465116,
+  "exercise_majority_floor": 0.34551495016611294,
+  "quality_train_majority": 0.4684385382059801,
+  "exercise_train_majority": 0.33222591362126247,
+  "parameter_bytes": 992,
+  "protocol": "fixed C=1; weighted per series; LOSO; series-level labels only; no held-out tuning"
+}
+rejected: 41
+{
+  "source": "real recordings; R pair; \u00b13 g; actual C causal detector + features",
+  "subjects": 30,
+  "series": 306,
+  "cycles": 6872,
+  "features": 61,
+  "quality_accuracy": 0.9084967320261438,
+  "quality_majority_floor": 0.5065359477124183,
+  "exercise_accuracy": 0.9705882352941176,
+  "exercise_majority_floor": 0.33986928104575165,
+  "quality_train_majority": 0.5065359477124183,
+  "exercise_train_majority": 0.30392156862745096,
+  "parameter_bytes": 992,
+  "protocol": "fixed C=1; weighted per series; LOSO; series-level labels only; no held-out tuning"
+}
+rejected: 36
+C buffer overflows (cycles discarded): 41

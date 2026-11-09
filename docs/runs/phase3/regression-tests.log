@@ -1,0 +1,29 @@
+$ /tmp/tally-round2-env/bin/python scripts/test_modelling_environment.py
+Python 3.12; requirements/project/lock agree: {'numpy': '2.3.4', 'scipy': '1.16.3', 'scikit-learn': '1.7.2'}
+mismatched installed versions fail before fitting with repair command
+$ /tmp/tally-round2-env/bin/python scripts/test_realtime_pipeline.py
+raw timestamps: duplicates=1, maximum gap=0.039548397 s; nominal 100 Hz, no resampling
+realtime pipeline assertions passed
+$ /tmp/tally-round2-env/bin/python scripts/test_paired_pipeline.py
+pair alignment, duplicate averaging, shared boundaries, feature order and gap rejection passed
+$ /tmp/tally-round2-env/bin/python scripts/test_streaming_pipeline.py
+C/Python 61-statistic parity, prefix causality, idle overflow, timestamp gap and NaN rejection passed
+sizeof(PairStream) host bytes: 14452
+$ /tmp/tally-round2-env/bin/python scripts/test_paired_runtime.py
+L integrated runtime parity passed; cycles 11 sizeof(PairRuntime) 14472
+R integrated runtime parity passed; cycles 11 sizeof(PairRuntime) 14472
+L-forearm integrated runtime parity passed; cycles 11 sizeof(PairRuntime) 14472
+L-pair integrated runtime parity passed; cycles 11 sizeof(PairRuntime) 14472
+L-upper integrated runtime parity passed; cycles 11 sizeof(PairRuntime) 14472
+R-forearm integrated runtime parity passed; cycles 11 sizeof(PairRuntime) 14472
+R-pair integrated runtime parity passed; cycles 11 sizeof(PairRuntime) 14472
+R-upper integrated runtime parity passed; cycles 11 sizeof(PairRuntime) 14472
+$ /tmp/tally-round2-env/bin/python scripts/test_limb_simulation.py
+MuJoCo 3.3.7: static 1g and analytic rotating/accelerating pendulum passed
+100 Hz ±3g filtered/noisy/quantized chain; same-kinematics weak counterfactual identical
+$ /tmp/tally-round2-env/bin/python scripts/test_optical_reference.py
+optical deterministic selection, XYZW/position parsing, 100 Hz, derivative and gravity checks passed
+$ /tmp/tally-round2-env/bin/python scripts/test_placement_experiment.py
+deterministic independent mount rotations preserve norms before clipping; common-cohort association passed
+$ /tmp/tally-round2-env/bin/python scripts/test_error_evidence.py
+held-out values cannot change references; multi-deviation evidence preserves explicit mechanism refusal

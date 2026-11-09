@@ -1,0 +1,2217 @@
+{
+  "selected_files": 30,
+  "comparisons": 39,
+  "rejected": [
+    {
+      "member": "optical interp/rigid_bodies/upper/A/A01EFE1_1_interp.csv",
+      "side": "R",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/A/A01SQZ0_1_interp.csv",
+      "side": "L",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/B/B01EAH1_1_interp.csv",
+      "side": "L",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/B/B01EAH1_1_interp.csv",
+      "side": "R",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/B/B01EFE1_1_interp.csv",
+      "side": "R",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/C/C01EAH1_1_interp.csv",
+      "side": "R",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/D/D01EAH0_1_interp.csv",
+      "side": "L",
+      "reason": "thigh2 lacks quaternion+position block"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/D/D01EAH0_1_interp.csv",
+      "side": "R",
+      "reason": "thigh lacks quaternion+position block"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/D/D01EAH1_1_interp.csv",
+      "side": "L",
+      "reason": "thigh2 lacks quaternion+position block"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/D/D01EAH1_1_interp.csv",
+      "side": "R",
+      "reason": "thigh lacks quaternion+position block"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/D/D01EFE0_1_interp.csv",
+      "side": "L",
+      "reason": "thigh2 lacks quaternion+position block"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/D/D01EFE0_1_interp.csv",
+      "side": "R",
+      "reason": "thigh lacks quaternion+position block"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/D/D01EFE1_1_interp.csv",
+      "side": "L",
+      "reason": "thigh2 lacks quaternion+position block"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/D/D01EFE1_1_interp.csv",
+      "side": "R",
+      "reason": "thigh lacks quaternion+position block"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/D/D01SQZ0_1_interp.csv",
+      "side": "L",
+      "reason": "thigh2 lacks quaternion+position block"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/D/D01SQZ0_1_interp.csv",
+      "side": "R",
+      "reason": "thigh lacks quaternion+position block"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/D/D01SQZ1_1_interp.csv",
+      "side": "L",
+      "reason": "thigh2 lacks quaternion+position block"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/D/D01SQZ1_1_interp.csv",
+      "side": "R",
+      "reason": "thigh lacks quaternion+position block"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/E/E01SQZ0_1_interp.csv",
+      "side": "L",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/E/E01SQZ0_1_interp.csv",
+      "side": "R",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/E/E01SQZ1_1_interp.csv",
+      "side": "L",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    }
+  ],
+  "http_bytes": 3432581,
+  "manifest": [
+    {
+      "member": "optical interp/rigid_bodies/upper/A/A01EAH0_1_interp.csv",
+      "bytes": 6855267,
+      "crc32": "70fba80b"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/A/A01EAH1_1_interp.csv",
+      "bytes": 4787548,
+      "crc32": "a21731bb"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/A/A01EFE0_1_interp.csv",
+      "bytes": 5324397,
+      "crc32": "bc40053c"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/A/A01EFE1_1_interp.csv",
+      "bytes": 5721805,
+      "crc32": "7b627706"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/A/A01SQZ0_1_interp.csv",
+      "bytes": 4970348,
+      "crc32": "f052af4b"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/A/A01SQZ1_1_interp.csv",
+      "bytes": 4062793,
+      "crc32": "782ea2d7"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/B/B01EAH0_1_interp.csv",
+      "bytes": 5608934,
+      "crc32": "231c5680"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/B/B01EAH1_1_interp.csv",
+      "bytes": 6469420,
+      "crc32": "72da3b71"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/B/B01EFE0_1_interp.csv",
+      "bytes": 4032995,
+      "crc32": "731c493b"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/B/B01EFE1_1_interp.csv",
+      "bytes": 6167486,
+      "crc32": "e6495228"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/B/B01SQZ0_1_interp.csv",
+      "bytes": 3664856,
+      "crc32": "19dcb9d1"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/B/B01SQZ1_1_interp.csv",
+      "bytes": 3938014,
+      "crc32": "9a5347fc"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/C/C01EAH0_1_interp.csv",
+      "bytes": 4441128,
+      "crc32": "cc18eda2"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/C/C01EAH1_1_interp.csv",
+      "bytes": 4515077,
+      "crc32": "62f289d1"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/C/C01EFE0_1_interp.csv",
+      "bytes": 4280786,
+      "crc32": "9d3928d4"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/C/C01EFE1_1_interp.csv",
+      "bytes": 2865286,
+      "crc32": "9c227b54"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/C/C01SQZ0_1_interp.csv",
+      "bytes": 3397403,
+      "crc32": "9e1d5bb0"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/C/C01SQZ1_1_interp.csv",
+      "bytes": 4171557,
+      "crc32": "f65f5041"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/D/D01EAH0_1_interp.csv",
+      "bytes": 11232105,
+      "crc32": "f0f9b40c"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/D/D01EAH1_1_interp.csv",
+      "bytes": 8695807,
+      "crc32": "52c36369"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/D/D01EFE0_1_interp.csv",
+      "bytes": 12891013,
+      "crc32": "2665264f"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/D/D01EFE1_1_interp.csv",
+      "bytes": 11751545,
+      "crc32": "6b5490c0"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/D/D01SQZ0_1_interp.csv",
+      "bytes": 7009278,
+      "crc32": "614044f7"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/D/D01SQZ1_1_interp.csv",
+      "bytes": 6883305,
+      "crc32": "f1f64d87"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/E/E01EAH0_1_interp.csv",
+      "bytes": 1807517,
+      "crc32": "c0399494"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/E/E01EAH1_1_interp.csv",
+      "bytes": 2307264,
+      "crc32": "c2168675"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/E/E01EFE0_1_interp.csv",
+      "bytes": 1327338,
+      "crc32": "7fda8413"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/E/E01EFE1_1_interp.csv",
+      "bytes": 2256253,
+      "crc32": "7383f863"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/E/E01SQZ0_1_interp.csv",
+      "bytes": 1741006,
+      "crc32": "72caa71b"
+    },
+    {
+      "member": "optical interp/rigid_bodies/upper/E/E01SQZ1_1_interp.csv",
+      "bytes": 2579471,
+      "crc32": "18ebdf11"
+    }
+  ],
+  "rows": [
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/A/A01EAH0_1_interp.csv",
+      "side": "L",
+      "scope": {
+        "total_frames": 8989,
+        "continuous_frames": 8989,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.39350878177946336,
+          "dominant_hz": 0.30000000000000004,
+          "peak_p50_g": 1.2299182935550457,
+          "peak_p90_g": 1.3582075230422133,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.5829999446868896,
+          "hf_fraction": 0.007427147897939531
+        },
+        {
+          "envelope_g": 0.6980913210253011,
+          "dominant_hz": 0.30000000000000004,
+          "peak_p50_g": 1.412174311295241,
+          "peak_p90_g": 1.5355027036598454,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.5829999446868896,
+          "hf_fraction": 0.005937786433871016
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.3332081916205243,
+          "dominant_hz": 1.0,
+          "peak_p50_g": 1.2280088992177505,
+          "peak_p90_g": 1.3114856672604769,
+          "duration_p50_s": 1.2249999046325684,
+          "duration_p90_s": 1.6279999017715454,
+          "hf_fraction": 0.009541098789866842
+        },
+        {
+          "envelope_g": 0.7153800483255283,
+          "dominant_hz": 0.30000000000000004,
+          "peak_p50_g": 1.519893157827322,
+          "peak_p90_g": 2.6364095329764217,
+          "duration_p50_s": 1.2249999046325684,
+          "duration_p90_s": 1.6279999017715454,
+          "hf_fraction": 0.05751884682139441
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/A/A01EAH0_1_interp.csv",
+      "side": "R",
+      "scope": {
+        "total_frames": 8989,
+        "continuous_frames": 8989,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.382535908230328,
+          "dominant_hz": 0.30000000000000004,
+          "peak_p50_g": 1.2471863342227292,
+          "peak_p90_g": 1.4276449353384426,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.5799999237060547,
+          "hf_fraction": 0.010110464241969132
+        },
+        {
+          "envelope_g": 0.7826076633943746,
+          "dominant_hz": 0.30000000000000004,
+          "peak_p50_g": 1.4389325903555703,
+          "peak_p90_g": 1.6238878998984392,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.5799999237060547,
+          "hf_fraction": 0.006671317512720322
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.3064548478194017,
+          "dominant_hz": 1.0,
+          "peak_p50_g": 1.1950624695901657,
+          "peak_p90_g": 1.302100088668711,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.6079999208450317,
+          "hf_fraction": 0.02411178471504232
+        },
+        {
+          "envelope_g": 0.7030654503487059,
+          "dominant_hz": 0.30000000000000004,
+          "peak_p50_g": 1.3887897313106277,
+          "peak_p90_g": 1.608601624739076,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.6079999208450317,
+          "hf_fraction": 0.008118399992457804
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/A/A01EAH1_1_interp.csv",
+      "side": "L",
+      "scope": {
+        "total_frames": 6279,
+        "continuous_frames": 6279,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.4702007965906553,
+          "dominant_hz": 0.5,
+          "peak_p50_g": 1.2219484551709385,
+          "peak_p90_g": 1.5345606005650523,
+          "duration_p50_s": 1.274999976158142,
+          "duration_p90_s": 1.8409998416900635,
+          "hf_fraction": 0.023575242998516904
+        },
+        {
+          "envelope_g": 0.7710656219198039,
+          "dominant_hz": 0.5,
+          "peak_p50_g": 1.410363903568717,
+          "peak_p90_g": 1.6505796101404295,
+          "duration_p50_s": 1.274999976158142,
+          "duration_p90_s": 1.8409998416900635,
+          "hf_fraction": 0.013173469182312854
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.36777456652866203,
+          "dominant_hz": 0.5,
+          "peak_p50_g": 1.2209895432443463,
+          "peak_p90_g": 1.4032905752838256,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.6799999475479126,
+          "hf_fraction": 0.031921586331498525
+        },
+        {
+          "envelope_g": 0.73504777004173,
+          "dominant_hz": 0.5,
+          "peak_p50_g": 1.3882830247403608,
+          "peak_p90_g": 2.06524132145041,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.6799999475479126,
+          "hf_fraction": 0.09095546242083331
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/A/A01EAH1_1_interp.csv",
+      "side": "R",
+      "scope": {
+        "total_frames": 6279,
+        "continuous_frames": 6279,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.44488392216650907,
+          "dominant_hz": 0.5,
+          "peak_p50_g": 1.2288438985959331,
+          "peak_p90_g": 1.4690545732928615,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.650999903678894,
+          "hf_fraction": 0.020232693867870168
+        },
+        {
+          "envelope_g": 0.8476539533365229,
+          "dominant_hz": 0.5,
+          "peak_p50_g": 1.4364891250077094,
+          "peak_p90_g": 1.6251212138336435,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.650999903678894,
+          "hf_fraction": 0.011624315675071202
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.34276157918493044,
+          "dominant_hz": 0.5,
+          "peak_p50_g": 1.1794912034292817,
+          "peak_p90_g": 1.3930733608703438,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.779999852180481,
+          "hf_fraction": 0.10332689086287508
+        },
+        {
+          "envelope_g": 0.7494934098146663,
+          "dominant_hz": 0.5,
+          "peak_p50_g": 1.3889071561814605,
+          "peak_p90_g": 1.5745025221487636,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.779999852180481,
+          "hf_fraction": 0.010963860445708837
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/A/A01EFE0_1_interp.csv",
+      "side": "L",
+      "scope": {
+        "total_frames": 6980,
+        "continuous_frames": 6980,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.1186454153779638,
+          "dominant_hz": 2.0,
+          "peak_p50_g": 1.1415386362769187,
+          "peak_p90_g": 1.196416406998602,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.5950000286102295,
+          "hf_fraction": 0.3229601027991461
+        },
+        {
+          "envelope_g": 0.5001884037210957,
+          "dominant_hz": 1.0,
+          "peak_p50_g": 1.2694633859457238,
+          "peak_p90_g": 1.3387098764115377,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.5950000286102295,
+          "hf_fraction": 0.016359354470878055
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.09822112604061184,
+          "dominant_hz": 0.9,
+          "peak_p50_g": 1.0733684609206955,
+          "peak_p90_g": 1.1722158125540796,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.5349998474121094,
+          "hf_fraction": 0.10929974521802674
+        },
+        {
+          "envelope_g": 0.3992197812089505,
+          "dominant_hz": 1.0,
+          "peak_p50_g": 1.2075963778843928,
+          "peak_p90_g": 1.2730526490493685,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.5349998474121094,
+          "hf_fraction": 0.008289439320170691
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/A/A01EFE0_1_interp.csv",
+      "side": "R",
+      "scope": {
+        "total_frames": 6980,
+        "continuous_frames": 6980,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.0871181660769913,
+          "dominant_hz": 2.0,
+          "peak_p50_g": 1.0949643381720133,
+          "peak_p90_g": 1.1283325154360158,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.503999948501587,
+          "hf_fraction": 0.5017508300943526
+        },
+        {
+          "envelope_g": 0.5000237886128279,
+          "dominant_hz": 1.0,
+          "peak_p50_g": 1.2900966349318805,
+          "peak_p90_g": 1.3735190132542934,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.503999948501587,
+          "hf_fraction": 0.01286651975982271
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.06920006256193845,
+          "dominant_hz": 0.9,
+          "peak_p50_g": 1.039291927326794,
+          "peak_p90_g": 1.0804329889692152,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.5399999618530273,
+          "hf_fraction": 0.052573320046224455
+        },
+        {
+          "envelope_g": 0.37391575400660493,
+          "dominant_hz": 1.0,
+          "peak_p50_g": 1.1826162497916202,
+          "peak_p90_g": 1.2788406026194448,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.5399999618530273,
+          "hf_fraction": 0.009848416497863144
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/A/A01EFE1_1_interp.csv",
+      "side": "L",
+      "scope": {
+        "total_frames": 7504,
+        "continuous_frames": 7504,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.18171982758787564,
+          "dominant_hz": 1.3,
+          "peak_p50_g": 1.1564766163409654,
+          "peak_p90_g": 1.7411492479389705,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.6699999570846558,
+          "hf_fraction": 0.3965599647335526
+        },
+        {
+          "envelope_g": 0.6789410254479203,
+          "dominant_hz": 1.2000000000000002,
+          "peak_p50_g": 1.321917267955358,
+          "peak_p90_g": 2.8378402684766497,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.6699999570846558,
+          "hf_fraction": 0.0964177147998245
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.11936948318534701,
+          "dominant_hz": 1.1,
+          "peak_p50_g": 1.1122008944069484,
+          "peak_p90_g": 1.5494774928670119,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.896999716758728,
+          "hf_fraction": 0.15187856363008168
+        },
+        {
+          "envelope_g": 0.4899930622087497,
+          "dominant_hz": 1.2000000000000002,
+          "peak_p50_g": 1.2867538292249814,
+          "peak_p90_g": 2.3702844548816637,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.896999716758728,
+          "hf_fraction": 0.026691345646081267
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/A/A01SQZ0_1_interp.csv",
+      "side": "R",
+      "scope": {
+        "total_frames": 6526,
+        "continuous_frames": 6526,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.11054613094348287,
+          "dominant_hz": 1.1,
+          "peak_p50_g": 1.0755032781312805,
+          "peak_p90_g": 1.1178739369395103,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.7239998579025269,
+          "hf_fraction": 0.10133330500311788
+        },
+        {
+          "envelope_g": 0.24663527525288276,
+          "dominant_hz": 1.1,
+          "peak_p50_g": 1.180140142994463,
+          "peak_p90_g": 1.2652869311429606,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.7239998579025269,
+          "hf_fraction": 0.04589721555740684
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.12361709282336175,
+          "dominant_hz": 0.9,
+          "peak_p50_g": 1.0892325360908133,
+          "peak_p90_g": 1.1486984858909912,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.6759998798370361,
+          "hf_fraction": 0.2848701433947143
+        },
+        {
+          "envelope_g": 0.1889799306490323,
+          "dominant_hz": 0.9,
+          "peak_p50_g": 1.1160366652631812,
+          "peak_p90_g": 1.222240732454279,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.6759998798370361,
+          "hf_fraction": 0.01595776482686364
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/A/A01SQZ1_1_interp.csv",
+      "side": "L",
+      "scope": {
+        "total_frames": 5327,
+        "continuous_frames": 5327,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.37447611500831035,
+          "dominant_hz": 0.7000000000000001,
+          "peak_p50_g": 1.2229017547669643,
+          "peak_p90_g": 1.2972000442350595,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.4979997873306274,
+          "hf_fraction": 0.04242920475969575
+        },
+        {
+          "envelope_g": 0.5941749609578223,
+          "dominant_hz": 0.7000000000000001,
+          "peak_p50_g": 1.403870456765428,
+          "peak_p90_g": 1.5020512520021032,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.4979997873306274,
+          "hf_fraction": 0.03424553307077142
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.30023082644111,
+          "dominant_hz": 0.7000000000000001,
+          "peak_p50_g": 1.1918676864141662,
+          "peak_p90_g": 1.2802958226771917,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.4900000095367432,
+          "hf_fraction": 0.03979384431932081
+        },
+        {
+          "envelope_g": 0.5201989721782501,
+          "dominant_hz": 0.7000000000000001,
+          "peak_p50_g": 1.365589640333137,
+          "peak_p90_g": 1.5041551832996913,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.4900000095367432,
+          "hf_fraction": 0.019398533481321617
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/A/A01SQZ1_1_interp.csv",
+      "side": "R",
+      "scope": {
+        "total_frames": 5327,
+        "continuous_frames": 5327,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.3800700841758473,
+          "dominant_hz": 0.7000000000000001,
+          "peak_p50_g": 1.2629678556368367,
+          "peak_p90_g": 1.4254333233968386,
+          "duration_p50_s": 1.3849999904632568,
+          "duration_p90_s": 1.5089999437332153,
+          "hf_fraction": 0.026818437846837045
+        },
+        {
+          "envelope_g": 0.9780536540148139,
+          "dominant_hz": 0.7000000000000001,
+          "peak_p50_g": 1.7380575381562637,
+          "peak_p90_g": 1.9374820638520087,
+          "duration_p50_s": 1.3849999904632568,
+          "duration_p90_s": 1.5089999437332153,
+          "hf_fraction": 0.019981932791619337
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.31564819760885054,
+          "dominant_hz": 0.7000000000000001,
+          "peak_p50_g": 1.2191195247830913,
+          "peak_p90_g": 1.341766118460764,
+          "duration_p50_s": 1.4199999570846558,
+          "duration_p90_s": 1.6939998865127563,
+          "hf_fraction": 0.02284258823319749
+        },
+        {
+          "envelope_g": 0.7934537089263141,
+          "dominant_hz": 0.7000000000000001,
+          "peak_p50_g": 1.6028498977223764,
+          "peak_p90_g": 1.7540674959833031,
+          "duration_p50_s": 1.4199999570846558,
+          "duration_p90_s": 1.6939998865127563,
+          "hf_fraction": 0.006993508040175327
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/B/B01EAH0_1_interp.csv",
+      "side": "L",
+      "scope": {
+        "total_frames": 7345,
+        "continuous_frames": 7345,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.7679579335523196,
+          "dominant_hz": 0.5,
+          "peak_p50_g": 1.5374885003793988,
+          "peak_p90_g": 1.8729121398531876,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.549999713897705,
+          "hf_fraction": 0.020777466036425874
+        },
+        {
+          "envelope_g": 1.4647897825758525,
+          "dominant_hz": 0.5,
+          "peak_p50_g": 2.1233735448181648,
+          "peak_p90_g": 3.425481622531588,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.549999713897705,
+          "hf_fraction": 0.027339145530385803
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.5999960114464016,
+          "dominant_hz": 0.5,
+          "peak_p50_g": 1.4169680414285954,
+          "peak_p90_g": 1.6565231176851294,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.6859999895095825,
+          "hf_fraction": 0.004379339462000158
+        },
+        {
+          "envelope_g": 1.3284864253537372,
+          "dominant_hz": 0.5,
+          "peak_p50_g": 1.8947982552719131,
+          "peak_p90_g": 2.41911170592295,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.6859999895095825,
+          "hf_fraction": 0.003988045194065822
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/B/B01EAH0_1_interp.csv",
+      "side": "R",
+      "scope": {
+        "total_frames": 7345,
+        "continuous_frames": 7345,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.785966465469338,
+          "dominant_hz": 0.5,
+          "peak_p50_g": 1.5599887992728538,
+          "peak_p90_g": 2.000772250238489,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.549999713897705,
+          "hf_fraction": 0.0203195958877594
+        },
+        {
+          "envelope_g": 1.6254413063936812,
+          "dominant_hz": 0.5,
+          "peak_p50_g": 2.458944714592931,
+          "peak_p90_g": 4.207487524049806,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.549999713897705,
+          "hf_fraction": 0.05843501136602291
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.6355935163101093,
+          "dominant_hz": 1.0,
+          "peak_p50_g": 1.4089310078075754,
+          "peak_p90_g": 1.5898574990404257,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.7499998807907104,
+          "hf_fraction": 0.0049126565381307245
+        },
+        {
+          "envelope_g": 1.4211042425223472,
+          "dominant_hz": 0.5,
+          "peak_p50_g": 1.9703502769832109,
+          "peak_p90_g": 2.72245190792071,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.7499998807907104,
+          "hf_fraction": 0.011325355503043156
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/B/B01EFE0_1_interp.csv",
+      "side": "L",
+      "scope": {
+        "total_frames": 5286,
+        "continuous_frames": 5286,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.1783202092988363,
+          "dominant_hz": 0.8,
+          "peak_p50_g": 1.1588327986245777,
+          "peak_p90_g": 1.3389046125501962,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.2580000162124634,
+          "hf_fraction": 0.39580371802340114
+        },
+        {
+          "envelope_g": 0.923942078638214,
+          "dominant_hz": 0.8,
+          "peak_p50_g": 1.4425374614356417,
+          "peak_p90_g": 1.5699327006403925,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.2580000162124634,
+          "hf_fraction": 0.0545749434234195
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.14097307281869287,
+          "dominant_hz": 1.0,
+          "peak_p50_g": 1.1250363255078633,
+          "peak_p90_g": 1.3676078952181243,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.7639999389648438,
+          "hf_fraction": 0.07663730103776246
+        },
+        {
+          "envelope_g": 0.7310413911551854,
+          "dominant_hz": 0.8,
+          "peak_p50_g": 1.383250653589856,
+          "peak_p90_g": 1.5871542944500605,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.7639999389648438,
+          "hf_fraction": 0.01639255300376685
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/B/B01EFE0_1_interp.csv",
+      "side": "R",
+      "scope": {
+        "total_frames": 5286,
+        "continuous_frames": 5286,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.2152719621034468,
+          "dominant_hz": 2.5,
+          "peak_p50_g": 1.1738828220857003,
+          "peak_p90_g": 1.2174933514482122,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.275999903678894,
+          "hf_fraction": 0.2673930925576105
+        },
+        {
+          "envelope_g": 0.9779255534247917,
+          "dominant_hz": 0.8,
+          "peak_p50_g": 1.5132623773670735,
+          "peak_p90_g": 1.619350227771047,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.275999903678894,
+          "hf_fraction": 0.028932627063587988
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.1603593785903893,
+          "dominant_hz": 1.0,
+          "peak_p50_g": 1.1003772308733948,
+          "peak_p90_g": 1.200180533729283,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.717999815940857,
+          "hf_fraction": 0.03606833145799962
+        },
+        {
+          "envelope_g": 0.8151751202179272,
+          "dominant_hz": 0.8,
+          "peak_p50_g": 1.3666058081002042,
+          "peak_p90_g": 1.5233698799157311,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.717999815940857,
+          "hf_fraction": 0.010538427974283225
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/B/B01EFE1_1_interp.csv",
+      "side": "L",
+      "scope": {
+        "total_frames": 8080,
+        "continuous_frames": 8080,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.23375143320745573,
+          "dominant_hz": 0.8,
+          "peak_p50_g": 1.1126865892514526,
+          "peak_p90_g": 1.2284721810212098,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.5329999923706055,
+          "hf_fraction": 0.026515226953446352
+        },
+        {
+          "envelope_g": 0.6607913221104111,
+          "dominant_hz": 0.9,
+          "peak_p50_g": 1.3989121782418572,
+          "peak_p90_g": 1.6595267737837343,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.5329999923706055,
+          "hf_fraction": 0.011838351599355635
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.20882110493842398,
+          "dominant_hz": 1.0,
+          "peak_p50_g": 1.114227487768352,
+          "peak_p90_g": 1.3007475711385663,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.5589998960494995,
+          "hf_fraction": 0.020423969886601397
+        },
+        {
+          "envelope_g": 0.5970079155622454,
+          "dominant_hz": 0.9,
+          "peak_p50_g": 1.337410761975367,
+          "peak_p90_g": 1.6384180467748248,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.5589998960494995,
+          "hf_fraction": 0.010885556152942788
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/B/B01SQZ0_1_interp.csv",
+      "side": "L",
+      "scope": {
+        "total_frames": 4798,
+        "continuous_frames": 4798,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.3440596201321583,
+          "dominant_hz": 0.9,
+          "peak_p50_g": 1.2012014335919179,
+          "peak_p90_g": 1.3115212290332974,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.4199999570846558,
+          "hf_fraction": 0.22367490476262541
+        },
+        {
+          "envelope_g": 0.45133430057614743,
+          "dominant_hz": 0.9,
+          "peak_p50_g": 1.301526742869641,
+          "peak_p90_g": 1.3695117252380145,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.4199999570846558,
+          "hf_fraction": 0.13747053413149707
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.25221048961104553,
+          "dominant_hz": 0.9,
+          "peak_p50_g": 1.1567054507261316,
+          "peak_p90_g": 1.2403636822796866,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.9009991884231567,
+          "hf_fraction": 0.05838977528889139
+        },
+        {
+          "envelope_g": 0.3727545348559511,
+          "dominant_hz": 0.9,
+          "peak_p50_g": 1.2356964803900974,
+          "peak_p90_g": 1.3480285602652822,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.9009991884231567,
+          "hf_fraction": 0.02122618859542438
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/B/B01SQZ0_1_interp.csv",
+      "side": "R",
+      "scope": {
+        "total_frames": 4798,
+        "continuous_frames": 4798,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.3763012338846806,
+          "dominant_hz": 0.9,
+          "peak_p50_g": 1.292323319669235,
+          "peak_p90_g": 1.3913820378698611,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.5119997262954712,
+          "hf_fraction": 0.22282971665355492
+        },
+        {
+          "envelope_g": 0.4833283172754528,
+          "dominant_hz": 0.9,
+          "peak_p50_g": 1.316818492697367,
+          "peak_p90_g": 1.3848466102256445,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.5119997262954712,
+          "hf_fraction": 0.178556189105796
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.28275036959776734,
+          "dominant_hz": 0.9,
+          "peak_p50_g": 1.1879276127446967,
+          "peak_p90_g": 1.267900566625788,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.7399990558624268,
+          "hf_fraction": 0.05000481250290232
+        },
+        {
+          "envelope_g": 0.4150489428221752,
+          "dominant_hz": 0.9,
+          "peak_p50_g": 1.2431312687470615,
+          "peak_p90_g": 1.3210382341615927,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.7399990558624268,
+          "hf_fraction": 0.025956217377067905
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/B/B01SQZ1_1_interp.csv",
+      "side": "L",
+      "scope": {
+        "total_frames": 5158,
+        "continuous_frames": 5158,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.38132668229095,
+          "dominant_hz": 0.9,
+          "peak_p50_g": 1.2504814640393542,
+          "peak_p90_g": 1.3726277357250036,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.4459998607635498,
+          "hf_fraction": 0.1729809466063683
+        },
+        {
+          "envelope_g": 0.5946100866993338,
+          "dominant_hz": 0.9,
+          "peak_p50_g": 1.4042975679107998,
+          "peak_p90_g": 1.6370546397943895,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.4459998607635498,
+          "hf_fraction": 0.11270179855505406
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.27418868068188773,
+          "dominant_hz": 0.9,
+          "peak_p50_g": 1.2086288940645589,
+          "peak_p90_g": 1.2731670958655756,
+          "duration_p50_s": 1.2049999237060547,
+          "duration_p90_s": 1.5049998760223389,
+          "hf_fraction": 0.04144093082636145
+        },
+        {
+          "envelope_g": 0.4923734341860465,
+          "dominant_hz": 0.9,
+          "peak_p50_g": 1.3266897552697219,
+          "peak_p90_g": 1.586421663640438,
+          "duration_p50_s": 1.2049999237060547,
+          "duration_p90_s": 1.5049998760223389,
+          "hf_fraction": 0.02383061388706824
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/B/B01SQZ1_1_interp.csv",
+      "side": "R",
+      "scope": {
+        "total_frames": 5158,
+        "continuous_frames": 5158,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.3340921922283129,
+          "dominant_hz": 0.9,
+          "peak_p50_g": 1.2816885084912446,
+          "peak_p90_g": 1.447440002223126,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.7349998950958252,
+          "hf_fraction": 0.1984434025021661
+        },
+        {
+          "envelope_g": 0.6399122646803473,
+          "dominant_hz": 0.9,
+          "peak_p50_g": 1.4788738508637196,
+          "peak_p90_g": 1.7747970849451655,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.7349998950958252,
+          "hf_fraction": 0.1463463398714332
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.25759316029592083,
+          "dominant_hz": 1.5,
+          "peak_p50_g": 1.1739332046047048,
+          "peak_p90_g": 1.3493277801269163,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.5180000066757202,
+          "hf_fraction": 0.04028651881179975
+        },
+        {
+          "envelope_g": 0.5113521791497577,
+          "dominant_hz": 1.5,
+          "peak_p50_g": 1.3056307091605468,
+          "peak_p90_g": 1.6754687871978764,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.5180000066757202,
+          "hf_fraction": 0.0265299431069754
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/C/C01EAH0_1_interp.csv",
+      "side": "L",
+      "scope": {
+        "total_frames": 5809,
+        "continuous_frames": 5809,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.8374337293498404,
+          "dominant_hz": 0.6000000000000001,
+          "peak_p50_g": 1.485439156705492,
+          "peak_p90_g": 1.6442717184080886,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.71999990940094,
+          "hf_fraction": 0.009098274016142447
+        },
+        {
+          "envelope_g": 1.624941046578071,
+          "dominant_hz": 0.6000000000000001,
+          "peak_p50_g": 2.0227886345382564,
+          "peak_p90_g": 2.14920465602136,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.71999990940094,
+          "hf_fraction": 0.004664519719406979
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.654461082403541,
+          "dominant_hz": 0.6000000000000001,
+          "peak_p50_g": 1.371519618112609,
+          "peak_p90_g": 1.4948328040138272,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.6379998922348022,
+          "hf_fraction": 0.016121566704594564
+        },
+        {
+          "envelope_g": 1.5194005361466238,
+          "dominant_hz": 0.6000000000000001,
+          "peak_p50_g": 1.8715412850815603,
+          "peak_p90_g": 2.0418299752687314,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.6379998922348022,
+          "hf_fraction": 0.013457708558356509
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/C/C01EAH0_1_interp.csv",
+      "side": "R",
+      "scope": {
+        "total_frames": 5809,
+        "continuous_frames": 5809,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.8573886214423192,
+          "dominant_hz": 0.6000000000000001,
+          "peak_p50_g": 1.5576343688556915,
+          "peak_p90_g": 1.7100884629114343,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.5499999523162842,
+          "hf_fraction": 0.00795972738830657
+        },
+        {
+          "envelope_g": 1.737939369747692,
+          "dominant_hz": 0.6000000000000001,
+          "peak_p50_g": 2.0928835747250014,
+          "peak_p90_g": 2.285393043345888,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.5499999523162842,
+          "hf_fraction": 0.00394932296659648
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.6877744655381022,
+          "dominant_hz": 0.6000000000000001,
+          "peak_p50_g": 1.375782276093257,
+          "peak_p90_g": 1.5554759578748056,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.71999990940094,
+          "hf_fraction": 0.006359206098616884
+        },
+        {
+          "envelope_g": 1.5835313652961698,
+          "dominant_hz": 0.6000000000000001,
+          "peak_p50_g": 1.9279628296666205,
+          "peak_p90_g": 2.136985635415565,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.71999990940094,
+          "hf_fraction": 0.005452605312268148
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/C/C01EAH1_1_interp.csv",
+      "side": "L",
+      "scope": {
+        "total_frames": 5914,
+        "continuous_frames": 5914,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.5728039776247287,
+          "dominant_hz": 0.7000000000000001,
+          "peak_p50_g": 1.3340137684400604,
+          "peak_p90_g": 1.5361648437466457,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.6129999160766602,
+          "hf_fraction": 0.026289489442681824
+        },
+        {
+          "envelope_g": 1.0819552027144415,
+          "dominant_hz": 0.7000000000000001,
+          "peak_p50_g": 1.6606439447911523,
+          "peak_p90_g": 1.9423693829773545,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.6129999160766602,
+          "hf_fraction": 0.022660183053712528
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.44672204952908534,
+          "dominant_hz": 0.6000000000000001,
+          "peak_p50_g": 1.263309857875304,
+          "peak_p90_g": 1.3771173511932469,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.8099998235702515,
+          "hf_fraction": 0.013062215483485023
+        },
+        {
+          "envelope_g": 1.0004407250586116,
+          "dominant_hz": 0.6000000000000001,
+          "peak_p50_g": 1.5664940111566819,
+          "peak_p90_g": 1.7842235986745547,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.8099998235702515,
+          "hf_fraction": 0.012272259692043123
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/C/C01EFE0_1_interp.csv",
+      "side": "L",
+      "scope": {
+        "total_frames": 5608,
+        "continuous_frames": 5608,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.11795676103385966,
+          "dominant_hz": 0.7000000000000001,
+          "peak_p50_g": 1.100175310423612,
+          "peak_p90_g": 1.140399990903247,
+          "duration_p50_s": 1.3199999332427979,
+          "duration_p90_s": 1.459999918937683,
+          "hf_fraction": 0.1789053563908253
+        },
+        {
+          "envelope_g": 0.6979716969539599,
+          "dominant_hz": 0.7000000000000001,
+          "peak_p50_g": 1.4216742218316654,
+          "peak_p90_g": 1.5551794445777285,
+          "duration_p50_s": 1.3199999332427979,
+          "duration_p90_s": 1.459999918937683,
+          "hf_fraction": 0.025199678091724773
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.09916869930291938,
+          "dominant_hz": 0.9,
+          "peak_p50_g": 1.0638881022967703,
+          "peak_p90_g": 1.2229722596954562,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.4759999513626099,
+          "hf_fraction": 0.046644445293621606
+        },
+        {
+          "envelope_g": 0.5769549091820751,
+          "dominant_hz": 0.7000000000000001,
+          "peak_p50_g": 1.3497134451529784,
+          "peak_p90_g": 1.4647381531751182,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.4759999513626099,
+          "hf_fraction": 0.008418719634853165
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/C/C01EFE0_1_interp.csv",
+      "side": "R",
+      "scope": {
+        "total_frames": 5608,
+        "continuous_frames": 5608,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.1084998141493394,
+          "dominant_hz": 0.7000000000000001,
+          "peak_p50_g": 1.102376420839151,
+          "peak_p90_g": 1.1305801640481843,
+          "duration_p50_s": 1.3450000286102295,
+          "duration_p90_s": 1.4959999322891235,
+          "hf_fraction": 0.10903070937547621
+        },
+        {
+          "envelope_g": 0.8352407861166589,
+          "dominant_hz": 0.7000000000000001,
+          "peak_p50_g": 1.5444356327890012,
+          "peak_p90_g": 1.6457357710801448,
+          "duration_p50_s": 1.3450000286102295,
+          "duration_p90_s": 1.4959999322891235,
+          "hf_fraction": 0.010463576767628543
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.0766463793013783,
+          "dominant_hz": 0.9,
+          "peak_p50_g": 1.0523404065795883,
+          "peak_p90_g": 1.2021007343751693,
+          "duration_p50_s": 1.3899999856948853,
+          "duration_p90_s": 1.5189999341964722,
+          "hf_fraction": 0.02188218496028727
+        },
+        {
+          "envelope_g": 0.6845521408354952,
+          "dominant_hz": 0.7000000000000001,
+          "peak_p50_g": 1.4473877475662875,
+          "peak_p90_g": 1.5355888544118852,
+          "duration_p50_s": 1.3899999856948853,
+          "duration_p90_s": 1.5189999341964722,
+          "hf_fraction": 0.006248463863965352
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/C/C01EFE1_1_interp.csv",
+      "side": "L",
+      "scope": {
+        "total_frames": 3752,
+        "continuous_frames": 3752,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.2919167463884845,
+          "dominant_hz": 0.6000000000000001,
+          "peak_p50_g": 1.1221015613305458,
+          "peak_p90_g": 1.226604357797192,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.4589999914169312,
+          "hf_fraction": 0.04404689656188471
+        },
+        {
+          "envelope_g": 0.7484118088462224,
+          "dominant_hz": 0.6000000000000001,
+          "peak_p50_g": 1.3845045528259754,
+          "peak_p90_g": 1.5825351394166494,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.4589999914169312,
+          "hf_fraction": 0.02038474739406017
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.2693115820649383,
+          "dominant_hz": 0.2,
+          "peak_p50_g": 1.1217029577019428,
+          "peak_p90_g": 1.2784583359558273,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 2.255998373031616,
+          "hf_fraction": 0.3788428217903427
+        },
+        {
+          "envelope_g": 0.684528628779787,
+          "dominant_hz": 0.6000000000000001,
+          "peak_p50_g": 1.3147122795876531,
+          "peak_p90_g": 1.627886628559746,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 2.255998373031616,
+          "hf_fraction": 0.007491873212892167
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/C/C01EFE1_1_interp.csv",
+      "side": "R",
+      "scope": {
+        "total_frames": 3752,
+        "continuous_frames": 3752,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.2863787549752469,
+          "dominant_hz": 0.6000000000000001,
+          "peak_p50_g": 1.1763405205301387,
+          "peak_p90_g": 1.2727983948409138,
+          "duration_p50_s": 1.209999918937683,
+          "duration_p90_s": 1.7339999675750732,
+          "hf_fraction": 0.0337597256081505
+        },
+        {
+          "envelope_g": 0.8852531199009753,
+          "dominant_hz": 0.7000000000000001,
+          "peak_p50_g": 1.4977403139339411,
+          "peak_p90_g": 1.6938389560500104,
+          "duration_p50_s": 1.209999918937683,
+          "duration_p90_s": 1.7339999675750732,
+          "hf_fraction": 0.014862857541027142
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.24801891811335441,
+          "dominant_hz": 0.9,
+          "peak_p50_g": 1.130587770251537,
+          "peak_p90_g": 1.2221203258481674,
+          "duration_p50_s": 1.2200000286102295,
+          "duration_p90_s": 1.8399999141693115,
+          "hf_fraction": 0.02522820048581372
+        },
+        {
+          "envelope_g": 0.7684496807909981,
+          "dominant_hz": 0.7000000000000001,
+          "peak_p50_g": 1.3676507603063626,
+          "peak_p90_g": 1.630450674556619,
+          "duration_p50_s": 1.2200000286102295,
+          "duration_p90_s": 1.8399999141693115,
+          "hf_fraction": 0.009865135600407849
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/C/C01SQZ0_1_interp.csv",
+      "side": "L",
+      "scope": {
+        "total_frames": 4452,
+        "continuous_frames": 4452,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.23655503986407944,
+          "dominant_hz": 2.1,
+          "peak_p50_g": 1.1215423368110609,
+          "peak_p90_g": 1.1701083242967742,
+          "duration_p50_s": 1.2200000286102295,
+          "duration_p90_s": 1.4399999380111694,
+          "hf_fraction": 0.16076948196753596
+        },
+        {
+          "envelope_g": 0.4068444098707418,
+          "dominant_hz": 2.1,
+          "peak_p50_g": 1.2407660605733921,
+          "peak_p90_g": 1.3202167836320133,
+          "duration_p50_s": 1.2200000286102295,
+          "duration_p90_s": 1.4399999380111694,
+          "hf_fraction": 0.07256115723984997
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.19068551637725206,
+          "dominant_hz": 1.0,
+          "peak_p50_g": 1.1071302223625719,
+          "peak_p90_g": 1.2573191332305331,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.4499999284744263,
+          "hf_fraction": 0.1354833086795589
+        },
+        {
+          "envelope_g": 0.3738211651474842,
+          "dominant_hz": 1.0,
+          "peak_p50_g": 1.1925773980683445,
+          "peak_p90_g": 1.3977386207223077,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.4499999284744263,
+          "hf_fraction": 0.047614314463097406
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/C/C01SQZ0_1_interp.csv",
+      "side": "R",
+      "scope": {
+        "total_frames": 4452,
+        "continuous_frames": 4452,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.22452965651675372,
+          "dominant_hz": 2.0,
+          "peak_p50_g": 1.13505553166624,
+          "peak_p90_g": 1.2176748020465853,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.2799999713897705,
+          "hf_fraction": 0.1005457404302673
+        },
+        {
+          "envelope_g": 0.4971211833257333,
+          "dominant_hz": 2.1,
+          "peak_p50_g": 1.3187553981951663,
+          "peak_p90_g": 1.5855941216309435,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.2799999713897705,
+          "hf_fraction": 0.047430807292678276
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.20104989106340154,
+          "dominant_hz": 1.0,
+          "peak_p50_g": 1.1068960991810464,
+          "peak_p90_g": 1.336979917609981,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.5409998893737793,
+          "hf_fraction": 0.023310813929779222
+        },
+        {
+          "envelope_g": 0.42403551871904066,
+          "dominant_hz": 1.0,
+          "peak_p50_g": 1.255344356135946,
+          "peak_p90_g": 1.6207685020961091,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.5409998893737793,
+          "hf_fraction": 0.02334103305254613
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/C/C01SQZ1_1_interp.csv",
+      "side": "L",
+      "scope": {
+        "total_frames": 5467,
+        "continuous_frames": 5467,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.21155305914465405,
+          "dominant_hz": 1.3,
+          "peak_p50_g": 1.1043869309412235,
+          "peak_p90_g": 1.1948549653813763,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.4800000190734863,
+          "hf_fraction": 0.0659057512363703
+        },
+        {
+          "envelope_g": 0.462633036462582,
+          "dominant_hz": 2.3000000000000003,
+          "peak_p50_g": 1.301063561453933,
+          "peak_p90_g": 1.5937438808875766,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.4800000190734863,
+          "hf_fraction": 0.04644179158656571
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.16730442857328554,
+          "dominant_hz": 1.0,
+          "peak_p50_g": 1.08485621380211,
+          "peak_p90_g": 1.2006968337633046,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.671999216079712,
+          "hf_fraction": 0.02684923823493632
+        },
+        {
+          "envelope_g": 0.356897763356097,
+          "dominant_hz": 1.0,
+          "peak_p50_g": 1.2047494129515826,
+          "peak_p90_g": 1.4337597072090518,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.671999216079712,
+          "hf_fraction": 0.01565682939762189
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/C/C01SQZ1_1_interp.csv",
+      "side": "R",
+      "scope": {
+        "total_frames": 5467,
+        "continuous_frames": 5467,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.22450624437114453,
+          "dominant_hz": 0.9,
+          "peak_p50_g": 1.1461796980237127,
+          "peak_p90_g": 1.2466426872581844,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.4469997882843018,
+          "hf_fraction": 0.07571596909385203
+        },
+        {
+          "envelope_g": 0.5682391063023765,
+          "dominant_hz": 0.9,
+          "peak_p50_g": 1.395547142244372,
+          "peak_p90_g": 1.6228627798564808,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.4469997882843018,
+          "hf_fraction": 0.04779048227524202
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.18942461861389603,
+          "dominant_hz": 1.0,
+          "peak_p50_g": 1.1070111742968198,
+          "peak_p90_g": 1.167318273554693,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.695999026298523,
+          "hf_fraction": 0.026325064970807766
+        },
+        {
+          "envelope_g": 0.47477791043380546,
+          "dominant_hz": 1.0,
+          "peak_p50_g": 1.2476565851825459,
+          "peak_p90_g": 1.5435222769555168,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.695999026298523,
+          "hf_fraction": 0.03698311228233038
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/E/E01EAH0_1_interp.csv",
+      "side": "L",
+      "scope": {
+        "total_frames": 2404,
+        "continuous_frames": 2404,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.7102625385980279,
+          "dominant_hz": 0.5,
+          "peak_p50_g": 1.4462800303950214,
+          "peak_p90_g": 1.5753754750977806,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.4859999418258667,
+          "hf_fraction": 0.013729109413046779
+        },
+        {
+          "envelope_g": 1.4886820898442628,
+          "dominant_hz": 0.5,
+          "peak_p50_g": 1.9763202744104773,
+          "peak_p90_g": 2.177003164902256,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.4859999418258667,
+          "hf_fraction": 0.006329134791897306
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.8513373287763868,
+          "dominant_hz": 0.5,
+          "peak_p50_g": 2.0934233231099606,
+          "peak_p90_g": 2.993208691753064,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.3949999809265137,
+          "hf_fraction": 0.24601056637181704
+        },
+        {
+          "envelope_g": 1.5379584087199514,
+          "dominant_hz": 0.5,
+          "peak_p50_g": 2.2827544832418907,
+          "peak_p90_g": 3.2531691622015675,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.3949999809265137,
+          "hf_fraction": 0.15131988161157556
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/E/E01EAH0_1_interp.csv",
+      "side": "R",
+      "scope": {
+        "total_frames": 2404,
+        "continuous_frames": 2404,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.788187134003946,
+          "dominant_hz": 0.5,
+          "peak_p50_g": 1.5027390321099372,
+          "peak_p90_g": 1.6716736195601414,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.4199999570846558,
+          "hf_fraction": 0.01565242418767726
+        },
+        {
+          "envelope_g": 1.5811009677894472,
+          "dominant_hz": 0.5,
+          "peak_p50_g": 1.987393226553177,
+          "peak_p90_g": 2.217849146060488,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.4199999570846558,
+          "hf_fraction": 0.0063531710918122855
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.7100310707868221,
+          "dominant_hz": 0.5,
+          "peak_p50_g": 1.4576428602280391,
+          "peak_p90_g": 1.7639032233108085,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.4559999704360962,
+          "hf_fraction": 0.05489987848824357
+        },
+        {
+          "envelope_g": 1.5374939208855305,
+          "dominant_hz": 0.5,
+          "peak_p50_g": 2.3329094335619147,
+          "peak_p90_g": 2.810737371201399,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.4559999704360962,
+          "hf_fraction": 0.09296075385619217
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/E/E01EAH1_1_interp.csv",
+      "side": "L",
+      "scope": {
+        "total_frames": 3072,
+        "continuous_frames": 3072,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.7480364283315639,
+          "dominant_hz": 0.5,
+          "peak_p50_g": 1.5277556323686516,
+          "peak_p90_g": 1.6021982318467878,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.1999999284744263,
+          "hf_fraction": 0.03649620964624026
+        },
+        {
+          "envelope_g": 1.4209823248795215,
+          "dominant_hz": 0.5,
+          "peak_p50_g": 1.923530418606754,
+          "peak_p90_g": 2.4939230069929015,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.1999999284744263,
+          "hf_fraction": 0.048495857314733326
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.7114732996986396,
+          "dominant_hz": 0.2,
+          "peak_p50_g": 1.484758799832866,
+          "peak_p90_g": 3.539164311035445,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.6849998235702515,
+          "hf_fraction": 0.37085311200208054
+        },
+        {
+          "envelope_g": 1.2177891394347182,
+          "dominant_hz": 0.5,
+          "peak_p50_g": 1.8648510613599232,
+          "peak_p90_g": 2.3124677911197553,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.6849998235702515,
+          "hf_fraction": 0.17442026124117493
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/E/E01EAH1_1_interp.csv",
+      "side": "R",
+      "scope": {
+        "total_frames": 3072,
+        "continuous_frames": 3072,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.7877729086172369,
+          "dominant_hz": 0.5,
+          "peak_p50_g": 1.5780830247950224,
+          "peak_p90_g": 1.8193691665281524,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.4529999494552612,
+          "hf_fraction": 0.03235514870128348
+        },
+        {
+          "envelope_g": 1.4615398345234543,
+          "dominant_hz": 0.5,
+          "peak_p50_g": 2.0471402457490435,
+          "peak_p90_g": 2.475712779372138,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.4529999494552612,
+          "hf_fraction": 0.028940349208828976
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.576548528197509,
+          "dominant_hz": 0.5,
+          "peak_p50_g": 1.3247676194878584,
+          "peak_p90_g": 1.5309407060692286,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.6760002374649048,
+          "hf_fraction": 0.04138792171916735
+        },
+        {
+          "envelope_g": 1.1562490531006349,
+          "dominant_hz": 0.5,
+          "peak_p50_g": 1.6357198089293012,
+          "peak_p90_g": 2.0433377975253544,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.6760002374649048,
+          "hf_fraction": 0.01983923114775777
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/E/E01EFE0_1_interp.csv",
+      "side": "L",
+      "scope": {
+        "total_frames": 1766,
+        "continuous_frames": 1766,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.10585645016417689,
+          "dominant_hz": 0.7000000000000001,
+          "peak_p50_g": 1.0884597525553272,
+          "peak_p90_g": 1.1523923215294247,
+          "duration_p50_s": 1.3600000143051147,
+          "duration_p90_s": 1.46999990940094,
+          "hf_fraction": 0.4353451502697556
+        },
+        {
+          "envelope_g": 0.8455904003533001,
+          "dominant_hz": 0.7000000000000001,
+          "peak_p50_g": 1.4355811452810288,
+          "peak_p90_g": 1.5750407822826709,
+          "duration_p50_s": 1.3600000143051147,
+          "duration_p90_s": 1.46999990940094,
+          "hf_fraction": 0.0179823822745663
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.06607336650432238,
+          "dominant_hz": 1.5,
+          "peak_p50_g": 1.047012665410582,
+          "peak_p90_g": 1.0584113620878037,
+          "duration_p50_s": 1.3499999046325684,
+          "duration_p90_s": 1.399999976158142,
+          "hf_fraction": 0.22827525996650722
+        },
+        {
+          "envelope_g": 0.7543236847798984,
+          "dominant_hz": 0.7000000000000001,
+          "peak_p50_g": 1.3925188794121017,
+          "peak_p90_g": 1.5189223416600826,
+          "duration_p50_s": 1.3499999046325684,
+          "duration_p90_s": 1.399999976158142,
+          "hf_fraction": 0.011201663506567787
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/E/E01EFE0_1_interp.csv",
+      "side": "R",
+      "scope": {
+        "total_frames": 1766,
+        "continuous_frames": 1766,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.08689517618737685,
+          "dominant_hz": 1.4000000000000001,
+          "peak_p50_g": 1.0868320446744149,
+          "peak_p90_g": 1.107978660768323,
+          "duration_p50_s": 1.3700000047683716,
+          "duration_p90_s": 1.4199999570846558,
+          "hf_fraction": 0.34082814745496864
+        },
+        {
+          "envelope_g": 0.8585455015438613,
+          "dominant_hz": 0.7000000000000001,
+          "peak_p50_g": 1.475337073469805,
+          "peak_p90_g": 1.5157329391270795,
+          "duration_p50_s": 1.3700000047683716,
+          "duration_p90_s": 1.4199999570846558,
+          "hf_fraction": 0.010499761874734217
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.07295254526635309,
+          "dominant_hz": 1.4000000000000001,
+          "peak_p50_g": 1.0490583890010945,
+          "peak_p90_g": 1.0615715274362199,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.3799999952316284,
+          "hf_fraction": 0.29901881250648316
+        },
+        {
+          "envelope_g": 0.7345512675652175,
+          "dominant_hz": 0.7000000000000001,
+          "peak_p50_g": 1.4053761292844247,
+          "peak_p90_g": 1.5486490266685495,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.3799999952316284,
+          "hf_fraction": 0.02250202046073459
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/E/E01EFE1_1_interp.csv",
+      "side": "L",
+      "scope": {
+        "total_frames": 3005,
+        "continuous_frames": 3005,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.6480188213990363,
+          "dominant_hz": 1.3,
+          "peak_p50_g": 1.3982720501050918,
+          "peak_p90_g": 1.7305478701466324,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.2459999322891235,
+          "hf_fraction": 0.07897048048056718
+        },
+        {
+          "envelope_g": 1.1614787534004725,
+          "dominant_hz": 0.6000000000000001,
+          "peak_p50_g": 1.6992566219972234,
+          "peak_p90_g": 2.109325860831417,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.2459999322891235,
+          "hf_fraction": 0.03681570663531439
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.4922026880250916,
+          "dominant_hz": 1.3,
+          "peak_p50_g": 1.30806505324196,
+          "peak_p90_g": 1.6268415664205633,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.3409998416900635,
+          "hf_fraction": 0.062040891635169106
+        },
+        {
+          "envelope_g": 1.0264687481711188,
+          "dominant_hz": 0.6000000000000001,
+          "peak_p50_g": 1.5695401026731388,
+          "peak_p90_g": 2.3104524543365144,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.3409998416900635,
+          "hf_fraction": 0.05860091680598294
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/E/E01EFE1_1_interp.csv",
+      "side": "R",
+      "scope": {
+        "total_frames": 3005,
+        "continuous_frames": 3005,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.6320387025653964,
+          "dominant_hz": 1.3,
+          "peak_p50_g": 1.4325683054545975,
+          "peak_p90_g": 2.047148037130131,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.2319998741149902,
+          "hf_fraction": 0.09035104391783817
+        },
+        {
+          "envelope_g": 1.103882980142254,
+          "dominant_hz": 0.7000000000000001,
+          "peak_p50_g": 1.7593057971113628,
+          "peak_p90_g": 2.315356021959894,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.2319998741149902,
+          "hf_fraction": 0.0486611685497157
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.4566660228666358,
+          "dominant_hz": 1.3,
+          "peak_p50_g": 1.252983260053155,
+          "peak_p90_g": 1.6645719924903912,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 2.1409995555877686,
+          "hf_fraction": 0.04348376002670176
+        },
+        {
+          "envelope_g": 0.9509339988969249,
+          "dominant_hz": 0.6000000000000001,
+          "peak_p50_g": 1.5663865443027678,
+          "peak_p90_g": 2.047693862268666,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 2.1409995555877686,
+          "hf_fraction": 0.12408959622801083
+        }
+      ]
+    },
+    {
+      "source": "optical-derived simulation vs real recordings; clocks/extrinsics unverified",
+      "member": "optical interp/rigid_bodies/upper/E/E01SQZ1_1_interp.csv",
+      "side": "R",
+      "scope": {
+        "total_frames": 3433,
+        "continuous_frames": 3433,
+        "finite_fraction": 1.0
+      },
+      "real": [
+        {
+          "envelope_g": 0.3873179366133712,
+          "dominant_hz": 1.1,
+          "peak_p50_g": 1.292647219291137,
+          "peak_p90_g": 1.3986708305460582,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.3799998760223389,
+          "hf_fraction": 0.05067107841121917
+        },
+        {
+          "envelope_g": 0.7262519196442307,
+          "dominant_hz": 1.0,
+          "peak_p50_g": 1.543822688850885,
+          "peak_p90_g": 2.0664587317973986,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.3799998760223389,
+          "hf_fraction": 0.05430641338075723
+        }
+      ],
+      "optical_virtual": [
+        {
+          "envelope_g": 0.32846110425398434,
+          "dominant_hz": 1.1,
+          "peak_p50_g": 1.1789231828161197,
+          "peak_p90_g": 1.294335731688286,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.3319998979568481,
+          "hf_fraction": 0.06948724912619474
+        },
+        {
+          "envelope_g": 0.6367931615268542,
+          "dominant_hz": 1.1,
+          "peak_p50_g": 1.4472664706110758,
+          "peak_p90_g": 2.0937686058622957,
+          "duration_p50_s": 1.1999999284744263,
+          "duration_p90_s": 1.3319998979568481,
+          "hf_fraction": 0.07243379164826595
+        }
+      ]
+    }
+  ],
+  "interpretation": "not synchronized; Y-up and origin at board rather than chip; derivative filtering attenuates high frequency; reference diagnostics only, no model accuracy or angle validation"
+}

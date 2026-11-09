@@ -1,0 +1,208 @@
+{
+  "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=2 .venv/bin/python scripts/train_small.py --fit",
+  "sklearn": "1.7.2",
+  "dataset_identity": "a6fbf61dda91846f9694e8fa9598c734b0a9c4ac0a2896ea838b01e08a61dc2c",
+  "csv_count": 1484,
+  "series": 1368,
+  "subjects": 30,
+  "rep_rows": 24632,
+  "window_rows": 29871,
+  "chance_floor": 0.5,
+  "protocol": "all 30 leave-one-subject-out; all training rows; rep mean probabilities then >=0.5; windows scored per row",
+  "models": {
+    "rep": {
+      "accuracy": 0.8932748538011696,
+      "correct": 1222,
+      "count": 1368,
+      "per_exercise": {
+        "EAH": {
+          "accuracy": 0.9288793103448276,
+          "correct": 431,
+          "count": 464
+        },
+        "EFE": {
+          "accuracy": 0.8888888888888888,
+          "correct": 384,
+          "count": 432
+        },
+        "SQZ": {
+          "accuracy": 0.8622881355932204,
+          "correct": 407,
+          "count": 472
+        }
+      },
+      "hyperparameters": {
+        "max_iter": 50,
+        "max_leaf_nodes": 15,
+        "learning_rate": 0.15,
+        "l2_regularization": 0.0,
+        "early_stopping": false,
+        "random_state": 0
+      },
+      "export": {
+        "nodes": 1450,
+        "trees": 50,
+        "array_bytes": 13150,
+        "threshold_storage": "float32, rounded downward on float32 grid",
+        "probability_quantisation": "float32; no integer quantisation"
+      }
+    },
+    "window": {
+      "accuracy": 0.8107863814401929,
+      "correct": 24219,
+      "count": 29871,
+      "per_exercise": {
+        "EAH": {
+          "accuracy": 0.8403488177092068,
+          "correct": 10022,
+          "count": 11926
+        },
+        "EFE": {
+          "accuracy": 0.8154103852596315,
+          "correct": 7302,
+          "count": 8955
+        },
+        "SQZ": {
+          "accuracy": 0.7669632925472748,
+          "correct": 6895,
+          "count": 8990
+        }
+      },
+      "hyperparameters": {
+        "max_iter": 100,
+        "max_leaf_nodes": 15,
+        "learning_rate": 0.15,
+        "l2_regularization": 0.0,
+        "early_stopping": false,
+        "random_state": 0
+      },
+      "export": {
+        "nodes": 2900,
+        "trees": 100,
+        "array_bytes": 26300,
+        "threshold_storage": "float32, rounded downward on float32 grid",
+        "probability_quantisation": "float32; no integer quantisation"
+      }
+    }
+  },
+  "budget": {
+    "combined_object_bytes": 39890,
+    "node_count": 4350,
+    "node_budget": 10000,
+    "budget_bytes": 120000,
+    "models": {
+      "form_rep": {
+        "text": 212,
+        "rodata": 13150,
+        "data": 0,
+        "bss": 0,
+        "exidx": 8,
+        "sections": {
+          ".text": 0,
+          ".text.form_rep_predict": 212,
+          ".ARM.exidx.text.form_rep_predict": 8,
+          ".rodata.root": 100,
+          ".rodata.feature": 1450,
+          ".rodata.value": 5800,
+          ".rodata.left": 2900,
+          ".rodata.right": 2900,
+          ".comment": 45,
+          ".note.GNU-stack": 0,
+          ".ARM.attributes": 73,
+          ".llvm_addrsig": 0
+        }
+      },
+      "form_window": {
+        "text": 212,
+        "rodata": 26300,
+        "data": 0,
+        "bss": 0,
+        "exidx": 8,
+        "sections": {
+          ".text": 0,
+          ".text.form_window_predict": 212,
+          ".ARM.exidx.text.form_window_predict": 8,
+          ".rodata.root": 200,
+          ".rodata.feature": 2900,
+          ".rodata.value": 11600,
+          ".rodata.left": 5800,
+          ".rodata.right": 5800,
+          ".comment": 45,
+          ".note.GNU-stack": 0,
+          ".ARM.attributes": 73,
+          ".llvm_addrsig": 0
+        }
+      }
+    },
+    "scope": "object sizes, not linked flash; code, arrays and exception indices; expf unresolved if used"
+  },
+  "comparison": {
+    "rep": {
+      "loss_percentage_points": -1.0233918128654929,
+      "per_exercise_loss_percentage_points": {
+        "EAH": 0.8620689655172376,
+        "EFE": -3.703703703703698,
+        "SQZ": -0.4237288135593209
+      }
+    },
+    "window": {
+      "loss_percentage_points": -0.13725687121288743,
+      "per_exercise_loss_percentage_points": {
+        "EAH": -0.3605567667281595,
+        "EFE": -1.2618648799553323,
+        "SQZ": 1.2791991101223532
+      }
+    },
+    "rep_vs_logreg": {
+      "gain_percentage_points": 2.8508771929824483,
+      "small_only_correct": 79,
+      "logreg_only_correct": 40,
+      "mcnemar_exact_p": 0.00044531067691715805
+    }
+  },
+  "parity": {
+    "models": {
+      "rep": {
+        "real_rows": 24632,
+        "max_absolute_probability_deviation": 1.8080669461628673e-07,
+        "predicted_label_agreement": 1.0,
+        "quantisation_step": null,
+        "storage": "float32 thresholds and leaf values; thresholds rounded downward",
+        "reference_input": "real extracted rows cast to the deployment float32 contract for both sklearn and C",
+        "series_predicted_label_agreement": 1.0
+      },
+      "window": {
+        "real_rows": 29871,
+        "max_absolute_probability_deviation": 2.3355989675621913e-07,
+        "predicted_label_agreement": 1.0,
+        "quantisation_step": null,
+        "storage": "float32 thresholds and leaf values; thresholds rounded downward",
+        "reference_input": "real extracted rows cast to the deployment float32 contract for both sklearn and C"
+      }
+    },
+    "host_compile_command": [
+      "cc",
+      "-std=c99",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-pedantic",
+      "-shared",
+      "-fPIC",
+      "-O2",
+      "/tmp/small-export-22q79pop/form_rep.c",
+      "/tmp/small-export-22q79pop/form_window.c",
+      "-lm",
+      "-o",
+      "/tmp/verify-small-l2yn8iz3/small.so"
+    ],
+    "interpretation": "Implementation parity only: per-repetition ground truth does not exist."
+  },
+  "acceptance": {
+    "rep": 0.873,
+    "window": 0.809,
+    "note": "stricter explicit window hard floor overrides 0.799 tolerance"
+  },
+  "precision": "Every LOSO fit and full refit uses float32 feature inputs, matching C; probability accumulation is float32 in C.",
+  "refit": "all 30 subjects; no training accuracy used for acceptance"
+}

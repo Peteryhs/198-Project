@@ -1,0 +1,100 @@
+{
+  "data": {
+    "files": 402,
+    "uncompressed_bytes": 2465165313,
+    "counts": {
+      "raw": {
+        "exercise_files": 171,
+        "calibration_files": 30
+      },
+      "interp": {
+        "exercise_files": 171,
+        "calibration_files": 30
+      }
+    },
+    "crc_and_size": "all passed"
+  },
+  "calibration": {
+    "folds": 30,
+    "accepted_sensor_records": 653,
+    "rejected_sensor_records": 31,
+    "fitted_transforms": 120,
+    "transforms_with_bound_hits": 58,
+    "tracks": {
+      "primary_train_mapped": {
+        "matched": 611,
+        "active": 591,
+        "mean_dynamic_rmse_baseline_g": 0.42460026917629085,
+        "mean_dynamic_rmse_calibrated_g": 0.3892856551392375,
+        "dynamic_rmse_reduction_percent": 8.317143582024189,
+        "median_total_rmse_baseline_g": 0.3840605630656959,
+        "median_total_rmse_calibrated_g": 0.3595075130183099,
+        "subject_bootstrap_reduction_percent_p025_p975": [
+          7.717229340425702,
+          8.926088692496098
+        ]
+      },
+      "oracle_diagnostic": {
+        "matched": 571,
+        "active": 380,
+        "mean_dynamic_rmse_baseline_g": 0.19776446001167503,
+        "mean_dynamic_rmse_calibrated_g": 0.18916581610626337,
+        "dynamic_rmse_reduction_percent": 4.347921717028447,
+        "median_total_rmse_baseline_g": 0.10866649947080392,
+        "median_total_rmse_calibrated_g": 0.13424951385084702
+      }
+    },
+    "lineage_train_clock_and_cache": "passed",
+    "gate_passed": false
+  },
+  "placements": {
+    "scenarios": 486,
+    "per_source_decisions": 83106,
+    "model_folds": 60,
+    "recomputed_decisions": "passed",
+    "sides": {
+      "L": {
+        "sources": 171,
+        "people": 30,
+        "global_quality_majority_floor": 0.5029239766081871,
+        "global_exercise_majority_floor": 0.34502923976608185,
+        "training_quality_majority_predictor": 0.49707602339181284,
+        "training_exercise_majority_predictor": 0.3391812865497076,
+        "coverage_range": [
+          0.7251461988304093,
+          0.7368421052631579
+        ],
+        "quality_agreement_range": [
+          0.4619883040935672,
+          0.5789473684210527
+        ],
+        "exercise_agreement_range": [
+          0.3684210526315789,
+          0.6608187134502924
+        ],
+        "median_clip_fraction": 0.0
+      },
+      "R": {
+        "sources": 171,
+        "people": 30,
+        "global_quality_majority_floor": 0.5029239766081871,
+        "global_exercise_majority_floor": 0.34502923976608185,
+        "training_quality_majority_predictor": 0.5029239766081871,
+        "training_exercise_majority_predictor": 0.30994152046783624,
+        "coverage_range": [
+          0.8830409356725146,
+          0.9064327485380117
+        ],
+        "quality_agreement_range": [
+          0.5847953216374269,
+          0.7485380116959064
+        ],
+        "exercise_agreement_range": [
+          0.6666666666666666,
+          0.8070175438596491
+        ],
+        "median_clip_fraction": 0.0
+      }
+    }
+  }
+}

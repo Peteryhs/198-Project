@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "architecture": "one forward PyTorch GRU, final hidden plus actual duration, shared four-logit head",
+  "hidden_size": 8,
+  "input_channels": 6,
+  "input_rate_hz": 25,
+  "source_rate_hz": 100,
+  "downsample_group": 4,
+  "epochs": 30,
+  "batch_cycles": 128,
+  "learning_rate": 0.003,
+  "weight_decay": 0.0001,
+  "gradient_norm_clip": 1.0,
+  "seed": 20261107,
+  "workers": 4,
+  "torch_threads": 1,
+  "quality_loss_weight": 1.0,
+  "exercise_loss_weight": 1.0,
+  "bootstrap_draws": 2000,
+  "protocol": "30-volunteer LOSO per side; fixed settings; equal total weight per source recording; no held-out model selection or early stopping",
+  "scope": "real-recording whole-series quality/exercise comparison only; no error-type labels or physical hardware claims"
+}

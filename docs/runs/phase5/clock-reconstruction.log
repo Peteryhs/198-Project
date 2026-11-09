@@ -1,0 +1,48 @@
+A01: audited 23/653 sensor records
+A02: audited 39/653 sensor records
+A03: audited 63/653 sensor records
+A04: audited 86/653 sensor records
+A05: audited 110/653 sensor records
+A06: audited 126/653 sensor records
+A07: audited 141/653 sensor records
+A08: audited 162/653 sensor records
+A09: audited 180/653 sensor records
+A10: audited 201/653 sensor records
+B01: audited 221/653 sensor records
+B02: audited 242/653 sensor records
+B03: audited 258/653 sensor records
+B04: audited 281/653 sensor records
+B05: audited 305/653 sensor records
+C01: audited 328/653 sensor records
+C02: audited 352/653 sensor records
+C03: audited 376/653 sensor records
+C04: audited 400/653 sensor records
+C05: audited 423/653 sensor records
+D01: audited 446/653 sensor records
+D02: audited 470/653 sensor records
+D03: audited 493/653 sensor records
+D04: audited 517/653 sensor records
+D05: audited 540/653 sensor records
+E01: audited 561/653 sensor records
+E02: audited 585/653 sensor records
+E03: audited 609/653 sensor records
+E04: audited 629/653 sensor records
+E05: audited 653/653 sensor records
+{
+  "people": 30,
+  "sensor_records": 653,
+  "processing_errors": 0,
+  "screened_sensor_records": 20,
+  "screened_people": 6,
+  "waveform_records": 392,
+  "all_available_late": {
+    "records": 392,
+    "baseline_median_total_rmse_g": 0.2865854201172551,
+    "calibrated_median_total_rmse_g": 0.26326538966683255
+  },
+  "screened_late": {
+    "records": 20,
+    "baseline_median_total_rmse_g": 0.0725130351138465,
+    "calibrated_median_total_rmse_g": 0.10306654750664833
+  }
+}

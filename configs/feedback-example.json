@@ -1,0 +1,10 @@
+{
+  "purpose": "test fixture only; replace with clinician-approved target and prescription id before any use",
+  "category": "tempo",
+  "exercise_id": "EAH",
+  "target_seconds": 1.5,
+  "min_seconds": 1.2,
+  "max_seconds": 1.8,
+  "target_is_prescribed": true,
+  "prescription_id": "EXAMPLE-ONLY-NOT-A-PRESCRIPTION"
+}

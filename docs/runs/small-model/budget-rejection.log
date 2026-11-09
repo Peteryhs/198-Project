@@ -1,0 +1,14 @@
+{'rep_X': (24632, 31), 'window_X': (29871, 30), 'series_y': (1368,)}
+rep {"accuracy": 0.8932748538011696, "correct": 1222, "count": 1368, "per_exercise": {"EAH": {"accuracy": 0.9288793103448276, "correct": 431, "count": 464}, "EFE": {"accuracy": 0.8888888888888888, "correct": 384, "count": 432}, "SQZ": {"accuracy": 0.8622881355932204, "correct": 407, "count": 472}}, "hyperparameters": {"max_iter": 50, "max_leaf_nodes": 15, "learning_rate": 0.15, "l2_regularization": 0.0, "early_stopping": false, "random_state": 0}, "export": {"nodes": 1450, "trees": 50, "array_bytes": 13150, "threshold_storage": "float32, rounded downward on float32 grid", "probability_quantisation": "float32; no integer quantisation"}}
+window {"accuracy": 0.8107863814401929, "correct": 24219, "count": 29871, "per_exercise": {"EAH": {"accuracy": 0.8403488177092068, "correct": 10022, "count": 11926}, "EFE": {"accuracy": 0.8154103852596315, "correct": 7302, "count": 8955}, "SQZ": {"accuracy": 0.7669632925472748, "correct": 6895, "count": 8990}}, "hyperparameters": {"max_iter": 100, "max_leaf_nodes": 15, "learning_rate": 0.15, "l2_regularization": 0.0, "early_stopping": false, "random_state": 0}, "export": {"nodes": 2900, "trees": 100, "array_bytes": 26300, "threshold_storage": "float32, rounded downward on float32 grid", "probability_quantisation": "float32; no integer quantisation"}}
+Traceback (most recent call last):
+  File "/home/peter/work/198-Project/scripts/train_small.py", line 242, in <module>
+    main()
+  File "/home/peter/work/198-Project/scripts/train_small.py", line 239, in main
+    fit_small(data, args.output, args.budget_bytes, args.node_budget)
+  File "/home/peter/work/198-Project/scripts/train_small.py", line 150, in fit_small
+    budget = check_budget(sources, budget_bytes, node_budget)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/peter/work/198-Project/scripts/small_export.py", line 111, in check_budget
+    raise ValueError(f'model budget overflow: {nodes}/{node_budget} nodes, {total}/{budget_bytes} object bytes; no exports written')
+ValueError: model budget overflow: 4350/10000 nodes, 39890/1 object bytes; no exports written

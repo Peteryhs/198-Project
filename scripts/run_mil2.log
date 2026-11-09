@@ -1,0 +1,9 @@
+1368 series, 24632 repetitions, 30 subjects, positive rate 0.50
+reps per series: median 16, min 6, max 46
+
+bag-level accuracy, leave-one-subject-out (floor 0.500):
+  naive rep propagation : 0.865
+  MIL (max pooling)     : 0.811
+    EAH: propagation 0.890  MIL 0.834
+    EFE: propagation 0.887  MIL 0.875
+    SQZ: propagation 0.820  MIL 0.729

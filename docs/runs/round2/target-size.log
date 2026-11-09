@@ -1,0 +1,937 @@
+$ /tmp/tally-round2-env/bin/python scripts/measure_round2_target.py
+$ clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -fstack-usage -I /tmp/tally-arm-h1j9pz0e -I /home/peter/work/198-Project/model/streaming -c /home/peter/work/198-Project/model/streaming/paired_stream.c -o /tmp/tally-arm-h1j9pz0e/features.o
+
+$ llvm-size -A /tmp/tally-arm-h1j9pz0e/features.o
+/tmp/tally-arm-h1j9pz0e/features.o  :
+section                                 size   addr
+.text                                      0      0
+.text.stream_reset                        12      0
+.ARM.exidx.text.stream_reset               8      0
+.text.stream_features                    420      0
+.ARM.exidx.text.stream_features            8      0
+.text.stream_push                        440      0
+.ARM.exidx.text.stream_push                8      0
+.text.OUTLINED_FUNCTION_0                 14      0
+.ARM.exidx.text.OUTLINED_FUNCTION_0        8      0
+.comment                                  45      0
+.note.GNU-stack                            0      0
+.ARM.attributes                           73      0
+.llvm_addrsig                              0      0
+Total                                   1036
+
+
+
+$ llvm-size /tmp/tally-arm-h1j9pz0e/features.o
+   text	   data	    bss	    dec	    hex	filename
+    918	      0	      0	    918	    396	/tmp/tally-arm-h1j9pz0e/features.o
+
+$ clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -fstack-usage -I /tmp/tally-arm-h1j9pz0e -I /home/peter/work/198-Project/model/streaming -c /tmp/tally-arm-h1j9pz0e/probe.c -o /tmp/tally-arm-h1j9pz0e/probe.o
+
+$ llvm-nm -S /tmp/tally-arm-h1j9pz0e/probe.o
+00000000 00000014 T finish
+00000000 00000020 T ingest
+00000000 00003888 B live
+                  U pair_push
+                  U pair_series
+00000000 00000010 B result
+
+$ clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -fstack-usage -I /tmp/tally-arm-h1j9pz0e -I /home/peter/work/198-Project/model/streaming -I /home/peter/work/198-Project/model/paired-synchronized-causal/L -c /tmp/tally-arm-h1j9pz0e/model0.c -o /tmp/tally-arm-h1j9pz0e/model0.o
+
+$ llvm-size -A /tmp/tally-arm-h1j9pz0e/model0.o
+/tmp/tally-arm-h1j9pz0e/model0.o  :
+section                            size   addr
+.text                                 0      0
+.text.predict                         4      0
+.ARM.exidx.text.predict               8      0
+.text.rt_predict_rep                324      0
+.ARM.exidx.text.rt_predict_rep        8      0
+.rodata.rt_exercise_intercept        12      0
+.rodata.rt_exercise_coef            732      0
+.rodata.rt_quality_coef             244      0
+.comment                             45      0
+.note.GNU-stack                       0      0
+.ARM.attributes                      73      0
+.llvm_addrsig                         0      0
+Total                              1450
+
+
+
+$ llvm-size /tmp/tally-arm-h1j9pz0e/model0.o
+   text	   data	    bss	    dec	    hex	filename
+   1332	      0	      0	   1332	    534	/tmp/tally-arm-h1j9pz0e/model0.o
+
+$ clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -fstack-usage -I /tmp/tally-arm-h1j9pz0e -I /home/peter/work/198-Project/model/streaming -I /home/peter/work/198-Project/model/paired-synchronized-causal/L -c /home/peter/work/198-Project/model/streaming/paired_runtime.c -o /tmp/tally-arm-h1j9pz0e/model0-runtime.o
+
+$ clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -fstack-usage -I /tmp/tally-arm-h1j9pz0e -I /home/peter/work/198-Project/model/streaming -I /home/peter/work/198-Project/model/paired-synchronized-causal/L -c /tmp/tally-arm-h1j9pz0e/model0-unity.c -o /tmp/tally-arm-h1j9pz0e/model0-pipeline.o
+
+$ llvm-size -A /tmp/tally-arm-h1j9pz0e/model0-pipeline.o
+/tmp/tally-arm-h1j9pz0e/model0-pipeline.o  :
+section                                  size   addr
+.text                                       0      0
+.text.stream_reset                         12      0
+.ARM.exidx.text.stream_reset                8      0
+.text.stream_features                     420      0
+.ARM.exidx.text.stream_features             8      0
+.text.stream_push                         436      0
+.ARM.exidx.text.stream_push                 8      0
+.text.pair_reset                           12      0
+.ARM.exidx.text.pair_reset                  8      0
+.text.pair_push                           126      0
+.ARM.exidx.text.pair_push                   8      0
+.text.rt_predict_rep                      316      0
+.ARM.exidx.text.rt_predict_rep              8      0
+.text.pair_series                          72      0
+.ARM.exidx.text.pair_series                 8      0
+.text.ingest                               32      0
+.ARM.exidx.text.ingest                      8      0
+.text.finish                               20      0
+.ARM.exidx.text.finish                      8      0
+.text.OUTLINED_FUNCTION_0                  14      0
+.ARM.exidx.text.OUTLINED_FUNCTION_0         8      0
+.text.OUTLINED_FUNCTION_1                  10      0
+.ARM.exidx.text.OUTLINED_FUNCTION_1         8      0
+.bss.live                               14472      0
+.bss.result                                16      0
+.rodata.rt_exercise_intercept              12      0
+.rodata.rt_exercise_coef                  732      0
+.rodata.rt_quality_coef                   244      0
+.comment                                   45      0
+.note.GNU-stack                             0      0
+.ARM.attributes                            73      0
+.llvm_addrsig                               2      0
+Total                                   17154
+
+
+
+$ llvm-size /tmp/tally-arm-h1j9pz0e/model0-pipeline.o
+   text	   data	    bss	    dec	    hex	filename
+   2546	      0	  14488	  17034	   428a	/tmp/tally-arm-h1j9pz0e/model0-pipeline.o
+
+$ llvm-nm -u /tmp/tally-arm-h1j9pz0e/model0-pipeline.o
+         U __aeabi_memclr4
+         U expf
+         U fmaxf
+         U fminf
+         U sqrtf
+
+$ clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -fstack-usage -I /tmp/tally-arm-h1j9pz0e -I /home/peter/work/198-Project/model/streaming -I /home/peter/work/198-Project/model/paired-synchronized-causal/R -c /tmp/tally-arm-h1j9pz0e/model1.c -o /tmp/tally-arm-h1j9pz0e/model1.o
+
+$ llvm-size -A /tmp/tally-arm-h1j9pz0e/model1.o
+/tmp/tally-arm-h1j9pz0e/model1.o  :
+section                            size   addr
+.text                                 0      0
+.text.predict                         4      0
+.ARM.exidx.text.predict               8      0
+.text.rt_predict_rep                324      0
+.ARM.exidx.text.rt_predict_rep        8      0
+.rodata.rt_exercise_intercept        12      0
+.rodata.rt_exercise_coef            732      0
+.rodata.rt_quality_coef             244      0
+.comment                             45      0
+.note.GNU-stack                       0      0
+.ARM.attributes                      73      0
+.llvm_addrsig                         0      0
+Total                              1450
+
+
+
+$ llvm-size /tmp/tally-arm-h1j9pz0e/model1.o
+   text	   data	    bss	    dec	    hex	filename
+   1332	      0	      0	   1332	    534	/tmp/tally-arm-h1j9pz0e/model1.o
+
+$ clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -fstack-usage -I /tmp/tally-arm-h1j9pz0e -I /home/peter/work/198-Project/model/streaming -I /home/peter/work/198-Project/model/paired-synchronized-causal/R -c /home/peter/work/198-Project/model/streaming/paired_runtime.c -o /tmp/tally-arm-h1j9pz0e/model1-runtime.o
+
+$ clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -fstack-usage -I /tmp/tally-arm-h1j9pz0e -I /home/peter/work/198-Project/model/streaming -I /home/peter/work/198-Project/model/paired-synchronized-causal/R -c /tmp/tally-arm-h1j9pz0e/model1-unity.c -o /tmp/tally-arm-h1j9pz0e/model1-pipeline.o
+
+$ llvm-size -A /tmp/tally-arm-h1j9pz0e/model1-pipeline.o
+/tmp/tally-arm-h1j9pz0e/model1-pipeline.o  :
+section                                  size   addr
+.text                                       0      0
+.text.stream_reset                         12      0
+.ARM.exidx.text.stream_reset                8      0
+.text.stream_features                     420      0
+.ARM.exidx.text.stream_features             8      0
+.text.stream_push                         436      0
+.ARM.exidx.text.stream_push                 8      0
+.text.pair_reset                           12      0
+.ARM.exidx.text.pair_reset                  8      0
+.text.pair_push                           126      0
+.ARM.exidx.text.pair_push                   8      0
+.text.rt_predict_rep                      316      0
+.ARM.exidx.text.rt_predict_rep              8      0
+.text.pair_series                          72      0
+.ARM.exidx.text.pair_series                 8      0
+.text.ingest                               32      0
+.ARM.exidx.text.ingest                      8      0
+.text.finish                               20      0
+.ARM.exidx.text.finish                      8      0
+.text.OUTLINED_FUNCTION_0                  14      0
+.ARM.exidx.text.OUTLINED_FUNCTION_0         8      0
+.text.OUTLINED_FUNCTION_1                  10      0
+.ARM.exidx.text.OUTLINED_FUNCTION_1         8      0
+.bss.live                               14472      0
+.bss.result                                16      0
+.rodata.rt_exercise_intercept              12      0
+.rodata.rt_exercise_coef                  732      0
+.rodata.rt_quality_coef                   244      0
+.comment                                   45      0
+.note.GNU-stack                             0      0
+.ARM.attributes                            73      0
+.llvm_addrsig                               2      0
+Total                                   17154
+
+
+
+$ llvm-size /tmp/tally-arm-h1j9pz0e/model1-pipeline.o
+   text	   data	    bss	    dec	    hex	filename
+   2546	      0	  14488	  17034	   428a	/tmp/tally-arm-h1j9pz0e/model1-pipeline.o
+
+$ llvm-nm -u /tmp/tally-arm-h1j9pz0e/model1-pipeline.o
+         U __aeabi_memclr4
+         U expf
+         U fmaxf
+         U fminf
+         U sqrtf
+
+$ clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -fstack-usage -I /tmp/tally-arm-h1j9pz0e -I /home/peter/work/198-Project/model/streaming -I /home/peter/work/198-Project/model/paired-synchronized-offline/L -c /tmp/tally-arm-h1j9pz0e/model2.c -o /tmp/tally-arm-h1j9pz0e/model2.o
+
+$ llvm-size -A /tmp/tally-arm-h1j9pz0e/model2.o
+/tmp/tally-arm-h1j9pz0e/model2.o  :
+section                            size   addr
+.text                                 0      0
+.text.predict                         4      0
+.ARM.exidx.text.predict               8      0
+.text.rt_predict_rep                324      0
+.ARM.exidx.text.rt_predict_rep        8      0
+.rodata.rt_exercise_intercept        12      0
+.rodata.rt_exercise_coef            732      0
+.rodata.rt_quality_coef             244      0
+.comment                             45      0
+.note.GNU-stack                       0      0
+.ARM.attributes                      73      0
+.llvm_addrsig                         0      0
+Total                              1450
+
+
+
+$ llvm-size /tmp/tally-arm-h1j9pz0e/model2.o
+   text	   data	    bss	    dec	    hex	filename
+   1332	      0	      0	   1332	    534	/tmp/tally-arm-h1j9pz0e/model2.o
+
+$ clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -fstack-usage -I /tmp/tally-arm-h1j9pz0e -I /home/peter/work/198-Project/model/streaming -I /home/peter/work/198-Project/model/paired-synchronized-offline/R -c /tmp/tally-arm-h1j9pz0e/model3.c -o /tmp/tally-arm-h1j9pz0e/model3.o
+
+$ llvm-size -A /tmp/tally-arm-h1j9pz0e/model3.o
+/tmp/tally-arm-h1j9pz0e/model3.o  :
+section                            size   addr
+.text                                 0      0
+.text.predict                         4      0
+.ARM.exidx.text.predict               8      0
+.text.rt_predict_rep                324      0
+.ARM.exidx.text.rt_predict_rep        8      0
+.rodata.rt_exercise_intercept        12      0
+.rodata.rt_exercise_coef            732      0
+.rodata.rt_quality_coef             244      0
+.comment                             45      0
+.note.GNU-stack                       0      0
+.ARM.attributes                      73      0
+.llvm_addrsig                         0      0
+Total                              1450
+
+
+
+$ llvm-size /tmp/tally-arm-h1j9pz0e/model3.o
+   text	   data	    bss	    dec	    hex	filename
+   1332	      0	      0	   1332	    534	/tmp/tally-arm-h1j9pz0e/model3.o
+
+$ clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -fstack-usage -I /tmp/tally-arm-h1j9pz0e -I /home/peter/work/198-Project/model/streaming -I /home/peter/work/198-Project/model/placement-controls/L-forearm -c /tmp/tally-arm-h1j9pz0e/model4.c -o /tmp/tally-arm-h1j9pz0e/model4.o
+
+$ llvm-size -A /tmp/tally-arm-h1j9pz0e/model4.o
+/tmp/tally-arm-h1j9pz0e/model4.o  :
+section                            size   addr
+.text                                 0      0
+.text.predict                         4      0
+.ARM.exidx.text.predict               8      0
+.text.rt_predict_rep                324      0
+.ARM.exidx.text.rt_predict_rep        8      0
+.rodata.rt_exercise_intercept        12      0
+.rodata.rt_exercise_coef            372      0
+.rodata.rt_quality_coef             124      0
+.comment                             45      0
+.note.GNU-stack                       0      0
+.ARM.attributes                      73      0
+.llvm_addrsig                         0      0
+Total                               970
+
+
+
+$ llvm-size /tmp/tally-arm-h1j9pz0e/model4.o
+   text	   data	    bss	    dec	    hex	filename
+    852	      0	      0	    852	    354	/tmp/tally-arm-h1j9pz0e/model4.o
+
+$ clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -fstack-usage -I /tmp/tally-arm-h1j9pz0e -I /home/peter/work/198-Project/model/streaming -I /home/peter/work/198-Project/model/placement-controls/L-forearm -DPAIR_FOREARM_ONLY -c /home/peter/work/198-Project/model/streaming/paired_runtime.c -o /tmp/tally-arm-h1j9pz0e/model4-runtime.o
+
+$ clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -fstack-usage -I /tmp/tally-arm-h1j9pz0e -I /home/peter/work/198-Project/model/streaming -I /home/peter/work/198-Project/model/placement-controls/L-forearm -DPAIR_FOREARM_ONLY -c /tmp/tally-arm-h1j9pz0e/model4-unity.c -o /tmp/tally-arm-h1j9pz0e/model4-pipeline.o
+
+$ llvm-size -A /tmp/tally-arm-h1j9pz0e/model4-pipeline.o
+/tmp/tally-arm-h1j9pz0e/model4-pipeline.o  :
+section                                  size   addr
+.text                                       0      0
+.text.stream_reset                         12      0
+.ARM.exidx.text.stream_reset                8      0
+.text.stream_features                     420      0
+.ARM.exidx.text.stream_features             8      0
+.text.stream_push                         436      0
+.ARM.exidx.text.stream_push                 8      0
+.text.pair_reset                           12      0
+.ARM.exidx.text.pair_reset                  8      0
+.text.pair_push                           150      0
+.ARM.exidx.text.pair_push                   8      0
+.text.rt_predict_rep                      316      0
+.ARM.exidx.text.rt_predict_rep              8      0
+.text.pair_series                          72      0
+.ARM.exidx.text.pair_series                 8      0
+.text.ingest                               32      0
+.ARM.exidx.text.ingest                      8      0
+.text.finish                               20      0
+.ARM.exidx.text.finish                      8      0
+.text.OUTLINED_FUNCTION_0                  14      0
+.ARM.exidx.text.OUTLINED_FUNCTION_0         8      0
+.text.OUTLINED_FUNCTION_1                  10      0
+.ARM.exidx.text.OUTLINED_FUNCTION_1         8      0
+.bss.live                               14472      0
+.bss.result                                16      0
+.rodata.rt_exercise_intercept              12      0
+.rodata.rt_exercise_coef                  372      0
+.rodata.rt_quality_coef                   124      0
+.comment                                   45      0
+.note.GNU-stack                             0      0
+.ARM.attributes                            73      0
+.llvm_addrsig                               2      0
+Total                                   16698
+
+
+
+$ llvm-size /tmp/tally-arm-h1j9pz0e/model4-pipeline.o
+   text	   data	    bss	    dec	    hex	filename
+   2090	      0	  14488	  16578	   40c2	/tmp/tally-arm-h1j9pz0e/model4-pipeline.o
+
+$ llvm-nm -u /tmp/tally-arm-h1j9pz0e/model4-pipeline.o
+         U __aeabi_memclr4
+         U expf
+         U fmaxf
+         U fminf
+         U sqrtf
+
+$ clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -fstack-usage -I /tmp/tally-arm-h1j9pz0e -I /home/peter/work/198-Project/model/streaming -I /home/peter/work/198-Project/model/placement-controls/L-pair -c /tmp/tally-arm-h1j9pz0e/model5.c -o /tmp/tally-arm-h1j9pz0e/model5.o
+
+$ llvm-size -A /tmp/tally-arm-h1j9pz0e/model5.o
+/tmp/tally-arm-h1j9pz0e/model5.o  :
+section                            size   addr
+.text                                 0      0
+.text.predict                         4      0
+.ARM.exidx.text.predict               8      0
+.text.rt_predict_rep                324      0
+.ARM.exidx.text.rt_predict_rep        8      0
+.rodata.rt_exercise_intercept        12      0
+.rodata.rt_exercise_coef            732      0
+.rodata.rt_quality_coef             244      0
+.comment                             45      0
+.note.GNU-stack                       0      0
+.ARM.attributes                      73      0
+.llvm_addrsig                         0      0
+Total                              1450
+
+
+
+$ llvm-size /tmp/tally-arm-h1j9pz0e/model5.o
+   text	   data	    bss	    dec	    hex	filename
+   1332	      0	      0	   1332	    534	/tmp/tally-arm-h1j9pz0e/model5.o
+
+$ clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -fstack-usage -I /tmp/tally-arm-h1j9pz0e -I /home/peter/work/198-Project/model/streaming -I /home/peter/work/198-Project/model/placement-controls/L-pair -c /home/peter/work/198-Project/model/streaming/paired_runtime.c -o /tmp/tally-arm-h1j9pz0e/model5-runtime.o
+
+$ clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -fstack-usage -I /tmp/tally-arm-h1j9pz0e -I /home/peter/work/198-Project/model/streaming -I /home/peter/work/198-Project/model/placement-controls/L-pair -c /tmp/tally-arm-h1j9pz0e/model5-unity.c -o /tmp/tally-arm-h1j9pz0e/model5-pipeline.o
+
+$ llvm-size -A /tmp/tally-arm-h1j9pz0e/model5-pipeline.o
+/tmp/tally-arm-h1j9pz0e/model5-pipeline.o  :
+section                                  size   addr
+.text                                       0      0
+.text.stream_reset                         12      0
+.ARM.exidx.text.stream_reset                8      0
+.text.stream_features                     420      0
+.ARM.exidx.text.stream_features             8      0
+.text.stream_push                         436      0
+.ARM.exidx.text.stream_push                 8      0
+.text.pair_reset                           12      0
+.ARM.exidx.text.pair_reset                  8      0
+.text.pair_push                           126      0
+.ARM.exidx.text.pair_push                   8      0
+.text.rt_predict_rep                      316      0
+.ARM.exidx.text.rt_predict_rep              8      0
+.text.pair_series                          72      0
+.ARM.exidx.text.pair_series                 8      0
+.text.ingest                               32      0
+.ARM.exidx.text.ingest                      8      0
+.text.finish                               20      0
+.ARM.exidx.text.finish                      8      0
+.text.OUTLINED_FUNCTION_0                  14      0
+.ARM.exidx.text.OUTLINED_FUNCTION_0         8      0
+.text.OUTLINED_FUNCTION_1                  10      0
+.ARM.exidx.text.OUTLINED_FUNCTION_1         8      0
+.bss.live                               14472      0
+.bss.result                                16      0
+.rodata.rt_exercise_intercept              12      0
+.rodata.rt_exercise_coef                  732      0
+.rodata.rt_quality_coef                   244      0
+.comment                                   45      0
+.note.GNU-stack                             0      0
+.ARM.attributes                            73      0
+.llvm_addrsig                               2      0
+Total                                   17154
+
+
+
+$ llvm-size /tmp/tally-arm-h1j9pz0e/model5-pipeline.o
+   text	   data	    bss	    dec	    hex	filename
+   2546	      0	  14488	  17034	   428a	/tmp/tally-arm-h1j9pz0e/model5-pipeline.o
+
+$ llvm-nm -u /tmp/tally-arm-h1j9pz0e/model5-pipeline.o
+         U __aeabi_memclr4
+         U expf
+         U fmaxf
+         U fminf
+         U sqrtf
+
+$ clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -fstack-usage -I /tmp/tally-arm-h1j9pz0e -I /home/peter/work/198-Project/model/streaming -I /home/peter/work/198-Project/model/placement-controls/L-upper -c /tmp/tally-arm-h1j9pz0e/model6.c -o /tmp/tally-arm-h1j9pz0e/model6.o
+
+$ llvm-size -A /tmp/tally-arm-h1j9pz0e/model6.o
+/tmp/tally-arm-h1j9pz0e/model6.o  :
+section                            size   addr
+.text                                 0      0
+.text.predict                         4      0
+.ARM.exidx.text.predict               8      0
+.text.rt_predict_rep                324      0
+.ARM.exidx.text.rt_predict_rep        8      0
+.rodata.rt_exercise_intercept        12      0
+.rodata.rt_exercise_coef            372      0
+.rodata.rt_quality_coef             124      0
+.comment                             45      0
+.note.GNU-stack                       0      0
+.ARM.attributes                      73      0
+.llvm_addrsig                         0      0
+Total                               970
+
+
+
+$ llvm-size /tmp/tally-arm-h1j9pz0e/model6.o
+   text	   data	    bss	    dec	    hex	filename
+    852	      0	      0	    852	    354	/tmp/tally-arm-h1j9pz0e/model6.o
+
+$ clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -fstack-usage -I /tmp/tally-arm-h1j9pz0e -I /home/peter/work/198-Project/model/streaming -I /home/peter/work/198-Project/model/placement-controls/L-upper -c /home/peter/work/198-Project/model/streaming/paired_runtime.c -o /tmp/tally-arm-h1j9pz0e/model6-runtime.o
+
+$ clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -fstack-usage -I /tmp/tally-arm-h1j9pz0e -I /home/peter/work/198-Project/model/streaming -I /home/peter/work/198-Project/model/placement-controls/L-upper -c /tmp/tally-arm-h1j9pz0e/model6-unity.c -o /tmp/tally-arm-h1j9pz0e/model6-pipeline.o
+
+$ llvm-size -A /tmp/tally-arm-h1j9pz0e/model6-pipeline.o
+/tmp/tally-arm-h1j9pz0e/model6-pipeline.o  :
+section                                  size   addr
+.text                                       0      0
+.text.stream_reset                         12      0
+.ARM.exidx.text.stream_reset                8      0
+.text.stream_features                     420      0
+.ARM.exidx.text.stream_features             8      0
+.text.stream_push                         436      0
+.ARM.exidx.text.stream_push                 8      0
+.text.pair_reset                           12      0
+.ARM.exidx.text.pair_reset                  8      0
+.text.pair_push                           126      0
+.ARM.exidx.text.pair_push                   8      0
+.text.rt_predict_rep                      316      0
+.ARM.exidx.text.rt_predict_rep              8      0
+.text.pair_series                          72      0
+.ARM.exidx.text.pair_series                 8      0
+.text.ingest                               32      0
+.ARM.exidx.text.ingest                      8      0
+.text.finish                               20      0
+.ARM.exidx.text.finish                      8      0
+.text.OUTLINED_FUNCTION_0                  14      0
+.ARM.exidx.text.OUTLINED_FUNCTION_0         8      0
+.text.OUTLINED_FUNCTION_1                  10      0
+.ARM.exidx.text.OUTLINED_FUNCTION_1         8      0
+.bss.live                               14472      0
+.bss.result                                16      0
+.rodata.rt_exercise_intercept              12      0
+.rodata.rt_exercise_coef                  372      0
+.rodata.rt_quality_coef                   124      0
+.comment                                   45      0
+.note.GNU-stack                             0      0
+.ARM.attributes                            73      0
+.llvm_addrsig                               2      0
+Total                                   16674
+
+
+
+$ llvm-size /tmp/tally-arm-h1j9pz0e/model6-pipeline.o
+   text	   data	    bss	    dec	    hex	filename
+   2066	      0	  14488	  16554	   40aa	/tmp/tally-arm-h1j9pz0e/model6-pipeline.o
+
+$ llvm-nm -u /tmp/tally-arm-h1j9pz0e/model6-pipeline.o
+         U __aeabi_memclr4
+         U expf
+         U fmaxf
+         U fminf
+         U sqrtf
+
+$ clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -fstack-usage -I /tmp/tally-arm-h1j9pz0e -I /home/peter/work/198-Project/model/streaming -I /home/peter/work/198-Project/model/placement-controls/R-forearm -c /tmp/tally-arm-h1j9pz0e/model7.c -o /tmp/tally-arm-h1j9pz0e/model7.o
+
+$ llvm-size -A /tmp/tally-arm-h1j9pz0e/model7.o
+/tmp/tally-arm-h1j9pz0e/model7.o  :
+section                            size   addr
+.text                                 0      0
+.text.predict                         4      0
+.ARM.exidx.text.predict               8      0
+.text.rt_predict_rep                324      0
+.ARM.exidx.text.rt_predict_rep        8      0
+.rodata.rt_exercise_intercept        12      0
+.rodata.rt_exercise_coef            372      0
+.rodata.rt_quality_coef             124      0
+.comment                             45      0
+.note.GNU-stack                       0      0
+.ARM.attributes                      73      0
+.llvm_addrsig                         0      0
+Total                               970
+
+
+
+$ llvm-size /tmp/tally-arm-h1j9pz0e/model7.o
+   text	   data	    bss	    dec	    hex	filename
+    852	      0	      0	    852	    354	/tmp/tally-arm-h1j9pz0e/model7.o
+
+$ clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -fstack-usage -I /tmp/tally-arm-h1j9pz0e -I /home/peter/work/198-Project/model/streaming -I /home/peter/work/198-Project/model/placement-controls/R-forearm -DPAIR_FOREARM_ONLY -c /home/peter/work/198-Project/model/streaming/paired_runtime.c -o /tmp/tally-arm-h1j9pz0e/model7-runtime.o
+
+$ clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -fstack-usage -I /tmp/tally-arm-h1j9pz0e -I /home/peter/work/198-Project/model/streaming -I /home/peter/work/198-Project/model/placement-controls/R-forearm -DPAIR_FOREARM_ONLY -c /tmp/tally-arm-h1j9pz0e/model7-unity.c -o /tmp/tally-arm-h1j9pz0e/model7-pipeline.o
+
+$ llvm-size -A /tmp/tally-arm-h1j9pz0e/model7-pipeline.o
+/tmp/tally-arm-h1j9pz0e/model7-pipeline.o  :
+section                                  size   addr
+.text                                       0      0
+.text.stream_reset                         12      0
+.ARM.exidx.text.stream_reset                8      0
+.text.stream_features                     420      0
+.ARM.exidx.text.stream_features             8      0
+.text.stream_push                         436      0
+.ARM.exidx.text.stream_push                 8      0
+.text.pair_reset                           12      0
+.ARM.exidx.text.pair_reset                  8      0
+.text.pair_push                           150      0
+.ARM.exidx.text.pair_push                   8      0
+.text.rt_predict_rep                      316      0
+.ARM.exidx.text.rt_predict_rep              8      0
+.text.pair_series                          72      0
+.ARM.exidx.text.pair_series                 8      0
+.text.ingest                               32      0
+.ARM.exidx.text.ingest                      8      0
+.text.finish                               20      0
+.ARM.exidx.text.finish                      8      0
+.text.OUTLINED_FUNCTION_0                  14      0
+.ARM.exidx.text.OUTLINED_FUNCTION_0         8      0
+.text.OUTLINED_FUNCTION_1                  10      0
+.ARM.exidx.text.OUTLINED_FUNCTION_1         8      0
+.bss.live                               14472      0
+.bss.result                                16      0
+.rodata.rt_exercise_intercept              12      0
+.rodata.rt_exercise_coef                  372      0
+.rodata.rt_quality_coef                   124      0
+.comment                                   45      0
+.note.GNU-stack                             0      0
+.ARM.attributes                            73      0
+.llvm_addrsig                               2      0
+Total                                   16698
+
+
+
+$ llvm-size /tmp/tally-arm-h1j9pz0e/model7-pipeline.o
+   text	   data	    bss	    dec	    hex	filename
+   2090	      0	  14488	  16578	   40c2	/tmp/tally-arm-h1j9pz0e/model7-pipeline.o
+
+$ llvm-nm -u /tmp/tally-arm-h1j9pz0e/model7-pipeline.o
+         U __aeabi_memclr4
+         U expf
+         U fmaxf
+         U fminf
+         U sqrtf
+
+$ clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -fstack-usage -I /tmp/tally-arm-h1j9pz0e -I /home/peter/work/198-Project/model/streaming -I /home/peter/work/198-Project/model/placement-controls/R-pair -c /tmp/tally-arm-h1j9pz0e/model8.c -o /tmp/tally-arm-h1j9pz0e/model8.o
+
+$ llvm-size -A /tmp/tally-arm-h1j9pz0e/model8.o
+/tmp/tally-arm-h1j9pz0e/model8.o  :
+section                            size   addr
+.text                                 0      0
+.text.predict                         4      0
+.ARM.exidx.text.predict               8      0
+.text.rt_predict_rep                324      0
+.ARM.exidx.text.rt_predict_rep        8      0
+.rodata.rt_exercise_intercept        12      0
+.rodata.rt_exercise_coef            732      0
+.rodata.rt_quality_coef             244      0
+.comment                             45      0
+.note.GNU-stack                       0      0
+.ARM.attributes                      73      0
+.llvm_addrsig                         0      0
+Total                              1450
+
+
+
+$ llvm-size /tmp/tally-arm-h1j9pz0e/model8.o
+   text	   data	    bss	    dec	    hex	filename
+   1332	      0	      0	   1332	    534	/tmp/tally-arm-h1j9pz0e/model8.o
+
+$ clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -fstack-usage -I /tmp/tally-arm-h1j9pz0e -I /home/peter/work/198-Project/model/streaming -I /home/peter/work/198-Project/model/placement-controls/R-pair -c /home/peter/work/198-Project/model/streaming/paired_runtime.c -o /tmp/tally-arm-h1j9pz0e/model8-runtime.o
+
+$ clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -fstack-usage -I /tmp/tally-arm-h1j9pz0e -I /home/peter/work/198-Project/model/streaming -I /home/peter/work/198-Project/model/placement-controls/R-pair -c /tmp/tally-arm-h1j9pz0e/model8-unity.c -o /tmp/tally-arm-h1j9pz0e/model8-pipeline.o
+
+$ llvm-size -A /tmp/tally-arm-h1j9pz0e/model8-pipeline.o
+/tmp/tally-arm-h1j9pz0e/model8-pipeline.o  :
+section                                  size   addr
+.text                                       0      0
+.text.stream_reset                         12      0
+.ARM.exidx.text.stream_reset                8      0
+.text.stream_features                     420      0
+.ARM.exidx.text.stream_features             8      0
+.text.stream_push                         436      0
+.ARM.exidx.text.stream_push                 8      0
+.text.pair_reset                           12      0
+.ARM.exidx.text.pair_reset                  8      0
+.text.pair_push                           126      0
+.ARM.exidx.text.pair_push                   8      0
+.text.rt_predict_rep                      316      0
+.ARM.exidx.text.rt_predict_rep              8      0
+.text.pair_series                          72      0
+.ARM.exidx.text.pair_series                 8      0
+.text.ingest                               32      0
+.ARM.exidx.text.ingest                      8      0
+.text.finish                               20      0
+.ARM.exidx.text.finish                      8      0
+.text.OUTLINED_FUNCTION_0                  14      0
+.ARM.exidx.text.OUTLINED_FUNCTION_0         8      0
+.text.OUTLINED_FUNCTION_1                  10      0
+.ARM.exidx.text.OUTLINED_FUNCTION_1         8      0
+.bss.live                               14472      0
+.bss.result                                16      0
+.rodata.rt_exercise_intercept              12      0
+.rodata.rt_exercise_coef                  732      0
+.rodata.rt_quality_coef                   244      0
+.comment                                   45      0
+.note.GNU-stack                             0      0
+.ARM.attributes                            73      0
+.llvm_addrsig                               2      0
+Total                                   17154
+
+
+
+$ llvm-size /tmp/tally-arm-h1j9pz0e/model8-pipeline.o
+   text	   data	    bss	    dec	    hex	filename
+   2546	      0	  14488	  17034	   428a	/tmp/tally-arm-h1j9pz0e/model8-pipeline.o
+
+$ llvm-nm -u /tmp/tally-arm-h1j9pz0e/model8-pipeline.o
+         U __aeabi_memclr4
+         U expf
+         U fmaxf
+         U fminf
+         U sqrtf
+
+$ clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -fstack-usage -I /tmp/tally-arm-h1j9pz0e -I /home/peter/work/198-Project/model/streaming -I /home/peter/work/198-Project/model/placement-controls/R-upper -c /tmp/tally-arm-h1j9pz0e/model9.c -o /tmp/tally-arm-h1j9pz0e/model9.o
+
+$ llvm-size -A /tmp/tally-arm-h1j9pz0e/model9.o
+/tmp/tally-arm-h1j9pz0e/model9.o  :
+section                            size   addr
+.text                                 0      0
+.text.predict                         4      0
+.ARM.exidx.text.predict               8      0
+.text.rt_predict_rep                324      0
+.ARM.exidx.text.rt_predict_rep        8      0
+.rodata.rt_exercise_intercept        12      0
+.rodata.rt_exercise_coef            372      0
+.rodata.rt_quality_coef             124      0
+.comment                             45      0
+.note.GNU-stack                       0      0
+.ARM.attributes                      73      0
+.llvm_addrsig                         0      0
+Total                               970
+
+
+
+$ llvm-size /tmp/tally-arm-h1j9pz0e/model9.o
+   text	   data	    bss	    dec	    hex	filename
+    852	      0	      0	    852	    354	/tmp/tally-arm-h1j9pz0e/model9.o
+
+$ clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -fstack-usage -I /tmp/tally-arm-h1j9pz0e -I /home/peter/work/198-Project/model/streaming -I /home/peter/work/198-Project/model/placement-controls/R-upper -c /home/peter/work/198-Project/model/streaming/paired_runtime.c -o /tmp/tally-arm-h1j9pz0e/model9-runtime.o
+
+$ clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -fstack-usage -I /tmp/tally-arm-h1j9pz0e -I /home/peter/work/198-Project/model/streaming -I /home/peter/work/198-Project/model/placement-controls/R-upper -c /tmp/tally-arm-h1j9pz0e/model9-unity.c -o /tmp/tally-arm-h1j9pz0e/model9-pipeline.o
+
+$ llvm-size -A /tmp/tally-arm-h1j9pz0e/model9-pipeline.o
+/tmp/tally-arm-h1j9pz0e/model9-pipeline.o  :
+section                                  size   addr
+.text                                       0      0
+.text.stream_reset                         12      0
+.ARM.exidx.text.stream_reset                8      0
+.text.stream_features                     420      0
+.ARM.exidx.text.stream_features             8      0
+.text.stream_push                         436      0
+.ARM.exidx.text.stream_push                 8      0
+.text.pair_reset                           12      0
+.ARM.exidx.text.pair_reset                  8      0
+.text.pair_push                           126      0
+.ARM.exidx.text.pair_push                   8      0
+.text.rt_predict_rep                      316      0
+.ARM.exidx.text.rt_predict_rep              8      0
+.text.pair_series                          72      0
+.ARM.exidx.text.pair_series                 8      0
+.text.ingest                               32      0
+.ARM.exidx.text.ingest                      8      0
+.text.finish                               20      0
+.ARM.exidx.text.finish                      8      0
+.text.OUTLINED_FUNCTION_0                  14      0
+.ARM.exidx.text.OUTLINED_FUNCTION_0         8      0
+.text.OUTLINED_FUNCTION_1                  10      0
+.ARM.exidx.text.OUTLINED_FUNCTION_1         8      0
+.bss.live                               14472      0
+.bss.result                                16      0
+.rodata.rt_exercise_intercept              12      0
+.rodata.rt_exercise_coef                  372      0
+.rodata.rt_quality_coef                   124      0
+.comment                                   45      0
+.note.GNU-stack                             0      0
+.ARM.attributes                            73      0
+.llvm_addrsig                               2      0
+Total                                   16674
+
+
+
+$ llvm-size /tmp/tally-arm-h1j9pz0e/model9-pipeline.o
+   text	   data	    bss	    dec	    hex	filename
+   2066	      0	  14488	  16554	   40aa	/tmp/tally-arm-h1j9pz0e/model9-pipeline.o
+
+$ llvm-nm -u /tmp/tally-arm-h1j9pz0e/model9-pipeline.o
+         U __aeabi_memclr4
+         U expf
+         U fmaxf
+         U fminf
+         U sqrtf
+
+features.su model/streaming/paired_stream.c:3:stream_reset	8	static
+model/streaming/paired_stream.c:4:stream_features	96	static
+model/streaming/paired_stream.c:32:stream_push	72	static
+model/streaming/paired_stream.c:0:OUTLINED_FUNCTION_0	0	static
+
+model0-pipeline.su model/streaming/paired_stream.c:3:stream_reset	8	static
+model/streaming/paired_stream.c:4:stream_features	96	static
+model/streaming/paired_stream.c:32:stream_push	72	static
+model/streaming/paired_runtime.c:3:pair_reset	8	static
+model/streaming/paired_runtime.c:4:pair_push	264	static
+model/paired-synchronized-causal/L/realtime_model.h:12:rt_predict_rep	56	dynamic
+model/streaming/paired_runtime.c:18:pair_series	8	static
+/tmp/tally-arm-h1j9pz0e/probe.c:4:ingest	16	static
+/tmp/tally-arm-h1j9pz0e/probe.c:5:finish	0	static
+model/streaming/paired_stream.c:0:OUTLINED_FUNCTION_0	0	static
+model/streaming/paired_stream.c:0:OUTLINED_FUNCTION_1	0	static
+
+model0-runtime.su model/streaming/paired_runtime.c:3:pair_reset	8	static
+model/streaming/paired_runtime.c:4:pair_push	264	static
+model/paired-synchronized-causal/L/realtime_model.h:12:rt_predict_rep	56	dynamic
+model/streaming/paired_runtime.c:18:pair_series	8	static
+
+model0.su /tmp/tally-arm-h1j9pz0e/model0.c:2:predict	0	static
+model/paired-synchronized-causal/L/realtime_model.h:12:rt_predict_rep	56	dynamic
+
+model1-pipeline.su model/streaming/paired_stream.c:3:stream_reset	8	static
+model/streaming/paired_stream.c:4:stream_features	96	static
+model/streaming/paired_stream.c:32:stream_push	72	static
+model/streaming/paired_runtime.c:3:pair_reset	8	static
+model/streaming/paired_runtime.c:4:pair_push	264	static
+model/paired-synchronized-causal/R/realtime_model.h:12:rt_predict_rep	56	dynamic
+model/streaming/paired_runtime.c:18:pair_series	8	static
+/tmp/tally-arm-h1j9pz0e/probe.c:4:ingest	16	static
+/tmp/tally-arm-h1j9pz0e/probe.c:5:finish	0	static
+model/streaming/paired_stream.c:0:OUTLINED_FUNCTION_0	0	static
+model/streaming/paired_stream.c:0:OUTLINED_FUNCTION_1	0	static
+
+model1-runtime.su model/streaming/paired_runtime.c:3:pair_reset	8	static
+model/streaming/paired_runtime.c:4:pair_push	264	static
+model/paired-synchronized-causal/R/realtime_model.h:12:rt_predict_rep	56	dynamic
+model/streaming/paired_runtime.c:18:pair_series	8	static
+
+model1.su /tmp/tally-arm-h1j9pz0e/model1.c:2:predict	0	static
+model/paired-synchronized-causal/R/realtime_model.h:12:rt_predict_rep	56	dynamic
+
+model2.su /tmp/tally-arm-h1j9pz0e/model2.c:2:predict	0	static
+model/paired-synchronized-offline/L/realtime_model.h:12:rt_predict_rep	56	dynamic
+
+model3.su /tmp/tally-arm-h1j9pz0e/model3.c:2:predict	0	static
+model/paired-synchronized-offline/R/realtime_model.h:12:rt_predict_rep	56	dynamic
+
+model4-pipeline.su model/streaming/paired_stream.c:3:stream_reset	8	static
+model/streaming/paired_stream.c:4:stream_features	96	static
+model/streaming/paired_stream.c:32:stream_push	72	static
+model/streaming/paired_runtime.c:3:pair_reset	8	static
+model/streaming/paired_runtime.c:4:pair_push	272	static
+model/placement-controls/L-forearm/realtime_model.h:12:rt_predict_rep	56	dynamic
+model/streaming/paired_runtime.c:18:pair_series	8	static
+/tmp/tally-arm-h1j9pz0e/probe.c:4:ingest	16	static
+/tmp/tally-arm-h1j9pz0e/probe.c:5:finish	0	static
+model/streaming/paired_stream.c:0:OUTLINED_FUNCTION_0	0	static
+model/streaming/paired_stream.c:0:OUTLINED_FUNCTION_1	0	static
+
+model4-runtime.su model/streaming/paired_runtime.c:3:pair_reset	8	static
+model/streaming/paired_runtime.c:4:pair_push	272	static
+model/placement-controls/L-forearm/realtime_model.h:12:rt_predict_rep	56	dynamic
+model/streaming/paired_runtime.c:18:pair_series	8	static
+
+model4.su /tmp/tally-arm-h1j9pz0e/model4.c:2:predict	0	static
+model/placement-controls/L-forearm/realtime_model.h:12:rt_predict_rep	56	dynamic
+
+model5-pipeline.su model/streaming/paired_stream.c:3:stream_reset	8	static
+model/streaming/paired_stream.c:4:stream_features	96	static
+model/streaming/paired_stream.c:32:stream_push	72	static
+model/streaming/paired_runtime.c:3:pair_reset	8	static
+model/streaming/paired_runtime.c:4:pair_push	264	static
+model/placement-controls/L-pair/realtime_model.h:12:rt_predict_rep	56	dynamic
+model/streaming/paired_runtime.c:18:pair_series	8	static
+/tmp/tally-arm-h1j9pz0e/probe.c:4:ingest	16	static
+/tmp/tally-arm-h1j9pz0e/probe.c:5:finish	0	static
+model/streaming/paired_stream.c:0:OUTLINED_FUNCTION_0	0	static
+model/streaming/paired_stream.c:0:OUTLINED_FUNCTION_1	0	static
+
+model5-runtime.su model/streaming/paired_runtime.c:3:pair_reset	8	static
+model/streaming/paired_runtime.c:4:pair_push	264	static
+model/placement-controls/L-pair/realtime_model.h:12:rt_predict_rep	56	dynamic
+model/streaming/paired_runtime.c:18:pair_series	8	static
+
+model5.su /tmp/tally-arm-h1j9pz0e/model5.c:2:predict	0	static
+model/placement-controls/L-pair/realtime_model.h:12:rt_predict_rep	56	dynamic
+
+model6-pipeline.su model/streaming/paired_stream.c:3:stream_reset	8	static
+model/streaming/paired_stream.c:4:stream_features	96	static
+model/streaming/paired_stream.c:32:stream_push	72	static
+model/streaming/paired_runtime.c:3:pair_reset	8	static
+model/streaming/paired_runtime.c:4:pair_push	264	static
+model/placement-controls/L-upper/realtime_model.h:12:rt_predict_rep	56	dynamic
+model/streaming/paired_runtime.c:18:pair_series	8	static
+/tmp/tally-arm-h1j9pz0e/probe.c:4:ingest	16	static
+/tmp/tally-arm-h1j9pz0e/probe.c:5:finish	0	static
+model/streaming/paired_stream.c:0:OUTLINED_FUNCTION_0	0	static
+model/streaming/paired_stream.c:0:OUTLINED_FUNCTION_1	0	static
+
+model6-runtime.su model/streaming/paired_runtime.c:3:pair_reset	8	static
+model/streaming/paired_runtime.c:4:pair_push	264	static
+model/placement-controls/L-upper/realtime_model.h:12:rt_predict_rep	56	dynamic
+model/streaming/paired_runtime.c:18:pair_series	8	static
+
+model6.su /tmp/tally-arm-h1j9pz0e/model6.c:2:predict	0	static
+model/placement-controls/L-upper/realtime_model.h:12:rt_predict_rep	56	dynamic
+
+model7-pipeline.su model/streaming/paired_stream.c:3:stream_reset	8	static
+model/streaming/paired_stream.c:4:stream_features	96	static
+model/streaming/paired_stream.c:32:stream_push	72	static
+model/streaming/paired_runtime.c:3:pair_reset	8	static
+model/streaming/paired_runtime.c:4:pair_push	272	static
+model/placement-controls/R-forearm/realtime_model.h:12:rt_predict_rep	56	dynamic
+model/streaming/paired_runtime.c:18:pair_series	8	static
+/tmp/tally-arm-h1j9pz0e/probe.c:4:ingest	16	static
+/tmp/tally-arm-h1j9pz0e/probe.c:5:finish	0	static
+model/streaming/paired_stream.c:0:OUTLINED_FUNCTION_0	0	static
+model/streaming/paired_stream.c:0:OUTLINED_FUNCTION_1	0	static
+
+model7-runtime.su model/streaming/paired_runtime.c:3:pair_reset	8	static
+model/streaming/paired_runtime.c:4:pair_push	272	static
+model/placement-controls/R-forearm/realtime_model.h:12:rt_predict_rep	56	dynamic
+model/streaming/paired_runtime.c:18:pair_series	8	static
+
+model7.su /tmp/tally-arm-h1j9pz0e/model7.c:2:predict	0	static
+model/placement-controls/R-forearm/realtime_model.h:12:rt_predict_rep	56	dynamic
+
+model8-pipeline.su model/streaming/paired_stream.c:3:stream_reset	8	static
+model/streaming/paired_stream.c:4:stream_features	96	static
+model/streaming/paired_stream.c:32:stream_push	72	static
+model/streaming/paired_runtime.c:3:pair_reset	8	static
+model/streaming/paired_runtime.c:4:pair_push	264	static
+model/placement-controls/R-pair/realtime_model.h:12:rt_predict_rep	56	dynamic
+model/streaming/paired_runtime.c:18:pair_series	8	static
+/tmp/tally-arm-h1j9pz0e/probe.c:4:ingest	16	static
+/tmp/tally-arm-h1j9pz0e/probe.c:5:finish	0	static
+model/streaming/paired_stream.c:0:OUTLINED_FUNCTION_0	0	static
+model/streaming/paired_stream.c:0:OUTLINED_FUNCTION_1	0	static
+
+model8-runtime.su model/streaming/paired_runtime.c:3:pair_reset	8	static
+model/streaming/paired_runtime.c:4:pair_push	264	static
+model/placement-controls/R-pair/realtime_model.h:12:rt_predict_rep	56	dynamic
+model/streaming/paired_runtime.c:18:pair_series	8	static
+
+model8.su /tmp/tally-arm-h1j9pz0e/model8.c:2:predict	0	static
+model/placement-controls/R-pair/realtime_model.h:12:rt_predict_rep	56	dynamic
+
+model9-pipeline.su model/streaming/paired_stream.c:3:stream_reset	8	static
+model/streaming/paired_stream.c:4:stream_features	96	static
+model/streaming/paired_stream.c:32:stream_push	72	static
+model/streaming/paired_runtime.c:3:pair_reset	8	static
+model/streaming/paired_runtime.c:4:pair_push	264	static
+model/placement-controls/R-upper/realtime_model.h:12:rt_predict_rep	56	dynamic
+model/streaming/paired_runtime.c:18:pair_series	8	static
+/tmp/tally-arm-h1j9pz0e/probe.c:4:ingest	16	static
+/tmp/tally-arm-h1j9pz0e/probe.c:5:finish	0	static
+model/streaming/paired_stream.c:0:OUTLINED_FUNCTION_0	0	static
+model/streaming/paired_stream.c:0:OUTLINED_FUNCTION_1	0	static
+
+model9-runtime.su model/streaming/paired_runtime.c:3:pair_reset	8	static
+model/streaming/paired_runtime.c:4:pair_push	264	static
+model/placement-controls/R-upper/realtime_model.h:12:rt_predict_rep	56	dynamic
+model/streaming/paired_runtime.c:18:pair_series	8	static
+
+model9.su /tmp/tally-arm-h1j9pz0e/model9.c:2:predict	0	static
+model/placement-controls/R-upper/realtime_model.h:12:rt_predict_rep	56	dynamic
+
+probe.su /tmp/tally-arm-h1j9pz0e/probe.c:4:ingest	16	static
+/tmp/tally-arm-h1j9pz0e/probe.c:5:finish	0	static
+
+| model | parameters B | classifier text/rodata/exidx B | complete causal text/rodata/exidx B | complete causal BSS B |
+| model/paired-synchronized-causal/L | 992 | 1332 | 2546 | 14488 |
+| model/paired-synchronized-causal/R | 992 | 1332 | 2546 | 14488 |
+| model/paired-synchronized-offline/L | 992 | 1332 | offline control | offline control |
+| model/paired-synchronized-offline/R | 992 | 1332 | offline control | offline control |
+| model/placement-controls/L-forearm | 512 | 852 | 2090 | 14488 |
+| model/placement-controls/L-pair | 992 | 1332 | 2546 | 14488 |
+| model/placement-controls/L-upper | 512 | 852 | 2066 | 14488 |
+| model/placement-controls/R-forearm | 512 | 852 | 2090 | 14488 |
+| model/placement-controls/R-pair | 992 | 1332 | 2546 | 14488 |
+| model/placement-controls/R-upper | 512 | 852 | 2066 | 14488 |
+STATE / ESTIMATES / COST / LATENCY: {
+  "target": "arm-none-eabi cortex-m4 fpv4-sp-d16 hard-float -Oz",
+  "target_runtime_state_bytes": 14472,
+  "target_output_bytes": 16,
+  "allocation_estimates": {
+    "static_bytes": 14488,
+    "stack_reserve": 4096,
+    "core_reserve": 4096,
+    "oled_reserve": 1024,
+    "interrupt_reserve": 1024,
+    "total": 24728,
+    "headroom_of_32768": 8040
+  },
+  "feature_arithmetic": {
+    "max_samples": 600,
+    "axes": 6,
+    "buffer_bytes": 14400,
+    "axis_sample_visits_per_cycle": 7200,
+    "approx_multiplications_before_scalar_normalization": 14400,
+    "approx_add_sub_before_scalar_normalization": 21600,
+    "square_roots_per_cycle_features": 12,
+    "classifier_mac_per_pair_cycle": 244,
+    "classifier_expf_per_cycle": 4
+  },
+  "latency": {
+    "confirmation_component_s": 0.2,
+    "ema_time_constant_s": 0.04481420117724551,
+    "true_repetition_end_to_display": "not measured; unknown anatomical boundary, hysteresis wait, refractoriness, MCU feature/libm/ADC/display timing",
+    "mid_repetition": "not validated"
+  },
+  "two_pair_float_state_plus_core_estimate": 33040,
+  "scope": "unlinked target objects; includes actual feature/detector code and causal runtime; excludes resolved libm/compiler helpers, Arduino core/linker, acquisition/display; .su compiler frame estimates exclude unknown library/interrupt stack; all reserves estimates"
+}

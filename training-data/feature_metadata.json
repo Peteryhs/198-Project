@@ -1,0 +1,11 @@
+{
+  "clip_g": null,
+  "range_operation": "none; original PHYTMO acceleration",
+  "sampling_hz_nominal": 100,
+  "channels": ["accel_x", "accel_y", "accel_z"],
+  "units": "g",
+  "sensor_fusion": false,
+  "selected_sensor": "all",
+  "segmentation": "offline centered detrending, whole-series prominence and future peaks",
+  "source": "PHYTMO, doi:10.5281/zenodo.6319979; original committed features; full raw rebuild checked in docs/runs/data-comparison.log"
+}

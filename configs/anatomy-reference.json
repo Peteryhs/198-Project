@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "sample_stride": 5,
+  "minimum_samples": 100,
+  "minimum_singular_value_ratio": 0.02,
+  "maximum_constraint_rms_m": 0.02,
+  "maximum_board_to_joint_distance_m": 0.60,
+  "use_for_classifier_calibration": false,
+  "interpretation": "Descriptive functional joint-center hypotheses from published optical Calib trials; no independently measured anatomical ground truth. Hinge-axis ambiguity must remain explicit."
+}

@@ -1,0 +1,423 @@
+{
+  "source": "real recordings; L pair; \u00b13 g; actual C causal detector + features",
+  "subjects": 30,
+  "series": 301,
+  "cycles": 6998,
+  "features": 61,
+  "quality_accuracy": 0.9235880398671097,
+  "quality_majority_floor": 0.5016611295681063,
+  "exercise_accuracy": 0.9800664451827242,
+  "exercise_majority_floor": 0.34551495016611294,
+  "quality_train_majority": 0.4684385382059801,
+  "exercise_train_majority": 0.33222591362126247,
+  "parameter_bytes": 992,
+  "folds": [
+    {
+      "subject": "A01",
+      "n": 11,
+      "quality": 1.0,
+      "quality_train_majority": 0.45454545454545453,
+      "exercise": 1.0,
+      "exercise_train_majority": 0.36363636363636365
+    },
+    {
+      "subject": "A02",
+      "n": 7,
+      "quality": 1.0,
+      "quality_train_majority": 0.42857142857142855,
+      "exercise": 1.0,
+      "exercise_train_majority": 0.0
+    },
+    {
+      "subject": "A03",
+      "n": 12,
+      "quality": 1.0,
+      "quality_train_majority": 0.5,
+      "exercise": 1.0,
+      "exercise_train_majority": 0.3333333333333333
+    },
+    {
+      "subject": "A04",
+      "n": 10,
+      "quality": 0.9,
+      "quality_train_majority": 0.4,
+      "exercise": 1.0,
+      "exercise_train_majority": 0.4
+    },
+    {
+      "subject": "A05",
+      "n": 11,
+      "quality": 1.0,
+      "quality_train_majority": 0.45454545454545453,
+      "exercise": 1.0,
+      "exercise_train_majority": 0.36363636363636365
+    },
+    {
+      "subject": "A06",
+      "n": 7,
+      "quality": 0.8571428571428571,
+      "quality_train_majority": 0.42857142857142855,
+      "exercise": 1.0,
+      "exercise_train_majority": 0.5714285714285714
+    },
+    {
+      "subject": "A07",
+      "n": 6,
+      "quality": 1.0,
+      "quality_train_majority": 0.5,
+      "exercise": 1.0,
+      "exercise_train_majority": 0.5
+    },
+    {
+      "subject": "A08",
+      "n": 10,
+      "quality": 1.0,
+      "quality_train_majority": 0.4,
+      "exercise": 1.0,
+      "exercise_train_majority": 0.4
+    },
+    {
+      "subject": "A09",
+      "n": 9,
+      "quality": 1.0,
+      "quality_train_majority": 0.4444444444444444,
+      "exercise": 1.0,
+      "exercise_train_majority": 0.2222222222222222
+    },
+    {
+      "subject": "A10",
+      "n": 9,
+      "quality": 0.8888888888888888,
+      "quality_train_majority": 0.4444444444444444,
+      "exercise": 0.8888888888888888,
+      "exercise_train_majority": 0.3333333333333333
+    },
+    {
+      "subject": "B01",
+      "n": 7,
+      "quality": 1.0,
+      "quality_train_majority": 0.42857142857142855,
+      "exercise": 1.0,
+      "exercise_train_majority": 0.2857142857142857
+    },
+    {
+      "subject": "B02",
+      "n": 10,
+      "quality": 1.0,
+      "quality_train_majority": 0.5,
+      "exercise": 0.9,
+      "exercise_train_majority": 0.2
+    },
+    {
+      "subject": "B03",
+      "n": 8,
+      "quality": 1.0,
+      "quality_train_majority": 0.5,
+      "exercise": 1.0,
+      "exercise_train_majority": 0.5
+    },
+    {
+      "subject": "B04",
+      "n": 12,
+      "quality": 1.0,
+      "quality_train_majority": 0.5,
+      "exercise": 1.0,
+      "exercise_train_majority": 0.3333333333333333
+    },
+    {
+      "subject": "B05",
+      "n": 10,
+      "quality": 1.0,
+      "quality_train_majority": 0.5,
+      "exercise": 1.0,
+      "exercise_train_majority": 0.4
+    },
+    {
+      "subject": "C01",
+      "n": 12,
+      "quality": 0.8333333333333334,
+      "quality_train_majority": 0.5,
+      "exercise": 0.9166666666666666,
+      "exercise_train_majority": 0.3333333333333333
+    },
+    {
+      "subject": "C02",
+      "n": 11,
+      "quality": 0.8181818181818182,
+      "quality_train_majority": 0.45454545454545453,
+      "exercise": 1.0,
+      "exercise_train_majority": 0.2727272727272727
+    },
+    {
+      "subject": "C03",
+      "n": 10,
+      "quality": 0.9,
+      "quality_train_majority": 0.5,
+      "exercise": 1.0,
+      "exercise_train_majority": 0.2
+    },
+    {
+      "subject": "C04",
+      "n": 11,
+      "quality": 0.7272727272727273,
+      "quality_train_majority": 0.45454545454545453,
+      "exercise": 1.0,
+      "exercise_train_majority": 0.36363636363636365
+    },
+    {
+      "subject": "C05",
+      "n": 11,
+      "quality": 0.8181818181818182,
+      "quality_train_majority": 0.45454545454545453,
+      "exercise": 0.9090909090909091,
+      "exercise_train_majority": 0.36363636363636365
+    },
+    {
+      "subject": "D01",
+      "n": 11,
+      "quality": 0.8181818181818182,
+      "quality_train_majority": 0.45454545454545453,
+      "exercise": 1.0,
+      "exercise_train_majority": 0.2727272727272727
+    },
+    {
+      "subject": "D02",
+      "n": 9,
+      "quality": 0.8888888888888888,
+      "quality_train_majority": 0.4444444444444444,
+      "exercise": 1.0,
+      "exercise_train_majority": 0.4444444444444444
+    },
+    {
+      "subject": "D03",
+      "n": 11,
+      "quality": 0.9090909090909091,
+      "quality_train_majority": 0.45454545454545453,
+      "exercise": 1.0,
+      "exercise_train_majority": 0.36363636363636365
+    },
+    {
+      "subject": "D04",
+      "n": 11,
+      "quality": 1.0,
+      "quality_train_majority": 0.45454545454545453,
+      "exercise": 1.0,
+      "exercise_train_majority": 0.36363636363636365
+    },
+    {
+      "subject": "D05",
+      "n": 11,
+      "quality": 1.0,
+      "quality_train_majority": 0.45454545454545453,
+      "exercise": 1.0,
+      "exercise_train_majority": 0.36363636363636365
+    },
+    {
+      "subject": "E01",
+      "n": 10,
+      "quality": 1.0,
+      "quality_train_majority": 0.5,
+      "exercise": 1.0,
+      "exercise_train_majority": 0.2
+    },
+    {
+      "subject": "E02",
+      "n": 12,
+      "quality": 1.0,
+      "quality_train_majority": 0.5,
+      "exercise": 1.0,
+      "exercise_train_majority": 0.3333333333333333
+    },
+    {
+      "subject": "E03",
+      "n": 12,
+      "quality": 0.6666666666666666,
+      "quality_train_majority": 0.5,
+      "exercise": 0.8333333333333334,
+      "exercise_train_majority": 0.3333333333333333
+    },
+    {
+      "subject": "E04",
+      "n": 10,
+      "quality": 0.9,
+      "quality_train_majority": 0.5,
+      "exercise": 1.0,
+      "exercise_train_majority": 0.2
+    },
+    {
+      "subject": "E05",
+      "n": 10,
+      "quality": 0.9,
+      "quality_train_majority": 0.5,
+      "exercise": 1.0,
+      "exercise_train_majority": 0.4
+    }
+  ],
+  "rejected": [
+    {
+      "source": "A/Larm/A01SQZ0_1.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "A/Larm/A02EFE1_2.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "A/Larm/A04EFE1_2.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "A/Larm/A04SQZ1_2.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "A/Larm/A05EFE1_1.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "A/Larm/A06SQZ0_1.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "A/Larm/A07EAH1_1.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "A/Larm/A08EFE1_1.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "A/Larm/A08SQZ1_2.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "A/Larm/A09EAH0_1.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "A/Larm/A09EAH1_2.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "A/Larm/A10EAH0_2.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "A/Larm/A10SQZ0_2.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "A/Larm/A10SQZ1_1.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "B/Larm/B01EAH0_2.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "B/Larm/B01EAH1_1.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "B/Larm/B01EFE1_2.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "B/Larm/B01SQZ0_2.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "B/Larm/B01SQZ1_2.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "B/Larm/B02EAH0_2.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "B/Larm/B02EAH1_1.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "B/Larm/B05EFE0_2.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "B/Larm/B05EFE1_2.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "C/Larm/C02EAH0_1.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "C/Larm/C03SQZ0_1.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "C/Larm/C03SQZ1_2.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "C/Larm/C04EFE0_1.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "C/Larm/C05EFE1_1.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "D/Larm/D01EAH0_2.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "D/Larm/D02EFE0_1.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "D/Larm/D02EFE1_2.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "D/Larm/D02SQZ0_2.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "D/Larm/D03SQZ0_1.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "D/Larm/D04SQZ0_2.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "D/Larm/D05EFE1_2.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "E/Larm/E01SQZ0_1.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "E/Larm/E01SQZ1_1.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "E/Larm/E04EAH0_1.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "E/Larm/E04EAH1_1.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "E/Larm/E05EFE0_2.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    },
+    {
+      "source": "E/Larm/E05EFE1_2.csv",
+      "reason": "timestamps not near 100 Hz, reversed or gap >50 ms"
+    }
+  ],
+  "protocol": "fixed C=1; weighted per series; LOSO; series-level labels only; no held-out tuning"
+}

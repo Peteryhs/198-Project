@@ -1,0 +1,27 @@
+Optical pose replay: 1440 rows, 24 group summaries
+Measured-site calibration gate: False (clock and board-to-chip extrinsics unidentified)
+| Candidate | segment | length error | surface error | recordings | dynamic RMS g p10/p50/p90 |
+| lateral_midpoint | upper | +0% | +0 | 60 | [0.1375, 0.297, 0.5182] |
+| lateral_midpoint | upper | -20% | -15 | 60 | [0.1374, 0.2828, 0.5186] |
+| lateral_midpoint | upper | +20% | +15 | 60 | [0.1369, 0.2969, 0.5202] |
+| lateral_midpoint | forearm | +0% | +0 | 60 | [0.3051, 0.405, 0.5775] |
+| lateral_midpoint | forearm | -20% | -15 | 60 | [0.3052, 0.4061, 0.5801] |
+| lateral_midpoint | forearm | +20% | +15 | 60 | [0.305, 0.4014, 0.5652] |
+| proximal_lateral | upper | +0% | +0 | 60 | [0.1409, 0.2933, 0.5199] |
+| proximal_lateral | upper | -20% | -15 | 60 | [0.139, 0.285, 0.5168] |
+| proximal_lateral | upper | +20% | +15 | 60 | [0.1419, 0.2976, 0.5287] |
+| proximal_lateral | forearm | +0% | +0 | 60 | [0.3101, 0.4033, 0.5717] |
+| proximal_lateral | forearm | -20% | -15 | 60 | [0.3085, 0.4043, 0.5764] |
+| proximal_lateral | forearm | +20% | +15 | 60 | [0.312, 0.4015, 0.5713] |
+| distal_lateral | upper | +0% | +0 | 60 | [0.1397, 0.3061, 0.5524] |
+| distal_lateral | upper | -20% | -15 | 60 | [0.1384, 0.3024, 0.5182] |
+| distal_lateral | upper | +20% | +15 | 60 | [0.1416, 0.3083, 0.5718] |
+| distal_lateral | forearm | +0% | +0 | 60 | [0.3066, 0.4153, 0.5915] |
+| distal_lateral | forearm | -20% | -15 | 60 | [0.3061, 0.4133, 0.5902] |
+| distal_lateral | forearm | +20% | +15 | 60 | [0.308, 0.417, 0.5956] |
+| proximal_anterior | upper | +0% | +0 | 60 | [0.1401, 0.2961, 0.5254] |
+| proximal_anterior | upper | -20% | -15 | 60 | [0.1389, 0.2918, 0.523] |
+| proximal_anterior | upper | +20% | +15 | 60 | [0.1425, 0.3002, 0.5634] |
+| proximal_anterior | forearm | +0% | +0 | 60 | [0.3086, 0.3994, 0.5721] |
+| proximal_anterior | forearm | -20% | -15 | 60 | [0.3069, 0.3966, 0.5636] |
+| proximal_anterior | forearm | +20% | +15 | 60 | [0.3119, 0.4063, 0.5769] |

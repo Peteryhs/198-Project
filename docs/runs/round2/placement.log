@@ -1,0 +1,184 @@
+$ /tmp/tally-round2-env/bin/python scripts/test_placement_experiment.py
+deterministic independent mount rotations preserve norms before clipping; common-cohort association passed
+$ OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 /tmp/tally-round2-env/bin/python scripts/placement_experiment.py data/phytmo/inertial/upper
+{
+  "source": "real recordings; common cohort; L-pair; common C boundaries",
+  "subjects": 30,
+  "series": 269,
+  "cycles": 6112,
+  "features": 61,
+  "quality_accuracy": 0.9107806691449815,
+  "quality_majority_floor": 0.5055762081784386,
+  "exercise_accuracy": 0.9776951672862454,
+  "exercise_majority_floor": 0.3382899628252788,
+  "quality_train_majority": 0.483271375464684,
+  "exercise_train_majority": 0.2862453531598513,
+  "parameter_bytes": 992,
+  "protocol": "fixed C=1; weighted per series; LOSO; series-level labels only; no held-out tuning"
+}
+rejected: 0
+{
+  "source": "real recordings; common cohort; L-upper; common C boundaries",
+  "subjects": 30,
+  "series": 269,
+  "cycles": 6112,
+  "features": 31,
+  "quality_accuracy": 0.8884758364312267,
+  "quality_majority_floor": 0.5055762081784386,
+  "exercise_accuracy": 0.9516728624535316,
+  "exercise_majority_floor": 0.3382899628252788,
+  "quality_train_majority": 0.483271375464684,
+  "exercise_train_majority": 0.2862453531598513,
+  "parameter_bytes": 512,
+  "protocol": "fixed C=1; weighted per series; LOSO; series-level labels only; no held-out tuning"
+}
+rejected: 0
+{
+  "source": "real recordings; common cohort; L-forearm; common C boundaries",
+  "subjects": 30,
+  "series": 269,
+  "cycles": 6112,
+  "features": 31,
+  "quality_accuracy": 0.8698884758364313,
+  "quality_majority_floor": 0.5055762081784386,
+  "exercise_accuracy": 0.9628252788104089,
+  "exercise_majority_floor": 0.3382899628252788,
+  "quality_train_majority": 0.483271375464684,
+  "exercise_train_majority": 0.2862453531598513,
+  "parameter_bytes": 512,
+  "protocol": "fixed C=1; weighted per series; LOSO; series-level labels only; no held-out tuning"
+}
+rejected: 0
+held-out remount L 0 complete
+held-out remount L 15 complete
+held-out remount L 30 complete
+held-out remount L 60 complete
+{
+  "source": "real recordings; common cohort; R-pair; common C boundaries",
+  "subjects": 30,
+  "series": 269,
+  "cycles": 6156,
+  "features": 61,
+  "quality_accuracy": 0.9070631970260223,
+  "quality_majority_floor": 0.5055762081784386,
+  "exercise_accuracy": 0.9739776951672863,
+  "exercise_majority_floor": 0.3382899628252788,
+  "quality_train_majority": 0.483271375464684,
+  "exercise_train_majority": 0.2862453531598513,
+  "parameter_bytes": 992,
+  "protocol": "fixed C=1; weighted per series; LOSO; series-level labels only; no held-out tuning"
+}
+rejected: 0
+{
+  "source": "real recordings; common cohort; R-upper; common C boundaries",
+  "subjects": 30,
+  "series": 269,
+  "cycles": 6156,
+  "features": 31,
+  "quality_accuracy": 0.8736059479553904,
+  "quality_majority_floor": 0.5055762081784386,
+  "exercise_accuracy": 0.9553903345724907,
+  "exercise_majority_floor": 0.3382899628252788,
+  "quality_train_majority": 0.483271375464684,
+  "exercise_train_majority": 0.2862453531598513,
+  "parameter_bytes": 512,
+  "protocol": "fixed C=1; weighted per series; LOSO; series-level labels only; no held-out tuning"
+}
+rejected: 0
+{
+  "source": "real recordings; common cohort; R-forearm; common C boundaries",
+  "subjects": 30,
+  "series": 269,
+  "cycles": 6156,
+  "features": 31,
+  "quality_accuracy": 0.8847583643122676,
+  "quality_majority_floor": 0.5055762081784386,
+  "exercise_accuracy": 0.9702602230483272,
+  "exercise_majority_floor": 0.3382899628252788,
+  "quality_train_majority": 0.483271375464684,
+  "exercise_train_majority": 0.2862453531598513,
+  "parameter_bytes": 512,
+  "protocol": "fixed C=1; weighted per series; LOSO; series-level labels only; no held-out tuning"
+}
+rejected: 0
+held-out remount R 0 complete
+held-out remount R 15 complete
+held-out remount R 30 complete
+held-out remount R 60 complete
+| Source / configuration | series | quality accuracy / majority floor | exercise accuracy / majority floor | coverage |
+| real recordings; common cohort; L-pair; common C boundaries | 269 | 0.910781 / 0.505576 | 0.977695 / 0.338290 | 1.000000 |
+| real recordings; common cohort; L-upper; common C boundaries | 269 | 0.888476 / 0.505576 | 0.951673 / 0.338290 | 1.000000 |
+| real recordings; common cohort; L-forearm; common C boundaries | 269 | 0.869888 / 0.505576 | 0.962825 / 0.338290 | 1.000000 |
+| real recordings L 0deg | 269 | 0.910781 / 0.505576 | 0.977695 / 0.338290 | 1.000000 |
+| simulation: mount rotation applied to held-out real recordings L 15deg | 269 | 0.910781 / 0.505576 | 0.959108 / 0.338290 | 1.000000 |
+| simulation: mount rotation applied to held-out real recordings L 30deg | 269 | 0.873606 / 0.505576 | 0.899628 / 0.338290 | 1.000000 |
+| simulation: mount rotation applied to held-out real recordings L 60deg | 269 | 0.713755 / 0.505576 | 0.598513 / 0.338290 | 1.000000 |
+| real recordings; common cohort; R-pair; common C boundaries | 269 | 0.907063 / 0.505576 | 0.973978 / 0.338290 | 1.000000 |
+| real recordings; common cohort; R-upper; common C boundaries | 269 | 0.873606 / 0.505576 | 0.955390 / 0.338290 | 1.000000 |
+| real recordings; common cohort; R-forearm; common C boundaries | 269 | 0.884758 / 0.505576 | 0.970260 / 0.338290 | 1.000000 |
+| real recordings R 0deg | 269 | 0.907063 / 0.505576 | 0.973978 / 0.338290 | 1.000000 |
+| simulation: mount rotation applied to held-out real recordings R 15deg | 269 | 0.869888 / 0.505576 | 0.955390 / 0.338290 | 1.000000 |
+| simulation: mount rotation applied to held-out real recordings R 30deg | 269 | 0.776952 / 0.505576 | 0.914498 / 0.338290 | 1.000000 |
+| simulation: mount rotation applied to held-out real recordings R 60deg | 269 | 0.657993 / 0.505576 | 0.654275 / 0.338290 | 1.000000 |
+Subject-block bootstrap: {
+  "quality": {
+    "left_minus_right": 0.0037174721189591076,
+    "subject_bootstrap_95_interval": [
+      -0.03309128771434773,
+      0.042556977360490626
+    ],
+    "interpretation": "exploratory side comparison; no model selection or tuning"
+  },
+  "exercise": {
+    "left_minus_right": 0.0037174721189591076,
+    "subject_bootstrap_95_interval": [
+      -0.011363636363636364,
+      0.01976480644958905
+    ],
+    "interpretation": "exploratory side comparison; no model selection or tuning"
+  }
+}
+SIMULATED position offsets (cannot rank patient placements): [
+  {
+    "source": "simulation; failed-domain mechanical diagnostic",
+    "exercise": "EAH",
+    "offset_m": -0.05,
+    "rms_change_g": 0.03859786117008061,
+    "peak_change_g": 0.15463183381147116
+  },
+  {
+    "source": "simulation; failed-domain mechanical diagnostic",
+    "exercise": "EAH",
+    "offset_m": 0.05,
+    "rms_change_g": 0.03859744332998882,
+    "peak_change_g": 0.1546318338114714
+  },
+  {
+    "source": "simulation; failed-domain mechanical diagnostic",
+    "exercise": "EFE",
+    "offset_m": -0.05,
+    "rms_change_g": 0.028953936167499215,
+    "peak_change_g": 0.14242405745793407
+  },
+  {
+    "source": "simulation; failed-domain mechanical diagnostic",
+    "exercise": "EFE",
+    "offset_m": 0.05,
+    "rms_change_g": 0.028950085985970184,
+    "peak_change_g": 0.14242405745793407
+  },
+  {
+    "source": "simulation; failed-domain mechanical diagnostic",
+    "exercise": "SQZ",
+    "offset_m": -0.05,
+    "rms_change_g": 0.03113617064977611,
+    "peak_change_g": 0.14751063093857464
+  },
+  {
+    "source": "simulation; failed-domain mechanical diagnostic",
+    "exercise": "SQZ",
+    "offset_m": 0.05,
+    "rms_change_g": 0.031140647872272074,
+    "peak_change_g": 0.14751063093857475
+  }
+]

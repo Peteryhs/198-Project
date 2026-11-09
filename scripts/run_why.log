@@ -1,0 +1,14 @@
+feature importances, exported forest (top 8):
+  x_skew           0.109
+  x_max            0.083
+  x_mean           0.067
+  y_max            0.066
+  y_min            0.060
+  x_zcr            0.048
+  y_std            0.046
+  z_kurt           0.042
+  ... 23 more, total 1.000
+
+LOSO accuracy: forest 0.883  logreg 0.865  (n=1368 series)
+discordant pairs: forest right / logreg wrong 83, logreg right / forest wrong 58
+exact McNemar p = 0.0429

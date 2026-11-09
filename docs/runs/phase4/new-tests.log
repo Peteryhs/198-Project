@@ -1,0 +1,9 @@
+test_phase4_reference_data
+PHYTMO reference selection checks passed
+test_calibrated_replay
+calibrated replay synthetic recovery, timing, gravity/frame, surface, gap and immutability checks passed
+test_anatomical_reference
+Anatomy constraint checks: known fixed/shared center recovery, mobile joint, hinge-axis non-identifiability and missing-data rejection passed
+test_placement_model_sweep
+placement_model_sweep tests passed
+Input-hardening rerun: all numeric fits, waveform decisions and gates identical to pre-hardening report.

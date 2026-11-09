@@ -1,0 +1,137 @@
+LOSO A01: train=630 heldout=23; fitted sensors=4/4
+LOSO A02: train=637 heldout=16; fitted sensors=4/4
+LOSO A03: train=629 heldout=24; fitted sensors=4/4
+LOSO A04: train=630 heldout=23; fitted sensors=4/4
+LOSO A05: train=629 heldout=24; fitted sensors=4/4
+LOSO A06: train=637 heldout=16; fitted sensors=4/4
+LOSO A07: train=638 heldout=15; fitted sensors=4/4
+LOSO A08: train=632 heldout=21; fitted sensors=4/4
+LOSO A09: train=635 heldout=18; fitted sensors=4/4
+LOSO A10: train=632 heldout=21; fitted sensors=4/4
+LOSO B01: train=633 heldout=20; fitted sensors=4/4
+LOSO B02: train=632 heldout=21; fitted sensors=4/4
+LOSO B03: train=637 heldout=16; fitted sensors=4/4
+LOSO B04: train=630 heldout=23; fitted sensors=4/4
+LOSO B05: train=629 heldout=24; fitted sensors=4/4
+LOSO C01: train=630 heldout=23; fitted sensors=4/4
+LOSO C02: train=629 heldout=24; fitted sensors=4/4
+LOSO C03: train=629 heldout=24; fitted sensors=4/4
+LOSO C04: train=629 heldout=24; fitted sensors=4/4
+LOSO C05: train=630 heldout=23; fitted sensors=4/4
+LOSO D01: train=630 heldout=23; fitted sensors=4/4
+LOSO D02: train=629 heldout=24; fitted sensors=4/4
+LOSO D03: train=630 heldout=23; fitted sensors=4/4
+LOSO D04: train=629 heldout=24; fitted sensors=4/4
+LOSO D05: train=630 heldout=23; fitted sensors=4/4
+LOSO E01: train=632 heldout=21; fitted sensors=4/4
+LOSO E02: train=629 heldout=24; fitted sensors=4/4
+LOSO E03: train=629 heldout=24; fitted sensors=4/4
+LOSO E04: train=633 heldout=20; fitted sensors=4/4
+LOSO E05: train=629 heldout=24; fitted sensors=4/4
+{
+  "source": "PHYTMO upper rigid-body pose and measured upper/forearm IMUs",
+  "cohort": {
+    "n_people": 30,
+    "people": [
+      "A01",
+      "A02",
+      "A03",
+      "A04",
+      "A05",
+      "A06",
+      "A07",
+      "A08",
+      "A09",
+      "A10",
+      "B01",
+      "B02",
+      "B03",
+      "B04",
+      "B05",
+      "C01",
+      "C02",
+      "C03",
+      "C04",
+      "C05",
+      "D01",
+      "D02",
+      "D03",
+      "D04",
+      "D05",
+      "E01",
+      "E02",
+      "E03",
+      "E04",
+      "E05"
+    ],
+    "n_records": 653
+  },
+  "clock_status": "primary uses train-only median gyro event lag; heldout gyro oracle lag is diagnostic only",
+  "calibration_gate": {
+    "passed": false,
+    "reasons": [
+      "train-median clock mapping failed held-out gyro timing residual/coverage criteria",
+      "matched held-out waveform metrics failed preregistered improvement/fidelity criteria"
+    ],
+    "clock": {
+      "heldout_lag_coverage": 1.0,
+      "heldout_residual_p95_abs_s": 67.6925923344,
+      "threshold_s": 0.01,
+      "minimum_coverage": 0.95,
+      "passed": false
+    },
+    "transform_identifiability": {
+      "min_required_rank": 12,
+      "fitted_transforms": 120,
+      "passed": true
+    },
+    "matched_waveform": {
+      "n_matched_records": 611,
+      "baseline_dynamic_rmse_g_mean": 0.42460026917629085,
+      "minimum_dynamic_rms_g_for_fidelity": 0.05,
+      "n_dynamic_active_records": 591,
+      "calibrated_dynamic_rmse_g_mean": 0.38928671343145366,
+      "relative_improvement": 0.08316894337665925,
+      "calibrated_dynamic_correlation_median": 0.1202259675312333,
+      "calibrated_dynamic_nrmse_median": 1.1953297676218477,
+      "max_axis_bias_abs_g": 0.9018862570102278,
+      "passed": false
+    },
+    "rule": "all clock, train-only identifiability, and matched held-out waveform criteria must pass"
+  },
+  "runtime": {
+    "python": "3.12.14",
+    "pins": {
+      "numpy": "2.3.4",
+      "scipy": "1.16.3",
+      "scikit-learn": "1.7.2"
+    },
+    "config_sha256": "a8b0d83013736b5b22f5ebc23507022e10258088466c8b8b1072564936a76235",
+    "calibration_script_sha256": "1d2e42b41307bebce49c139df6e7611e9846f904c695d9a60a5af0dd41419c7a"
+  },
+  "acceptance_criteria": {
+    "clock_residual_abs_p95_s_max": 0.01,
+    "minimum_heldout_clock_coverage": 0.95,
+    "minimum_transform_jacobian_rank": 12,
+    "minimum_dynamic_correlation": 0.7,
+    "maximum_dynamic_nrmse": 0.5,
+    "minimum_measured_dynamic_rms_g": 0.05,
+    "maximum_abs_axis_bias_g": 0.1,
+    "minimum_dynamic_rmse_improvement_fraction": 0.1,
+    "legacy_distribution_gate": {
+      "median_ratio_range": [
+        0.75,
+        1.33
+      ],
+      "normalized_wasserstein_max": 0.5,
+      "statistics": [
+        "envelope",
+        "dominant_frequency",
+        "peak",
+        "duration",
+        "high_frequency_fraction"
+      ]
+    }
+  },
+  "interpretation": "Primary heldout results use a train-only median optical-to-IMU lag by side and segment. A per-record heldout lag estimated from gyro/optical rotation is reported separately as reference-assisted diagnostic and never used for primary scoring or fitting. Waveform metrics are calibration evidence only; absent published shared clock timestamps, they do not qualify as deployment validation."
+}

@@ -1,0 +1,2 @@
+PASS: desktop/mobile render; no horizontal overflow; six trace canvases and arm; mount switch, optical-board view with unaligned clocks, play/pause/reset, seeded configuration, JSON export, invalid-seed error/recovery; no page errors
+Screenshots and exported preview: data/phase3-inspection

@@ -1,0 +1,49 @@
+$ OPENBLAS_NUM_THREADS=1 /tmp/tally-round2-env/bin/python scripts/verify_paired_export.py data/phytmo/inertial/upper
+{
+  "model": "model/paired-synchronized-offline/L",
+  "coefficient_errors": {
+    "quality_coef": 0.0,
+    "quality_intercept": 0.0,
+    "exercise_coef": 0.0,
+    "exercise_intercept": 0.0
+  },
+  "max_probability_error": 8.752523740218621e-07,
+  "series_decision_differences": 0
+}
+{
+  "model": "model/paired-synchronized-offline/R",
+  "coefficient_errors": {
+    "quality_coef": 0.0,
+    "quality_intercept": 0.0,
+    "exercise_coef": 0.0,
+    "exercise_intercept": 0.0
+  },
+  "max_probability_error": 8.260868219478468e-07,
+  "series_decision_differences": 0
+}
+$ OPENBLAS_NUM_THREADS=1 /tmp/tally-round2-env/bin/python scripts/verify_paired_export.py data/phytmo/inertial/upper --causal --model model/paired-synchronized-causal
+{
+  "model": "model/paired-synchronized-causal/L",
+  "coefficient_errors": {
+    "quality_coef": 0.0,
+    "quality_intercept": 0.0,
+    "exercise_coef": 0.0,
+    "exercise_intercept": 0.0
+  },
+  "max_probability_error": 1.1176542424884417e-06,
+  "series_decision_differences": 0
+}
+{
+  "model": "model/paired-synchronized-causal/R",
+  "coefficient_errors": {
+    "quality_coef": 0.0,
+    "quality_intercept": 0.0,
+    "exercise_coef": 0.0,
+    "exercise_intercept": 0.0
+  },
+  "max_probability_error": 9.611880746329682e-07,
+  "series_decision_differences": 0
+}
+$ /tmp/tally-round2-env/bin/python scripts/test_paired_runtime.py
+L integrated runtime parity passed; cycles 11 sizeof(PairRuntime) 14472
+R integrated runtime parity passed; cycles 11 sizeof(PairRuntime) 14472

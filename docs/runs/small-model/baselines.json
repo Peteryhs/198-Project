@@ -1,0 +1,73 @@
+{
+  "rep_logreg": {
+    "accuracy": 0.8647660818713451,
+    "correct": 1183,
+    "count": 1368,
+    "per_exercise": {
+      "EAH": {
+        "accuracy": 0.8900862068965517,
+        "correct": 413,
+        "count": 464
+      },
+      "EFE": {
+        "accuracy": 0.8865740740740741,
+        "correct": 383,
+        "count": 432
+      },
+      "SQZ": {
+        "accuracy": 0.8199152542372882,
+        "correct": 387,
+        "count": 472
+      }
+    }
+  },
+  "rep_rf80": {
+    "accuracy": 0.8830409356725146,
+    "correct": 1208,
+    "count": 1368,
+    "per_exercise": {
+      "EAH": {
+        "accuracy": 0.9375,
+        "correct": 435,
+        "count": 464
+      },
+      "EFE": {
+        "accuracy": 0.8518518518518519,
+        "correct": 368,
+        "count": 432
+      },
+      "SQZ": {
+        "accuracy": 0.8580508474576272,
+        "correct": 405,
+        "count": 472
+      }
+    }
+  },
+  "window_rf80": {
+    "accuracy": 0.809413812728064,
+    "correct": 24178,
+    "count": 29871,
+    "per_exercise": {
+      "EAH": {
+        "accuracy": 0.8367432500419252,
+        "correct": 9979,
+        "count": 11926
+      },
+      "EFE": {
+        "accuracy": 0.8027917364600782,
+        "correct": 7189,
+        "count": 8955
+      },
+      "SQZ": {
+        "accuracy": 0.7797552836484983,
+        "correct": 7010,
+        "count": 8990
+      }
+    }
+  },
+  "mcnemar": {
+    "forest_only_correct": 84,
+    "logreg_only_correct": 59,
+    "p": 0.044372934512208556
+  }
+}

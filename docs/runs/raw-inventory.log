@@ -1,0 +1,9 @@
+{
+  "verified_csv_files": 1484,
+  "raw_bytes": 624034102,
+  "range_transfer_bytes": 204759173,
+  "archive_bytes": 3694420037,
+  "crc_recheck": "all passed",
+  "persistent_root": "/home/peter/work/198-Project/data/phytmo",
+  "source_url": "https://zenodo.org/api/records/6319979/files/PHYTMO.zip/content"
+}

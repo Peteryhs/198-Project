@@ -1,0 +1,51 @@
+{
+  "format": "affine_linear_float32_raw_features",
+  "seed": 0,
+  "feature_count": 31,
+  "feature_order": "duration_s, then statistic-major mean/std/min/max/range/rms/skew/kurtosis/energy/zcr, each x/y/z",
+  "exercise_classes": [
+    "EAH",
+    "EFE",
+    "SQZ"
+  ],
+  "quality_classes": [
+    0,
+    1
+  ],
+  "training": "repetition-label propagation: each repetition inherits its source series label; sample weights make each series contribute equal total weight",
+  "pooling": "mean repetition probabilities; series threshold 0.5",
+  "repetition_labels": "inherited pseudo-label; not per-rep ground truth",
+  "runtime_status": "offline noncausal segmentation; no runtime or hardware validation",
+  "sampling_hz": 100,
+  "sensor_channels": [
+    "accel_x",
+    "accel_y",
+    "accel_z"
+  ],
+  "units": "g",
+  "memory_budget": {
+    "coefficient_bytes": 512,
+    "coefficient_float_count": 128,
+    "scratch_bytes_target": 256,
+    "tflm": false
+  },
+  "model_files": [
+    "realtime_model.npz",
+    "realtime_model.h"
+  ],
+  "feature_preprocessing": {
+    "clip_g": 3,
+    "range_operation": "per-axis hard clipping before segmentation",
+    "source_root": "/home/peter/work/198-Project/data/phytmo/inertial/upper",
+    "selected_sensor": "Larm",
+    "sensor_fusion": false,
+    "segmentation": "offline centered detrending, whole-series prominence and future peaks",
+    "sampling_hz_nominal": 100,
+    "channels": [
+      "accel_x",
+      "accel_y",
+      "accel_z"
+    ],
+    "units": "g"
+  }
+}

@@ -1,0 +1,337 @@
+{
+  "data_provenance": {
+    "dataset": "PHYTMO / Garcia-de-Villa et al., Scientific Data 9:266 (2022)",
+    "license": "CC BY 4.0",
+    "source_description": "declared synchronized six-channel replay demo; source range differs and software clipping is approximate",
+    "file": "A01EAH0_1-left-pair.csv",
+    "file_sha256": "b72a926593f33254b6ca0e35c7a5e470f87ae262d11df9720115606f551c1505",
+    "whole_recording_label": "correct",
+    "recorded_exercise": "EAH (arms overhead)",
+    "samples": 7555,
+    "rate_hz": 100,
+    "units": "g",
+    "original_sources": [
+      {
+        "path": "data/phytmo/inertial/upper/A/Larm/A01EAH0_1.csv",
+        "sha256": "ef1603315b9b35461f993de70e65eeb0471e144b8e2ac00a5e87cd5f32c6b324"
+      },
+      {
+        "path": "data/phytmo/inertial/upper/A/Lforearm/A01EAH0_1.csv",
+        "sha256": "acd26311cc7e3e29d6967a1eeec74862588b427d274fce076de2539edebcaa6c"
+      }
+    ]
+  },
+  "model_provenance": {
+    "artifact": "model/paired-synchronized-causal/L/realtime_model.h",
+    "metadata": {
+      "feature_count": 61,
+      "time_contract": "authors synchronized recording starts; interpolate relative timestamps, not device uptime",
+      "feature_order": "duration, upper statistic-major mean/std/min/max/range/rms/skew/kurtosis/energy/zcr xyz, then forearm same",
+      "exercise_classes": [
+        "EAH",
+        "EFE",
+        "SQZ"
+      ],
+      "input": "two synchronized accelerometers, g, \u00b13 g, 100 Hz",
+      "labels": "series-level only; per-cycle pseudo-labels",
+      "error_category": "not enough evidence to say"
+    },
+    "series_label_scope": "recording-level; cycle outputs are not anatomical-repetition labels"
+  },
+  "test_configuration": {
+    "exercise": "EAH",
+    "count": 10,
+    "min_seconds": 1.8,
+    "target_seconds": 2.0,
+    "max_seconds": 2.2,
+    "prescription_id": "SYNTHETIC-TARGET-ONLY-NOT-A-PRESCRIPTION",
+    "target_is_prescribed": true,
+    "status": "test-only supplied values; prescription status is caller-asserted"
+  },
+  "result": {
+    "state": 4,
+    "cycles": 50,
+    "cycle_statuses": [
+      {
+        "sample_index": 280,
+        "timestamp_ms": 2800,
+        "status": 1
+      },
+      {
+        "sample_index": 400,
+        "timestamp_ms": 4000,
+        "status": 1
+      },
+      {
+        "sample_index": 640,
+        "timestamp_ms": 6400,
+        "status": 1
+      },
+      {
+        "sample_index": 760,
+        "timestamp_ms": 7600,
+        "status": 1
+      },
+      {
+        "sample_index": 880,
+        "timestamp_ms": 8800,
+        "status": 1
+      },
+      {
+        "sample_index": 1000,
+        "timestamp_ms": 10000,
+        "status": 1
+      },
+      {
+        "sample_index": 1152,
+        "timestamp_ms": 11520,
+        "status": 1
+      },
+      {
+        "sample_index": 1278,
+        "timestamp_ms": 12780,
+        "status": 1
+      },
+      {
+        "sample_index": 1402,
+        "timestamp_ms": 14020,
+        "status": 1
+      },
+      {
+        "sample_index": 1522,
+        "timestamp_ms": 15220,
+        "status": 1
+      },
+      {
+        "sample_index": 1642,
+        "timestamp_ms": 16420,
+        "status": 1
+      },
+      {
+        "sample_index": 1787,
+        "timestamp_ms": 17870,
+        "status": 1
+      },
+      {
+        "sample_index": 1951,
+        "timestamp_ms": 19510,
+        "status": 1
+      },
+      {
+        "sample_index": 2101,
+        "timestamp_ms": 21010,
+        "status": 1
+      },
+      {
+        "sample_index": 2228,
+        "timestamp_ms": 22280,
+        "status": 1
+      },
+      {
+        "sample_index": 2399,
+        "timestamp_ms": 23990,
+        "status": 1
+      },
+      {
+        "sample_index": 2519,
+        "timestamp_ms": 25190,
+        "status": 1
+      },
+      {
+        "sample_index": 2639,
+        "timestamp_ms": 26390,
+        "status": 1
+      },
+      {
+        "sample_index": 2759,
+        "timestamp_ms": 27590,
+        "status": 1
+      },
+      {
+        "sample_index": 2879,
+        "timestamp_ms": 28790,
+        "status": 1
+      },
+      {
+        "sample_index": 3000,
+        "timestamp_ms": 30000,
+        "status": 1
+      },
+      {
+        "sample_index": 3128,
+        "timestamp_ms": 31280,
+        "status": 1
+      },
+      {
+        "sample_index": 3248,
+        "timestamp_ms": 32480,
+        "status": 1
+      },
+      {
+        "sample_index": 3389,
+        "timestamp_ms": 33890,
+        "status": 1
+      },
+      {
+        "sample_index": 3509,
+        "timestamp_ms": 35090,
+        "status": 1
+      },
+      {
+        "sample_index": 3633,
+        "timestamp_ms": 36330,
+        "status": 1
+      },
+      {
+        "sample_index": 3770,
+        "timestamp_ms": 37700,
+        "status": 1
+      },
+      {
+        "sample_index": 3890,
+        "timestamp_ms": 38900,
+        "status": 1
+      },
+      {
+        "sample_index": 4010,
+        "timestamp_ms": 40100,
+        "status": 1
+      },
+      {
+        "sample_index": 4130,
+        "timestamp_ms": 41300,
+        "status": 1
+      },
+      {
+        "sample_index": 4250,
+        "timestamp_ms": 42500,
+        "status": 1
+      },
+      {
+        "sample_index": 4385,
+        "timestamp_ms": 43850,
+        "status": 1
+      },
+      {
+        "sample_index": 4505,
+        "timestamp_ms": 45050,
+        "status": 1
+      },
+      {
+        "sample_index": 4625,
+        "timestamp_ms": 46250,
+        "status": 1
+      },
+      {
+        "sample_index": 4745,
+        "timestamp_ms": 47450,
+        "status": 1
+      },
+      {
+        "sample_index": 4865,
+        "timestamp_ms": 48650,
+        "status": 1
+      },
+      {
+        "sample_index": 4985,
+        "timestamp_ms": 49850,
+        "status": 1
+      },
+      {
+        "sample_index": 5143,
+        "timestamp_ms": 51430,
+        "status": 1
+      },
+      {
+        "sample_index": 5273,
+        "timestamp_ms": 52730,
+        "status": 1
+      },
+      {
+        "sample_index": 5435,
+        "timestamp_ms": 54350,
+        "status": 1
+      },
+      {
+        "sample_index": 5564,
+        "timestamp_ms": 55640,
+        "status": 1
+      },
+      {
+        "sample_index": 5720,
+        "timestamp_ms": 57200,
+        "status": 1
+      },
+      {
+        "sample_index": 5840,
+        "timestamp_ms": 58400,
+        "status": 1
+      },
+      {
+        "sample_index": 5960,
+        "timestamp_ms": 59600,
+        "status": 1
+      },
+      {
+        "sample_index": 6100,
+        "timestamp_ms": 61000,
+        "status": 1
+      },
+      {
+        "sample_index": 6220,
+        "timestamp_ms": 62200,
+        "status": 1
+      },
+      {
+        "sample_index": 6340,
+        "timestamp_ms": 63400,
+        "status": 1
+      },
+      {
+        "sample_index": 6460,
+        "timestamp_ms": 64600,
+        "status": 1
+      },
+      {
+        "sample_index": 6580,
+        "timestamp_ms": 65800,
+        "status": 1
+      },
+      {
+        "sample_index": 6700,
+        "timestamp_ms": 67000,
+        "status": 1
+      }
+    ],
+    "cycle_interpretation": "detected cycles; not validated anatomical repetitions",
+    "active_ms": 75540,
+    "faults": 8,
+    "assessment_available": false,
+    "diagnostic_retained_cycle_mean_exercise_probabilities": [
+      0.9400026202201843,
+      0.026886913925409317,
+      0.03311055526137352
+    ],
+    "diagnostic_retained_cycle_mean_quality_probability": 0.32270216941833496,
+    "probability_interpretation": "mean model P(study class 1: incorrect recording); not fraction of incorrect repetitions; assessment requires assessment_available",
+    "model_series_label": null,
+    "direct_pair_runtime_count": 50,
+    "retained_cycles_since_last_reset": 50,
+    "direct_pair_runtime_probabilities": [
+      0.9400026202201843,
+      0.026886913925409317,
+      0.03311055526137352
+    ],
+    "direct_pair_runtime_mean_quality_probability": 0.32270216941833496,
+    "parity": "passed"
+  },
+  "timing_cues": {
+    "count": 0,
+    "unavailable_reason": "repetition boundary is not independently validated"
+  },
+  "limits": [
+    "The manifest labels whole recordings, not individual cycles.",
+    "Replay is not a physical sensor or real-time latency test.",
+    "The supplied test-only timing values are not validated clinical prescriptions."
+  ]
+}

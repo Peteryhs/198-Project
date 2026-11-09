@@ -1,0 +1,33 @@
+$ OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 /tmp/tally-modelling-venv/bin/python scripts/paired_pipeline.py data/phytmo/inertial/upper
+{
+  "source": "real recordings; L upper arm + forearm; \u00b13 g; offline common boundaries",
+  "subjects": 30,
+  "series": 301,
+  "cycles": 4996,
+  "features": 61,
+  "quality_accuracy": 0.9003322259136213,
+  "quality_majority_floor": 0.5016611295681063,
+  "exercise_accuracy": 0.9767441860465116,
+  "exercise_majority_floor": 0.34551495016611294,
+  "quality_train_majority": 0.4684385382059801,
+  "exercise_train_majority": 0.33222591362126247,
+  "parameter_bytes": 992,
+  "protocol": "fixed C=1; weighted per series; LOSO; series-level labels only; no held-out tuning"
+}
+rejected: 41
+{
+  "source": "real recordings; R upper arm + forearm; \u00b13 g; offline common boundaries",
+  "subjects": 30,
+  "series": 306,
+  "cycles": 5123,
+  "features": 61,
+  "quality_accuracy": 0.9117647058823529,
+  "quality_majority_floor": 0.5065359477124183,
+  "exercise_accuracy": 0.9640522875816994,
+  "exercise_majority_floor": 0.33986928104575165,
+  "quality_train_majority": 0.5065359477124183,
+  "exercise_train_majority": 0.30392156862745096,
+  "parameter_bytes": 992,
+  "protocol": "fixed C=1; weighted per series; LOSO; series-level labels only; no held-out tuning"
+}
+rejected: 36

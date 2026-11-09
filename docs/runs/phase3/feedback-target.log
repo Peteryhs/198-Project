@@ -1,0 +1,135 @@
+$ clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -fstack-usage -I /tmp/feedback-arm-30ctc8dn -I /home/peter/work/198-Project/model/streaming -I /home/peter/work/198-Project/model/paired-synchronized-causal/L -c /tmp/feedback-arm-30ctc8dn/baseline.c -o /tmp/feedback-arm-30ctc8dn/baseline.o
+$ llvm-size -A /tmp/feedback-arm-30ctc8dn/baseline.o
+/tmp/feedback-arm-30ctc8dn/baseline.o  :
+section                                  size   addr
+.text                                       0      0
+.text.stream_reset                         12      0
+.ARM.exidx.text.stream_reset                8      0
+.text.stream_features                     420      0
+.ARM.exidx.text.stream_features             8      0
+.text.stream_push                         436      0
+.ARM.exidx.text.stream_push                 8      0
+.text.pair_reset                           12      0
+.ARM.exidx.text.pair_reset                  8      0
+.text.pair_push                           126      0
+.ARM.exidx.text.pair_push                   8      0
+.text.rt_predict_rep                      316      0
+.ARM.exidx.text.rt_predict_rep              8      0
+.text.pair_series                          72      0
+.ARM.exidx.text.pair_series                 8      0
+.text.ingest                               32      0
+.ARM.exidx.text.ingest                      8      0
+.text.finish                               20      0
+.ARM.exidx.text.finish                      8      0
+.text.OUTLINED_FUNCTION_0                  14      0
+.ARM.exidx.text.OUTLINED_FUNCTION_0         8      0
+.text.OUTLINED_FUNCTION_1                  10      0
+.ARM.exidx.text.OUTLINED_FUNCTION_1         8      0
+.bss.live                               14472      0
+.bss.result                                16      0
+.rodata.rt_exercise_intercept              12      0
+.rodata.rt_exercise_coef                  732      0
+.rodata.rt_quality_coef                   244      0
+.comment                                   45      0
+.note.GNU-stack                             0      0
+.ARM.attributes                            73      0
+.llvm_addrsig                               2      0
+Total                                   17154
+
+
+$ llvm-size /tmp/feedback-arm-30ctc8dn/baseline.o
+   text	   data	    bss	    dec	    hex	filename
+   2546	      0	  14488	  17034	   428a	/tmp/feedback-arm-30ctc8dn/baseline.o
+$ llvm-nm -u /tmp/feedback-arm-30ctc8dn/baseline.o
+UNRESOLVED SYMBOLS
+         U __aeabi_memclr4
+         U expf
+         U fmaxf
+         U fminf
+         U sqrtf
+$ clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -fstack-usage -I /tmp/feedback-arm-30ctc8dn -I /home/peter/work/198-Project/model/streaming -I /home/peter/work/198-Project/model/paired-synchronized-causal/L -c /tmp/feedback-arm-30ctc8dn/with_feedback.c -o /tmp/feedback-arm-30ctc8dn/with_feedback.o
+$ llvm-size -A /tmp/feedback-arm-30ctc8dn/with_feedback.o
+/tmp/feedback-arm-30ctc8dn/with_feedback.o  :
+section                                  size   addr
+.text                                       0      0
+.text.stream_reset                         12      0
+.ARM.exidx.text.stream_reset                8      0
+.text.stream_features                     420      0
+.ARM.exidx.text.stream_features             8      0
+.text.stream_push                         436      0
+.ARM.exidx.text.stream_push                 8      0
+.text.pair_reset                           12      0
+.ARM.exidx.text.pair_reset                  8      0
+.text.pair_push                           126      0
+.ARM.exidx.text.pair_push                   8      0
+.text.rt_predict_rep                      316      0
+.ARM.exidx.text.rt_predict_rep              8      0
+.text.pair_series                          72      0
+.ARM.exidx.text.pair_series                 8      0
+.text.ingest                               32      0
+.ARM.exidx.text.ingest                      8      0
+.text.finish                               20      0
+.ARM.exidx.text.finish                      8      0
+.text.feedback_evaluate                   352      0
+.ARM.exidx.text.feedback_evaluate           8      0
+.text.OUTLINED_FUNCTION_0                  14      0
+.ARM.exidx.text.OUTLINED_FUNCTION_0         8      0
+.text.OUTLINED_FUNCTION_1                  10      0
+.ARM.exidx.text.OUTLINED_FUNCTION_1         8      0
+.text.OUTLINED_FUNCTION_2                  10      0
+.ARM.exidx.text.OUTLINED_FUNCTION_2         8      0
+.bss.live                               14472      0
+.bss.result                                16      0
+.rodata.str1.1                            203      0
+.rodata.rt_exercise_intercept              12      0
+.rodata.rt_exercise_coef                  732      0
+.rodata.rt_quality_coef                   244      0
+.comment                                   45      0
+.note.GNU-stack                             0      0
+.ARM.attributes                            73      0
+.llvm_addrsig                               2      0
+Total                                   17735
+
+
+$ llvm-size /tmp/feedback-arm-30ctc8dn/with_feedback.o
+   text	   data	    bss	    dec	    hex	filename
+   3127	      0	  14488	  17615	   44cf	/tmp/feedback-arm-30ctc8dn/with_feedback.o
+$ llvm-nm -u /tmp/feedback-arm-30ctc8dn/with_feedback.o
+UNRESOLVED SYMBOLS
+         U __aeabi_memclr4
+         U expf
+         U fmaxf
+         U fminf
+         U sqrtf
+$ clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -fstack-usage -I /tmp/feedback-arm-30ctc8dn -I /home/peter/work/198-Project/model/streaming -I /home/peter/work/198-Project/model/paired-synchronized-causal/L -I /home/peter/work/198-Project/model/feedback -c /tmp/feedback-arm-30ctc8dn/sizes.c -o /tmp/feedback-arm-30ctc8dn/sizes.o
+$ llvm-nm -S /tmp/feedback-arm-30ctc8dn/sizes.o
+ARM API STORAGE SIZES (llvm-nm symbol bytes)
+00000000 0000001c R config_bytes
+00000000 0000001c R measurement_bytes
+00000000 00000030 R result_bytes
+STACK USAGE baseline.su
+model/streaming/paired_stream.c:3:stream_reset	8	static
+model/streaming/paired_stream.c:4:stream_features	96	static
+model/streaming/paired_stream.c:32:stream_push	72	static
+model/streaming/paired_runtime.c:3:pair_reset	8	static
+model/streaming/paired_runtime.c:4:pair_push	264	static
+model/paired-synchronized-causal/L/realtime_model.h:12:rt_predict_rep	56	dynamic
+model/streaming/paired_runtime.c:18:pair_series	8	static
+/tmp/feedback-arm-30ctc8dn/probe.c:4:ingest	16	static
+/tmp/feedback-arm-30ctc8dn/probe.c:5:finish	0	static
+model/streaming/paired_stream.c:0:OUTLINED_FUNCTION_0	0	static
+model/streaming/paired_stream.c:0:OUTLINED_FUNCTION_1	0	static
+STACK USAGE with_feedback.su
+model/streaming/paired_stream.c:3:stream_reset	8	static
+model/streaming/paired_stream.c:4:stream_features	96	static
+model/streaming/paired_stream.c:32:stream_push	72	static
+model/streaming/paired_runtime.c:3:pair_reset	8	static
+model/streaming/paired_runtime.c:4:pair_push	264	static
+model/paired-synchronized-causal/L/realtime_model.h:12:rt_predict_rep	56	dynamic
+model/streaming/paired_runtime.c:18:pair_series	8	static
+/tmp/feedback-arm-30ctc8dn/probe.c:4:ingest	16	static
+/tmp/feedback-arm-30ctc8dn/probe.c:5:finish	0	static
+model/feedback/feedback.c:7:feedback_evaluate	16	static
+model/streaming/paired_stream.c:0:OUTLINED_FUNCTION_0	0	static
+model/streaming/paired_stream.c:0:OUTLINED_FUNCTION_1	0	static
+model/feedback/feedback.c:0:OUTLINED_FUNCTION_2	0	static

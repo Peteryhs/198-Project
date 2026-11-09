@@ -1,0 +1,15 @@
+{
+  "summary": {
+    "cases": 60,
+    "both_halves_pass_joint_screens": 6,
+    "declared_stability_passes": 0,
+    "both_halves_project_inside_segment": 6,
+    "median_absolute_fraction_shift": 0.12098204004242466,
+    "median_center_shifts_m": {
+      "shoulder_board_offset_delta_m": 0.11852248693173435,
+      "upper_elbow_offset_delta_m": 0.020898714961530236,
+      "forearm_elbow_offset_delta_m": 0.02242922052515057
+    }
+  },
+  "rejected": 0
+}

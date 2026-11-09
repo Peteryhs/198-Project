@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tally · Signal inspection</title><link rel="stylesheet" href="/inspection.css"></head>
+<body>
+<header><div><strong>Tally</strong><span> / Signal inspection</span></div><span class="tag">LOCAL RESEARCH TOOL</span></header>
+<main>
+<section class="toolbar" aria-label="Recording selection">
+<label class="recording">Measured paired recording<select id="recording" disabled><option>Loading recordings…</option></select></label>
+<button id="apply" disabled>Apply preview</button><button id="export" disabled>Save preview JSON</button>
+</section>
+<p id="error" role="alert" hidden></p><p id="status" role="status">Loading local data…</p>
+<div class="workspace">
+<aside>
+<h1>Mount &amp; motion</h1>
+<label>Exploratory arrangement<select id="placement" disabled></select></label>
+<label class="motion-mode">Motion view<select id="motion-mode"><option value="illustration">Illustrative loop</option><option value="optical" disabled>Measured optical boards (unavailable)</option></select></label>
+<canvas id="arm" width="620" height="560" role="img" aria-label="Illustrative upper-arm and forearm with candidate sensor mounts"></canvas>
+<p class="caption" id="motion-status">Illustrative motion. Joint angles, geometry and animation phase are not calibrated to these recordings.</p>
+<p id="mount-description"></p>
+<details><summary>Signal preview settings</summary>
+<label>Independent remount rotation, maximum °<input id="rotation" type="number" min="0" max="60" step="1" value="10"></label>
+<label>Added white noise, RMS g<input id="noise" type="number" min="0" max="0.1" step="0.001" value="0.002"></label>
+<label>Random seed<input id="seed" type="number" min="0" max="4294967295" step="1" value="17"></label>
+<p class="caption">Changing arrangements moves the illustrated mounts only. Accelerometer-only recordings cannot determine the acceleration at a translated mount.</p>
+</details>
+</aside>
+<section class="signals" aria-label="Acceleration traces">
+<div class="signal-heading"><h1>Recorded → transformed</h1><span id="time">0.00 s</span></div>
+<div class="transport"><button id="play" disabled>Play</button><button id="reset" disabled>Reset</button><label class="scrub">Replay time<input id="scrub" type="range" min="0" max="1" step="0.01" value="0" disabled></label></div>
+<div class="legend"><span class="original">Solid: measured original</span><span class="changed">Dashed: transformed</span><span class="clipped">× rail contact / clipping</span></div>
+<p class="caption">All axes share the same g scale and time origin. Vertical marks: C detector completion events (not validated anatomical repetitions).</p>
+<div class="plots">
+<figure><figcaption>Upper arm · X <span>g</span></figcaption><canvas class="trace" data-channel="0" role="img" aria-label="Upper arm X acceleration in g"></canvas></figure>
+<figure><figcaption>Forearm · X <span>g</span></figcaption><canvas class="trace" data-channel="3" role="img" aria-label="Forearm X acceleration in g"></canvas></figure>
+<figure><figcaption>Upper arm · Y <span>g</span></figcaption><canvas class="trace" data-channel="1" role="img" aria-label="Upper arm Y acceleration in g"></canvas></figure>
+<figure><figcaption>Forearm · Y <span>g</span></figcaption><canvas class="trace" data-channel="4" role="img" aria-label="Forearm Y acceleration in g"></canvas></figure>
+<figure><figcaption>Upper arm · Z <span>g</span></figcaption><canvas class="trace" data-channel="2" role="img" aria-label="Upper arm Z acceleration in g"></canvas></figure>
+<figure><figcaption>Forearm · Z <span>g</span></figcaption><canvas class="trace" data-channel="5" role="img" aria-label="Forearm Z acceleration in g"></canvas></figure>
+</div>
+<p id="signal-summary" class="caption">Signals unavailable until a recording loads.</p>
+</section>
+</div>
+<section class="provenance"><h2>Configuration &amp; provenance</h2><p>Series labels are inherited from PHYTMO. There are no per-repetition correctness or error-category labels. This preview does not label movement changes.</p><pre id="provenance">Unavailable</pre></section>
+</main><script src="/inspection.js"></script></body></html>

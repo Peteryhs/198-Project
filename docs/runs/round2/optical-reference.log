@@ -1,0 +1,42 @@
+$ /tmp/tally-round2-env/bin/python scripts/test_optical_reference.py
+optical deterministic selection, XYZW/position parsing, 100 Hz, derivative and gravity checks passed
+$ OPENBLAS_NUM_THREADS=1 /tmp/tally-round2-env/bin/python scripts/optical_reference.py
+CRC-checked optical interp/rigid_bodies/upper/A/A01EAH0_1_interp.csv
+CRC-checked optical interp/rigid_bodies/upper/A/A01EAH1_1_interp.csv
+CRC-checked optical interp/rigid_bodies/upper/A/A01EFE0_1_interp.csv
+CRC-checked optical interp/rigid_bodies/upper/A/A01EFE1_1_interp.csv
+CRC-checked optical interp/rigid_bodies/upper/A/A01SQZ0_1_interp.csv
+CRC-checked optical interp/rigid_bodies/upper/A/A01SQZ1_1_interp.csv
+CRC-checked optical interp/rigid_bodies/upper/B/B01EAH0_1_interp.csv
+CRC-checked optical interp/rigid_bodies/upper/B/B01EAH1_1_interp.csv
+CRC-checked optical interp/rigid_bodies/upper/B/B01EFE0_1_interp.csv
+CRC-checked optical interp/rigid_bodies/upper/B/B01EFE1_1_interp.csv
+CRC-checked optical interp/rigid_bodies/upper/B/B01SQZ0_1_interp.csv
+CRC-checked optical interp/rigid_bodies/upper/B/B01SQZ1_1_interp.csv
+CRC-checked optical interp/rigid_bodies/upper/C/C01EAH0_1_interp.csv
+CRC-checked optical interp/rigid_bodies/upper/C/C01EAH1_1_interp.csv
+CRC-checked optical interp/rigid_bodies/upper/C/C01EFE0_1_interp.csv
+CRC-checked optical interp/rigid_bodies/upper/C/C01EFE1_1_interp.csv
+CRC-checked optical interp/rigid_bodies/upper/C/C01SQZ0_1_interp.csv
+CRC-checked optical interp/rigid_bodies/upper/C/C01SQZ1_1_interp.csv
+CRC-checked optical interp/rigid_bodies/upper/D/D01EAH0_1_interp.csv
+CRC-checked optical interp/rigid_bodies/upper/D/D01EAH1_1_interp.csv
+CRC-checked optical interp/rigid_bodies/upper/D/D01EFE0_1_interp.csv
+CRC-checked optical interp/rigid_bodies/upper/D/D01EFE1_1_interp.csv
+CRC-checked optical interp/rigid_bodies/upper/D/D01SQZ0_1_interp.csv
+CRC-checked optical interp/rigid_bodies/upper/D/D01SQZ1_1_interp.csv
+CRC-checked optical interp/rigid_bodies/upper/E/E01EAH0_1_interp.csv
+CRC-checked optical interp/rigid_bodies/upper/E/E01EAH1_1_interp.csv
+CRC-checked optical interp/rigid_bodies/upper/E/E01EFE0_1_interp.csv
+CRC-checked optical interp/rigid_bodies/upper/E/E01EFE1_1_interp.csv
+CRC-checked optical interp/rigid_bodies/upper/E/E01SQZ0_1_interp.csv
+CRC-checked optical interp/rigid_bodies/upper/E/E01SQZ1_1_interp.csv
+selected optical files 30 usable side comparisons 39 rejected 21 HTTP bytes 3432581
+| Unaligned optical-derived simulation / real median ratio | upper | forearm |
+| envelope_g | 0.8011 | 0.8614 |
+| dominant_hz | 1.0000 | 1.0000 |
+| peak_p50_g | 0.9619 | 0.9457 |
+| peak_p90_g | 0.9483 | 0.9626 |
+| duration_p50_s | 1.0000 | 1.0000 |
+| duration_p90_s | 1.0611 | 1.0611 |
+| hf_fraction | 0.7473 | 0.6229 |

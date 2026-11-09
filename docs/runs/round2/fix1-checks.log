@@ -1,0 +1,28 @@
+$ /tmp/tally-modelling-venv/bin/python scripts/test_paired_pipeline.py
+pair alignment, duplicate averaging, shared boundaries, feature order and gap rejection passed
+$ /tmp/tally-modelling-venv/bin/python scripts/test_realtime_pipeline.py
+raw timestamps: duplicates=1, maximum gap=0.039548397 s; nominal 100 Hz, no resampling
+realtime pipeline assertions passed
+$ OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 /tmp/tally-modelling-venv/bin/python scripts/verify_paired_export.py data/phytmo/inertial/upper
+{
+  "model": "model/paired-offline/L",
+  "coefficient_errors": {
+    "quality_coef": 0.0,
+    "quality_intercept": 0.0,
+    "exercise_coef": 0.0,
+    "exercise_intercept": 0.0
+  },
+  "max_probability_error": 1.0457483887726937e-06,
+  "series_decision_differences": 0
+}
+{
+  "model": "model/paired-offline/R",
+  "coefficient_errors": {
+    "quality_coef": 0.0,
+    "quality_intercept": 0.0,
+    "exercise_coef": 0.0,
+    "exercise_intercept": 0.0
+  },
+  "max_probability_error": 8.903296102036329e-07,
+  "series_decision_differences": 0
+}

@@ -1,0 +1,6 @@
+raw rebuild exactly matches original bags: 1368 / 1368
+clipped and unclipped cohort and labels match: 1368 recordings
+recordings with different detected repetition counts: 4
+clipping quality lost: 4
+clipping quality gained: 0
+export metadata records range, sensor placement and noncausal extraction

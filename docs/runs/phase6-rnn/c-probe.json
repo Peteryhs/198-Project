@@ -1,0 +1,116 @@
+{
+  "weights_npz": "docs/runs/phase6-rnn/example-fold-L-A01.npz",
+  "header": "docs/runs/phase6-rnn/c-probe-weights.h",
+  "weight_bytes_float32": 1752,
+  "weight_header_bytes": 6890,
+  "kernel_local_float_storage_estimate_bytes": 396,
+  "kernel_local_storage_note": "conservative sum of named float temporaries; Clang .su function frame is the measured 384 B and is reported separately",
+  "arm_compile_commands": [
+    "clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -fstack-usage -I /tmp/rnn-c-probe-1bjrk7g2 -I docs/runs/phase6-rnn -I /home/peter/work/198-Project/model/rnn-experiment -I /home/peter/work/198-Project/model/streaming -c /home/peter/work/198-Project/model/rnn-experiment/tiny_gru.c -o /tmp/rnn-c-probe-1bjrk7g2/tiny_gru_impl.o",
+    "clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -fstack-usage -I /tmp/rnn-c-probe-1bjrk7g2 -I docs/runs/phase6-rnn -I /home/peter/work/198-Project/model/rnn-experiment -I /home/peter/work/198-Project/model/streaming -c /home/peter/work/198-Project/model/streaming/paired_stream.c -o /tmp/rnn-c-probe-1bjrk7g2/paired_stream.o",
+    "clang --target=arm-none-eabi -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Oz -ffreestanding -fno-builtin -fdata-sections -ffunction-sections -fstack-usage -I /tmp/rnn-c-probe-1bjrk7g2 -I docs/runs/phase6-rnn -I /home/peter/work/198-Project/model/rnn-experiment -I /home/peter/work/198-Project/model/streaming -c /tmp/rnn-c-probe-1bjrk7g2/probe.c -o /tmp/rnn-c-probe-1bjrk7g2/tiny_gru.o"
+  ],
+  "arm_object_sections": "/tmp/rnn-c-probe-1bjrk7g2/tiny_gru_impl.o  :\nsection                                 size   addr\n.text                                      0      0\n.text.tiny_gru_predict                  1056      0\n.ARM.exidx.text.tiny_gru_predict           8      0\n.text.sigmoidf_stable                     48      0\n.ARM.exidx.text.sigmoidf_stable            8      0\n.text.OUTLINED_FUNCTION_0                 14      0\n.ARM.exidx.text.OUTLINED_FUNCTION_0        8      0\n.text.OUTLINED_FUNCTION_1                 10      0\n.ARM.exidx.text.OUTLINED_FUNCTION_1        8      0\n.text.OUTLINED_FUNCTION_2                 10      0\n.ARM.exidx.text.OUTLINED_FUNCTION_2        8      0\n.comment                                  45      0\n.note.GNU-stack                            0      0\n.ARM.attributes                           73      0\n.llvm_addrsig                              0      0\nTotal                                   1296\n\n\n\n/tmp/rnn-c-probe-1bjrk7g2/paired_stream.o  :\nsection                                 size   addr\n.text                                      0      0\n.text.stream_reset                        12      0\n.ARM.exidx.text.stream_reset               8      0\n.text.stream_features                    420      0\n.ARM.exidx.text.stream_features            8      0\n.text.stream_push                        440      0\n.ARM.exidx.text.stream_push                8      0\n.text.OUTLINED_FUNCTION_0                 14      0\n.ARM.exidx.text.OUTLINED_FUNCTION_0        8      0\n.comment                                  45      0\n.note.GNU-stack                            0      0\n.ARM.attributes                           73      0\n.llvm_addrsig                              0      0\nTotal                                   1036\n\n\n\n/tmp/rnn-c-probe-1bjrk7g2/tiny_gru.o  :\nsection                                              size   addr\n.text                                                   0      0\n.text.tiny_gru_series_predict                         448      0\n.ARM.exidx.text.tiny_gru_series_predict                 8      0\n.text.tiny_gru_series_predict_default                  24      0\n.ARM.exidx.text.tiny_gru_series_predict_default         8      0\n.bss.stream                                         14452      0\n.bss.cycle_features                                   244      0\n.bss.downsampled                                     3600      0\n.rodata.tiny_gru_default_model                         40      0\n.rodata.weight_ih                                     576      0\n.rodata.weight_hh                                     768      0\n.rodata.bias_ih                                        96      0\n.rodata.bias_hh                                        96      0\n.rodata.head_weight                                   144      0\n.rodata.head_bias                                      16      0\n.rodata.input_mean                                     24      0\n.rodata.input_scale                                    24      0\n.comment                                               45      0\n.note.GNU-stack                                         0      0\n.ARM.attributes                                        73      0\n.llvm_addrsig                                          12      0\nTotal                                               20698\n\n\n",
+  "unresolved_symbols": [
+    "__aeabi_memclr4",
+    "expf",
+    "fmaxf",
+    "fminf",
+    "sqrtf",
+    "stream_push",
+    "stream_reset",
+    "tanhf",
+    "tiny_gru_predict"
+  ],
+  "measurement_scope": "separate unlinked Cortex-M4 GRU, accepted detector, and integration/weight objects; libm and cross-object helpers unresolved; excludes board and firmware",
+  "object_text_bytes_sum": 2496,
+  "embedded_weight_parameter_bytes_float32": 1752,
+  "weight_wrapper_rodata_bytes_from_llvm_size": 1784,
+  "stack_usage_files": "model/streaming/paired_stream.c:3:stream_reset\t8\tstatic\nmodel/streaming/paired_stream.c:4:stream_features\t96\tstatic\nmodel/streaming/paired_stream.c:32:stream_push\t72\tstatic\nmodel/streaming/paired_stream.c:0:OUTLINED_FUNCTION_0\t0\tstatic\n\n/tmp/rnn-c-probe-1bjrk7g2/probe.c:8:tiny_gru_series_predict\t112\tstatic\n/tmp/rnn-c-probe-1bjrk7g2/probe.c:43:tiny_gru_series_predict_default\t16\tstatic\n\nmodel/rnn-experiment/tiny_gru.c:11:tiny_gru_predict\t384\tstatic\nmodel/rnn-experiment/tiny_gru.c:5:sigmoidf_stable\t8\tstatic\nmodel/rnn-experiment/tiny_gru.c:0:OUTLINED_FUNCTION_0\t0\tstatic\nmodel/rnn-experiment/tiny_gru.c:0:OUTLINED_FUNCTION_1\t0\tstatic\nmodel/rnn-experiment/tiny_gru.c:0:OUTLINED_FUNCTION_2\t0\tstatic\n",
+  "max_reported_function_stack_bytes": 384,
+  "known_inference_call_chain_stack_bytes": 504,
+  "known_inference_call_chain_note": "wrapper + GRU + sigmoid frames, from Clang .su; unresolved library helper stacks are excluded",
+  "integrated_static_state_bytes": 18296,
+  "integrated_static_state_components_bytes_from_llvm_size": {
+    "stream": 14452,
+    "cycle_features": 244,
+    "downsampled": 3600
+  },
+  "heldout_series_parity": {
+    "heldout_person": "A01",
+    "fold_json": "docs/runs/phase6-rnn/fold-L-A01.json",
+    "count": 11,
+    "sources": [
+      {
+        "source": "A/Larm/A01EAH0_1.csv",
+        "cycles": 50,
+        "quality_probability_abs_error": 2.9802322387695312e-08,
+        "max_exercise_probability_abs_error": 3.725290298461914e-09
+      },
+      {
+        "source": "A/Larm/A01EAH0_2.csv",
+        "cycles": 46,
+        "quality_probability_abs_error": 0.0,
+        "max_exercise_probability_abs_error": 3.725290298461914e-09
+      },
+      {
+        "source": "A/Larm/A01EAH1_1.csv",
+        "cycles": 30,
+        "quality_probability_abs_error": 5.960464477539063e-08,
+        "max_exercise_probability_abs_error": 7.450580596923828e-09
+      },
+      {
+        "source": "A/Larm/A01EAH1_2.csv",
+        "cycles": 29,
+        "quality_probability_abs_error": 5.960464477539063e-08,
+        "max_exercise_probability_abs_error": 1.4901161193847656e-08
+      },
+      {
+        "source": "A/Larm/A01EFE0_1.csv",
+        "cycles": 36,
+        "quality_probability_abs_error": 2.9802322387695312e-08,
+        "max_exercise_probability_abs_error": 3.725290298461914e-09
+      },
+      {
+        "source": "A/Larm/A01EFE0_2.csv",
+        "cycles": 29,
+        "quality_probability_abs_error": 5.960464477539063e-08,
+        "max_exercise_probability_abs_error": 5.960464477539063e-08
+      },
+      {
+        "source": "A/Larm/A01EFE1_1.csv",
+        "cycles": 26,
+        "quality_probability_abs_error": 0.0,
+        "max_exercise_probability_abs_error": 0.0
+      },
+      {
+        "source": "A/Larm/A01EFE1_2.csv",
+        "cycles": 24,
+        "quality_probability_abs_error": 0.0,
+        "max_exercise_probability_abs_error": 1.1920928955078125e-07
+      },
+      {
+        "source": "A/Larm/A01SQZ0_2.csv",
+        "cycles": 25,
+        "quality_probability_abs_error": 0.0,
+        "max_exercise_probability_abs_error": 7.450580596923828e-09
+      },
+      {
+        "source": "A/Larm/A01SQZ1_1.csv",
+        "cycles": 24,
+        "quality_probability_abs_error": 0.0,
+        "max_exercise_probability_abs_error": 1.4901161193847656e-08
+      },
+      {
+        "source": "A/Larm/A01SQZ1_2.csv",
+        "cycles": 22,
+        "quality_probability_abs_error": 0.0,
+        "max_exercise_probability_abs_error": 1.1920928955078125e-07
+      }
+    ],
+    "max_quality_probability_abs_error": 5.960464477539063e-08,
+    "max_exercise_probability_abs_error": 1.1920928955078125e-07,
+    "cycle_counts_match": true,
+    "interpretation": "integrated C implementation parity with saved Torch fold outputs on retained real held-out series; not hardware timing"
+  }
+}
