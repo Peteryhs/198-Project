@@ -62,8 +62,8 @@ are in [FEEDBACK-PHASE3.md](FEEDBACK-PHASE3.md). The simulator audit records its
 - Surface: local engineering editor/inspection tool.
 - User job: inspect mounts, replay signals and verify transformation/provenance.
 - Reference family: editor canvas with developer-tool density.
-- Design source: existing `docs/brand/BRAND.md` ink/paper/clay tokens; system sans fonts, Tally name
-  follows the current brief (the historical brand sheet uses “form”).
+- Design source: the Tally palette in `Tally/app/src/main/res/values/colors.xml` (ink #26372C,
+  paper #F5F1E8, oat #D9C9A8, clay #995438); system sans fonts.
 - Density/layout: compact header; diagram/controls beside stacked shared-axis traces; provenance below.
 - CRUD create mode: none; controls produce an ephemeral preview, no dataset editing.
 - Required states: loading, missing recording, invalid parameters, paused/playing, unavailable

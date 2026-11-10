@@ -1,7 +1,7 @@
-# Figures for tomorrow's progress talk — four charts, brand kit, minimal
+# Figures for tomorrow's progress talk — four charts, Tally brand, minimal
 
-Read `docs/brand/BRAND.md` first. Then read this. Nothing outside these four figures is needed;
-the old `FIGURES-BRIEF.md` describes charts that are not in this deck.
+Nothing outside these four figures is needed. The old `FIGURES-BRIEF.md` is deleted; this file
+replaces it.
 
 ## The talk's argument, which the four figures carry
 
@@ -9,20 +9,34 @@ Not "we made the model smaller". It is: we judge complete repetitions rather tha
 slices, we reach 89% on people the model has never seen from 30 volunteers of data, degraded sensor
 input barely moves it, and all of it fits the board with room to spare.
 
-## Brand kit — read this before drawing anything
+## Brand: the product is Tally
 
-- **You cannot see the brand images.** `docs/brand/*.png` are rasters and your checkout may show
-  them as binary. Peter will paste a reference image into the conversation. **Match the colours in
-  that pasted image.** If it has not been pasted yet, ask for it once and stop — do not guess.
-- The authoritative values in `docs/brand/BRAND.md` are Ink `#1C1917`, Paper `#F5F0E6`,
-  Clay `#9A3B12`, Sage `#3F5A46`, Ash `#6B6157`. If the pasted image disagrees, the pasted image
-  wins; say so in one line of your report and list the hexes you sampled.
-- **Every figure carries the lockup bottom right**: the mark plus the lowercase wordmark `form`,
-  about 130–160 px wide, drawn from `docs/brand/form-lockup.svg` (vector — parse or re-draw it, do
-  not screenshot it). Nothing else goes in that corner. "Good form counts." does not appear.
-- Type: Fraunces semibold for a short claim line, Inter for every number and label. Neither is
-  installed on fedora and matplotlib is not in `.venv`; install both, then report the `fc-match`
-  output proving what rendered. A silent fallback to Noto Sans is a failed figure.
+- **The product is called Tally.** An older brand sheet that called it "form" was stale and has
+  been deleted from this repository. Do not use "form" anywhere, and do not look for a brand sheet
+  in `docs/`.
+- The palette lives with the Android app, in `Tally/app/src/main/res/values/colors.xml`. Read it;
+  do not modify anything under `Tally/`:
+
+  | Token | Hex | Use in a figure |
+  | --- | --- | --- |
+  | `tally_ink` | `#26372C` | type, axes, the existing model |
+  | `tally_paper` | `#F5F1E8` | figure ground |
+  | `tally_clay` | `#995438` | the one accent: new model, budget line, key number |
+  | `tally_oat` | `#D9C9A8` | hairlines, free space, the old model as a secondary mark |
+  | `tally_white` | `#FFFFFF` | only if a panel needs to sit apart |
+
+- The mark is the split-angle glyph in
+  `Tally/app/src/main/res/drawable/ic_launcher_foreground.xml`: three blocks, path data
+  `M40,26 h13 v34 h-13 z M40,60 h11 v11 h-11 z M55,66 h18 v14 h-18 z`, 108-unit viewport, ink on
+  paper. Redraw it as vector — do not screenshot it.
+- **Every figure carries the lockup bottom right**: that mark plus the wordmark `Tally`, about
+  130–160 px wide. Nothing else goes in that corner.
+- **Peter will paste a reference image.** If he does, sample its colours with a real pixel read and
+  match them; if the pasted image disagrees with `colors.xml`, the pasted image wins and you say so
+  with the hexes you sampled. If no image has been pasted, use the table above and say that.
+- Type: a warm serif for the short claim line and Inter for every number and label. Neither Inter
+  nor a display serif is installed on fedora and matplotlib is not in `.venv`; install them, then
+  report the `fc-match` output proving what rendered. A silent fallback is a failed figure.
 
 ## Minimal, without exception
 

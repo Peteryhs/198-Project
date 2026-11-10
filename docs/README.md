@@ -11,8 +11,7 @@ independently validated boundaries.
 The tested RNN did not beat the existing classifier; specific error labels remain unavailable.
 Simulation development remains parked.
 
-[Phase 5 reconstruction and reporting audit](PHASE5-REPORT.md) and the
-[complete continuation prompt](TALLY-CONTINUATION-PROMPT.md). A fit/scoring interpolation defect
+[Phase 5 reconstruction and reporting audit](PHASE5-REPORT.md). A fit/scoring interpolation defect
 is fixed and all folds rerun; validation still fails. The new anatomy/timing checks and the
 proposed user-calibration alternative are documented for continuation.
 
