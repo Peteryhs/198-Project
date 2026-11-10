@@ -40,7 +40,6 @@ def main():
     base = json.loads((RUNS / "baselines.json").read_text())
     forest = json.loads((RUNS / "forest-candidates.json").read_text())
     boost = json.loads((RUNS / "boost-candidates.json").read_text())
-    target = json.loads((RUNS / "target.json").read_text())
     P = np.load(RUNS / "predictions.npz", allow_pickle=True)
     B = np.load(RUNS / "baselines.npz", allow_pickle=True)
 
@@ -94,29 +93,6 @@ def main():
           ["task", "model", "exercise", "n", "accuracy_pct",
            "delta_vs_reference_pp", "lost", "gained"], rows)
 
-    # 3. flash and RAM, measured; the residual makes the parts sum to the linked total
-    ar = target["arduino"]
-    linked = int(ar["linked_flash_bytes"])
-    limit = int(ar["flash_limit_bytes"])
-    residual = linked - 38984 - 39890
-    rows = [
-        ["flash", "empty Serial sketch", 38984, "measured, arduino-cli compile"],
-        ["flash", "TensorFlow Lite Micro sine probe (not used)", 77540, "measured, docs/CONTEXT-AND-CONSTRAINTS.md"],
-        ["flash", "model objects, rep", 13362, "object sizes, not linked flash"],
-        ["flash", "model objects, window", 26520, "object sizes, not linked flash"],
-        ["flash", "model objects, both", 39890, "object sizes, not linked flash"],
-        ["flash", "residual: app code, paired runtime, libm", residual,
-         "derived: linked total minus the two measured parts"],
-        ["flash", "full probe link (parts sum here)", linked, "measured, arduino-cli compile"],
-        ["flash", "free flash after the link", limit - linked, "derived from the datasheet limit"],
-        ["flash", "flash limit", limit, "datasheet limit"],
-        ["ram", "static RAM, full probe", ar["linked_static_ram_bytes"], "measured, arduino-cli compile"],
-        ["ram", "3 s x 3-axis float ring", 3600, "arithmetic"],
-        ["ram", "31 float feature vector", 124, "arithmetic"],
-        ["ram", "RAM limit", ar["ram_limit_bytes"], "datasheet limit"],
-    ]
-    write("footprint.csv", ["resource", "item", "bytes", "scope"], rows)
-
     # 4. window length sweep, from the rerun baselines in docs/RESULTS.md
     rows = [
         [1, "logreg", 70.2], [1, "rf", 76.2], [1, "hgb", 75.9],
@@ -139,9 +115,6 @@ def main():
         ["window_reference_rf_pct", f"{base['window_rf80']['accuracy'] * 100:.3f}"],
         ["rep_logreg_pct", f"{base['rep_logreg']['accuracy'] * 100:.3f}"],
         ["rep_small_nodes", fit["budget"]["models"]["form_rep"]["sections"][".rodata.feature"]],
-        ["combined_object_bytes", fit["budget"]["combined_object_bytes"]],
-        ["linked_flash_bytes", ar["linked_flash_bytes"]],
-        ["linked_static_ram_bytes", ar["linked_static_ram_bytes"]],
     ]
     write("headline.csv", ["metric", "value"], rows)
 

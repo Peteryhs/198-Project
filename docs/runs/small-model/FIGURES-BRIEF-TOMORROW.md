@@ -3,7 +3,8 @@
 Three figures. The data and the claims are fixed; **how each one looks is yours to decide**. The
 brand and the minimalism rules below are not.
 
-No board-footprint figure: that was dropped.
+No board-footprint figure: that was dropped, and no figure may use a number that has not
+been measured.
 
 ## What you are given
 
@@ -30,9 +31,7 @@ You choose the wording and the visual. One claim per figure.
    89.87% → 90.20% (−0.67 to +1.62). Intervals that span zero mean no measurable change. Say what
    was corrupted: orientation up to 15°, ±0.02 g bias, gain error, gaussian noise, a 20 Hz one-pole
    low-pass, 0.001017 g ADC steps, clipping at 3 g, applied to training data only, held-out input
-   untouched. If Peter wants the input-side version instead (frozen models, degraded test input,
-   plus a rank-correlation column), that experiment does not exist yet and needs
-   `scripts/augmentation_pipeline.py --generate-only` over four severity tiers.
+   untouched.
 
 ## Creative freedom, with one test
 
