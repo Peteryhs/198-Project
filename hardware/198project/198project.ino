@@ -1,6 +1,6 @@
 #include "accelerometer_reading.h"
 #include "data_transfer.h"
-
+#include <Arduino.h>
 
 
 
