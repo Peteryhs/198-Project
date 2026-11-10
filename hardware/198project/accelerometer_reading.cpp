@@ -2,27 +2,28 @@
 #include <Arduino.h>
 
 Accelerometer::Accelerometer(int xPin, int yPin, int zPin){
-    this-> xPin = xPin;
-    this-> yPin = yPin; 
-    this-> zPin = zPin; 
+    this->xPin = xPin;
+    this->yPin = yPin; 
+    this->zPin = zPin; 
 }
 
-Accelerometer::readX(){
+int Accelerometer::readX(){
     return analogRead(xPin);
 }
-Accelerometer::readY(){
+int Accelerometer::readY(){
     return analogRead(yPin);
 }
-Accelerometer::readZ(){
+int Accelerometer::readZ(){
     return analogRead(zPin);
 }
 
-Accelerometer::convertX(){
-    return (readX() - 512) * 0.0039; 
+// Fixed conversion functions for a 5V Arduino reading an ADXL335
+float Accelerometer::convertX(){
+    return (readX() - 338) * 0.0148; 
 }
-Accelerometer::convertY(){
-    return (readY() - 512) * 0.0039; 
+float Accelerometer::convertY(){
+    return (readY() - 338) * 0.0148; 
 }
-Accelerometer::convertZ(){
-    return (readZ() - 512) * 0.0039; 
+float Accelerometer::convertZ(){
+    return (readZ() - 338) * 0.0148; 
 }
