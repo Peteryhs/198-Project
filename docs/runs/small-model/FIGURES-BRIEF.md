@@ -90,12 +90,13 @@ Data: `per-exercise.csv` (rows where `exercise != ALL`).
 
 Data: `footprint.csv`.
 
-- Horizontal stacked bar of the 262,144 B limit: empty sketch 38,984, both model objects
-  39,890, remaining free 183,270. Ink for the sketch, Clay for the models, Paper with a
-  hairline for free space; label "96,164 B linked" at the end of the used segment.
+- Horizontal stacked bar of the 262,144 B limit, in four parts that sum to the limit:
+  empty sketch 38,984 (measured), both model objects 39,890 (object sizes), residual
+  17,290 = app code + paired runtime + libm (derived, linked minus the two measured parts),
+  then free 165,980. The three used parts must sum to 96,164 — print that as the segment total.
 - Second, shorter bar for RAM: 22,824 used of 32,768.
-- Caption: only 96,164 B is a linked measurement; model-object bytes are object sizes, not
-  linked flash.
+- Caption: only 96,164 B is a linked measurement. The model objects are object sizes, and the
+  17,290 residual is arithmetic, not an independently measured section.
 
 ## Chart 5 — optional backup: why 3 s windows
 

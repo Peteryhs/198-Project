@@ -94,16 +94,22 @@ def main():
           ["task", "model", "exercise", "n", "accuracy_pct",
            "delta_vs_reference_pp", "lost", "gained"], rows)
 
-    # 3. flash and RAM, measured
+    # 3. flash and RAM, measured; the residual makes the parts sum to the linked total
     ar = target["arduino"]
+    linked = int(ar["linked_flash_bytes"])
+    limit = int(ar["flash_limit_bytes"])
+    residual = linked - 38984 - 39890
     rows = [
         ["flash", "empty Serial sketch", 38984, "measured, arduino-cli compile"],
         ["flash", "TensorFlow Lite Micro sine probe (not used)", 77540, "measured, docs/CONTEXT-AND-CONSTRAINTS.md"],
         ["flash", "model objects, rep", 13362, "object sizes, not linked flash"],
         ["flash", "model objects, window", 26520, "object sizes, not linked flash"],
         ["flash", "model objects, both", 39890, "object sizes, not linked flash"],
-        ["flash", "full probe link (app + both models)", ar["linked_flash_bytes"], "measured, arduino-cli compile"],
-        ["flash", "flash limit", ar["flash_limit_bytes"], "datasheet limit"],
+        ["flash", "residual: app code, paired runtime, libm", residual,
+         "derived: linked total minus the two measured parts"],
+        ["flash", "full probe link (parts sum here)", linked, "measured, arduino-cli compile"],
+        ["flash", "free flash after the link", limit - linked, "derived from the datasheet limit"],
+        ["flash", "flash limit", limit, "datasheet limit"],
         ["ram", "static RAM, full probe", ar["linked_static_ram_bytes"], "measured, arduino-cli compile"],
         ["ram", "3 s x 3-axis float ring", 3600, "arithmetic"],
         ["ram", "31 float feature vector", 124, "arithmetic"],
