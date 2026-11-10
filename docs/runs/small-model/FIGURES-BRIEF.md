@@ -10,6 +10,23 @@ A model that could not run on the board (2.5 MB, 107,528 nodes, 20× the flash b
 one that does (13 KB of arrays, 1,450 nodes) without losing accuracy — the linked sketch is
 96,164 B of a 262,144 B budget.
 
+## Keep it minimal
+
+The default failure is a figure carrying everything it could. These carry one claim each.
+
+- **One claim per figure**, stated as a short line at the top. No subtitle, no second line of
+  explanation inside the image — the caption below the slide does that.
+- **At most three text labels inside a chart**, counting annotations. If a value matters,
+  label it; if not, leave it off the axis.
+- **Two colours per figure.** Ink plus either Clay or Ash. Never three series.
+- **No legend, no title block, no source line, no axis title boxes, no value labels on
+  every bar** — label the one bar the sentence is about.
+- **Drop ticks you can read off the labels.** Five ticks maximum per axis; no minor ticks.
+- **Fewer figures beats fuller figures:** charts 1, 2 and 4 are the talk. Charts 3 and 5 are
+  optional backup, made only if the deck needs them.
+- White space is deliberate: margins of at least 15% of the canvas, nothing within 40 px of
+  an edge.
+
 ## Brand rules that bind these figures
 
 Authority is `docs/brand/BRAND.md`. Do not invent colours.
@@ -44,22 +61,23 @@ Authority is `docs/brand/BRAND.md`. Do not invent colours.
 Data: `candidates-size-vs-accuracy.csv` (38 rows).
 
 - x `nodes` on a log scale (125 → 114,860), y `loso_accuracy_pct`.
-- Ink for the reference forest points, Clay for the two `selected` points, Ash small dots for
-  everything rejected. Annotate directly: "rep 1,450 nodes, 89.3%", "window 2,900, 81.1%",
-  "shipped RF, 107,528 nodes, 88.3% (does not fit)".
-- Vertical Clay dashed line at 10,000 nodes, labelled "budget ceiling (120 kB)".
-- Title inside the figure: **Same accuracy, 1/70th the model.**
+- Clay for the two `selected` points, Ash small dots for everything rejected, nothing else
+  coloured. Three labels only: "1,450 nodes · 89.3%", "107,528 nodes · 88.3%", and the
+  budget line "120 kB".
+- Vertical Clay dashed line at 10,000 nodes. No y-axis label beyond "LOSO accuracy, %".
+- One line at the top: **Same accuracy, 1/70th the model.**
 
 ## Chart 2 — progress ladder, overall
 
 Data: `per-exercise.csv` (rows where `exercise = ALL`) plus chance from `headline.csv`.
 
-- Two panels, rep and window. Bars: chance (Ash, hatched), logistic regression (Ash),
-  reference RF (Ink), new small model (Clay).
-- Chance is 50.0% for series and **49.85% for window rows** — label it "chance 49.9%".
-- Value labels on top of each bar, one decimal.
+- Two panels, rep and window. Bars: chance and logistic regression in Ash, reference RF in
+  Ink, new small model in Clay.
+- Chance is 50.0% for series and **49.85% for window rows** — one label reading
+  "chance 49.9%", not a label on every bar.
+- Print the value on the Clay bar only; the rest read off the axis.
 
-## Chart 3 — where the change lands, per exercise
+## Chart 3 — optional backup: where the change lands, per exercise
 
 Data: `per-exercise.csv` (rows where `exercise != ALL`).
 
@@ -79,7 +97,7 @@ Data: `footprint.csv`.
 - Caption: only 96,164 B is a linked measurement; model-object bytes are object sizes, not
   linked flash.
 
-## Chart 5 — why 3 s windows
+## Chart 5 — optional backup: why 3 s windows
 
 Data: `window-length-sweep.csv` (rerun baselines in `docs/RESULTS.md`).
 
