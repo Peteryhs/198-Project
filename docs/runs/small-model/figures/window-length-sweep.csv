@@ -1,0 +1,10 @@
+window_s,model,accuracy_pct
+1,logreg,70.2
+1,rf,76.2
+1,hgb,75.9
+2,logreg,75.4
+2,rf,79.4
+2,hgb,79.5
+3,logreg,78.4
+3,rf,80.9
+3,hgb,80.7

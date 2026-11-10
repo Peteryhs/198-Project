@@ -1,0 +1,12 @@
+resource,item,bytes,scope
+flash,empty Serial sketch,38984,"measured, arduino-cli compile"
+flash,TensorFlow Lite Micro sine probe (not used),77540,"measured, docs/CONTEXT-AND-CONSTRAINTS.md"
+flash,"model objects, rep",13362,"object sizes, not linked flash"
+flash,"model objects, window",26520,"object sizes, not linked flash"
+flash,"model objects, both",39890,"object sizes, not linked flash"
+flash,full probe link (app + both models),96164,"measured, arduino-cli compile"
+flash,flash limit,262144,datasheet limit
+ram,"static RAM, full probe",22824,"measured, arduino-cli compile"
+ram,3 s x 3-axis float ring,3600,arithmetic
+ram,31 float feature vector,124,arithmetic
+ram,RAM limit,32768,datasheet limit

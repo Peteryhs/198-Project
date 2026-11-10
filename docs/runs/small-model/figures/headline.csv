@@ -1,0 +1,16 @@
+metric,value
+series,1368
+subjects,30
+csv_files,1484
+rep_series_rows,24632
+window_rows,29871
+chance_floor_pct,50.0
+rep_small_loso_pct,89.327
+window_small_loso_pct,81.079
+rep_reference_rf_pct,88.304
+window_reference_rf_pct,80.941
+rep_logreg_pct,86.477
+rep_small_nodes,1450
+combined_object_bytes,39890
+linked_flash_bytes,96164
+linked_static_ram_bytes,22824

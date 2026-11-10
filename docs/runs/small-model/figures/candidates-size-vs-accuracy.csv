@@ -1,0 +1,39 @@
+family,candidate,task,nodes,loso_accuracy_pct,status
+hist-gradient-boosting,rep-hgb-l7-n50-lr0.15-l20.0,rep,650,88.962,not selected
+hist-gradient-boosting,rep-hgb-l7-n100-lr0.15-l20.0,rep,1300,88.889,not selected
+hist-gradient-boosting,rep-hgb-l7-n200-lr0.15-l20.0,rep,2600,89.181,not selected
+hist-gradient-boosting,window-hgb-l7-n50-lr0.15-l20.0,window,650,80.513,not selected
+hist-gradient-boosting,window-hgb-l7-n100-lr0.15-l20.0,window,1300,80.714,not selected
+hist-gradient-boosting,window-hgb-l7-n200-lr0.15-l20.0,window,2600,81.055,not selected
+hist-gradient-boosting,rep-hgb-l15-n50-lr0.15-l20.0,rep,1450,89.401,not selected
+hist-gradient-boosting,rep-hgb-l15-n100-lr0.15-l20.0,rep,2900,89.181,not selected
+hist-gradient-boosting,rep-hgb-l15-n150-lr0.15-l20.0,rep,4350,89.035,not selected
+hist-gradient-boosting,window-hgb-l15-n50-lr0.15-l20.0,window,1450,80.921,not selected
+hist-gradient-boosting,window-hgb-l15-n100-lr0.15-l20.0,window,2900,81.079,not selected
+hist-gradient-boosting,window-hgb-l15-n150-lr0.15-l20.0,window,4350,81.012,not selected
+hist-gradient-boosting,rep-hgb-l3-n25-lr0.15-l20.0,rep,125,86.623,not selected
+hist-gradient-boosting,rep-hgb-l3-n50-lr0.15-l20.0,rep,250,88.304,not selected
+hist-gradient-boosting,rep-hgb-l3-n100-lr0.15-l20.0,rep,500,89.108,not selected
+hist-gradient-boosting,rep-hgb-l7-n50-lr0.15-l20.0-f13,rep,650,87.500,not selected
+hist-gradient-boosting,rep-hgb-l15-n50-lr0.15-l20.0-float32,rep,1450,89.327,selected
+hist-gradient-boosting,window-hgb-l15-n100-lr0.15-l20.0-float32,window,2900,81.079,selected
+RandomForest,rep_rf12d7,rep,2234,86.988,not selected
+RandomForest,rep_rf12d8,rep,3552,87.573,not selected
+RandomForest,rep_rf24d7,rep,4470,87.281,not selected
+ExtraTrees,rep_et24d7,rep,3562,83.772,not selected
+RandomForest,window_rf12d7,window,2308,80.041,not selected
+RandomForest,window_rf12d8,window,3602,80.443,not selected
+RandomForest,window_rf24d7,window,4586,80.248,not selected
+ExtraTrees,window_et24d7,window,3546,77.630,not selected
+RandomForest,rep_rf16d8,rep,4678,87.792,not selected
+RandomForest,rep_rf24d8,rep,6992,87.792,not selected
+RandomForest,rep_rf8d9,rep,3194,88.085,not selected
+RandomForest,rep_rf12d9,rep,4950,88.596,not selected
+RandomForest,rep_rf8d10,rep,4524,88.012,not selected
+RandomForest,window_rf8d9,window,3686,80.081,not selected
+RandomForest,window_rf12d9,window,5430,80.399,not selected
+RandomForest,window_rf8d10,window,5104,79.890,not selected
+RandomForest,rep_rf12d8_no_redundant,rep,3478,88.158,not selected
+RandomForest,rep_rf16d8_no_redundant,rep,4656,87.792,not selected
+reference,form-rep-rf (shipped 2.5 MB),rep,107528,88.304,reference
+reference,form-window-rf (shipped 2.7 MB),window,114860,80.941,reference
