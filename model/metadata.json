@@ -16,7 +16,7 @@
     ],
     "units": "g",
     "window_model": {
-      "file": "form-window-rf.joblib",
+      "file": "model/small/form_window.joblib",
       "window_samples": 300,
       "overlap": 0.5,
       "features_per_axis": [
@@ -38,7 +38,7 @@
       }
     },
     "rep_model": {
-      "file": "form-rep-rf.joblib",
+      "file": "model/small/form_rep.joblib",
       "features_per_axis": [
         "mean",
         "std",
@@ -373,5 +373,8 @@
     },
     "feature_implementation": "harness.window_features is statistic-major, axes x/y/z inside each statistic; preceding legacy wording features_per_axis lists statistics only",
     "resource_scope": "See docs/runs/small-model/target.json for measured objects and real linked resource probe; current paired firmware not rewired."
-  }
+  },
+  "file": "model/small/form_rep.joblib",
+  "superseded_rep_artifact": "model/form-rep-rf.joblib (107,528 nodes) removed from the working tree; in git history at ae8ea7f",
+  "superseded_window_artifact": "model/form-window-rf.joblib (114,860 nodes) removed from the working tree; in git history at ae8ea7f"
 }

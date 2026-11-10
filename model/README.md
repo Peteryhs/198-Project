@@ -5,9 +5,14 @@ about one series: was it performed correctly?
 
 | File | Size | Pipeline | Leave-one-subject-out accuracy |
 | --- | --- | --- | --- |
-| `form-rep-rf.joblib` | 2.6 MB | per-repetition features, averaged over the repetitions | **88.3%** |
-| `form-window-rf.joblib` | 2.8 MB | 3 s sliding window, 30 summary features | 80.9% |
+| `small/form_rep.joblib` | 72 KB | per-repetition features, averaged over the repetitions | **89.3%** |
+| `small/form_window.joblib` | 104 KB | 3 s sliding window, 30 summary features | 81.1% |
+| `small/form_rep.c`, `small/form_window.c` | 13 KB + 26 KB of arrays | the same models as C99 for the board | — |
 | `metadata.json` | 2 KB | input contract, hyperparameters, provenance | — |
+
+The 2.5 MB and 2.7 MB random forests that used to sit here were never able to run on the
+UNO R4 (107,528 and 114,860 nodes against a 10,000-node budget). They are gone from the working
+tree and remain readable in git history at `ae8ea7f` if the comparison is ever needed.
 
 Chance is 50%, because the classes are balanced by construction. Both are
 `sklearn.ensemble.RandomForestClassifier`, 80 trees, `min_samples_leaf=8`, `max_depth=14`.
@@ -25,7 +30,7 @@ this repository; never one a stranger sent you.
 ```python
 import joblib, numpy as np
 
-model = joblib.load("model/form-rep-rf.joblib")
+model = joblib.load("model/small/form_rep.joblib")
 
 # one series -> repetitions -> features -> verdict
 probs = []
