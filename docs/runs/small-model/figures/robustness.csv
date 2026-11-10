@@ -1,0 +1,9 @@
+model,unit,tier,seed,n_units,accuracy_pct,delta_pp_vs_clean,spearman_vs_clean,auc_pct,clean_auc_pct
+rep,series,clean,20261110,1368,94.737,0.0,1.0,98.826,98.826
+rep,series,mild,20261110,1368,93.567,-1.17,0.9957,98.509,98.826
+rep,series,moderate,20261110,1368,90.716,-4.02,0.971,97.25,98.826
+rep,series,severe,20261110,1368,86.33,-8.406,0.9118,93.797,98.826
+window,window,clean,20261110,29871,88.541,0.0,1.0,95.75,95.75
+window,window,mild,20261110,29871,86.987,-1.553,0.9905,94.838,95.75
+window,window,moderate,20261110,29871,84.098,-4.442,0.9575,92.655,95.75
+window,window,severe,20261110,29871,79.565,-8.975,0.8851,88.563,95.75
