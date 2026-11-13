@@ -1,0 +1,46 @@
+{
+  "series": 1368,
+  "shifts": {
+    "0": {
+      "reps_mean": 18.005847953216374,
+      "reps_total": 24632,
+      "mean_p_wrong": 0.5028606971246485,
+      "accuracy": 0.9473684210526315,
+      "verdict_agreement_vs_base": 1.0,
+      "mean_abs_delta_p_vs_base": 0.0
+    },
+    "3": {
+      "reps_mean": 18.005847953216374,
+      "reps_total": 24632,
+      "mean_p_wrong": 0.5028008916557614,
+      "accuracy": 0.9451754385964912,
+      "verdict_agreement_vs_base": 0.9963450292397661,
+      "mean_abs_delta_p_vs_base": 0.005498045521111963
+    },
+    "10": {
+      "reps_mean": 18.005847953216374,
+      "reps_total": 24632,
+      "mean_p_wrong": 0.5031864282321461,
+      "accuracy": 0.9429824561403509,
+      "verdict_agreement_vs_base": 0.9912280701754386,
+      "mean_abs_delta_p_vs_base": 0.010324584957835718
+    },
+    "25": {
+      "reps_mean": 18.005847953216374,
+      "reps_total": 24632,
+      "mean_p_wrong": 0.5052947979065745,
+      "accuracy": 0.9415204678362573,
+      "verdict_agreement_vs_base": 0.9853801169590644,
+      "mean_abs_delta_p_vs_base": 0.017258097628153477
+    },
+    "50": {
+      "reps_mean": 18.005847953216374,
+      "reps_total": 24632,
+      "mean_p_wrong": 0.5118373735678219,
+      "accuracy": 0.9451754385964912,
+      "verdict_agreement_vs_base": 0.9846491228070176,
+      "mean_abs_delta_p_vs_base": 0.02590244060347431
+    }
+  },
+  "note": "shipped joblib refit on all subjects; levels optimistic, deltas transfer"
+}

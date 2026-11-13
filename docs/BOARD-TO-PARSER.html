@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tally — firmware contract</title>
+<style>
+  :root{ --bg:#fff; --ink:#12141a; --muted:#6b7280; --line:#e6e8ec; --fill:#f7f8fa; --accent:#b45309; }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#0e1014; --ink:#e9ebef; --muted:#98a1ac; --line:#232830; --fill:#15181e; --accent:#fbbf24; }
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--bg);color:var(--ink);padding:34px 34px 52px;
+       font:15px/1.6 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .doc{max-width:730px}
+  h1{font-size:24px;line-height:1.22;font-weight:600;letter-spacing:-.015em;margin:0 0 6px}
+  .lede{color:var(--muted);font-size:14px;margin:0 0 28px;max-width:58ch}
+  h2{font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);
+     margin:34px 0 12px;padding-bottom:7px;border-bottom:1px solid var(--line)}
+  p{margin:0 0 10px}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px}
+  pre{background:var(--fill);border:1px solid var(--line);border-radius:7px;padding:12px 14px;
+      margin:0 0 12px;overflow-x:auto;font-family:ui-monospace,Menlo,Consolas,monospace;
+      font-size:12.5px;line-height:1.65}
+  pre .c{color:var(--muted)}
+  table{border-collapse:collapse;width:100%;margin:0 0 12px;font-size:13.5px}
+  th{text-align:left;font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;
+     color:var(--muted);padding:0 10px 6px 0;border-bottom:1px solid var(--line)}
+  td{padding:6px 10px 6px 0;border-bottom:1px solid var(--line);vertical-align:top}
+  td.i{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;color:var(--accent);white-space:nowrap;width:118px}
+  td.n{color:var(--muted)}
+  ul,ol{margin:0 0 12px;padding-left:19px}
+  li{margin:0 0 6px}
+  .warn{border-left:2px solid var(--accent);padding-left:13px;margin:12px 0 0;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <h1>Firmware contract — Tally repetition model</h1>
+  <p class="lede">Your job is to sample the accelerometer and ship the numbers. The Linux side of the shield cuts the set into repetitions, computes the 31 features, runs the model and returns one verdict. You never compute features.</p>
+
+  <h2>Serial link</h2>
+  <p>115200 baud, 8 data bits, no parity, 1 stop bit. One ASCII message per line, ending in <code>\n</code>; <code>\r\n</code> is accepted. A line including its terminator must be at most <b>64 bytes</b>. Send nothing else: no prompts, no debug text, no blank lines, no byte-order mark.</p>
+
+  <h2>The three messages</h2>
+  <table>
+    <tr><th>message</th><th>when</th><th>notes</th></tr>
+    <tr><td class="i">#TALLY1 fs=100 unit=g ax=+x ay=+y az=+z</td><td class="n">once after reset</td><td class="n">session header, exact field order. Not a comment: it is required.</td></tr>
+    <tr><td class="i">S &lt;seq&gt; &lt;ax&gt; &lt;ay&gt; &lt;az&gt;</td><td class="n">every sample</td><td class="n">one line per sample, 100 Hz</td></tr>
+    <tr><td class="i">E done</td><td class="n">set finished</td><td class="n">also <code>E aborted</code>, <code>E overflow</code> to end a discarded set</td></tr>
+  </table>
+
+  <h2>Sample fields</h2>
+  <table>
+    <tr><th>field</th><th>rule</th></tr>
+    <tr><td class="i">seq</td><td class="n">base-10 integer 0…2147483647, starts at 0 for every set, increments by exactly 1, never repeats. A gap invalidates the set.</td></tr>
+    <tr><td class="i">ax, ay, az</td><td class="n">signed decimal in <b>g</b>, exactly <b>8 digits</b> after the point, leading <code>+</code> or <code>-</code>. No exponent, no NaN, no infinity. Example: <code>-0.08087663</code></td></tr>
+  </table>
+  <p>No timestamps: the rate is fixed at 100 Hz and <code>seq</code> carries ordering. Eight decimals reproduce the recorded data — at that precision the Linux side matches the training features on every slot, so nothing is lost in transmission.</p>
+
+  <h2>A complete set</h2>
+  <pre>#TALLY1 fs=100 unit=g ax=+x ay=+y az=+z
+S 0 +0.01230000 -0.00450000 +1.00120000
+S 1 +0.01400000 -0.00380000 +1.00010000
+S 2 +0.01620000 -0.00200000 +0.99860000
+<span class="c">… one line per sample …</span>
+S 7555 -0.02100000 +0.00470000 +0.99180000
+E done</pre>
+
+  <h2>What comes back</h2>
+  <pre>{"status":"ok_unverified_rate","end":"done","sample_count":7556,"vector_count":38,
+ "dropped_count":0,"gap_count":0,"measured_rate_hz":null,
+ "mean_p_wrong":0.1774109473656346,"verdict":"correct",
+ "vectors_sha256":"41b4e383ac45978cb1a8fb2ddf6c782855994b8a1af34c04e021238f63b3d634",
+ "repetitions":[ {…} ],"diagnostics":[ "rate_unverified" ]}</pre>
+  <p>That is a real reply, captured from a replayed recording. On a live serial port the status reads <code>ok</code> and <code>measured_rate_hz</code> carries the arrival rate the parser measured; replay has no timing evidence, which is why this one says <code>ok_unverified_rate</code> and <code>null</code>.</p>
+  <p><code>verdict</code> is <code>correct</code> or <code>wrong</code>, taken from <code>mean_p_wrong &gt;= 0.5</code> across the repetitions. <code>vector_count</code> is how many repetitions were scored. One JSON line per set.</p>
+
+  <h2>Timing and throughput</h2>
+  <p>Sample at 100 Hz. A 46-byte line at 100 Hz is about 4,600 bytes/s against a nominal 11,520 bytes/s at 115200 8N1, so the link has headroom; at the 64-byte cap the rate would be 6,400 bytes/s, still inside. 9600 baud would not fit. The parser measures the real arrival rate and flags anything outside 95–105 Hz.</p>
+  <p class="warn">The model was fitted on 100 Hz data and the parser does not resample. If your loop drifts, fix the loop; do not re-timestamp the samples.</p>
+
+  <h2>Axes and mounting</h2>
+  <p><code>x</code>, <code>y</code>, <code>z</code> are the accelerometer axes as recorded in training, in g, <b>gravity included</b> — do not remove the 1 g offset, and do not rotate or reorder axes. The features assume the same sensor orientation on the limb as the recordings.</p>
+
+  <h2>Failure rules</h2>
+  <ul>
+    <li>A gap, duplicate, malformed, over-long or unexpected line invalidates the whole set. Send <code>E aborted</code> and start again at <code>seq 0</code>.</li>
+    <li>Never score a partial set. If your buffer fills, send <code>E overflow</code>; the parser discards everything up to the marker.</li>
+    <li>A set with fewer than 3 detected repetitions returns a status saying so, with no verdict. That is a real answer: the student moved too little.</li>
+    <li>Cap is 60,000 samples per set (600 s at 100 Hz). Beyond that the parser returns <code>aborted</code>.</li>
+    <li>If the link stalls mid-line, drop the line and resend the sample with the appended sequence numbers — never half a line.</li>
+  </ul>
+
+  <h2>Bench checklist</h2>
+  <ol>
+    <li>Send the header, 200 samples and <code>E done</code>: expect a reply with <code>measured_rate_hz</code> near 100.</li>
+    <li>Confirm <code>gap_count</code> is 0 across a full set under load.</li>
+    <li>Run one real set end to end and check <code>vector_count</code> matches the repetitions you counted by hand.</li>
+    <li>Unplug mid-set and confirm the next set starts clean at <code>seq 0</code> after a reset.</li>
+  </ol>
+
+</div>
+</body>
+</html>
