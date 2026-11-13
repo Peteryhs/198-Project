@@ -41,6 +41,83 @@
   <h1>Firmware contract — Tally repetition model</h1>
   <p class="lede">Your job is to sample the accelerometer and ship the numbers. The Linux side of the shield cuts the set into repetitions, computes the 31 features, runs the model and returns one verdict. You never compute features.</p>
 
+
+  <h2>Where the code goes</h2>
+  <p>Everything below lives in <code>hardware/198project/</code>. Two files are empty today and are where the sender belongs; the sketch only gains three call sites.</p>
+  <table>
+    <tr><th>file</th><th>what you put in it</th></tr>
+    <tr><td class="i">data_transfer.h</td><td class="n">three declarations — paste block 1</td></tr>
+    <tr><td class="i">data_transfer.cpp</td><td class="n">the sender and the sequence counter — paste block 2</td></tr>
+    <tr><td class="i">198project.ino</td><td class="n">three call sites: <code>setup()</code>, <code>loop()</code>, and the end of a set — see below</td></tr>
+  </table>
+
+  <p><b>Block 1 — <code>data_transfer.h</code></b></p>
+  <pre>#pragma once
+
+void tally_begin(void);                                   /* header, once per sketch run */
+void tally_sample(float ax, float ay, float az);          /* one S line */
+void tally_end_set(const char *reason);                   /* E done / E aborted / E overflow */</pre>
+
+  <p><b>Block 2 — <code>data_transfer.cpp</code></b></p>
+  <pre>#include "data_transfer.h"
+#include &lt;Arduino.h&gt;
+
+static unsigned long seq = 0;
+
+void tally_begin(void) {
+    seq = 0;
+    Serial1.print("#TALLY1 fs=100 unit=g ax=+x ay=+y az=+z\n");
+}
+
+void tally_sample(float ax, float ay, float az) {
+    char line[56];
+    int n = snprintf(line, sizeof line, "S %lu %+.8f %+.8f %+.8f\n",
+                     seq++, ax, ay, az);
+    if (n &gt; 0) Serial1.write((const uint8_t *)line, (size_t)n);
+}
+
+void tally_end_set(const char *reason) {
+    Serial1.print("E "); Serial1.print(reason); Serial1.print('\n');
+}</pre>
+  <p><code>%+.8f</code> forces the sign and exactly eight decimals, so every line matches the contract. This needs the R4's <code>snprintf</code>, which supports <code>%f</code>; on an AVR board you would have to link the float printf library.</p>
+
+  <p><b>Call site 1 — <code>setup()</code></b>: the sketch currently opens <code>Serial</code> at 9600. The stream needs its own port at 115200.</p>
+  <pre>void setup() {
+    Serial.begin(9600);        <span class="c">// keep: your debug console</span>
+    Serial1.begin(115200);     <span class="c">// the shield's Linux side reads this one</span>
+    tally_begin();
+}</pre>
+
+  <p><b>Call site 2 — <code>loop()</code></b>: replace the <code>delay(200)</code> printing loop with a 10 ms scheduler. One sample every 10,000 µs, no blocking delay.</p>
+  <pre>static unsigned long next_us = 0;
+
+void loop() {
+    unsigned long now = micros();
+    if ((long)(now - next_us) &lt; 0) return;
+    next_us += 10000;                       <span class="c">// 100 Hz</span>
+
+    float x = accelerometer1.convertX();     <span class="c">// sensor 1 is the streamed limb</span>
+    float y = accelerometer1.convertY();
+    float z = accelerometer1.convertZ();
+    tally_sample(x, y, z);
+
+    <span class="c">// see call site 3</span>
+}</pre>
+
+  <p><b>Call site 3 — ending the set</b>: a set ends when the student stops. Pick one trigger and send exactly one <code>E</code> line per set.</p>
+  <pre>    if (digitalRead(BUTTON_PIN) == LOW) {     <span class="c">// button press ends the set</span>
+        tally_end_set("done");
+        next_us = micros() + 10000;
+    }</pre>
+  <p>If you have no button yet, use a fixed count instead: <code>if (seq == 3000) tally_end_set("done");</code> ends the set after 30 s. The next set must restart at <code>seq 0</code>, so call <code>tally_begin()</code> again or reset the counter.</p>
+
+  <table>
+    <tr><th>decision you have to make</th><th>why it matters</th></tr>
+    <tr><td class="i">one sensor only</td><td class="n">The model takes one 3-axis vector per repetition. The sketch reads two accelerometers; stream <code>accelerometer1</code> unless the limb mapping says otherwise. Streaming both needs a new field in the wire format and a parser change — do not improvise it.</td></tr>
+    <tr><td class="i">which UART</td><td class="n"><code>Serial1</code> as written. Confirm against the shield's wiring notes: the Linux side opens that UART as <code>/dev/ttyATH0</code> on the Yún; check with <code>ls /dev/tty*</code> on the Linux side before assuming.</td></tr>
+    <tr><td class="i">calibration</td><td class="n">The existing <code>(raw - 338) * 0.0148</code> conversion produces g from an ADXL335. Send whatever that function returns — do not rescale to a different range or remove the 1 g offset.</td></tr>
+  </table>
+
   <h2>Serial link</h2>
   <p>115200 baud, 8 data bits, no parity, 1 stop bit. One ASCII message per line, ending in <code>\n</code>; <code>\r\n</code> is accepted. A line including its terminator must be at most <b>64 bytes</b>. Send nothing else: no prompts, no debug text, no blank lines, no byte-order mark.</p>
 

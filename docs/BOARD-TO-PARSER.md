@@ -9,6 +9,104 @@ This document defines the serial boundary for a single-sensor set. The board sen
 - Do not normalize, detrend, filter, remove gravity, resample, or otherwise transform the samples on the board. The parser receives the raw values and applies the training pipeline.
 - Each value is an ASCII signed decimal with exactly eight digits after the decimal point (`-0.08730000`). A leading `+` or `-` is allowed; no exponent notation, NaN, or infinity is allowed. Eight decimals reproduce the recorded data exactly: every slot matches the training features to 1e-6: the measured parity against original CSV rows is recorded below.
 
+## Where the code goes
+
+All of this lives in `hardware/198project/`. Two files are empty today and are where the sender
+belongs; the sketch gains three call sites.
+
+| file | what you put in it |
+| --- | --- |
+| `data_transfer.h` | three declarations — block 1 |
+| `data_transfer.cpp` | the sender and the sequence counter — block 2 |
+| `198project.ino` | `setup()`, `loop()`, and the end-of-set trigger |
+
+**Block 1 — `data_transfer.h`**
+
+```cpp
+#pragma once
+
+void tally_begin(void);                            /* header, once per sketch run */
+void tally_sample(float ax, float ay, float az);   /* one S line */
+void tally_end_set(const char *reason);            /* E done / E aborted / E overflow */
+```
+
+**Block 2 — `data_transfer.cpp`**
+
+```cpp
+#include "data_transfer.h"
+#include <Arduino.h>
+
+static unsigned long seq = 0;
+
+void tally_begin(void) {
+    seq = 0;
+    Serial1.print("#TALLY1 fs=100 unit=g ax=+x ay=+y az=+z\n");
+}
+
+void tally_sample(float ax, float ay, float az) {
+    char line[56];
+    int n = snprintf(line, sizeof line, "S %lu %+.8f %+.8f %+.8f\n",
+                     seq++, ax, ay, az);
+    if (n > 0) Serial1.write((const uint8_t *)line, (size_t)n);
+}
+
+void tally_end_set(const char *reason) {
+    Serial1.print("E "); Serial1.print(reason); Serial1.print('\n');
+}
+```
+
+`%+.8f` forces the sign and exactly eight decimals. This relies on the R4's `snprintf`, which
+supports `%f`; an AVR board would need the float printf library linked.
+
+**Call site 1 — `setup()`.** The sketch opens `Serial` at 9600 today. The stream needs its own port
+at 115200.
+
+```cpp
+void setup() {
+    Serial.begin(9600);        // keep: your debug console
+    Serial1.begin(115200);     // the shield's Linux side reads this one
+    tally_begin();
+}
+```
+
+**Call site 2 — `loop()`.** Replace the `delay(200)` printing loop with a 10 ms scheduler. One sample
+every 10,000 us, no blocking delay.
+
+```cpp
+static unsigned long next_us = 0;
+
+void loop() {
+    unsigned long now = micros();
+    if ((long)(now - next_us) < 0) return;
+    next_us += 10000;                        // 100 Hz
+
+    float x = accelerometer1.convertX();     // sensor 1 is the streamed limb
+    float y = accelerometer1.convertY();
+    float z = accelerometer1.convertZ();
+    tally_sample(x, y, z);
+
+    // see call site 3
+}
+```
+
+**Call site 3 — ending the set.** One `E` line per set, no more.
+
+```cpp
+    if (digitalRead(BUTTON_PIN) == LOW) {     // button press ends the set
+        tally_end_set("done");
+        next_us = micros() + 10000;
+    }
+```
+
+Without a button, use a fixed count: `if (seq == 3000) tally_end_set("done");` ends the set after
+30 s. The next set must restart at `seq 0`, so call `tally_begin()` again or reset the counter.
+
+| decision you have to make | why it matters |
+| --- | --- |
+| one sensor only | The model takes one 3-axis vector per repetition. The sketch reads two accelerometers; stream `accelerometer1` unless the limb mapping says otherwise. Streaming both needs a new wire field and a parser change — do not improvise it. |
+| which UART | `Serial1` as written. Confirm against the shield wiring notes; the Linux side opens that UART, which on the Yun is `/dev/ttyATH0`. Check with `ls /dev/tty*` on the Linux side first. |
+| calibration | The existing `(raw - 338) * 0.0148` produces g from an ADXL335. Send what that returns; do not rescale the range or remove the 1 g offset. |
+
 ## Serial framing
 
 Use **115200 baud, 8 data bits, no parity, 1 stop bit (8N1)**. Lines are ASCII and terminate with LF (`\n`). CRLF (`\r\n`) is also accepted; both terminator bytes count toward the limit. Every complete line, including its terminator, must be at most 64 bytes. Do not send blank lines, prompts, debug text, or a byte-order mark on this stream.
