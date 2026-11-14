@@ -187,14 +187,20 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
   <ul class="files">
     <li>scripts/tally_stdlib.py</li>
     <li>scripts/stdlib_runtime.py</li>
-    <li>realtime_model.npz</li>
+    <li>model/paired-synchronized-offline/L/realtime_model.npz</li>
+    <li>model/paired-synchronized-offline/R/realtime_model.npz</li>
   </ul>
+  <p class="note"><strong>Two weight files, one per arm.</strong> Left and right are separate files of about 2&nbsp;KB each. Copy both, and the header's <code>side=L</code> or <code>side=R</code> decides which one scores the set. If your build only ever records one arm, add <code>--side L</code> (or <code>R</code>) to reject the other.</p>
   <p>Then run:</p>
-  <pre><code>cd /root/tally &amp;&amp; python3 -B -u scripts/tally_stdlib.py \
-  --port /dev/ttyATH0 --quiet --out /tmp/tally-results.jsonl \
-  --reply both --reply-file /tmp/tally-verdicts.log</code></pre>
+  <pre><code>cd /root/tally
+python3 -B -u scripts/tally_stdlib.py \
+  --port /dev/ttyATH0 \
+  --quiet \
+  --out /tmp/tally-results.jsonl \
+  --reply both \
+  --reply-file /tmp/tally-verdicts.log</code></pre>
   <ul class="plain" style="margin-top:14px">
-    <li>The script listens on <code>/dev/ttyATH0</code>, the shield end of the sketch's <code>Serial1</code> link. It sends its reply lines back on that same link and keeps a copy in <code>/tmp/tally-verdicts.log</code>. Results for each set go to <code>/tmp/tally-results.jsonl</code>.</li>
+    <li>The link runs at <span class="hl">115200 8N1</span>. The script listens on <code>/dev/ttyATH0</code>, the shield end of the sketch's <code>Serial1</code> link. It sends its reply lines back on that same link and keeps a copy in <code>/tmp/tally-verdicts.log</code>. Results for each set go to <code>/tmp/tally-results.jsonl</code>.</li>
     <li>It prints a <strong>ready line</strong> when it can accept a set. Don't send anything before you see it.</li>
     <li>It records nothing until the sketch sends a header, so you can leave it running between sets.</li>
   </ul>
@@ -299,7 +305,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
     <div><b>EFE</b>exercise code</div>
     <div><b>2.000</b>duration in s</div>
   </div>
-  <p style="margin-top:18px">One <code>V</code> line then closes the set:</p>
+  <p style="margin-top:18px">One <code>V</code> line closes the set:</p>
   <code class="line">V &lt;verdict&gt; &lt;mean_p_wrong&gt; &lt;exercise&gt;</code>
   <div class="fields v">
     <div><b>V</b>set line</div>
@@ -309,7 +315,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
   </div>
   <ul class="plain" style="margin-top:16px">
     <li>A p_wrong of <span class="hl">0.5</span> or more means <code>wrong</code>. Use the verdict word rather than re-thresholding the printed number.</li>
-    <li>If the set can't be scored, the only reply is <code>V unknown nan -</code>, with no <code>R</code> lines.</li>
+    <li>If the set can't be scored, the only reply is <code>V unknown nan -</code>, with no <code>R</code> lines. That happens when the set is rejected, or when fewer than <span class="hl">3</span> repetitions were found.</li>
   </ul>
 </section>
 
@@ -319,15 +325,15 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
   <div class="ex">
     <div class="excard">
       <code>EFE</code>
-      <p><strong>Elbow bends.</strong> Arms straight, shoulders still. Bend the elbows to bring the hands toward the shoulders, then straighten.</p>
+      <p><strong>Elbow flexion.</strong> Bend the elbows and straighten them again, upper arms kept still.</p>
     </div>
     <div class="excard">
       <code>EAH</code>
-      <p><strong>Arms overhead.</strong> Hands together, arms straight. Raise the arms in an arc overhead, then lower them.</p>
+      <p><strong>Arms over head.</strong> Raise both arms overhead, then lower them.</p>
     </div>
     <div class="excard">
       <code>SQZ</code>
-      <p><strong>Cloth wringing.</strong> Hold a cloth in both hands, arms straight forward, and twist the wrists in opposite directions.</p>
+      <p><strong>Squeeze.</strong> Squeeze and release with the hands, arms held out in front.</p>
     </div>
   </div>
 </section>
