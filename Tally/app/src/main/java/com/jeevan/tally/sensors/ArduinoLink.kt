@@ -1,5 +1,7 @@
 package com.jeevan.tally.sensors
 
+import com.jeevan.tally.exercise.BoardStatus
+import com.jeevan.tally.exercise.Prescription
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.transform
@@ -16,6 +18,18 @@ object ArduinoLink {
     val errorMessage: StateFlow<String?> = _errorMessage
     private val _plugs = MutableStateFlow(PlugSpec.legacy)
     val plugs: StateFlow<List<PlugSpec>> = _plugs
+
+    /** Bus id for synchronized upper-arm + forearm frames, from either the CSV row or `D,arm_pair,…`. */
+    const val ARM_PAIR_ID = "arm_pair"
+    private val _boardStatus = MutableStateFlow<BoardStatus?>(null)
+    /** Latest TALLY frame on this connection; null until the board's application layer reports. */
+    val boardStatus: StateFlow<BoardStatus?> = _boardStatus
+    private val _boardConfig = MutableStateFlow<Prescription?>(null)
+    val boardConfig: StateFlow<Prescription?> = _boardConfig
+    data class CalibrationEvent(val sequence: Int, val ok: Boolean, val detail: String)
+    private val _boardCalibration = MutableStateFlow<CalibrationEvent?>(null)
+    val boardCalibration: StateFlow<CalibrationEvent?> = _boardCalibration
+
     private val buses = mutableMapOf<String, BufferedSampleBus>()
     fun batches(id: String) = synchronized(lock) { buses.getOrPut(id) { BufferedSampleBus() } }.batches()
     fun samples(id: String) = batches(id).transform { batch -> batch.samples.forEach { emit(it) } }
@@ -36,7 +50,9 @@ object ArduinoLink {
         val token = synchronized(lock) {
             generation++
             _plugs.value = PlugSpec.legacy
-            buses.keys.retainAll(PlugSpec.legacy.map { it.id }.toSet())
+            _boardStatus.value = null
+            _boardConfig.value = null
+            buses.keys.retainAll(PlugSpec.legacy.map { it.id }.toSet() + ARM_PAIR_ID)
             runCatching { socket?.close() }
             socket = connection
             _errorMessage.value = null
@@ -62,7 +78,8 @@ object ArduinoLink {
                         when (message) {
                             is LineProtocol.Message.Plugs -> if (!advertised) {
                                 _plugs.value = message.specs
-                                buses.keys.retainAll(message.specs.map { it.id }.toSet())
+                                // The exercise bus is not a catalog plug; keep its subscribers attached.
+                                buses.keys.retainAll(message.specs.map { it.id }.toSet() + ARM_PAIR_ID)
                                 advertised = true
                             }
                             is LineProtocol.Message.Values -> {
@@ -72,6 +89,15 @@ object ArduinoLink {
                                     values, receivedAtNanos = received)
                                 buses.getOrPut(spec.id) { BufferedSampleBus() }.publish(sample)
                             }
+                            is LineProtocol.Message.PairFrame -> {
+                                val sample = SensorSample((received - started) / 1_000_000_000f, message.values,
+                                    receivedAtNanos = received, deviceMillis = message.deviceMillis)
+                                buses.getOrPut(ARM_PAIR_ID) { BufferedSampleBus() }.publish(sample)
+                            }
+                            is LineProtocol.Message.Status -> _boardStatus.value = message.status
+                            is LineProtocol.Message.BoardConfig -> _boardConfig.value = message.prescription
+                            is LineProtocol.Message.Calibration -> _boardCalibration.value =
+                                CalibrationEvent((_boardCalibration.value?.sequence ?: 0) + 1, message.ok, message.detail)
                         }
                     }
                 }

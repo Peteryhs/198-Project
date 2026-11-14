@@ -10,6 +10,7 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.FitnessCenter
 import androidx.compose.material.icons.filled.FolderOpen
 import androidx.compose.material.icons.filled.Science
 import androidx.compose.material3.*
@@ -32,8 +33,15 @@ import androidx.compose.ui.platform.LocalLocale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(context: Context, onSelect: (String) -> Unit, onOpenRecording: (String, String) -> Unit) {
-    var section by rememberSaveable { mutableStateOf(0) }
+fun HomeScreen(
+    context: Context,
+    onSelect: (String) -> Unit,
+    onOpenRecording: (String, String) -> Unit,
+    onStartSet: () -> Unit = {},
+    onOpenSet: (String) -> Unit = {},
+) {
+    // 2 = Exercise, 0 = Experiments, 1 = Recordings. Exercise is the project's main job, so it opens first.
+    var section by rememberSaveable { mutableStateOf(2) }
     var recordings by remember { mutableStateOf<List<RecordingInfo>>(emptyList()) }
     var loading by remember { mutableStateOf(true) }
     var loadError by remember { mutableStateOf(false) }
@@ -42,6 +50,8 @@ fun HomeScreen(context: Context, onSelect: (String) -> Unit, onOpenRecording: (S
     val scheme = MaterialTheme.colorScheme
     val experimentsScroll = rememberLazyListState()
     val recordingsScroll = rememberLazyListState()
+    val exerciseScroll = rememberLazyListState()
+    val sets by rememberSavedSets(context, section)
     LaunchedEffect(retry) {
         loading = true; loadError = false
         try { recordings = withContext(Dispatchers.IO) { RecordingStore(File(context.filesDir, "recordings")).list() } }
@@ -49,12 +59,13 @@ fun HomeScreen(context: Context, onSelect: (String) -> Unit, onOpenRecording: (S
         finally { loading = false }
     }
     if (showHelp) AlertDialog(onDismissRequest = { showHelp = false }, title = { Text("Connect an Arduino") },
-        text = { Text("Join the same Wi-Fi network as your board. Enter its IP address and port, then connect.\n\nOpen a sensor to record, inspect, and export measurements. The board must run a compatible Tally sketch.") },
+        text = { Text("Join the same Wi-Fi network as your board. Enter its IP address and port, then connect.\n\nExercise counts repetitions and logs each set. Experiments shows raw sensor channels. The board must run a compatible Tally sketch.") },
         confirmButton = { TextButton(onClick = { showHelp = false }) { Text("Done") } })
     BoxWithConstraints {
         val wide = maxWidth >= 600.dp
         Scaffold(containerColor = scheme.surface, bottomBar = {
             if (!wide) NavigationBar(containerColor = scheme.surfaceContainer, tonalElevation = 0.dp) {
+                NavigationBarItem(selected = section == 2, onClick = { section = 2 }, icon = { Icon(Icons.Filled.FitnessCenter, null) }, label = { Text("Exercise") })
                 NavigationBarItem(selected = section == 0, onClick = { section = 0 }, icon = { Icon(Icons.Filled.Science, null) }, label = { Text("Experiments") })
                 NavigationBarItem(selected = section == 1, onClick = { section = 1 }, icon = { Icon(Icons.Filled.FolderOpen, null) }, label = { Text("Recordings") })
             }
@@ -68,16 +79,19 @@ fun HomeScreen(context: Context, onSelect: (String) -> Unit, onOpenRecording: (S
         }) { padding ->
             Row(Modifier.fillMaxSize().padding(padding)) {
                 if (wide) NavigationRail(containerColor = scheme.surfaceContainer, modifier = Modifier.fillMaxHeight()) {
+                    NavigationRailItem(selected = section == 2, onClick = { section = 2 }, icon = { Icon(Icons.Filled.FitnessCenter, null) }, label = { Text("Exercise") })
                     NavigationRailItem(selected = section == 0, onClick = { section = 0 }, icon = { Icon(Icons.Filled.Science, null) }, label = { Text("Experiments") })
                     NavigationRailItem(selected = section == 1, onClick = { section = 1 }, icon = { Icon(Icons.Filled.FolderOpen, null) }, label = { Text("Recordings") })
                 }
-                LazyColumn(Modifier.weight(1f), state = if (section == 0) experimentsScroll else recordingsScroll, contentPadding = PaddingValues(20.dp), verticalArrangement = Arrangement.spacedBy(20.dp)) {
+                LazyColumn(Modifier.weight(1f), state = when (section) { 0 -> experimentsScroll; 1 -> recordingsScroll; else -> exerciseScroll }, contentPadding = PaddingValues(20.dp), verticalArrangement = Arrangement.spacedBy(20.dp)) {
                     item {
-                        Text(if (section == 0) "Experiments" else "Recordings", style = MaterialTheme.typography.headlineMedium, modifier = Modifier.semantics { heading() })
-                        Text(if (section == 0) "Arduino measurements" else "Saved on this device",
+                        Text(when (section) { 0 -> "Experiments"; 1 -> "Recordings"; else -> "Exercise" }, style = MaterialTheme.typography.headlineMedium, modifier = Modifier.semantics { heading() })
+                        Text(when (section) { 0 -> "Raw Arduino channels"; 1 -> "Saved on this device"; else -> "Count repetitions and log every set" },
                             style = MaterialTheme.typography.bodyMedium, color = scheme.onSurfaceVariant, modifier = Modifier.padding(top = 4.dp))
                     }
-                    if (section == 0) {
+                    if (section == 2) {
+                        exerciseSection(context, sets, wide, onStartSet, onOpenSet)
+                    } else if (section == 0) {
                         if (wide) item {
                             Row(horizontalArrangement = Arrangement.spacedBy(24.dp), verticalAlignment = Alignment.Top) {
                                 ArduinoConnectionBar(context, Modifier.weight(1f))
