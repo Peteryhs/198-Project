@@ -9,7 +9,12 @@ from __future__ import annotations
 import io
 import json
 import math
+import os
+import pty
+import select
 import sys
+import termios
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -148,6 +153,53 @@ class ReplyChannel(unittest.TestCase):
         self.assertEqual(len(sent), 2)
         self.assertTrue(sent[0].startswith('V correct ') or sent[0].startswith('V wrong '))
         self.assertEqual(sent[1], 'V unknown nan -\n')
+
+    def test_open_port_configures_raw_115200_8n1(self):
+        master, slave = pty.openpty()
+        path = os.ttyname(slave)
+        os.close(slave)
+        try:
+            with tp.open_port(path) as stream:
+                attrs = termios.tcgetattr(stream.fileno())
+                self.assertEqual(attrs[4], termios.B115200)
+                self.assertEqual(attrs[5], termios.B115200)
+                self.assertEqual(attrs[2] & termios.CSIZE, termios.CS8)
+                self.assertFalse(attrs[2] & termios.PARENB)
+                self.assertFalse(attrs[2] & termios.CSTOPB)
+                self.assertEqual(attrs[3], 0)
+                self.assertEqual(attrs[6][termios.VMIN], 1)
+                self.assertEqual(attrs[6][termios.VTIME], 0)
+        finally:
+            os.close(master)
+
+    def test_open_port_is_bidirectional_without_echo(self):
+        master, slave = pty.openpty()
+        path = os.ttyname(slave)
+        os.close(slave)
+        try:
+            with tp.open_port(path) as stream:
+                os.write(master, b'#TALLY2 fs=100\n')
+                self.assertEqual(stream.readline(), '#TALLY2 fs=100\n')
+                self.assertEqual(select.select([master], [], [], 0.05)[0], [])
+                with open(path, 'w', buffering=1) as writer:
+                    writer.write('V correct 0.125 EFE\n')
+                self.assertEqual(os.read(master, 64), b'V correct 0.125 EFE\n')
+        finally:
+            os.close(master)
+
+    def test_main_reports_serial_setup_error_as_rejected_json(self):
+        with tempfile.NamedTemporaryFile() as non_tty:
+            stdout = io.StringIO()
+            old_stdout = sys.stdout
+            try:
+                sys.stdout = stdout
+                status = tp.main(['--port', non_tty.name, '--reply', 'none'])
+            finally:
+                sys.stdout = old_stdout
+        self.assertEqual(status, 2)
+        record = json.loads(stdout.getvalue())
+        self.assertEqual(record['status'], 'rejected')
+        self.assertIn('Inappropriate ioctl', record['diagnostics'][0])
 
 
 class Scoring(unittest.TestCase):

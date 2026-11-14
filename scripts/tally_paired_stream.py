@@ -389,7 +389,7 @@ def main(argv=None) -> int:
             if args.reply in (None, 'port', 'both'):
                 sink = combine(sink, port_writer(port))
             return run(fd, args.side, out, reply=sink)
-    except StreamError as exc:
+    except (StreamError, OSError) as exc:
         print(json.dumps({'status': 'rejected', 'verdict': None, 'diagnostics': [str(exc)]}))
         return 2
 
@@ -428,9 +428,33 @@ def port_writer(path: str):
 
 
 def open_port(path: str):
-    """Read line by line from a POSIX serial device without extra dependencies."""
+    """Open a POSIX serial device as raw 115200 baud, 8 data bits, no parity, 1 stop bit."""
     import io
-    return io.open(path, 'r', buffering=1, errors='replace')
+    import os
+    import termios
+
+    fd = os.open(path, os.O_RDWR | os.O_NOCTTY)
+    try:
+        try:
+            attrs = termios.tcgetattr(fd)
+        except termios.error as exc:
+            raise OSError(*exc.args) from exc
+        attrs[0] = 0  # raw input: no translations, flow control, or signal chars
+        attrs[1] = 0  # raw output
+        attrs[2] = termios.CS8 | termios.CREAD | termios.CLOCAL
+        attrs[3] = 0  # raw mode: no canonical input or echo
+        attrs[4] = termios.B115200
+        attrs[5] = termios.B115200
+        attrs[6][termios.VMIN] = 1
+        attrs[6][termios.VTIME] = 0
+        try:
+            termios.tcsetattr(fd, termios.TCSANOW, attrs)
+        except termios.error as exc:
+            raise OSError(*exc.args) from exc
+        return io.open(fd, 'r', buffering=1, errors='replace', closefd=True)
+    except BaseException:
+        os.close(fd)
+        raise
 
 
 if __name__ == '__main__':
