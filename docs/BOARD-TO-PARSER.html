@@ -3,123 +3,181 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>What the firmware sends</title>
+<title>Tally — firmware contract</title>
 <style>
-  :root{ --bg:#fff; --ink:#14161b; --body:#31353d; --muted:#6b7280; --rule:#e3e6ea; --fill:#f7f8fa; --accent:#a34b0c; --code:#101319; }
+  :root{ --bg:#fff; --ink:#12141a; --muted:#6b7280; --line:#e6e8ec; --fill:#f7f8fa; --accent:#b45309; }
   @media (prefers-color-scheme: dark){
-    :root{ --bg:#0e1014; --ink:#e9ebef; --body:#c3c8d0; --muted:#8d959f; --rule:#23272e; --fill:#15181d; --accent:#f2b23e; --code:#dfe3e8; }
+    :root{ --bg:#0e1014; --ink:#e9ebef; --muted:#98a1ac; --line:#232830; --fill:#15181e; --accent:#fbbf24; }
   }
   *{box-sizing:border-box}
-  html,body{margin:0;background:var(--bg);color:var(--body)}
-  body{font:15.5px/1.7 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
-  .page{max-width:740px;padding:38px 28px 56px}
-  h1{font-size:24px;line-height:1.25;font-weight:640;letter-spacing:-.018em;color:var(--ink);margin:0 0 10px}
-  .lede{font-size:16px;margin:0 0 30px;max-width:58ch}
-  h2{font-size:15.5px;font-weight:620;color:var(--ink);margin:34px 0 14px}
-  h2 .n{color:var(--muted);font-weight:500;margin-right:8px}
-  p{margin:0 0 12px;max-width:58ch}
-  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;color:var(--code)}
-  ul{margin:0 0 12px;padding-left:18px;max-width:58ch}
-  li{margin:0 0 8px}
-  li::marker{color:var(--muted)}
-  table{border-collapse:collapse;width:100%;margin:0 0 14px;font-size:13.5px}
-  th{text-align:left;font-weight:600;font-size:12px;color:var(--muted);padding:0 12px 7px 0;border-bottom:1px solid var(--rule)}
-  td{padding:8px 12px 8px 0;border-bottom:1px solid var(--rule);vertical-align:top}
-  td:first-child{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;color:var(--ink);white-space:normal;overflow-wrap:anywhere}
-
-  /* figures: the line split into rows, numbers on the left, meaning on the right */
-  .fig{margin:0 0 10px}
-  .figlist{display:grid;grid-template-columns:max-content 1fr;gap:9px 18px;align-items:baseline}
-  .figlist .tok{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;
-                line-height:1.5;color:var(--code);white-space:nowrap}
-  .figlist .mean{font-size:13px;color:var(--muted);line-height:1.45}
-  .figlist .mean.hot{color:var(--accent)}
-  .figlist .group-a .tok,.figlist .group-b .tok{color:var(--code)}
-  .fig .note{font-size:13px;color:var(--muted);margin:14px 0 28px;max-width:56ch}
-  .lit{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11.5px;line-height:1.6;
-       background:var(--fill);border-radius:5px;padding:10px 12px;margin:0 0 14px;color:var(--code);
-       white-space:pre-wrap;overflow-wrap:anywhere}
+  html,body{margin:0}
+  body{background:var(--bg);color:var(--ink);padding:34px 34px 52px;
+       font:15px/1.6 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .doc{max-width:730px}
+  h1{font-size:24px;line-height:1.22;font-weight:600;letter-spacing:-.015em;margin:0 0 6px}
+  .lede{color:var(--muted);font-size:14px;margin:0 0 28px;max-width:58ch}
+  h2{font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);
+     margin:34px 0 12px;padding-bottom:7px;border-bottom:1px solid var(--line)}
+  p{margin:0 0 10px}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px}
+  pre{background:var(--fill);border:1px solid var(--line);border-radius:7px;padding:12px 14px;
+      margin:0 0 12px;overflow-x:auto;font-family:ui-monospace,Menlo,Consolas,monospace;
+      font-size:12.5px;line-height:1.65}
+  pre .c{color:var(--muted)}
+  table{border-collapse:collapse;width:100%;margin:0 0 12px;font-size:13.5px}
+  th{text-align:left;font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;
+     color:var(--muted);padding:0 10px 6px 0;border-bottom:1px solid var(--line)}
+  td{padding:6px 10px 6px 0;border-bottom:1px solid var(--line);vertical-align:top}
+  td.i{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;color:var(--accent);white-space:nowrap;width:118px}
+  td.n{color:var(--muted)}
+  ul,ol{margin:0 0 12px;padding-left:19px}
+  li{margin:0 0 6px}
+  .warn{border-left:2px solid var(--accent);padding-left:13px;margin:12px 0 0;color:var(--muted);font-size:13px}
 </style>
 </head>
 <body>
-<div class="page">
+<div class="doc">
 
-  <h1>What the firmware sends</h1>
-  <p class="lede">The sketch writes text to <code>Serial1</code> at 115200 baud. Three kinds of line go out. Python on the Linux side reads them and sends back one verdict for the set.</p>
+  <h1>Firmware contract — Tally repetition model</h1>
+  <p class="lede">Your job is to sample the accelerometer and ship the numbers. The Linux side of the shield cuts the set into repetitions, computes the 31 features, runs the model and returns one verdict. You never compute features.</p>
 
-  <h2><span class="n">1</span>Once, when the sketch starts</h2>
-  <div class="fig">
-    <div class="lit">#TALLY2 fs=100 unit=g range=3 side=L</div>
-    <div class="figlist">
-      <span class="tok">#TALLY2</span><span class="mean">the record name</span>
-      <span class="tok">fs=100</span><span class="mean">fixed</span>
-      <span class="tok">unit=g</span><span class="mean">fixed</span>
-      <span class="tok">range=3</span><span class="mean">the sensor range you use</span>
-      <span class="tok">side=L</span><span class="mean hot">the arm you mounted: L or R</span>
-    </div>
-    <p class="note">One line, sent once after reset.</p>
-  </div>
 
-  <h2><span class="n">2</span>Every 10 milliseconds</h2>
-  <div class="fig">
-    <div class="lit">S 12 340 +0.05123456 -0.01834567 +0.99321234 +0.10769876 -0.02915432 +0.97180000</div>
-    <div class="figlist">
-      <span class="tok">S 12 340</span><span class="mean">sample number, then milliseconds since the set started</span>
-      <span class="tok">+0.05123456 -0.01834567 +0.99321234</span><span class="mean hot">upper arm, in g: x, y, z</span>
-      <span class="tok">+0.10769876 -0.02915432 +0.97180000</span><span class="mean hot">forearm, in g: x, y, z</span>
-    </div>
-    <p class="note">That is one line, split below so you can see which number is which. Six numbers for two sensors, both read in the same tick.</p>
-  </div>
+  <h2>Where the code goes</h2>
+  <p>Everything below lives in <code>hardware/198project/</code>. Two files are empty today and are where the sender belongs; the sketch only gains three call sites.</p>
+  <table>
+    <tr><th>file</th><th>what you put in it</th></tr>
+    <tr><td class="i">data_transfer.h</td><td class="n">three declarations — paste block 1</td></tr>
+    <tr><td class="i">data_transfer.cpp</td><td class="n">the sender and the sequence counter — paste block 2</td></tr>
+    <tr><td class="i">198project.ino</td><td class="n">three call sites: <code>setup()</code>, <code>loop()</code>, and the end of a set — see below</td></tr>
+  </table>
 
-  <h2><span class="n">3</span>Once, when the set ends</h2>
-  <div class="fig">
-    <div class="figlist">
-      <span class="tok">E done</span><span class="mean">the set is complete</span>
-      <span class="tok">E aborted</span><span class="mean">a sensor failed; the set is thrown away</span>
-    </div>
-    <p class="note">Send one of these, once, at the end of every set.</p>
-  </div>
+  <p><b>Block 1 — <code>data_transfer.h</code></b></p>
+  <pre>#pragma once
 
-  <h2><span class="n">4</span>The four things that break it</h2>
+void tally_begin(void);                                   /* header, once per sketch run */
+void tally_sample(float ax, float ay, float az);          /* one S line */
+void tally_end_set(const char *reason);                   /* E done / E aborted / E overflow */</pre>
+
+  <p><b>Block 2 — <code>data_transfer.cpp</code></b></p>
+  <pre>#include "data_transfer.h"
+#include &lt;Arduino.h&gt;
+
+static unsigned long seq = 0;
+
+void tally_begin(void) {
+    seq = 0;
+    Serial1.print("#TALLY1 fs=100 unit=g ax=+x ay=+y az=+z\n");
+}
+
+void tally_sample(float ax, float ay, float az) {
+    char line[56];
+    int n = snprintf(line, sizeof line, "S %lu %+.8f %+.8f %+.8f\n",
+                     seq++, ax, ay, az);
+    if (n &gt; 0) Serial1.write((const uint8_t *)line, (size_t)n);
+}
+
+void tally_end_set(const char *reason) {
+    Serial1.print("E "); Serial1.print(reason); Serial1.print('\n');
+}</pre>
+  <p><code>%+.8f</code> forces the sign and exactly eight decimals, so every line matches the contract. This needs the R4's <code>snprintf</code>, which supports <code>%f</code>; on an AVR board you would have to link the float printf library.</p>
+
+  <p><b>Call site 1 — <code>setup()</code></b>: the sketch currently opens <code>Serial</code> at 9600. The stream needs its own port at 115200.</p>
+  <pre>void setup() {
+    Serial.begin(9600);        <span class="c">// keep: your debug console</span>
+    Serial1.begin(115200);     <span class="c">// the shield's Linux side reads this one</span>
+    tally_begin();
+}</pre>
+
+  <p><b>Call site 2 — <code>loop()</code></b>: replace the <code>delay(200)</code> printing loop with a 10 ms scheduler. One sample every 10,000 µs, no blocking delay.</p>
+  <pre>static unsigned long next_us = 0;
+
+void loop() {
+    unsigned long now = micros();
+    if ((long)(now - next_us) &lt; 0) return;
+    next_us += 10000;                       <span class="c">// 100 Hz</span>
+
+    float x = accelerometer1.convertX();     <span class="c">// sensor 1 is the streamed limb</span>
+    float y = accelerometer1.convertY();
+    float z = accelerometer1.convertZ();
+    tally_sample(x, y, z);
+
+    <span class="c">// see call site 3</span>
+}</pre>
+
+  <p><b>Call site 3 — ending the set</b>: a set ends when the student stops. Pick one trigger and send exactly one <code>E</code> line per set.</p>
+  <pre>    if (digitalRead(BUTTON_PIN) == LOW) {     <span class="c">// button press ends the set</span>
+        tally_end_set("done");
+        next_us = micros() + 10000;
+    }</pre>
+  <p>If you have no button yet, use a fixed count instead: <code>if (seq == 3000) tally_end_set("done");</code> ends the set after 30 s. The next set must restart at <code>seq 0</code>, so call <code>tally_begin()</code> again or reset the counter.</p>
+
+  <table>
+    <tr><th>decision you have to make</th><th>why it matters</th></tr>
+    <tr><td class="i">one sensor only</td><td class="n">The model takes one 3-axis vector per repetition. The sketch reads two accelerometers; stream <code>accelerometer1</code> unless the limb mapping says otherwise. Streaming both needs a new field in the wire format and a parser change — do not improvise it.</td></tr>
+    <tr><td class="i">which UART</td><td class="n"><code>Serial1</code> as written. Confirm against the shield's wiring notes: the Linux side opens that UART as <code>/dev/ttyATH0</code> on the Yún; check with <code>ls /dev/tty*</code> on the Linux side before assuming.</td></tr>
+    <tr><td class="i">calibration</td><td class="n">The existing <code>(raw - 338) * 0.0148</code> conversion produces g from an ADXL335. Send whatever that function returns — do not rescale to a different range or remove the 1 g offset.</td></tr>
+  </table>
+
+  <h2>Serial link</h2>
+  <p>115200 baud, 8 data bits, no parity, 1 stop bit. One ASCII message per line, ending in <code>\n</code>; <code>\r\n</code> is accepted. A line including its terminator must be at most <b>64 bytes</b>. Send nothing else: no prompts, no debug text, no blank lines, no byte-order mark.</p>
+
+  <h2>The three messages</h2>
+  <table>
+    <tr><th>message</th><th>when</th><th>notes</th></tr>
+    <tr><td class="i">#TALLY1 fs=100 unit=g ax=+x ay=+y az=+z</td><td class="n">once after reset</td><td class="n">session header, exact field order. Not a comment: it is required.</td></tr>
+    <tr><td class="i">S &lt;seq&gt; &lt;ax&gt; &lt;ay&gt; &lt;az&gt;</td><td class="n">every sample</td><td class="n">one line per sample, 100 Hz</td></tr>
+    <tr><td class="i">E done</td><td class="n">set finished</td><td class="n">also <code>E aborted</code>, <code>E overflow</code> to end a discarded set</td></tr>
+  </table>
+
+  <h2>Sample fields</h2>
+  <table>
+    <tr><th>field</th><th>rule</th></tr>
+    <tr><td class="i">seq</td><td class="n">base-10 integer 0…2147483647, starts at 0 for every set, increments by exactly 1, never repeats. A gap invalidates the set.</td></tr>
+    <tr><td class="i">ax, ay, az</td><td class="n">signed decimal in <b>g</b>, exactly <b>8 digits</b> after the point, leading <code>+</code> or <code>-</code>. No exponent, no NaN, no infinity. Example: <code>-0.08087663</code></td></tr>
+  </table>
+  <p>No timestamps: the rate is fixed at 100 Hz and <code>seq</code> carries ordering. Eight decimals reproduce the recorded data — at that precision the Linux side matches the training features on every slot, so nothing is lost in transmission.</p>
+
+  <h2>A complete set</h2>
+  <pre>#TALLY1 fs=100 unit=g ax=+x ay=+y az=+z
+S 0 +0.01230000 -0.00450000 +1.00120000
+S 1 +0.01400000 -0.00380000 +1.00010000
+S 2 +0.01620000 -0.00200000 +0.99860000
+<span class="c">… one line per sample …</span>
+S 7555 -0.02100000 +0.00470000 +0.99180000
+E done</pre>
+
+  <h2>What comes back</h2>
+  <pre>{"status":"ok_unverified_rate","end":"done","sample_count":7556,"vector_count":38,
+ "dropped_count":0,"gap_count":0,"measured_rate_hz":null,
+ "mean_p_wrong":0.1774109473656346,"verdict":"correct",
+ "vectors_sha256":"41b4e383ac45978cb1a8fb2ddf6c782855994b8a1af34c04e021238f63b3d634",
+ "repetitions":[ {…} ],"diagnostics":[ "rate_unverified" ]}</pre>
+  <p>That is a real reply, captured from a replayed recording. On a live serial port the status reads <code>ok</code> and <code>measured_rate_hz</code> carries the arrival rate the parser measured; replay has no timing evidence, which is why this one says <code>ok_unverified_rate</code> and <code>null</code>.</p>
+  <p><code>verdict</code> is <code>correct</code> or <code>wrong</code>, taken from <code>mean_p_wrong &gt;= 0.5</code> across the repetitions. <code>vector_count</code> is how many repetitions were scored. One JSON line per set.</p>
+
+  <h2>Timing and throughput</h2>
+  <p>Sample at 100 Hz. A 46-byte line at 100 Hz is about 4,600 bytes/s against a nominal 11,520 bytes/s at 115200 8N1, so the link has headroom; at the 64-byte cap the rate would be 6,400 bytes/s, still inside. 9600 baud would not fit. The parser measures the real arrival rate and flags anything outside 95–105 Hz.</p>
+  <p class="warn">The model was fitted on 100 Hz data and the parser does not resample. If your loop drifts, fix the loop; do not re-timestamp the samples.</p>
+
+  <h2>Axes and mounting</h2>
+  <p><code>x</code>, <code>y</code>, <code>z</code> are the accelerometer axes as recorded in training, in g, <b>gravity included</b> — do not remove the 1 g offset, and do not rotate or reorder axes. The features assume the same sensor orientation on the limb as the recordings.</p>
+
+  <h2>Failure rules</h2>
   <ul>
-    <li><strong>Decimals.</strong> Each of the six numbers needs eight decimals and a printed sign, like <code>+0.05123456</code>. Send in g with gravity still in the value.</li>
-    <li><strong>Sample number.</strong> Starts at 0 for each set and adds 1 every line. A skip or a repeat makes the whole set invalid.</li>
-    <li><strong>Time.</strong> Whole milliseconds since the set started, and it must increase every line. Take the value from one clock, either <code>millis()</code> or <code>micros() / 1000</code>, and use the same clock for both sensors.</li>
-    <li><strong>One sensor only.</strong> If a reading fails, send <code>E aborted</code> and stop the set. Never send zeros, and never send half a line.</li>
+    <li>A gap, duplicate, malformed, over-long or unexpected line invalidates the whole set. Send <code>E aborted</code> and start again at <code>seq 0</code>.</li>
+    <li>Never score a partial set. If your buffer fills, send <code>E overflow</code>; the parser discards everything up to the marker.</li>
+    <li>A set with fewer than 3 detected repetitions returns a status saying so, with no verdict. That is a real answer: the student moved too little.</li>
+    <li>Cap is 60,000 samples per set (600 s at 100 Hz). Beyond that the parser returns <code>aborted</code>.</li>
+    <li>If the link stalls mid-line, drop the line and resend the sample with the appended sequence numbers — never half a line.</li>
   </ul>
 
-  <h2><span class="n">5</span>The three functions to write</h2>
-  <table>
-    <tr><th>function</th><th>what it does</th><th>call it from</th></tr>
-    <tr><td>void tally_begin(char side)</td><td>Sends the line in section 1. Resets the sample number.</td><td><code>setup()</code></td></tr>
-    <tr><td>void tally_sample(unsigned long t_ms, float ux, float uy, float uz, float fx, float fy, float fz)</td><td>Sends one sample line, as in section 2.</td><td><code>loop()</code>, every 10 ms</td></tr>
-    <tr><td>void tally_end_set(const char *reason)</td><td>Sends the end line, as in section 3.</td><td><code>loop()</code>, on your stop condition</td></tr>
-  </table>
-  <p>Build each sample line with <code>snprintf</code> and the pattern <code>"S %lu %lu %+.8f %+.8f %+.8f %+.8f %+.8f %+.8f\n"</code>, then send it in one <code>Serial1.write</code> call.</p>
-
-  <h2><span class="n">6</span>What comes back</h2>
-  <p>Run the script with no arguments. It finds the port and reads the arm from the header.</p>
-  <table>
-    <tr><th>field</th><th>meaning</th></tr>
-    <tr><td>verdict</td><td><code>correct</code> or <code>wrong</code> for the whole set, or <code>null</code> when the set could not be scored.</td></tr>
-    <tr><td>mean_p_wrong</td><td>Mean probability of wrong form. The verdict is <code>wrong</code> at 0.5 or above.</td></tr>
-    <tr><td>exercise</td><td><code>EAH</code>, <code>EFE</code> or <code>SQZ</code>.</td></tr>
-    <tr><td>status</td><td><code>scored</code>. Anything else carries <code>diagnostics</code> and no verdict.</td></tr>
-  </table>
-
-  <h2><span class="n">7</span>What the board reads back</h2>
-  <div class="fig">
-    <div class="lit">V correct 0.189 EAH</div>
-    <div class="figlist">
-      <span class="tok">V</span><span class="mean">marker, so the sketch can tell a reply from noise</span>
-      <span class="tok">correct</span><span class="mean"><code>correct</code> or <code>wrong</code>, or <code>unknown</code> when the set was rejected</span>
-      <span class="tok">0.189</span><span class="mean hot">mean probability that the form was wrong, three decimals</span>
-      <span class="tok">EAH</span><span class="mean hot">the exercise, or a single dash when there is none</span>
-    </div>
-    <p class="note">The script writes one of these per set. It appends them to <code>verdicts.log</code>, and it writes them back to the serial port when it is reading from that port. In <code>loop()</code>, take lines that start with <code>V </code>, parse four tokens, and show them on the screen. Ignore every other line on that port.</p>
-  </div>
-
-  <p style="font-size:13px;color:var(--muted);margin-top:26px;max-width:60ch">The model scores 91.03 % on the left arm and 88.89 % on the right, from 301 and 306 recorded sets by 30 volunteers. Replaying real recordings through this line format reproduced the training features exactly. It has not been tried on a physical board yet.</p>
+  <h2>Bench checklist</h2>
+  <ol>
+    <li>Send the header, 200 samples and <code>E done</code>: expect a reply with <code>measured_rate_hz</code> near 100.</li>
+    <li>Confirm <code>gap_count</code> is 0 across a full set under load.</li>
+    <li>Run one real set end to end and check <code>vector_count</code> matches the repetitions you counted by hand.</li>
+    <li>Unplug mid-set and confirm the next set starts clean at <code>seq 0</code> after a reset.</li>
+  </ol>
 
 </div>
 </body>
