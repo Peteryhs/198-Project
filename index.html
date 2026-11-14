@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Tally · firmware ↔ model handoff</title>
+<title>Tally armband · firmware handoff</title>
 <style>
 :root{
   color-scheme:light;
@@ -13,166 +13,101 @@
   --rule:rgba(25,26,22,.14);
   --teal:#14675d;
   --teal-t:rgba(20,103,93,.09);
-  --teal-t2:rgba(20,103,93,.18);
   --amber:#8e4619;
   --amber-t:rgba(142,70,25,.09);
-  --t1:40px;   /* display: title, big numbers */
-  --t2:25px;   /* section heads, key values */
-  --t3:19px;   /* body, labels, code */
+  --t1:38px;
+  --t2:25px;
+  --t3:19px;
   --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:12px}
-body{margin:0;background:var(--bg);color:var(--ink);font:var(--t3)/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-text-size-adjust:100%}
-main{max-width:1000px;margin:0 auto;padding:20px 18px 64px}
-h1,h2,p,ul,ol{margin:0}
-h1{font-size:var(--t1);line-height:1.05;font-weight:800;letter-spacing:-.02em}
-h2{font-size:var(--t2);line-height:1.2;font-weight:800;letter-spacing:-.01em;margin-bottom:18px}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:var(--t3)/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-text-size-adjust:100%}
+main{max-width:960px;margin:0 auto;padding:22px 18px 64px}
+h1,h2,h3,p,ul,ol,figure{margin:0}
+h1{font-size:var(--t1);line-height:1.08;font-weight:800;letter-spacing:-.02em}
+h2{font-size:var(--t2);line-height:1.2;font-weight:800;margin-bottom:16px}
 h2 .n{color:var(--teal);margin-right:.35em}
+h3{font-size:var(--t3);font-weight:800;margin:22px 0 8px}
+p+p{margin-top:12px}
 a{color:var(--teal);text-underline-offset:3px}
-strong{font-weight:750}
-code,.mono{font-family:var(--mono);font-size:.92em}
-code{background:var(--teal-t);padding:1px 5px;border-radius:4px;overflow-wrap:anywhere}
-.k{font-weight:750;color:var(--teal)}
-.soft{color:var(--soft)}
+code{font-family:var(--mono);font-size:.92em;background:var(--teal-t);color:var(--teal);font-weight:700;padding:1px 5px;border-radius:4px;overflow-wrap:anywhere}
 .hl{color:var(--teal);font-weight:800}
-.big{font-size:var(--t1);font-weight:800;line-height:1;letter-spacing:-.02em}
-.mid{font-size:var(--t2);font-weight:800;line-height:1.15}
+.soft{color:var(--soft)}
 svg{display:block;width:100%;height:auto}
 svg text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 svg .m{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
 
-/* ---------- header ---------- */
-header{padding-bottom:28px;border-bottom:4px solid var(--teal)}
-.eyebrow{font-weight:750;color:var(--teal);margin-bottom:10px}
-.lede{margin:14px 0 22px;max-width:34ch}
-.hgrid{display:grid;gap:18px}
-.ok{display:flex;gap:14px;align-items:center;border:2px solid var(--teal);border-radius:12px;padding:12px 16px}
-.ok .big{color:var(--teal)}
-.notproven{border:3px solid var(--amber);border-radius:12px;padding:16px 18px;background:var(--amber-t)}
-.notproven h2{color:var(--amber);margin-bottom:4px}
-.notproven ol{list-style:none;padding:0;counter-reset:np}
-.notproven li{counter-increment:np;padding:9px 0 9px 36px;position:relative;border-top:1px solid rgba(142,70,25,.22);line-height:1.35}
-.notproven li:first-child{border-top:none}
-.notproven li:before{content:counter(np);position:absolute;left:0;top:9px;width:24px;height:24px;border-radius:50%;background:var(--amber);color:var(--bg);font-weight:800;text-align:center;line-height:24px;font-size:.8em}
-.specs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.spec{background:var(--teal-t);border-radius:10px;padding:12px 14px}
-.spec.wide{grid-column:1/-1}
-.spec .mid{font-family:var(--mono);letter-spacing:-.02em}
-.spec div+div{margin-top:4px;line-height:1.3}
-nav.toc{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:22px;font-weight:700}
-nav.toc a{padding:4px 0}
+header{padding-bottom:24px;border-bottom:4px solid var(--teal)}
+.eyebrow{font-weight:750;color:var(--teal);margin-bottom:8px}
+.lede{margin-top:14px;max-width:40ch}
+nav{display:flex;flex-wrap:wrap;gap:4px 18px;margin-top:20px;font-weight:700}
 
-/* ---------- sections ---------- */
-section{padding:40px 0;border-bottom:1px solid var(--rule)}
+section{padding:36px 0;border-bottom:1px solid var(--rule)}
 section:last-of-type{border-bottom:none}
-.gate{display:flex;gap:12px;align-items:baseline;border-left:5px solid var(--amber);background:var(--amber-t);padding:12px 16px;margin-top:22px;border-radius:0 10px 10px 0;line-height:1.4}
-.gate .k{color:var(--amber);white-space:nowrap}
 .two{display:grid;gap:24px}
-.lines{list-style:none;padding:0}
-.lines>li{padding:10px 0;border-top:1px solid var(--rule);line-height:1.4}
-.lines>li:first-child{border-top:none}
+.armfig{max-width:340px;width:100%;margin:0 auto}
+.flowfig{max-width:440px;width:100%;margin:0 auto}
 
-/* sensors */
-.armfig{max-width:330px;margin:0 auto}
-.axes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px}
-.axes div{background:var(--teal-t);border-radius:10px;padding:10px;text-align:center;line-height:1.25}
+ul.plain{list-style:none;padding:0}
+ul.plain>li{padding:9px 0;border-top:1px solid var(--rule)}
+ul.plain>li:first-child{border-top:none;padding-top:0}
+
+.axes{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.axes div{background:var(--teal-t);border-radius:10px;padding:10px 6px;text-align:center;line-height:1.3}
 .axes b{display:block;font-size:var(--t2);color:var(--teal)}
 
-/* commands */
-.files{list-style:none;padding:0;display:grid;gap:8px;margin:10px 0 18px}
-.files li{font-family:var(--mono);font-weight:700;background:var(--teal-t);border-radius:8px;padding:10px 14px;overflow-wrap:anywhere}
-pre{font:var(--t3)/1.5 var(--mono);margin:0;padding:14px 16px;background:var(--ink);color:var(--bg);border-radius:10px;white-space:pre-wrap;overflow-wrap:anywhere}
-pre code{background:none;padding:0;font-size:inherit;color:inherit}
+.note{border-left:5px solid var(--amber);background:var(--amber-t);padding:12px 16px;margin-top:22px;border-radius:0 10px 10px 0}
+.note strong{color:var(--amber)}
 
-/* wire strings */
-.wire{border-left:5px solid var(--ink);padding:4px 0 4px 16px;margin-top:22px}
-.wire.rx{border-left-color:var(--teal)}
-.wire .dir{font-weight:750}
-.wire.rx .dir{color:var(--teal)}
-.str{display:block;font:700 var(--t3)/1.4 var(--mono);background:var(--teal-t);padding:10px 12px;border-radius:8px;margin:8px 0 10px;overflow-wrap:anywhere}
-.wire ul{padding-left:1.1em}
-.wire ul li{margin:4px 0;line-height:1.4}
+.files{list-style:none;padding:0;display:grid;gap:6px;margin:10px 0 16px}
+.files li{font-family:var(--mono);font-weight:700;background:var(--teal-t);border-radius:8px;padding:8px 12px;overflow-wrap:anywhere}
+pre{font:.9em/1.5 var(--mono);margin:0;padding:14px 16px;background:var(--ink);color:var(--bg);border-radius:10px;white-space:pre-wrap;overflow-wrap:anywhere}
+pre code{background:none;color:inherit;padding:0;font-weight:400;font-size:inherit}
 
-/* timers */
-.timers{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
-.timer{border:2px solid var(--teal-t2);border-radius:12px;padding:12px 14px}
-.timer .big{color:var(--teal)}
-.timer.fw .big{color:var(--ink)}
-.timer div+div{margin-top:6px;line-height:1.3}
-.session{margin-top:20px;background:var(--teal-t);border-radius:12px;padding:16px}
-.session .big{color:var(--teal)}
+.line{display:block;font:700 1em/1.4 var(--mono);background:var(--teal-t);color:var(--ink);padding:10px 12px;border-radius:8px;margin:8px 0;overflow-wrap:anywhere}
 
-/* parse */
-.parse{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 4px}
-.parse div{border-top:4px solid var(--teal);padding-top:6px;line-height:1.3}
-.parse b{display:block;font-family:var(--mono);font-size:var(--t2)}
-.rules{list-style:none;padding:0;margin-top:18px}
-.rules li{padding:10px 0 10px 18px;border-left:3px solid var(--teal);margin:8px 0;line-height:1.4}
-.rules li.warn{border-left-color:var(--amber)}
-
-/* receiver */
-.steps{list-style:none;padding:0;counter-reset:s}
-.steps>li{counter-increment:s;position:relative;padding:4px 0 18px 50px;line-height:1.45}
-.steps>li:before{content:counter(s);position:absolute;left:0;top:0;width:36px;height:36px;border-radius:50%;background:var(--teal);color:var(--bg);font-weight:800;text-align:center;line-height:36px}
-table{width:100%;border-collapse:collapse;margin-top:8px}
-th,td{text-align:left;vertical-align:top;border-bottom:1px solid var(--rule);padding:10px 6px;line-height:1.4}
+table{width:100%;border-collapse:collapse;margin-top:6px}
+th,td{text-align:left;vertical-align:top;border-bottom:1px solid var(--rule);padding:9px 6px}
 th{color:var(--teal);font-weight:750}
-td:first-child{font-family:var(--mono);font-size:.92em;font-weight:700;overflow-wrap:anywhere}
-.codebox{border:2px solid var(--teal);border-radius:12px;margin-top:22px;padding:14px 16px}
+
+.fields{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0 4px}
+.fields div{border-top:4px solid var(--teal);padding-top:6px;line-height:1.3}
+.fields b{display:block;font-family:var(--mono)}
+
+.ex{display:grid;gap:12px}
+.excard{border:2px solid var(--teal-t);border-radius:12px;padding:14px 16px}
+.excard code{font-size:var(--t2);background:none;padding:0}
+.excard p{margin-top:4px}
+
+.steps{list-style:none;padding:0;counter-reset:s}
+.steps>li{counter-increment:s;position:relative;padding:4px 0 18px 48px}
+.steps>li:before{content:counter(s);position:absolute;left:0;top:0;width:34px;height:34px;border-radius:50%;background:var(--teal);color:var(--bg);font-weight:800;text-align:center;line-height:34px}
+.steps pre{margin-top:8px}
+
+.codebox{border:2px solid var(--teal);border-radius:12px;margin-top:10px;padding:14px 16px}
 summary{font-weight:800;color:var(--teal);cursor:pointer}
 .toolbar{display:flex;gap:12px;align-items:center;margin-top:12px;flex-wrap:wrap}
-.copy{font:inherit;font-weight:750;border:2px solid var(--teal);background:var(--teal);color:var(--bg);padding:8px 16px;border-radius:8px;cursor:pointer}
-.codebox pre{white-space:pre;overflow:auto;max-height:640px;margin-top:12px;overflow-wrap:normal}
-.code-function{font-weight:800;color:#8fe0d2;scroll-margin-top:100px}
-.code-function:target{background:rgba(255,253,248,.18)}
-
-/* exercises */
-.ex{display:grid;gap:12px}
-.excard{border:2px solid var(--teal-t2);border-radius:12px;padding:14px 16px}
-.excard .mid{font-family:var(--mono);color:var(--teal)}
-.excard p{margin-top:6px;line-height:1.4}
-
-/* evidence */
-.acc{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.acard{border:2px solid var(--teal);border-radius:12px;padding:14px}
-.acard .big{color:var(--teal);margin-top:10px}
-.acard .big.ink{color:var(--ink)}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
-.stat{background:var(--teal-t);border-radius:10px;padding:12px 14px;line-height:1.3}
-.stat .mid{margin-bottom:4px}
-.guar{display:grid;gap:0;margin-top:8px}
-.guar div{padding:10px 0;border-top:1px solid var(--rule);line-height:1.4}
-.guar div:first-child{border-top:none}
-.sub{margin:30px 0 10px;font-weight:800}
+.copy{font:inherit;font-weight:750;border:2px solid var(--teal);background:var(--teal);color:var(--bg);padding:6px 14px;border-radius:8px;cursor:pointer}
+.codebox pre{white-space:pre;overflow:auto;max-height:640px;margin-top:12px;overflow-wrap:normal;font-size:.8em}
 
 a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
-footer{padding-top:24px;border-top:1px solid var(--rule);color:var(--soft)}
 
 @media (min-width:700px){
-  :root{--t1:54px;--t2:31px;--t3:20px}
+  :root{--t1:50px;--t2:30px;--t3:20px}
   main{padding:36px 40px 72px}
-  .hgrid{grid-template-columns:1.05fr 1fr;align-items:start;gap:28px}
   .two{grid-template-columns:1fr 1fr;align-items:start;gap:36px}
-  .timers{grid-template-columns:repeat(3,1fr)}
-  .parse{grid-template-columns:repeat(6,1fr)}
+  .fields{grid-template-columns:repeat(6,1fr)}
+  .fields.v{grid-template-columns:repeat(4,1fr)}
   .ex{grid-template-columns:repeat(3,1fr)}
-  .stats{grid-template-columns:repeat(4,1fr)}
-  .guar{grid-template-columns:1fr 1fr;column-gap:32px}
-  .guar div:nth-child(2){border-top:none}
 }
-
 @media print{
   :root{--t1:22pt;--t2:14pt;--t3:10.5pt}
-  body{background:#fff;color:#000}
-  main{max-width:none;padding:0}
-  nav.toc,.copy,.toolbar{display:none}
-  section{padding:14px 0}
-  pre{background:#fff;color:#000;border:1px solid #999;font-size:8.5pt}
-  .code-function{color:#000}
+  body{background:#fff}
+  nav,.toolbar{display:none}
+  pre{background:#fff;color:#000;border:1px solid #999}
   .codebox pre{max-height:none;overflow:visible;white-space:pre-wrap}
-  details:not([open])>*:not(summary){display:none}
-  .notproven,.gate,.wire,.timer,.acard,.excard,figure,svg{break-inside:avoid}
+  figure,svg,.excard,.note{break-inside:avoid}
 }
 </style>
 </head>
@@ -180,349 +115,241 @@ footer{padding-top:24px;border-top:1px solid var(--rule);color:var(--soft)}
 <main>
 
 <header>
-  <div class="eyebrow">ECE 198 · Tally armband</div>
-  <div class="hgrid">
-    <div>
-      <h1>Firmware ↔ model handoff</h1>
-      <p class="lede">The Arduino streams one set. Python on the shield replies after the set ends.</p>
-
-      <div class="ok" style="margin-bottom:14px">
-        <span class="big">86</span>
-        <div><strong>tests pass on host</strong><br><span class="soft">3 skipped (legacy, model exports deleted)</span></div>
-      </div>
-
-      <div class="specs">
-        <div class="spec"><div class="mid">A0–A2</div><div>Sensor 1 · upper arm</div></div>
-        <div class="spec"><div class="mid">A3–A5</div><div>Sensor 2 · forearm</div></div>
-        <div class="spec"><div class="mid">100 Hz</div><div>1 paired sample / 10 ms</div></div>
-        <div class="spec"><div class="mid">600 s</div><div>max set = 60,000 samples</div></div>
-        <div class="spec wide"><div class="mid">Serial1 → /dev/ttyATH0</div><div>UNO R4 Minima → AR9331 shield (OpenWrt)</div></div>
-      </div>
-    </div>
-
-    <div class="notproven" role="note" aria-labelledby="np-h">
-      <h2 id="np-h">NOT PROVEN</h2>
-      <p style="margin-bottom:8px"><strong>Needs the physical board.</strong> Bench-test each item before the first recording.</p>
-      <ol>
-        <li><code>Serial1</code> → <code>/dev/ttyATH0</code> route and logic levels</li>
-        <li>Per-axis calibration and the inherited <code>(ADC-338)*0.0148</code> conversion</li>
-        <li>Sustained 10 ms sampling with six ADC reads</li>
-        <li>ADC settling</li>
-        <li>Power tree and shield VIN</li>
-        <li>Flash endurance</li>
-        <li>Anti-alias filtering at 50 Hz Nyquist</li>
-      </ol>
-    </div>
-  </div>
-
-  <nav class="toc" aria-label="Sections">
-    <a href="#wire">1 Sensors</a>
-    <a href="#run">2 Run</a>
-    <a href="#protocol">3 Protocol</a>
-    <a href="#life">4 Set lifecycle</a>
-    <a href="#result">5 Results</a>
-    <a href="#code">6 Receiver code</a>
-    <a href="#exercises">7 Exercises</a>
-    <a href="#evidence">8 Evidence</a>
+  <div class="eyebrow">Tally armband · firmware handoff</div>
+  <h1>Stream a set, get a verdict back</h1>
+  <p class="lede">Your sketch samples two ADXL335 accelerometers and streams each set to a Python script on the shield. When the set ends, the script replies with a verdict for every repetition and one for the whole set.</p>
+  <nav aria-label="Sections">
+    <a href="#sensors">1 Sensors</a>
+    <a href="#shield">2 Shield script</a>
+    <a href="#set">3 Run a set</a>
+    <a href="#replies">4 Replies</a>
+    <a href="#exercises">5 Exercise codes</a>
+    <a href="#receiver">6 Receiver code</a>
   </nav>
 </header>
 
-<!-- 1 -->
-<section id="wire">
-  <h2><span class="n">1</span>Both ADXL335 sensors go on one arm</h2>
+<section id="sensors">
+  <h2><span class="n">1</span>Mount and wire the sensors</h2>
   <div class="two">
-    <figure class="armfig" style="margin:0 auto">
-      <svg viewBox="0 0 320 410" role="img" aria-label="Arm hanging down. Sensor 1 on the upper arm wired to A0, A1, A2 sends ux uy uz. Sensor 2 on the forearm wired to A3, A4, A5 sends fx fy fz. X axis points up.">
+    <figure class="armfig">
+      <svg viewBox="0 0 340 410" role="img" aria-label="One arm hanging down. Sensor 1 sits on the upper arm between shoulder and elbow, wired to A0, A1, A2, giving ux uy uz. Sensor 2 sits on the forearm between elbow and wrist, wired to A3, A4, A5, giving fx fy fz. The X axis points up.">
         <defs>
-          <marker id="axh" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#14675d"/></marker>
+          <marker id="axh" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#14675d"/></marker>
         </defs>
-        <circle cx="86" cy="34" r="34" fill="rgba(20,103,93,.09)" stroke="rgba(25,26,22,.35)" stroke-width="2"/>
-        <rect x="54" y="30" width="64" height="178" rx="30" fill="rgba(20,103,93,.09)" stroke="rgba(25,26,22,.35)" stroke-width="2"/>
-        <rect x="60" y="196" width="52" height="170" rx="24" fill="rgba(20,103,93,.09)" stroke="rgba(25,26,22,.35)" stroke-width="2"/>
-        <ellipse cx="86" cy="384" rx="22" ry="22" fill="rgba(20,103,93,.09)" stroke="rgba(25,26,22,.35)" stroke-width="2"/>
-        <line x1="40" y1="202" x2="134" y2="202" stroke="#191a16" stroke-width="1.5" stroke-dasharray="4 5" opacity=".5"/>
-        <text x="140" y="208" font-size="16" fill="rgba(25,26,22,.68)">elbow</text>
-        <text x="116" y="400" font-size="16" fill="rgba(25,26,22,.68)">wrist</text>
+        <circle cx="80" cy="40" r="30" fill="rgba(20,103,93,.09)" stroke="rgba(25,26,22,.35)" stroke-width="2"/>
+        <rect x="52" y="40" width="56" height="170" rx="26" fill="rgba(20,103,93,.09)" stroke="rgba(25,26,22,.35)" stroke-width="2"/>
+        <rect x="56" y="200" width="48" height="160" rx="22" fill="rgba(20,103,93,.09)" stroke="rgba(25,26,22,.35)" stroke-width="2"/>
+        <circle cx="80" cy="380" r="20" fill="rgba(20,103,93,.09)" stroke="rgba(25,26,22,.35)" stroke-width="2"/>
+        <text x="118" y="30" font-size="15" fill="rgba(25,26,22,.68)">shoulder</text>
+        <line x1="40" y1="205" x2="120" y2="205" stroke="#191a16" stroke-width="1.5" stroke-dasharray="4 5" opacity=".5"/>
+        <text x="126" y="210" font-size="15" fill="rgba(25,26,22,.68)">elbow</text>
+        <text x="108" y="386" font-size="15" fill="rgba(25,26,22,.68)">wrist</text>
 
-        <line x1="26" y1="150" x2="26" y2="84" stroke="#14675d" stroke-width="3" marker-end="url(#axh)"/>
-        <text x="16" y="72" font-size="17" font-weight="800" fill="#14675d">X</text>
+        <line x1="22" y1="170" x2="22" y2="96" stroke="#14675d" stroke-width="3" marker-end="url(#axh)"/>
+        <text x="22" y="80" font-size="17" font-weight="800" fill="#14675d" text-anchor="middle">X</text>
+        <text x="22" y="190" font-size="13" fill="#14675d" text-anchor="middle">up</text>
 
-        <rect x="66" y="96" width="40" height="40" rx="7" fill="#14675d"/>
-        <text x="86" y="124" font-size="24" font-weight="800" fill="#fffdf8" text-anchor="middle">1</text>
-        <line x1="106" y1="116" x2="152" y2="116" stroke="#14675d" stroke-width="2.5"/>
-        <text x="158" y="100" font-size="16" font-weight="800" fill="#14675d">UPPER ARM</text>
-        <text x="158" y="126" class="m" font-size="20" font-weight="800" fill="#191a16">A0 A1 A2</text>
-        <text x="158" y="150" class="m" font-size="17" fill="#191a16">→ ux uy uz</text>
+        <rect x="60" y="100" width="40" height="40" rx="7" fill="#14675d"/>
+        <text x="80" y="128" font-size="22" font-weight="800" fill="#fffdf8" text-anchor="middle">1</text>
+        <line x1="100" y1="120" x2="140" y2="120" stroke="#14675d" stroke-width="2.5"/>
+        <text x="146" y="100" font-size="15" font-weight="800" fill="#14675d">UPPER ARM</text>
+        <text x="146" y="126" class="m" font-size="19" font-weight="800" fill="#191a16">A0 A1 A2</text>
+        <text x="146" y="150" class="m" font-size="16" fill="#191a16">→ ux uy uz</text>
 
-        <rect x="68" y="262" width="36" height="36" rx="7" fill="#191a16"/>
-        <text x="86" y="288" font-size="22" font-weight="800" fill="#fffdf8" text-anchor="middle">2</text>
-        <line x1="104" y1="280" x2="152" y2="280" stroke="#191a16" stroke-width="2.5"/>
-        <text x="158" y="264" font-size="16" font-weight="800" fill="#191a16">FOREARM</text>
-        <text x="158" y="290" class="m" font-size="20" font-weight="800" fill="#191a16">A3 A4 A5</text>
-        <text x="158" y="314" class="m" font-size="17" fill="#191a16">→ fx fy fz</text>
+        <rect x="62" y="262" width="36" height="36" rx="7" fill="#191a16"/>
+        <text x="80" y="288" font-size="20" font-weight="800" fill="#fffdf8" text-anchor="middle">2</text>
+        <line x1="98" y1="280" x2="140" y2="280" stroke="#191a16" stroke-width="2.5"/>
+        <text x="146" y="260" font-size="15" font-weight="800" fill="#191a16">FOREARM</text>
+        <text x="146" y="286" class="m" font-size="19" font-weight="800" fill="#191a16">A3 A4 A5</text>
+        <text x="146" y="310" class="m" font-size="16" fill="#191a16">→ fx fy fz</text>
       </svg>
     </figure>
 
     <div>
-      <ul class="lines">
-        <li>Both sensors sit on the <strong>outer side</strong>, one above the elbow and one below. The model was trained on that pairing.</li>
-        <li>Send sensor 1 first: <code>ux uy uz</code>, then <code>fx fy fz</code>.</li>
-        <li>Range <span class="hl">±3 g</span>. Values are in g with gravity included.</li>
-        <li><strong>No clamping.</strong> Readings above 3 g pass through unchanged.</li>
+      <ul class="plain">
+        <li>Mount both boards on the <strong>outer side of the same arm</strong>, as drawn.</li>
+        <li>Report each axis in <span class="hl">g</span> with gravity included.</li>
       </ul>
-      <p class="k" style="margin-top:16px">Axes, standing with arms down</p>
+      <h3>Axes, standing with arms down</h3>
       <div class="axes">
         <div><b>X</b>up</div>
-        <div><b>Y</b>front ↔ back</div>
-        <div><b>Z</b>side ↔ side</div>
+        <div><b>Y</b>front to back</div>
+        <div><b>Z</b>side to side</div>
       </div>
     </div>
   </div>
-  <p class="gate"><span class="k">Gate</span><span>Calibration, <code>(ADC-338)*0.0148</code>, ADC settling and anti-alias filtering are NOT PROVEN.</span></p>
+  <p class="note"><strong>Calibrate first.</strong> The sketch's ADC-to-g conversion, <code>(ADC-338)*0.0148</code>, is inherited and uncalibrated. Calibrate each axis on your own board before you trust the reported g.</p>
 </section>
 
-<!-- 2 -->
-<section id="run">
-  <h2><span class="n">2</span>Run Python on the shield: 3 files, 1 command</h2>
-  <div class="two">
-    <div>
-      <p>Copy into <code>/root/tally</code>, about <span class="hl">30 KB</span> for both arms:</p>
-      <ul class="files">
-        <li>scripts/tally_stdlib.py</li>
-        <li>scripts/stdlib_runtime.py</li>
-        <li>realtime_model.npz</li>
-      </ul>
-      <ul class="lines">
-        <li>Standard library only. The image runs python3-light 3.10, which has no NumPy, SciPy or scikit-learn.</li>
-        <li>The UNO R4 Minima only samples. The shield's AR9331 (OpenWrt) does all scoring.</li>
-      </ul>
-    </div>
-    <div>
-      <pre>cd /root/tally &amp;&amp; python3 -B -u scripts/tally_stdlib.py \
+<section id="shield">
+  <h2><span class="n">2</span>Start the script on the shield</h2>
+  <p>Copy these files into <code>/root/tally</code> on the shield:</p>
+  <ul class="files">
+    <li>scripts/tally_stdlib.py</li>
+    <li>scripts/stdlib_runtime.py</li>
+    <li>realtime_model.npz</li>
+  </ul>
+  <p>Then run:</p>
+  <pre><code>cd /root/tally &amp;&amp; python3 -B -u scripts/tally_stdlib.py \
   --port /dev/ttyATH0 --quiet --out /tmp/tally-results.jsonl \
-  --reply both --reply-file /tmp/tally-verdicts.log</pre>
-      <ul class="lines" style="margin-top:12px">
-        <li>Wait for the ready line before sending the first header. Python does not acknowledge headers.</li>
-        <li>If anything else holds the UART, Python refuses to start (non-blocking <code>flock</code> preflight).</li>
-        <li>For unattended use, start it with the supplied procd unit instead of a manual shell.</li>
-      </ul>
-    </div>
-  </div>
-  <p class="gate"><span class="k">Gate</span><span>The UART route, logic levels, power tree and shield VIN are NOT PROVEN.</span></p>
+  --reply both --reply-file /tmp/tally-verdicts.log</code></pre>
+  <ul class="plain" style="margin-top:14px">
+    <li>The script listens on <code>/dev/ttyATH0</code>, the shield end of the sketch's <code>Serial1</code> link. It sends its reply lines back on that same link and keeps a copy in <code>/tmp/tally-verdicts.log</code>. Results for each set go to <code>/tmp/tally-results.jsonl</code>.</li>
+    <li>It prints a <strong>ready line</strong> when it can accept a set. Don't send anything before you see it.</li>
+    <li>It records nothing until the sketch sends a header, so you can leave it running between sets.</li>
+  </ul>
 </section>
 
-<!-- 3 -->
-<section id="protocol">
-  <h2><span class="n">3</span>Wire protocol (unchanged)</h2>
+<section id="set">
+  <h2><span class="n">3</span>Run a set</h2>
   <div class="two">
-    <figure style="margin:0">
-      <svg viewBox="0 0 360 480" role="img" aria-label="Sequence: Arduino sends the TALLY2 header once, S lines every 10 ms, then one E marker. Python scores, then replies with one R line per repetition and one final V line.">
+    <figure class="flowfig">
+      <svg viewBox="0 0 400 470" role="img" aria-label="One set. You send START L over USB; the Arduino sends the TALLY2 header to the shield, then S lines, one per sample. You send STOP, or ABORT; the Arduino sends E done, or E aborted or E overflow. The shield scores the set and replies with one R line per repetition, then one V line. The Arduino ignores START from the end marker until V arrives.">
         <defs>
-          <marker id="ahI" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#191a16"/></marker>
-          <marker id="ahT" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#14675d"/></marker>
+          <marker id="ai" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#191a16"/></marker>
+          <marker id="at" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#14675d"/></marker>
         </defs>
-        <rect x="6" y="6" width="152" height="60" rx="10" fill="#191a16"/>
-        <text x="82" y="32" font-size="18" font-weight="800" fill="#fffdf8" text-anchor="middle">Arduino</text>
-        <text x="82" y="54" class="m" font-size="15" fill="#fffdf8" text-anchor="middle">Serial1</text>
-        <rect x="202" y="6" width="152" height="60" rx="10" fill="#14675d"/>
-        <text x="278" y="32" font-size="18" font-weight="800" fill="#fffdf8" text-anchor="middle">Shield Python</text>
-        <text x="278" y="54" class="m" font-size="15" fill="#fffdf8" text-anchor="middle">/dev/ttyATH0</text>
-        <line x1="82" y1="66" x2="82" y2="470" stroke="#191a16" stroke-width="2" stroke-dasharray="3 6" opacity=".45"/>
-        <line x1="278" y1="66" x2="278" y2="470" stroke="#14675d" stroke-width="2" stroke-dasharray="3 6" opacity=".6"/>
+        <rect x="4" y="6" width="72" height="56" rx="10" fill="none" stroke="#191a16" stroke-width="2"/>
+        <text x="40" y="31" font-size="16" font-weight="800" fill="#191a16" text-anchor="middle">You</text>
+        <text x="40" y="51" class="m" font-size="13" fill="#191a16" text-anchor="middle">USB</text>
+        <rect x="112" y="6" width="116" height="56" rx="10" fill="#191a16"/>
+        <text x="170" y="31" font-size="16" font-weight="800" fill="#fffdf8" text-anchor="middle">Arduino</text>
+        <text x="170" y="51" class="m" font-size="13" fill="#fffdf8" text-anchor="middle">Serial1</text>
+        <rect x="282" y="6" width="114" height="56" rx="10" fill="#14675d"/>
+        <text x="339" y="31" font-size="16" font-weight="800" fill="#fffdf8" text-anchor="middle">Shield</text>
+        <text x="339" y="51" class="m" font-size="13" fill="#fffdf8" text-anchor="middle">/dev/ttyATH0</text>
 
-        <text x="180" y="100" class="m" font-size="17" font-weight="800" fill="#191a16" text-anchor="middle">#TALLY2</text>
-        <line x1="84" y1="112" x2="274" y2="112" stroke="#191a16" stroke-width="3" marker-end="url(#ahI)"/>
-        <text x="180" y="134" font-size="15" fill="rgba(25,26,22,.68)" text-anchor="middle">once per set · no ack</text>
+        <line x1="40" y1="62" x2="40" y2="460" stroke="#191a16" stroke-width="2" stroke-dasharray="3 6" opacity=".4"/>
+        <line x1="170" y1="62" x2="170" y2="460" stroke="#191a16" stroke-width="2" stroke-dasharray="3 6" opacity=".4"/>
+        <line x1="339" y1="62" x2="339" y2="460" stroke="#14675d" stroke-width="2" stroke-dasharray="3 6" opacity=".6"/>
 
-        <text x="180" y="170" class="m" font-size="17" font-weight="800" fill="#191a16" text-anchor="middle">S  every 10 ms</text>
-        <line x1="84" y1="182" x2="274" y2="182" stroke="#191a16" stroke-width="2" marker-end="url(#ahI)"/>
-        <line x1="84" y1="194" x2="274" y2="194" stroke="#191a16" stroke-width="2" marker-end="url(#ahI)"/>
-        <line x1="84" y1="206" x2="274" y2="206" stroke="#191a16" stroke-width="2" marker-end="url(#ahI)"/>
-        <text x="180" y="228" font-size="15" fill="rgba(25,26,22,.68)" text-anchor="middle">up to 60,000 per set</text>
+        <text x="105" y="100" class="m" font-size="14" font-weight="800" fill="#191a16" text-anchor="middle">START L</text>
+        <line x1="42" y1="110" x2="166" y2="110" stroke="#191a16" stroke-width="2" marker-end="url(#ai)"/>
+        <text x="254" y="100" class="m" font-size="14" font-weight="800" fill="#191a16" text-anchor="middle">#TALLY2 … side=L</text>
+        <line x1="172" y1="110" x2="335" y2="110" stroke="#191a16" stroke-width="3" marker-end="url(#ai)"/>
 
-        <text x="180" y="264" class="m" font-size="17" font-weight="800" fill="#191a16" text-anchor="middle">E done</text>
-        <line x1="84" y1="276" x2="274" y2="276" stroke="#191a16" stroke-width="3" marker-end="url(#ahI)"/>
-        <text x="180" y="298" font-size="15" fill="rgba(25,26,22,.68)" text-anchor="middle">or E aborted / E overflow</text>
+        <text x="254" y="150" font-size="14" font-weight="700" fill="#191a16" text-anchor="middle"><tspan class="m" font-weight="800">S</tspan> lines, one per sample</text>
+        <line x1="172" y1="162" x2="335" y2="162" stroke="#191a16" stroke-width="2" marker-end="url(#ai)"/>
+        <line x1="172" y1="174" x2="335" y2="174" stroke="#191a16" stroke-width="2" marker-end="url(#ai)"/>
+        <line x1="172" y1="186" x2="335" y2="186" stroke="#191a16" stroke-width="2" marker-end="url(#ai)"/>
 
-        <rect x="270" y="306" width="16" height="44" rx="4" fill="#8e4619"/>
-        <text x="262" y="334" font-size="15" font-weight="800" fill="#8e4619" text-anchor="end">scores ≤ 20 s</text>
+        <text x="105" y="226" class="m" font-size="14" font-weight="800" fill="#191a16" text-anchor="middle">STOP</text>
+        <line x1="42" y1="236" x2="166" y2="236" stroke="#191a16" stroke-width="2" marker-end="url(#ai)"/>
+        <text x="105" y="256" class="m" font-size="12" fill="rgba(25,26,22,.68)" text-anchor="middle">or ABORT</text>
+        <text x="254" y="226" class="m" font-size="14" font-weight="800" fill="#191a16" text-anchor="middle">E done</text>
+        <line x1="172" y1="236" x2="335" y2="236" stroke="#191a16" stroke-width="3" marker-end="url(#ai)"/>
+        <text x="254" y="256" class="m" font-size="12" fill="rgba(25,26,22,.68)" text-anchor="middle">or E aborted / E overflow</text>
 
-        <text x="180" y="378" class="m" font-size="17" font-weight="800" fill="#14675d" text-anchor="middle">R  one per rep</text>
-        <line x1="276" y1="390" x2="86" y2="390" stroke="#14675d" stroke-width="2" marker-end="url(#ahT)"/>
-        <line x1="276" y1="402" x2="86" y2="402" stroke="#14675d" stroke-width="2" marker-end="url(#ahT)"/>
+        <rect x="333" y="270" width="12" height="40" rx="3" fill="#8e4619"/>
+        <text x="326" y="295" font-size="14" font-weight="800" fill="#8e4619" text-anchor="end">scores the set</text>
 
-        <text x="180" y="436" class="m" font-size="17" font-weight="800" fill="#14675d" text-anchor="middle">V  closes the set</text>
-        <line x1="276" y1="448" x2="86" y2="448" stroke="#14675d" stroke-width="3.5" marker-end="url(#ahT)"/>
-        <text x="180" y="472" font-size="15" fill="rgba(25,26,22,.68)" text-anchor="middle">whole reply cut at 25 s after E</text>
+        <text x="254" y="336" font-size="14" font-weight="700" fill="#14675d" text-anchor="middle"><tspan class="m" font-weight="800">R</tspan> one per repetition</text>
+        <line x1="337" y1="348" x2="174" y2="348" stroke="#14675d" stroke-width="2" marker-end="url(#at)"/>
+        <line x1="337" y1="360" x2="174" y2="360" stroke="#14675d" stroke-width="2" marker-end="url(#at)"/>
+
+        <text x="254" y="400" font-size="14" font-weight="700" fill="#14675d" text-anchor="middle"><tspan class="m" font-weight="800">V</tspan> closes the set</text>
+        <line x1="337" y1="412" x2="174" y2="412" stroke="#14675d" stroke-width="3.5" marker-end="url(#at)"/>
+
+        <rect x="165" y="240" width="10" height="174" rx="3" fill="rgba(142,70,25,.35)"/>
+        <text x="156" y="320" font-size="13" font-weight="800" fill="#8e4619" text-anchor="end">START</text>
+        <text x="156" y="338" font-size="13" font-weight="800" fill="#8e4619" text-anchor="end">ignored</text>
+        <text x="156" y="356" font-size="13" font-weight="800" fill="#8e4619" text-anchor="end">until V</text>
       </svg>
     </figure>
 
     <div>
-      <div class="wire" style="margin-top:0">
-        <span class="dir">Arduino → Python · once per set</span>
-        <code class="str">#TALLY2 fs=100 unit=g range=3 side=L</code>
-        <ul>
-          <li>Use <code>side=R</code> for the right arm.</li>
-          <li>Reset the sequence and the set clock.</li>
-        </ul>
-      </div>
-      <div class="wire">
-        <span class="dir">Arduino → Python · every 10 ms</span>
-        <code class="str">S &lt;seq&gt; &lt;t_ms&gt; ux uy uz fx fy fz</code>
-        <ul>
-          <li><code>seq</code> goes up by 1.</li>
-          <li><code>t_ms</code> = real elapsed ms, always increasing.</li>
-          <li>Signed values, 8 decimal places.</li>
-          <li>Line ≤ <span class="hl">128</span> characters plus newline.</li>
-          <li>No debug text on this UART.</li>
-        </ul>
-      </div>
-      <div class="wire">
-        <span class="dir">Arduino → Python · exactly one</span>
-        <code class="str">E done</code>
-        <ul>
-          <li><code>E aborted</code>: cancel, non-finite reading or missed sampling deadline.</li>
-          <li><code>E overflow</code>: the 60,000-sample cap.</li>
-          <li>Both discard the set and get <code>V unknown nan -</code>.</li>
-        </ul>
-      </div>
-      <div class="wire rx">
-        <span class="dir">Python → Arduino · after E</span>
-        <code class="str">R &lt;rep&gt; &lt;verdict&gt; &lt;p_wrong&gt; &lt;exercise&gt; &lt;duration_s&gt;</code>
-        <code class="str">V &lt;verdict&gt; &lt;mean_p_wrong&gt; &lt;exercise&gt;</code>
-        <ul>
-          <li>An unscorable set gets only <code>V unknown nan -</code>.</li>
-          <li>No transaction ids.</li>
-        </ul>
-      </div>
+      <p>Send these commands to the sketch over USB serial. The sketch writes the matching line on <code>Serial1</code>.</p>
+      <table>
+        <thead><tr><th>You send</th><th>Sketch sends</th></tr></thead>
+        <tbody>
+          <tr><td><code>START L</code> / <code>START R</code></td><td>The header with <code>side=L</code> or <code>side=R</code>, then sample lines</td></tr>
+          <tr><td><code>STOP</code></td><td><code>E done</code></td></tr>
+          <tr><td><code>ABORT</code></td><td><code>E aborted</code>, which discards the set</td></tr>
+          <tr><td class="soft">nothing</td><td><code>E overflow</code> when the set reaches <span class="hl">60,000</span> samples</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:12px">A set can last at most <span class="hl">600 s</span>. Record a longer session as several sets.</p>
     </div>
   </div>
-  <p class="gate"><span class="k">Gate</span><span>Sustained 10 ms sampling with six ADC reads is NOT PROVEN.</span></p>
+
+  <h3>Exact lines on Serial1</h3>
+  <p>Once per set:</p>
+  <code class="line">#TALLY2 fs=100 unit=g range=3 side=L</code>
+  <p>Every <span class="hl">10 ms</span>, one paired sample, upper arm first:</p>
+  <code class="line">S &lt;seq&gt; &lt;t_ms&gt; &lt;ux&gt; &lt;uy&gt; &lt;uz&gt; &lt;fx&gt; &lt;fy&gt; &lt;fz&gt;</code>
+  <p>Exactly one end marker:</p>
+  <code class="line">E done   |   E aborted   |   E overflow</code>
+  <ul class="plain" style="margin-top:12px">
+    <li><code>seq</code> starts at <span class="hl">0</span> and goes up by 1. <code>t_ms</code> always increases.</li>
+    <li>Write every value with <span class="hl">eight decimals</span>.</li>
+    <li>Keep each line under <span class="hl">128</span> characters.</li>
+    <li>Send no debug text on <code>Serial1</code>. Use USB serial for that.</li>
+  </ul>
 </section>
 
-<!-- 4 -->
-<section id="life">
-  <h2><span class="n">4</span>Set lifecycle and deadlines</h2>
-  <figure style="margin:0">
-    <svg viewBox="0 0 720 230" role="img" aria-label="Timeline, not to scale. Header starts recording. S lines for up to 600 seconds. E ends recording. Scoring is cut at 20 seconds and the whole reply at 25 seconds after E. Firmware is busy from beginWait until V and times out at 30 seconds without progress.">
-      <text x="10" y="30" class="m" font-size="18" font-weight="800" fill="#191a16">#TALLY2</text>
-      <text x="420" y="30" class="m" font-size="18" font-weight="800" fill="#191a16">E</text>
-      <line x1="10" y1="40" x2="10" y2="108" stroke="#191a16" stroke-width="3"/>
-      <line x1="424" y1="40" x2="424" y2="108" stroke="#191a16" stroke-width="3"/>
-      <rect x="12" y="50" width="410" height="50" rx="6" fill="rgba(20,103,93,.18)"/>
-      <text x="26" y="82" font-size="20" font-weight="800" fill="#14675d">RECORD · S every 10 ms</text>
-      <rect x="428" y="50" width="130" height="50" rx="6" fill="rgba(142,70,25,.16)"/>
-      <text x="442" y="82" font-size="20" font-weight="800" fill="#8e4619">SCORE</text>
-      <rect x="562" y="50" width="146" height="50" rx="6" fill="#14675d"/>
-      <text x="576" y="82" class="m" font-size="20" font-weight="800" fill="#fffdf8">R … V</text>
-
-      <path d="M12 118 v8 h410 v-8" fill="none" stroke="#191a16" stroke-width="2"/>
-      <text x="217" y="150" font-size="17" text-anchor="middle" fill="#191a16">≤ 600 s · gap ≤ 2 s · dies at 610 s</text>
-      <path d="M428 118 v8 h280 v-8" fill="none" stroke="#191a16" stroke-width="2"/>
-      <text x="568" y="150" font-size="17" text-anchor="middle" fill="#191a16">score ≤ 20 s · reply ≤ 25 s</text>
-
-      <rect x="410" y="176" width="298" height="34" rx="6" fill="none" stroke="#191a16" stroke-width="2" stroke-dasharray="6 5"/>
-      <text x="400" y="199" font-size="17" text-anchor="end" fill="#191a16">firmware busy()</text>
-      <text x="424" y="199" class="m" font-size="16" fill="#191a16">beginWait() → V · 30 s timeout</text>
-      <text x="10" y="226" font-size="14" fill="rgba(25,26,22,.68)">not to scale</text>
-    </svg>
-  </figure>
-
-  <div class="timers">
-    <div class="timer"><div class="big">2 s</div><div>with no complete record kills the set</div></div>
-    <div class="timer"><div class="big">610 s</div><div>total kills the set</div></div>
-    <div class="timer"><div class="big">20 s</div><div>after E: scoring cut off</div></div>
-    <div class="timer"><div class="big">25 s</div><div>after E: whole reply cut off</div></div>
-    <div class="timer fw"><div class="big">30 s</div><div>no progress: firmware <code>timedOut()</code></div></div>
-    <div class="timer fw"><div class="big">1</div><div>verdict per set. Orphan and duplicate markers are ignored.</div></div>
+<section id="replies">
+  <h2><span class="n">4</span>Read the replies</h2>
+  <p>After the end marker, the shield replies on the same UART the samples went out on. Each repetition gets one <code>R</code> line:</p>
+  <code class="line">R 1 correct 0.100 EFE 2.000</code>
+  <div class="fields">
+    <div><b>R</b>repetition line</div>
+    <div><b>1</b>rep number</div>
+    <div><b>correct</b>or <code>wrong</code></div>
+    <div><b>0.100</b>p_wrong</div>
+    <div><b>EFE</b>exercise code</div>
+    <div><b>2.000</b>duration in s</div>
   </div>
-
-  <div class="session">
-    <div class="big">60 min = 6 sets</div>
-    <p style="margin-top:8px">Firmware caps a set at <strong>60,000 samples = 600 s</strong> at 100 Hz. <code>E overflow</code> ends a set cleanly without restarting Python.</p>
+  <p style="margin-top:18px">One <code>V</code> line then closes the set:</p>
+  <code class="line">V &lt;verdict&gt; &lt;mean_p_wrong&gt; &lt;exercise&gt;</code>
+  <div class="fields v">
+    <div><b>V</b>set line</div>
+    <div><b>verdict</b><code>correct</code> or <code>wrong</code></div>
+    <div><b>mean_p_wrong</b>mean over reps</div>
+    <div><b>exercise</b>exercise code</div>
   </div>
+  <ul class="plain" style="margin-top:16px">
+    <li>A p_wrong of <span class="hl">0.5</span> or more means <code>wrong</code>. Use the verdict word rather than re-thresholding the printed number.</li>
+    <li>If the set can't be scored, the only reply is <code>V unknown nan -</code>, with no <code>R</code> lines.</li>
+  </ul>
 </section>
 
-<!-- 5 -->
-<section id="result">
-  <h2><span class="n">5</span>Reading the results</h2>
-  <div class="two">
-    <figure style="margin:0">
-      <svg viewBox="0 0 360 330" role="img" aria-label="Illustrative example, not measured. Three reps with p_wrong 0.100, 0.800 and 0.200. The threshold for wrong is 0.5, so rep 2 is wrong. Set verdict V correct 0.367 EFE.">
-        <rect x="1" y="1" width="358" height="328" rx="14" fill="#fffdf8" stroke="#191a16" stroke-width="2"/>
-        <text x="18" y="32" font-size="17" font-weight="800" fill="#191a16">Illustrative set · 3 reps</text>
-        <text x="342" y="32" font-size="15" font-weight="700" fill="#8e4619" text-anchor="end">reps = estimates</text>
-        <line x1="60" y1="210" x2="340" y2="210" stroke="#191a16" stroke-width="2"/>
-        <text x="52" y="214" font-size="14" fill="rgba(25,26,22,.68)" text-anchor="end">0</text>
-        <text x="52" y="64" font-size="14" fill="rgba(25,26,22,.68)" text-anchor="end">1</text>
-        <line x1="60" y1="60" x2="340" y2="60" stroke="rgba(25,26,22,.14)" stroke-width="1"/>
-        <line x1="60" y1="135" x2="340" y2="135" stroke="#8e4619" stroke-width="2.5" stroke-dasharray="7 5"/>
-        <text x="52" y="140" font-size="14" font-weight="800" fill="#8e4619" text-anchor="end">0.5</text>
-        <rect x="88" y="195" width="52" height="15" rx="3" fill="#14675d"/>
-        <rect x="174" y="90" width="52" height="120" rx="3" fill="#8e4619"/>
-        <rect x="260" y="180" width="52" height="30" rx="3" fill="#14675d"/>
-        <text x="114" y="187" class="m" font-size="15" font-weight="800" fill="#191a16" text-anchor="middle">0.100</text>
-        <text x="200" y="82" class="m" font-size="15" font-weight="800" fill="#8e4619" text-anchor="middle">0.800</text>
-        <text x="286" y="172" class="m" font-size="15" font-weight="800" fill="#191a16" text-anchor="middle">0.200</text>
-        <text x="114" y="232" font-size="15" fill="#191a16" text-anchor="middle">R1 correct</text>
-        <text x="200" y="232" font-size="15" font-weight="800" fill="#8e4619" text-anchor="middle">R2 wrong</text>
-        <text x="286" y="232" font-size="15" fill="#191a16" text-anchor="middle">R3 correct</text>
-        <rect x="14" y="252" width="332" height="62" rx="10" fill="#14675d"/>
-        <text x="30" y="276" font-size="14" font-weight="700" fill="#fffdf8">SET VERDICT · mean of 3</text>
-        <text x="30" y="302" class="m" font-size="20" font-weight="800" fill="#fffdf8">V correct 0.367 EFE</text>
-      </svg>
-    </figure>
-
-    <div>
-      <p class="k">One R line, field by field</p>
-      <code class="str">R 1 correct 0.100 EFE 2.000</code>
-      <div class="parse">
-        <div><b>R</b>rep record</div>
-        <div><b>1</b>rep #, from 1</div>
-        <div><b>correct</b>or wrong</div>
-        <div><b>0.100</b>p_wrong 0–1</div>
-        <div><b>EFE</b>EAH · EFE · SQZ</div>
-        <div><b>2.000</b>duration s</div>
-      </div>
-      <ul class="rules">
-        <li><strong>V</strong> = final verdict, mean p_wrong, majority exercise code.</li>
-        <li>A rep is wrong at <span class="hl">p_wrong ≥ 0.5</span>. Trust the returned verdict. The printed probability is rounded.</li>
-        <li>A correct set can contain flagged reps. The mean is not the share of correct reps.</li>
-        <li class="warn"><strong>Show per-rep output as an estimate.</strong> Training labels describe whole sets, not single reps.</li>
-        <li class="warn"><code>V unknown nan -</code> with no R lines: validation failure, cancelled set, or fewer than three detected cycles.</li>
-      </ul>
+<section id="exercises">
+  <h2><span class="n">5</span>Exercise codes</h2>
+  <p style="margin-bottom:14px">The exercise field of <code>R</code> and <code>V</code> holds one of these codes.</p>
+  <div class="ex">
+    <div class="excard">
+      <code>EFE</code>
+      <p><strong>Elbow bends.</strong> Arms straight, shoulders still. Bend the elbows to bring the hands toward the shoulders, then straighten.</p>
+    </div>
+    <div class="excard">
+      <code>EAH</code>
+      <p><strong>Arms overhead.</strong> Hands together, arms straight. Raise the arms in an arc overhead, then lower them.</p>
+    </div>
+    <div class="excard">
+      <code>SQZ</code>
+      <p><strong>Cloth wringing.</strong> Hold a cloth in both hands, arms straight forward, and twist the wrists in opposite directions.</p>
     </div>
   </div>
 </section>
 
-<!-- 6 -->
-<section id="code">
-  <h2><span class="n">6</span>Receiver code: paste once into your firmware</h2>
-  <ol class="steps">
-    <li><strong>Paste</strong> the whole package above your existing <code>setup()</code>. It lives in namespace <code>ModelResults</code>. Keep your own <code>setup()</code> and <code>loop()</code>.</li>
-    <li><strong>In <code>setup()</code></strong> call <code>Serial1.begin(115200)</code>. <code>Serial.begin(115200)</code> is optional USB diagnostics.</li>
-    <li><strong>At Done</strong> stop sampling, then <code>if (ModelResults::beginWait()) Serial1.println("E done");</code> Use the same guard for <code>E aborted</code> and <code>E overflow</code>.</li>
-    <li><strong>In <code>loop()</code></strong> call <code>ModelResults::poll()</code> often. If you already assemble lines, call <code>ModelResults::acceptLine(line)</code> instead. Use one reader, not both.</li>
-    <li><strong>Edit</strong> <code>onRep()</code> and <code>onSet()</code>. Ignore Start while <code>ModelResults::busy()</code> is true.</li>
+<section id="receiver">
+  <h2><span class="n">6</span>Paste the receiver into your sketch</h2>
+  <p>Paste the whole block below above your existing <code>setup()</code>. It lives in namespace <code>ModelResults</code>, so your own <code>setup()</code> and <code>loop()</code> stay as they are. In <code>setup()</code>, add <code>Serial1.begin(115200);</code>. Then hook it in at four places:</p>
+
+  <ol class="steps" style="margin-top:18px">
+    <li><strong>On <code>START L</code> / <code>START R</code>:</strong> ignore the command while a set is still waiting for its <code>V</code> line.
+<pre><code>if (ModelResults::busy()) return;  // then send the header and start sampling</code></pre></li>
+    <li><strong>Before every end marker:</strong> stop sampling, then arm the receiver and send the marker. Use the same guard for <code>E aborted</code> and <code>E overflow</code>.
+<pre><code>if (ModelResults::beginWait()) Serial1.println("E done");</code></pre></li>
+    <li><strong>In <code>loop()</code>:</strong> call <code>ModelResults::poll()</code> on every pass, without delays. If your sketch already assembles <code>Serial1</code> lines, pass each complete line to <code>ModelResults::acceptResultsLine(line)</code> instead. Use one or the other, not both. If <code>ModelResults::timedOut()</code> returns true (30 s with no reply), show that the set couldn't be scored, then restart the shield script and reset the Arduino before the next set.</li>
+    <li><strong>Edit <code>onRep()</code> and <code>onSet()</code>:</strong> put your display or forwarding code here. <code>onRep()</code> runs once per <code>R</code> line, with the parsed fields in <code>latestRepResult</code>. The next rep overwrites them, so handle each one right away. <code>onSet()</code> runs once with the full <code>V</code> line in <code>verdictLine</code>. Don't call <code>delay()</code> in either.</li>
   </ol>
 
-  <table>
-    <thead><tr><th>Function</th><th>Who calls it and what it does</th></tr></thead>
-    <tbody>
-      <tr><td><a href="#fn-beginWait" data-code-target="fn-beginWait">beginWait()</a></td><td>You call it. Arms reception before E.</td></tr>
-      <tr><td><a href="#fn-poll" data-code-target="fn-poll">poll()</a> / <a href="#fn-acceptLine" data-code-target="fn-acceptLine">acceptLine()</a></td><td>You call it. Reads bytes, or takes complete lines from your reader.</td></tr>
-      <tr><td><a href="#fn-busy" data-code-target="fn-busy">busy()</a> / <a href="#fn-timedOut" data-code-target="fn-timedOut">timedOut()</a></td><td>You call it. In-flight check; 30 s without progress.</td></tr>
-      <tr><td><a href="#fn-processRepVerdict" data-code-target="fn-processRepVerdict">processRepVerdict()</a></td><td>Receiver calls it. Validates an R line, stores it, calls <code>onRep()</code>.</td></tr>
-      <tr><td><a href="#fn-processVerdict" data-code-target="fn-processVerdict">processVerdict()</a></td><td>Receiver calls it. Validates V, unlocks the next set, calls <code>onSet()</code>.</td></tr>
-      <tr><td><a href="#fn-onRep" data-code-target="fn-onRep">onRep()</a> / <a href="#fn-onSet" data-code-target="fn-onSet">onSet()</a></td><td>You edit these. OLED, save or forwarding go here.</td></tr>
-    </tbody>
-  </table>
-
   <details id="receiver-panel" class="codebox">
-    <summary>Full receiver code · open</summary>
+    <summary>Receiver code</summary>
     <div class="toolbar">
-      <button type="button" class="copy" id="copy-receiver">Copy full receiver</button>
-      <span class="soft" id="copy-status" role="status" aria-live="polite">Merge-point guide is at the bottom.</span>
+      <button type="button" class="copy" id="copy-receiver">Copy</button>
+      <span class="soft" id="copy-status" role="status" aria-live="polite"></span>
     </div>
 <pre><code id="receiver-code">#include &lt;Arduino.h&gt;
 #include &lt;math.h&gt;
@@ -539,8 +366,8 @@ struct RepResult {
   char exercise[4];
 };
 static RepResult latestRepResult = {};
-static char repVerdictLine[64] = &quot;&quot;;
-static char verdictLine[40] = &quot;&quot;;
+static char repVerdictLine[64] = "";
+static char verdictLine[40] = "";
 static unsigned long receivedRepCount = 0;
 static bool awaitingVerdict = false;
 static unsigned long verdictWaitStartMs = 0;
@@ -549,31 +376,31 @@ static size_t replyInputLength = 0;
 static bool discardReplyLine = false;
 
 // Add OLED/save/forwarding code here. Do not delay() in these callbacks.
-<span id="fn-onRep" class="code-function">static void onRep() {</span>
-  Serial.print(F(&quot;# &quot;));
+static void onRep() {
+  Serial.print(F("# "));
   Serial.println(repVerdictLine);
   // latestRepResult: index, wrong, pWrong, exercise, durationS.
   // Called for every rep; the next rep replaces these stored values.
 }
-<span id="fn-onSet" class="code-function">static void onSet() {</span>
-  Serial.print(F(&quot;# &quot;));
+static void onSet() {
+  Serial.print(F("# "));
   Serial.println(verdictLine);
   // verdictLine holds the complete final V result, including unknown.
 }
-<span id="fn-note" class="code-function">static void note(const __FlashStringHelper *message) {</span>
-  Serial.print(F(&quot;# &quot;));
+static void note(const __FlashStringHelper *message) {
+  Serial.print(F("# "));
   Serial.println(message);
 }
-<span id="fn-busy" class="code-function">static bool busy() { return awaitingVerdict; }</span>
-<span id="fn-timedOut" class="code-function">static bool timedOut() {</span>
+static bool busy() { return awaitingVerdict; }
+static bool timedOut() {
   return awaitingVerdict &amp;&amp; millis() - verdictWaitStartMs &gt;= 30000UL;
 }
 // Call once, immediately BEFORE sending E done / E aborted / E overflow.
-<span id="fn-beginWait" class="code-function">static bool beginWait() {</span>
+static bool beginWait() {
   if (awaitingVerdict) return false;
   receivedRepCount = 0;
   latestRepResult = RepResult{};
-  repVerdictLine[0] = verdictLine[0] = &#x27;\0&#x27;;
+  repVerdictLine[0] = verdictLine[0] = '\0';
   replyInputLength = 0;
   discardReplyLine = false;
   verdictWaitStartMs = millis();
@@ -581,61 +408,61 @@ static bool discardReplyLine = false;
   return true;
 }
 
-<span id="fn-processVerdict" class="code-function">static void processVerdict(char *line) {</span>
+static void processVerdict(char *line) {
   char tag[4] = {0}, verdict[16] = {0}, probability[16] = {0},
-       exercise[16] = {0}, trailing = &#x27;\0&#x27;;
+       exercise[16] = {0}, trailing = '\0';
   char *end = NULL;
-  bool shapeOk = sscanf(line, &quot;%3s %15s %15s %15s %c&quot;, tag, verdict,
+  bool shapeOk = sscanf(line, "%3s %15s %15s %15s %c", tag, verdict,
                         probability, exercise, &amp;trailing) == 4 &amp;&amp;
-    strcmp(tag, &quot;V&quot;) == 0 &amp;&amp;
-    (strcmp(verdict, &quot;correct&quot;) == 0 || strcmp(verdict, &quot;wrong&quot;) == 0 ||
-     strcmp(verdict, &quot;unknown&quot;) == 0);
+    strcmp(tag, "V") == 0 &amp;&amp;
+    (strcmp(verdict, "correct") == 0 || strcmp(verdict, "wrong") == 0 ||
+     strcmp(verdict, "unknown") == 0);
   bool probabilityOk = false;
-  bool exerciseOk = shapeOk &amp;&amp; (strcmp(exercise, &quot;EAH&quot;) == 0 ||
-                    strcmp(exercise, &quot;EFE&quot;) == 0 || strcmp(exercise, &quot;SQZ&quot;) == 0);
-  if (shapeOk &amp;&amp; strcmp(verdict, &quot;unknown&quot;) == 0) {
-    probabilityOk = strcmp(probability, &quot;nan&quot;) == 0 &amp;&amp; strcmp(exercise, &quot;-&quot;) == 0;
+  bool exerciseOk = shapeOk &amp;&amp; (strcmp(exercise, "EAH") == 0 ||
+                    strcmp(exercise, "EFE") == 0 || strcmp(exercise, "SQZ") == 0);
+  if (shapeOk &amp;&amp; strcmp(verdict, "unknown") == 0) {
+    probabilityOk = strcmp(probability, "nan") == 0 &amp;&amp; strcmp(exercise, "-") == 0;
   } else if (shapeOk) {
     double p = strtod(probability, &amp;end);
-    probabilityOk = end != probability &amp;&amp; *end == &#x27;\0&#x27; &amp;&amp; isfinite(p) &amp;&amp;
+    probabilityOk = end != probability &amp;&amp; *end == '\0' &amp;&amp; isfinite(p) &amp;&amp;
                     p &gt;= 0.0 &amp;&amp; p &lt;= 1.0 &amp;&amp; exerciseOk;
   }
   if (shapeOk &amp;&amp; probabilityOk &amp;&amp; awaitingVerdict) {
     strncpy(verdictLine, line, sizeof(verdictLine) - 1);
-    verdictLine[sizeof(verdictLine) - 1] = &#x27;\0&#x27;;
+    verdictLine[sizeof(verdictLine) - 1] = '\0';
     awaitingVerdict = false;
     onSet();
   } else {
-    note(F(&quot;ignored invalid or unsolicited verdict&quot;));
+    note(F("ignored invalid or unsolicited verdict"));
   }
 }
 
-<span id="fn-processRepVerdict" class="code-function">static void processRepVerdict(char *line) {</span>
+static void processRepVerdict(char *line) {
   char tag[3] = {}, number[16] = {}, verdict[16] = {}, probability[16] = {},
-       exercise[8] = {}, duration[16] = {}, trailing = &#x27;\0&#x27;;
-  bool shapeOk = sscanf(line, &quot;%2s %15s %15s %15s %7s %15s %c&quot;, tag, number,
+       exercise[8] = {}, duration[16] = {}, trailing = '\0';
+  bool shapeOk = sscanf(line, "%2s %15s %15s %15s %7s %15s %c", tag, number,
                         verdict, probability, exercise, duration, &amp;trailing) == 6;
-  if (!awaitingVerdict || !shapeOk || strcmp(tag, &quot;R&quot;) != 0 ||
-      (strcmp(verdict, &quot;correct&quot;) != 0 &amp;&amp; strcmp(verdict, &quot;wrong&quot;) != 0) ||
-      (strcmp(exercise, &quot;EAH&quot;) != 0 &amp;&amp; strcmp(exercise, &quot;EFE&quot;) != 0 &amp;&amp;
-       strcmp(exercise, &quot;SQZ&quot;) != 0) || number[0] == &#x27;\0&#x27; ||
-      strspn(number, &quot;0123456789&quot;) != strlen(number)) {
-    note(F(&quot;ignored invalid or unsolicited rep result&quot;));
+  if (!awaitingVerdict || !shapeOk || strcmp(tag, "R") != 0 ||
+      (strcmp(verdict, "correct") != 0 &amp;&amp; strcmp(verdict, "wrong") != 0) ||
+      (strcmp(exercise, "EAH") != 0 &amp;&amp; strcmp(exercise, "EFE") != 0 &amp;&amp;
+       strcmp(exercise, "SQZ") != 0) || number[0] == '\0' ||
+      strspn(number, "0123456789") != strlen(number)) {
+    note(F("ignored invalid or unsolicited rep result"));
     return;
   }
   unsigned long index = strtoul(number, NULL, 10);
   char *pEnd = NULL, *dEnd = NULL;
   double probabilityValue = strtod(probability, &amp;pEnd);
   double durationValue = strtod(duration, &amp;dEnd);
-  if (index != receivedRepCount + 1 || pEnd == probability || *pEnd != &#x27;\0&#x27; ||
-      dEnd == duration || *dEnd != &#x27;\0&#x27; || !isfinite(probabilityValue) ||
+  if (index != receivedRepCount + 1 || pEnd == probability || *pEnd != '\0' ||
+      dEnd == duration || *dEnd != '\0' || !isfinite(probabilityValue) ||
       probabilityValue &lt; 0 || probabilityValue &gt; 1 ||
       !isfinite(durationValue) || durationValue &lt;= 0 || durationValue &gt; 600) {
-    note(F(&quot;ignored invalid or out-of-order rep result&quot;));
+    note(F("ignored invalid or out-of-order rep result"));
     return;
   }
   latestRepResult.index = index;
-  latestRepResult.wrong = strcmp(verdict, &quot;wrong&quot;) == 0;
+  latestRepResult.wrong = strcmp(verdict, "wrong") == 0;
   latestRepResult.pWrong = (float)probabilityValue;
   latestRepResult.durationS = (float)durationValue;
   strcpy(latestRepResult.exercise, exercise);
@@ -643,35 +470,35 @@ static bool discardReplyLine = false;
   receivedRepCount = index;
   verdictWaitStartMs = millis(); // Valid progress restarts the inactivity timer.
   onRep();
-  // OLED / forwarding hook: latestRepResult holds this rep&#x27;s estimated result.
+  // OLED / forwarding hook: latestRepResult holds this rep's estimated result.
   // Stay awaitingVerdict: only the final V line completes the set.
 }
 
 // Use this entry point if YOUR firmware already reads Serial1.
 // Pass one complete, null-terminated line; do not also call poll().
-<span id="fn-acceptLine" class="code-function">static void acceptLine(const char *line) {</span>
+static void acceptResultsLine(const char *line) {
   if (!line) return;
   char complete[64];
   size_t n = 0;
-  while (n &lt; sizeof(complete) &amp;&amp; line[n] != &#x27;\0&#x27;) ++n;
+  while (n &lt; sizeof(complete) &amp;&amp; line[n] != '\0') ++n;
   if (n == 0 || n &gt;= sizeof(complete)) return;
   memcpy(complete, line, n);
-  while (n &gt; 0 &amp;&amp; (complete[n-1] == &#x27;\r&#x27; || complete[n-1] == &#x27;\n&#x27;)) --n;
-  complete[n] = &#x27;\0&#x27;;
-  if (strncmp(complete, &quot;R &quot;, 2) == 0) processRepVerdict(complete);
-  else if (strncmp(complete, &quot;V &quot;, 2) == 0) processVerdict(complete);
+  while (n &gt; 0 &amp;&amp; (complete[n-1] == '\r' || complete[n-1] == '\n')) --n;
+  complete[n] = '\0';
+  if (strncmp(complete, "R ", 2) == 0) processRepVerdict(complete);
+  else if (strncmp(complete, "V ", 2) == 0) processVerdict(complete);
 }
 
-<span id="fn-poll" class="code-function">static void poll() {</span>
-  // The tally script&#x27;s reply arrives on the same UART that carries samples.
+static void poll() {
+  // The tally script's reply arrives on the same UART that carries samples.
   // Bound work per loop and discard overlong lines through their newline.
   for (uint8_t processed = 0; processed &lt; 16 &amp;&amp; Serial1.available() &gt; 0; ++processed) {
     char c = (char)Serial1.read();
-    if (c == &#x27;\r&#x27;) continue;
-    if (c == &#x27;\n&#x27;) {
+    if (c == '\r') continue;
+    if (c == '\n') {
       if (!discardReplyLine) {
-        replyInputLine[replyInputLength] = &#x27;\0&#x27;;
-        acceptLine(replyInputLine);
+        replyInputLine[replyInputLength] = '\0';
+        acceptResultsLine(replyInputLine);
       }
       replyInputLength = 0;
       discardReplyLine = false;
@@ -682,14 +509,14 @@ static bool discardReplyLine = false;
     } else {
       replyInputLength = 0;
       discardReplyLine = true;
-      note(F(&quot;reply line too long; discarded&quot;));
+      note(F("reply line too long; discarded"));
     }
   }
 }
 
 } // namespace ModelResults
 
-/* MERGE POINTS — add these statements to YOUR existing handlers.
+/* MERGE POINTS: add these statements to YOUR existing handlers.
    Do not paste a second setup() or loop().
 
    Existing setup(), once:
@@ -701,7 +528,7 @@ static bool discardReplyLine = false;
      Otherwise send the header and begin your existing 10 ms sample loop.
 
    Existing Done event, AFTER stopping sample transmission:
-     if (ModelResults::beginWait()) Serial1.println(&quot;E done&quot;);
+     if (ModelResults::beginWait()) Serial1.println("E done");
      For Cancel/failure, use the same guard and E aborted / E overflow.
 
    Existing loop(), called frequently without delay:
@@ -709,7 +536,7 @@ static bool discardReplyLine = false;
      If ModelResults::timedOut(), show Unable to score; keep Start locked.
 
    Alternative when your existing UART reader already assembles lines:
-     ModelResults::acceptLine(yourCompleteLine);
+     ModelResults::acceptResultsLine(yourCompleteLine);
      Use this INSTEAD of poll().
 
    Edit onRep() and onSet() above for your OLED/save/forwarding output.
@@ -718,105 +545,24 @@ static bool discardReplyLine = false;
 */
 </code></pre>
   </details>
-
-  <p class="gate"><span class="k">30 s, no V</span><span>Show “Unable to score” and keep Start locked. Restart Python <strong>and</strong> reset the Arduino before retrying, because there are no transaction ids. A startup failure may send no V at all.</span></p>
 </section>
-
-<!-- 7 -->
-<section id="exercises">
-  <h2><span class="n">7</span>Three exercise codes</h2>
-  <div class="ex">
-    <div class="excard">
-      <div class="mid">EFE</div>
-      <strong>Elbow bends</strong>
-      <p>Both arms straight, shoulders still. Bend the elbows to bring the hands toward the shoulders, then straighten.</p>
-    </div>
-    <div class="excard">
-      <div class="mid">EAH</div>
-      <strong>Arms overhead</strong>
-      <p>Hands together, arms straight. Raise the arms in an arc overhead, then lower.</p>
-    </div>
-    <div class="excard">
-      <div class="mid">SQZ</div>
-      <strong>Cloth wringing</strong>
-      <p>Hold a cloth in both hands, arms straight forward. Twist the wrists in opposite directions. This is not stress-ball squeezing.</p>
-    </div>
-  </div>
-  <p class="soft" style="margin-top:14px">Source: study <a href="https://www.nature.com/articles/s41597-022-01387-2/tables/2">Table 2</a> and <a href="https://www.nature.com/articles/s41597-022-01387-2/figures/3">Figure 3</a>. The study recorded both arms. Tally observes one.</p>
-</section>
-
-<!-- 8 -->
-<section id="evidence">
-  <h2><span class="n">8</span>Evidence</h2>
-
-  <p class="k">Series-level accuracy · leave-one-subject-out · 30 subjects</p>
-  <div class="acc" style="margin-top:10px">
-    <div class="acard">
-      <strong>Left arm</strong><br><span class="soft">301 series</span>
-      <div class="big">91.03 %</div><div>quality</div>
-      <div class="big ink">98.01 %</div><div>exercise</div>
-    </div>
-    <div class="acard">
-      <strong>Right arm</strong><br><span class="soft">306 series</span>
-      <div class="big">88.89 %</div><div>quality</div>
-      <div class="big ink">96.41 %</div><div>exercise</div>
-    </div>
-  </div>
-  <p style="margin-top:12px">Chance floors: about <strong>50 %</strong> quality, <strong>35 %</strong> exercise. Labels are per set.</p>
-  <p style="margin-top:8px">Model: <span class="hl">61</span> float32 inputs per rep (duration + 10 statistics × 3 axes × 2 sensors), a <span class="hl">992</span>-parameter affine model, one quality head and one three-way exercise head.</p>
-
-  <p class="sub">Measured on host, not on the shield</p>
-  <div class="stats">
-    <div class="stat"><div class="mid">0.93 s</div>wall, one full 60,000-sample set</div>
-    <div class="stat"><div class="mid">0.42 s</div>of that in scoring</div>
-    <div class="stat"><div class="mid">27,396 KiB</div>peak RSS</div>
-    <div class="stat"><div class="mid">433 R + 1 V</div>lines emitted</div>
-  </div>
-  <ul class="lines" style="margin-top:12px">
-    <li>Real recordings: <strong>342</strong> candidates per side. Left: <strong>301</strong> scored, 41 rejected for timestamp faults. Right: <strong>306</strong> scored, 36 rejected.</li>
-    <li>Pass-through vs training-side clipping: <strong>0 of 607</strong> quality verdicts changed. Exactly one exercise label changed: <code>E/Larm/E01EFE1_2.csv</code> reads EFE with clipping, EAH without.</li>
-  </ul>
-
-  <p class="sub">Guarantees in the shield build</p>
-  <div class="guar">
-    <div><strong>Framing:</strong> <span class="hl">512</span>-byte reads, <span class="hl">129</span>-byte lines.</div>
-    <div><strong>One verdict per set.</strong> Orphan and duplicate markers ignored.</div>
-    <div><strong>Set expiry:</strong> <span class="hl">2 s</span> without a complete record, or <span class="hl">610 s</span> total.</div>
-    <div><strong>Sensor health:</strong> all-zero, constant or stuck channels rejected with a named diagnostic.</div>
-    <div><strong>No clamping:</strong> values above 3 g pass through unchanged.</div>
-    <div><strong>Owns the UART:</strong> non-blocking <code>flock</code> preflight refuses to share it.</div>
-    <div><strong>Deadlines after E:</strong> scoring <span class="hl">20 s</span>, whole reply <span class="hl">25 s</span>.</div>
-    <div><strong>Wire first:</strong> replies are written before any file log.</div>
-    <div><strong>Logs:</strong> <span class="hl">128 KiB</span> + one 128 KiB backup per path, on <code>/tmp</code> (tmpfs, volatile).</div>
-  </div>
-  <p class="gate"><span class="k">Gate</span><span>These numbers come from the host. Shield and MCU performance is NOT PROVEN.</span></p>
-</section>
-
-<footer>Firmware owns the hardware and the main loop. This page defines the interface to the Python model. Merge the receiver using §6.</footer>
 
 </main>
 <script>
-const panel = document.getElementById('receiver-panel');
-document.querySelectorAll('[data-code-target]').forEach(link => {
-  link.addEventListener('click', event => {
-    event.preventDefault();
-    panel.open = true;
-    const target = document.getElementById(link.dataset.codeTarget);
-    target.scrollIntoView({ block: 'center', behavior: 'auto' });
-    history.replaceState(null, '', '#' + target.id);
-  });
-});
 document.getElementById('copy-receiver').addEventListener('click', async () => {
   const source = document.getElementById('receiver-code');
   const status = document.getElementById('copy-status');
   try {
     if (!navigator.clipboard) throw new Error('Clipboard unavailable');
     await navigator.clipboard.writeText(source.textContent);
-    status.textContent = 'Copied: full receiver and merge-point guide.';
+    status.textContent = 'Copied.';
   } catch (_) {
-    const range = document.createRange(); range.selectNodeContents(source);
-    const selection = window.getSelection(); selection.removeAllRanges(); selection.addRange(range);
-    status.textContent = 'Code selected. Press Ctrl+C or Cmd+C to copy.';
+    const range = document.createRange();
+    range.selectNodeContents(source);
+    const selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
+    status.textContent = 'Selected. Press Ctrl+C or Cmd+C to copy.';
   }
 });
 </script>
