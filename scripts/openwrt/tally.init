@@ -1,0 +1,23 @@
+#!/bin/sh /etc/rc.common
+# Install as /etc/init.d/tally; see docs/SHIELD-HARDENING.md before enabling.
+# Respawn restores the listener. It CANNOT recover a set whose E/verdict was lost.
+USE_PROCD=1
+START=95
+STOP=10
+
+PROG=/root/tally/scripts/tally_stdlib.py
+# RAM-backed bounded diagnostics: each file + .1 <= 256 KiB (512 KiB total).
+# For a three-file, single-side installation, append --side L (or --side R)
+# and install only that model. Without --side, both models must be installed.
+ARGS="--port /dev/ttyATH0 --quiet --out /tmp/tally-results.jsonl --reply both --reply-file /tmp/tally-verdicts.log"
+
+start_service() {
+	procd_open_instance
+	procd_set_param command /usr/bin/python3 -B -u "$PROG" $ARGS
+	# threshold seconds, retry delay seconds, retry count (0 = unlimited).
+	procd_set_param respawn 3600 5 0
+	procd_set_param stdout 1
+	procd_set_param stderr 1
+	procd_set_param limits core="0"
+	procd_close_instance
+}
