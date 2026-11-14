@@ -9,7 +9,8 @@ The firmware sends ASCII lines over the serial link the Yun's Linux CPU reads:
 One set is the unit of scoring. The parser validates the framing, cuts repetition
 cycles with the training rule (forearm magnitude peaks, midpoints, edges), builds the
 61 features the paired model takes (duration, upper statistics, forearm statistics) and
-answers with the model for the declared side.
+answers with estimated R results per repetition followed by a final V set verdict.
+All R/V lines are sent after the end marker, using the model for the declared side.
 
 Run:
     python3 scripts/tally_paired_stream.py --port /dev/ttyATH0 --side L --out result.jsonl
@@ -125,11 +126,14 @@ def score_set(samples: np.ndarray, t_ms: np.ndarray, weights: dict,
             'diagnostics': ['fewer_than_3_cycles'],
         }
     probs, exercises, reps = [], [], []
-    for row in rows:
+    for rep_index, row in enumerate(rows, start=1):
         p, label = predict(weights, row)
         probs.append(p)
         exercises.append(label)
-        reps.append({'duration_s': round(float(row[0]), 3), 'p_wrong': round(p, 6)})
+        reps.append({'rep_index': rep_index,
+                     'verdict': 'wrong' if p >= 0.5 else 'correct',
+                     'exercise': label,
+                     'duration_s': round(float(row[0]), 3), 'p_wrong': round(p, 6)})
     mean_p = float(np.mean(probs))
     counts = {label: exercises.count(label) for label in set(exercises)}
     out = {
@@ -145,12 +149,25 @@ def score_set(samples: np.ndarray, t_ms: np.ndarray, weights: dict,
 
 
 def reply_line(record: dict) -> str:
-    """The one line the board reads back: V <verdict> <mean_p_wrong> <exercise>."""
+    """Final set summary, after any R lines: V <verdict> <mean_p_wrong> <exercise>."""
     verdict = record.get('verdict') or 'unknown'
     p_wrong = record.get('mean_p_wrong')
     p_text = 'nan' if p_wrong is None else f'{p_wrong:.3f}'
     exercise = record.get('exercise') or '-'
     return f'V {verdict} {p_text} {exercise}\n'
+
+
+def reply_lines(record: dict):
+    """Estimated rep results in order, then the final (legacy) V set summary.
+
+    All results are emitted after E done, not during acquisition. Rep labels
+    were inherited from whole-set labels during training, not validated per rep.
+    """
+    if record.get('status') == 'scored':
+        for rep in record['repetitions']:
+            yield (f"R {rep['rep_index']} {rep['verdict']} {rep['p_wrong']:.3f} "
+                   f"{rep['exercise']} {rep['duration_s']:.3f}\n")
+    yield reply_line(record)
 
 
 def run(stream, side_override: str | None = None, out=None, emit: bool = True,
@@ -176,10 +193,11 @@ def run(stream, side_override: str | None = None, out=None, emit: bool = True,
             out.write(line + '\n')
             out.flush()
         if reply is not None:
-            try:
-                reply(reply_line(record))
-            except OSError:
-                pass
+            for response in reply_lines(record):
+                try:
+                    reply(response)
+                except OSError:
+                    pass
         sets += 1
 
     def side_now():

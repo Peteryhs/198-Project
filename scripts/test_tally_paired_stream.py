@@ -146,13 +146,25 @@ class ReplyChannel(unittest.TestCase):
         self.assertEqual(tp.reply_line({'verdict': None, 'mean_p_wrong': None, 'exercise': None}),
                          'V unknown nan -\n')
 
-    def test_run_sends_one_reply_per_set(self):
-        sent = []
+    def test_run_sends_rep_lines_then_final_verdict_per_set(self):
+        sent, output = [], io.StringIO()
         text = capture([HEADER] + moving_set(8.0) + ['E done', HEADER] + moving_set(8.0) + ['E aborted'])
-        tp.run(io.StringIO(text), out=None, emit=False, reply=sent.append)
-        self.assertEqual(len(sent), 2)
-        self.assertTrue(sent[0].startswith('V correct ') or sent[0].startswith('V wrong '))
-        self.assertEqual(sent[1], 'V unknown nan -\n')
+        tp.run(io.StringIO(text), out=output, emit=False, reply=sent.append)
+        scored, rejected = [json.loads(line) for line in output.getvalue().splitlines()]
+        n = scored['vector_count']
+        self.assertEqual(len(sent), n + 2)
+        for i, (line, rep) in enumerate(zip(sent[:n], scored['repetitions']), 1):
+            self.assertEqual(line.split(), ['R', str(i), rep['verdict'],
+                             f"{rep['p_wrong']:.3f}", rep['exercise'], f"{rep['duration_s']:.3f}"])
+        self.assertEqual(sent[n], tp.reply_line(scored))
+        self.assertEqual(sent[-1], 'V unknown nan -\n')
+        self.assertEqual(rejected['status'], 'rejected')
+
+    def test_insufficient_reps_sends_only_unknown_final(self):
+        sent = []
+        text = capture([HEADER] + [sample(i, i * 10) for i in range(300)] + ['E done'])
+        tp.run(io.StringIO(text), emit=False, reply=sent.append)
+        self.assertEqual(sent, ['V unknown nan -\n'])
 
     def test_open_port_configures_raw_115200_8n1(self):
         master, slave = pty.openpty()
@@ -212,6 +224,21 @@ class Scoring(unittest.TestCase):
         self.assertIn(record['exercise'], ('EAH', 'EFE', 'SQZ'))
         self.assertAlmostEqual(record['measured_rate_hz'], 100.0, places=1)
         self.assertTrue(0.0 <= record['mean_p_wrong'] <= 1.0)
+
+    def test_rep_verdict_uses_unrounded_score_and_keeps_set_average(self):
+        from unittest.mock import patch
+        rows = np.zeros((3, 61), dtype=np.float32)
+        rows[:, 0] = [1.0, 2.0, 3.0]
+        scores = [(0.4999996, 'EFE'), (0.5, 'EAH'), (0.9, 'EFE')]
+        with patch.object(tp, 'offline_features', return_value=rows), \
+             patch.object(tp, 'predict', side_effect=scores):
+            result = tp.score_set(np.zeros((300, 6)), np.arange(300) * 10, {})
+        self.assertEqual([r['rep_index'] for r in result['repetitions']], [1, 2, 3])
+        self.assertEqual([r['verdict'] for r in result['repetitions']], ['correct', 'wrong', 'wrong'])
+        self.assertEqual([r['exercise'] for r in result['repetitions']], ['EFE', 'EAH', 'EFE'])
+        self.assertEqual(result['verdict'], 'wrong')
+        self.assertEqual(result['exercise'], 'EFE')
+        self.assertAlmostEqual(result['mean_p_wrong'], sum(p for p, _ in scores) / 3, places=6)
 
     def test_flat_set_has_no_verdict(self):
         text = capture([HEADER] + [sample(i, i * 10) for i in range(300)] + ['E done'])

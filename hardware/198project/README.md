@@ -7,10 +7,17 @@ terminated commands:
 - `START L` or `START R` starts a set and chooses the side recorded in the stream header.
 - `STOP` ends the current set as `E done`, which allows scoring. `ABORT` ends it as
   `E aborted`, which the parser records as rejected.
-- The tally script returns `V <verdict> <probability> <exercise>`. Firmware reads this
-  without blocking and displays a validated reply as a `#` comment. It will not accept a new
-  set until the reply arrives. If none arrives within 30 seconds, it remains locked; restart Python and reset the board before starting another set. This prevents a delayed reply from being
-  assigned to a later set.
+- After the set ends, Python sends `R <rep_index> <verdict> <p_wrong> <exercise> <duration_s>`
+  for every detected repetition, followed by `V <verdict> <mean_p_wrong> <exercise>` for the set.
+  Rep indexes start at 1. Invalid/insufficient sets send only `V unknown nan -`.
+- The committed sketch handles final V results only. To handle each R result in an existing
+  firmware project, copy the receiver and setup/loop/Done integration blocks from the local
+  `docs/FIRMWARE-AI-HANDOFF.html`. They are merge snippets, not a replacement sketch.
+- The copied receiver invokes onRep() for each accepted repetition and onSet() for the final V.
+  Add OLED/save/forwarding code in those callbacks. Rep lines do not complete the set.
+- Per-rep verdicts are estimates from whole-set labels and are not independently validated.
+  Results arrive after Done. The protocol has no transaction IDs; timeout recovery requires
+  restarting Python and resetting Arduino together.
 
 USB `Serial` at 115200 baud carries commands and status. `Serial1` at 115200 baud carries the
 sample stream and receives the tally script's verdict. This matches the intended Yun layout where
