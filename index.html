@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AI ↔ firmware handoff · 198 Project</title><style>
+:root{color-scheme:light;--cream:#f5f0e5;--paper:#fffdf8;--ink:#191a16;--muted:#54564e;--rule:#d9d5c7;--teal:#14675d;--amber:#8e4619;--green:#226343}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:20px}body{margin:0;background:var(--cream);color:var(--ink);font:15px/1.55 system-ui,sans-serif}main{max-width:1000px;margin:auto;padding:38px 40px 55px;background:var(--paper)}header{border-bottom:2px solid var(--teal);padding-bottom:18px}.eyebrow{font-size:11px;letter-spacing:1.5px;font-weight:750;color:var(--teal)}h1{font-size:30px;line-height:1.2;margin:8px 0 10px;letter-spacing:-.5px}h2{font-size:21px;margin:0 0 12px}h2 small{color:var(--teal);font-size:13px;margin-right:8px}h3{font-size:15px;margin:18px 0 8px}p{margin:7px 0}section.chapter{border-bottom:1px solid var(--rule);padding:26px 0}nav{display:flex;flex-wrap:wrap;gap:5px 18px;margin-top:17px;font-size:12px}a{color:var(--teal);text-underline-offset:3px}nav a{font-weight:650}.small{font-size:12px;color:var(--muted)}.diagram{display:grid;grid-template-columns:1fr 35px 1.2fr 35px 1fr;align-items:center;margin:17px 0;text-align:center}.device{border-top:3px solid var(--teal);padding:12px 5px;background:#f0f1e9}.device strong{display:block}.device span{display:block;font-size:12px;color:var(--muted)}.arrow{color:var(--teal);font-size:23px;text-align:center}.return{border-bottom:2px solid var(--teal);text-align:center;color:var(--teal);font-size:12px;padding-bottom:7px;margin-top:8px}.roles{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:15px}.roles strong{font-size:13px}.callout{border-left:3px solid var(--amber);background:#fbefdc;padding:10px 13px;margin:13px 0;font-size:12px}table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;vertical-align:top;border-bottom:1px solid var(--rule);padding:8px}th{font-size:11px;text-transform:uppercase;color:var(--teal)}td:first-child{font-weight:600;width:24%}code,pre{font:12px/1.55 ui-monospace,Consolas,monospace}code{overflow-wrap:anywhere}pre{padding:12px;background:#f0ece1;white-space:pre-wrap;overflow-wrap:anywhere;border-radius:5px;margin:10px 0}.timeline{list-style:none;margin:14px 0 0;padding:0}.timeline>li{position:relative;margin-left:14px;border-left:2px solid #b5cfc1;padding:0 0 18px 25px}.timeline>li:last-child{border-left-color:transparent;padding-bottom:0}.timeline>li:before{content:attr(data-step);position:absolute;left:-14px;top:0;width:26px;height:26px;background:var(--teal);border-radius:50%;color:white;font-size:12px;font-weight:700;text-align:center;line-height:26px}.direction{display:block;color:var(--teal);font-size:10px;font-weight:750;letter-spacing:1px}.timeline strong{font-size:14px}.timeline p{font-size:13px}.record{background:#f0ece1;padding:8px 10px;margin:7px 0;font:12px/1.6 ui-monospace,Consolas,monospace;overflow-wrap:anywhere}.results{display:grid;grid-template-columns:1.25fr 34px 1fr;gap:10px;align-items:center;margin:14px 0}.repgroup{border-left:3px solid var(--green);padding:4px 0 4px 12px}.repgroup p,.setgroup p{font-size:12px}.tag{font-size:10px;letter-spacing:1px;font-weight:750;color:var(--teal)}.rep{padding:5px 8px;background:#eef4e9;margin:5px 0;font:12px/1.6 ui-monospace,Consolas,monospace;color:var(--green);overflow-wrap:anywhere}.rep.wrong{background:#fbefda;color:var(--amber)}.setgroup{padding:12px;background:#dfede6;border-left:4px solid var(--teal)}.setgroup code{font-weight:700}.integration{padding-left:22px;font-size:13px}.integration li{margin:8px 0}.codebox{border:1px solid var(--rule);border-radius:7px;margin-top:16px;padding:13px}summary{font-weight:750;color:var(--teal);cursor:pointer}.toolbar{display:flex;gap:12px;align-items:center;margin-top:12px;flex-wrap:wrap}.copy{border:1px solid var(--teal);background:var(--paper);color:var(--teal);padding:8px 14px;border-radius:5px;font-weight:700;cursor:pointer}.codebox pre{white-space:pre;overflow:auto;max-height:550px;margin-bottom:0}.code-function{font-weight:750;color:#09584e;scroll-margin-top:100px}.code-function:target{background:#d7ead8}a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #aa7331;outline-offset:3px}.checks{list-style:none;padding:0;font-size:13px}.checks li{padding:6px 0 6px 24px;position:relative}.checks li:before{content:'□';position:absolute;left:0;color:var(--teal);font-size:17px}footer{font-size:11px;color:var(--muted);padding-top:18px}@media(max-width:650px){main{padding:24px 16px}h1{font-size:26px}.diagram{grid-template-columns:1fr}.diagram .arrow{line-height:28px;transform:rotate(90deg)}.roles{grid-template-columns:1fr;gap:10px}.results{grid-template-columns:1fr}.results>.arrow{transform:rotate(90deg)}th,td{padding:7px 4px}.codebox pre{font-size:11px}}@media print{body{background:white;font-size:11px}main{padding:0;max-width:none}nav,.copy{display:none}section.chapter{padding:16px 0}h1{font-size:24px}h2{font-size:17px}table{font-size:10px}.timeline>li,.results,.callout{break-inside:avoid}details:not([open])>*:not(summary){display:none}}
+</style></head><body><main><header><div class="eyebrow">198 PROJECT · AI ↔ FIRMWARE HANDOFF</div><h1>Connect the sensors to the model.</h1><p>Record one exercise set. After Done, receive an estimate for each repetition and one final set verdict.</p><nav aria-label="Document sections"><a href="#system">1 System</a><a href="#prepare">2 Prepare</a><a href="#protocol">3 Send &amp; receive</a><a href="#integrate">4 Integrate code</a><a href="#exercises">5 Exercises</a><a href="#verify">6 Verify</a></nav></header>
+<section class="chapter" id="system"><h2><small>01</small>What runs where</h2>
+<div class="diagram" role="img" aria-label="Two sensors feed Arduino. Arduino streams paired samples to Python on the shield. Python returns repetition estimates and a set verdict to Arduino."><div class="device"><strong>Two accelerometers</strong><span>Upper arm + forearm</span></div><div class="arrow" aria-hidden="true">→</div><div class="device"><strong>Arduino firmware</strong><span>Read six axes every 10 ms</span></div><div class="arrow" aria-hidden="true">→</div><div class="device"><strong>Shield · Python + model</strong><span>Find repetitions → 61 features → predict</span></div></div><div class="return">Results return to Arduino over Serial1 → OLED, storage, or forwarding</div>
+<div class="roles"><div><strong>Firmware team owns</strong><p class="small">Sensors, calibration, timing, buttons, existing loop, UART, OLED and onward transmission.</p></div><div><strong>AI side supplies</strong><p class="small">scripts/tally_paired_stream.py, paired model weights and the receiver code in §4. Python loads the .npz model directly; no separate C model call.</p></div></div></section>
+<section class="chapter" id="prepare"><h2><small>02</small>Before recording</h2>
+<h3>Mount both sensors on the same arm</h3><table><thead><tr><th>Sensor</th><th>Position and data order</th></tr></thead><tbody><tr><td>Upper arm</td><td>Outer side, between shoulder and elbow. Send its x/y/z first.</td></tr><tr><td>Forearm</td><td>Outer side, between elbow and wrist. Send its x/y/z second.</td></tr></tbody></table><p class="small">Standing with arms down: study X points up; Y runs front–back; Z side-to-side. Check signs against the study convention and your board. <a href="https://www.nature.com/articles/s41597-022-01387-2/figures/1">Figure 1</a> gives approximate sites, not exact distances. Secure mounts and calibrate each axis.</p>
+<h3>Start Python on the shield</h3><pre>python3 scripts/tally_paired_stream.py --port /dev/ttyATH0 \
+  --out results.jsonl --reply both --reply-file verdicts.log</pre><p class="small">Run from the repository root with the project environment. Confirm the UART path; Python sets raw 115200 8N1. UART RX/TX must match Arduino Serial1. USB Serial is optional debugging; the IDE is not needed for operation.</p><div class="callout"><strong>Deployment prerequisite:</strong> current imports require Python 3.12 and scripts/requirements-modelling.txt (NumPy 2.3.4, SciPy 1.16.3, scikit-learn 1.7.2). Verify this environment on the actual shield. Wiring/logic levels, sustained timing and power-on Python startup are not yet validated.</div></section>
+<section class="chapter" id="protocol"><h2><small>03</small>One set: send, score, receive</h2><p class="small">A repetition is one movement and return. A set is the group between Start and Done, such as 10 elbow bends. Every wire record ends with a newline.</p>
+<ol class="timeline"><li data-step="1"><span class="direction">BEFORE START</span><strong>Wait with no sensor stream.</strong><p>Python must be listening. Do not begin another set while a previous one awaits its final verdict.</p></li><li data-step="2"><span class="direction">ARDUINO → PYTHON · START</span><strong>Send one header; reset sequence and set clock.</strong><div class="record">#TALLY2 fs=100 unit=g range=3 side=L</div><p>Paired format · every 10 ms · acceleration in g · ±3 g range · left arm. Use side=R for the right arm. Python sends no header acknowledgement.</p></li><li data-step="3"><span class="direction">ARDUINO → PYTHON · EVERY 10 MILLISECONDS</span><strong>Read both sensors together; send all six values on one line.</strong><div class="record">S sequence time_ms upper_x upper_y upper_z forearm_x forearm_y forearm_z</div><div class="record">S 0 0 +0.05123456 -0.01834567 +0.99321234 +0.10769876 -0.02915432 +0.97180000<br>S 1 10 +0.05123456 -0.01834567 +0.99321234 +0.10769876 -0.02915432 +0.97180000</div><p>Sequence +1; actual elapsed milliseconds must increase. Calibrated g, gravity included; signed values with eight decimals. Continue between repetitions. Keep sample lines ≤128 characters; no debug text on this link.</p></li><li data-step="4"><span class="direction">ARDUINO → PYTHON · DONE</span><strong>Stop sampling, arm the receiver, then send one end marker.</strong><div class="record">E done</div><p>Not after each repetition. For cancellation send E aborted; for lost samples send E overflow. These discard the set.</p></li><li data-step="5"><span class="direction">PYTHON → ARDUINO · AFTER DONE</span><strong>Read every R line, then the final V line.</strong><p>Python now finds repetitions and scores them. These are end-of-set results, not live exercise cues.</p></li></ol>
+<h3>Results arrive in this order</h3><div class="results" aria-label="Three repetition results are sent in order, followed by one final set verdict"><div class="repgroup"><div class="tag">FIRST · ALL REPETITIONS, IN ORDER</div><div class="rep">R 1 correct 0.100 EFE 2.000</div><div class="rep wrong">R 2 wrong 0.800 EFE 1.900</div><div class="rep">R 3 correct 0.200 EFE 2.100</div></div><div class="arrow" aria-hidden="true">→</div><div class="setgroup"><div class="tag">LAST · WHOLE SET</div><code>V correct 0.367 EFE</code><p>Average wrong-form score: (0.100 + 0.800 + 0.200) ÷ 3. This V completes the set.</p></div></div>
+<table><thead><tr><th>Record</th><th>Fields after the marker</th></tr></thead><tbody><tr><td>R · repetition</td><td>Rep number (starts at 1), estimated verdict, wrong-form probability, exercise code, duration in seconds.</td></tr><tr><td>V · set</td><td>Final verdict, mean wrong-form probability, majority exercise code. Not an average across multiple sets.</td></tr><tr><td>V unknown nan -</td><td>Handled validation failure, cancelled set, or fewer than three detected cycles. No R lines for an unscorable set.</td></tr></tbody></table><p class="small">Wrong at probability ≥0.5; use the returned verdict because printed scores are rounded. A “correct” set can contain flagged reps. The mean is not the percentage of reps done correctly. Individual-rep accuracy is not independently validated: training labels describe whole sets.</p><p class="small">Exercise meanings are in <a href="#exercises">§5</a>. results.jsonl stores all rep fields and set diagnostics (overwritten at launch); verdicts.log appends the R/V lines.</p></section>
+<section class="chapter" id="integrate"><h2><small>04</small>Integrate the receiver into your firmware</h2><p><strong>One code package below.</strong> It supplies both processRepVerdict() and processVerdict(), plus their shared reader. Do not replace your sketch, setup(), or loop().</p>
+<ol class="integration"><li><strong>Paste once:</strong> add the entire package above your existing setup(). Everything is inside the ModelResults namespace.</li><li><strong>Initialize:</strong> call Serial1.begin(115200) once in your setup(). Keep Serial.begin(115200) for the supplied USB debug prints, or remove those prints for operation without USB output.</li><li><strong>Connect Done:</strong> stop acquisition. Call ModelResults::beginWait(); if it returns true, send E done. Use the same guard for E aborted / E overflow.</li><li><strong>Receive:</strong> call ModelResults::poll() frequently in your loop. If your firmware already assembles UART lines, call ModelResults::acceptLine(line) instead. Use only one Serial1 reader.</li><li><strong>Display or forward:</strong> edit onRep() and onSet() in this package. Block Start while recording or while ModelResults::busy() is true.</li></ol>
+<h3>Included functions — click to find them in the code</h3><table><thead><tr><th>Function supplied</th><th>Role</th></tr></thead><tbody><tr><td><a href="#fn-processRepVerdict" data-code-target="fn-processRepVerdict">processRepVerdict()</a></td><td>Validates an R line → stores latestRepResult and repVerdictLine → calls onRep().</td></tr><tr><td><a href="#fn-processVerdict" data-code-target="fn-processVerdict">processVerdict()</a></td><td>Validates the final V → stores verdictLine → unlocks the next set → calls onSet().</td></tr><tr><td><a href="#fn-onRep" data-code-target="fn-onRep">onRep()</a> / <a href="#fn-onSet" data-code-target="fn-onSet">onSet()</a></td><td>Your output hooks. USB printing is supplied; add OLED/save/forwarding here.</td></tr><tr><td><a href="#fn-beginWait" data-code-target="fn-beginWait">beginWait()</a> / <a href="#fn-busy" data-code-target="fn-busy">busy()</a> / <a href="#fn-timedOut" data-code-target="fn-timedOut">timedOut()</a></td><td>Arm reception before an end marker, check whether a set still awaits its final result, and detect 30 seconds without progress.</td></tr><tr><td><a href="#fn-poll" data-code-target="fn-poll">poll()</a> / <a href="#fn-acceptLine" data-code-target="fn-acceptLine">acceptLine()</a></td><td>Read bytes and assemble lines, or accept complete lines from your existing reader. The correct handler is called automatically.</td></tr></tbody></table>
+<p class="small"><strong>You call</strong> beginWait() and poll() (or acceptLine()). <strong>The receiver calls</strong> processRepVerdict() and processVerdict() automatically. <strong>You edit</strong> onRep() and onSet() for the OLED or forwarding.</p><details id="receiver-panel" class="codebox"><summary>Full receiver code · both verdict functions + merge-point guide</summary><div class="toolbar"><button type="button" class="copy" id="copy-receiver">Copy full receiver</button><span class="small" id="copy-status" role="status" aria-live="polite">Paste once. The merge-point guide is at the bottom of this block.</span></div><pre><code id="receiver-code">#include &lt;Arduino.h&gt;
+#include &lt;math.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+
+namespace ModelResults {
+struct RepResult {
+  unsigned long index;
+  bool wrong;
+  float pWrong;
+  float durationS;
+  char exercise[4];
+};
+static RepResult latestRepResult = {};
+static char repVerdictLine[64] = &quot;&quot;;
+static char verdictLine[40] = &quot;&quot;;
+static unsigned long receivedRepCount = 0;
+static bool awaitingVerdict = false;
+static unsigned long verdictWaitStartMs = 0;
+static char replyInputLine[64];
+static size_t replyInputLength = 0;
+static bool discardReplyLine = false;
+
+// Add OLED/save/forwarding code here. Do not delay() in these callbacks.
+<span id="fn-onRep" class="code-function">static void onRep() {</span>
+  Serial.print(F(&quot;# &quot;));
+  Serial.println(repVerdictLine);
+  // latestRepResult: index, wrong, pWrong, exercise, durationS.
+  // Called for every rep; the next rep replaces these stored values.
+}
+<span id="fn-onSet" class="code-function">static void onSet() {</span>
+  Serial.print(F(&quot;# &quot;));
+  Serial.println(verdictLine);
+  // verdictLine holds the complete final V result, including unknown.
+}
+<span id="fn-note" class="code-function">static void note(const __FlashStringHelper *message) {</span>
+  Serial.print(F(&quot;# &quot;));
+  Serial.println(message);
+}
+<span id="fn-busy" class="code-function">static bool busy() { return awaitingVerdict; }</span>
+<span id="fn-timedOut" class="code-function">static bool timedOut() {</span>
+  return awaitingVerdict &amp;&amp; millis() - verdictWaitStartMs &gt;= 30000UL;
+}
+// Call once, immediately BEFORE sending E done / E aborted / E overflow.
+<span id="fn-beginWait" class="code-function">static bool beginWait() {</span>
+  if (awaitingVerdict) return false;
+  receivedRepCount = 0;
+  latestRepResult = RepResult{};
+  repVerdictLine[0] = verdictLine[0] = &#x27;\0&#x27;;
+  replyInputLength = 0;
+  discardReplyLine = false;
+  verdictWaitStartMs = millis();
+  awaitingVerdict = true;
+  return true;
+}
+
+<span id="fn-processVerdict" class="code-function">static void processVerdict(char *line) {</span>
+  char tag[4] = {0}, verdict[16] = {0}, probability[16] = {0},
+       exercise[16] = {0}, trailing = &#x27;\0&#x27;;
+  char *end = NULL;
+  bool shapeOk = sscanf(line, &quot;%3s %15s %15s %15s %c&quot;, tag, verdict,
+                        probability, exercise, &amp;trailing) == 4 &amp;&amp;
+    strcmp(tag, &quot;V&quot;) == 0 &amp;&amp;
+    (strcmp(verdict, &quot;correct&quot;) == 0 || strcmp(verdict, &quot;wrong&quot;) == 0 ||
+     strcmp(verdict, &quot;unknown&quot;) == 0);
+  bool probabilityOk = false;
+  bool exerciseOk = shapeOk &amp;&amp; (strcmp(exercise, &quot;EAH&quot;) == 0 ||
+                    strcmp(exercise, &quot;EFE&quot;) == 0 || strcmp(exercise, &quot;SQZ&quot;) == 0);
+  if (shapeOk &amp;&amp; strcmp(verdict, &quot;unknown&quot;) == 0) {
+    probabilityOk = strcmp(probability, &quot;nan&quot;) == 0 &amp;&amp; strcmp(exercise, &quot;-&quot;) == 0;
+  } else if (shapeOk) {
+    double p = strtod(probability, &amp;end);
+    probabilityOk = end != probability &amp;&amp; *end == &#x27;\0&#x27; &amp;&amp; isfinite(p) &amp;&amp;
+                    p &gt;= 0.0 &amp;&amp; p &lt;= 1.0 &amp;&amp; exerciseOk;
+  }
+  if (shapeOk &amp;&amp; probabilityOk &amp;&amp; awaitingVerdict) {
+    strncpy(verdictLine, line, sizeof(verdictLine) - 1);
+    verdictLine[sizeof(verdictLine) - 1] = &#x27;\0&#x27;;
+    awaitingVerdict = false;
+    onSet();
+  } else {
+    note(F(&quot;ignored invalid or unsolicited verdict&quot;));
+  }
+}
+
+<span id="fn-processRepVerdict" class="code-function">static void processRepVerdict(char *line) {</span>
+  char tag[3] = {}, number[16] = {}, verdict[16] = {}, probability[16] = {},
+       exercise[8] = {}, duration[16] = {}, trailing = &#x27;\0&#x27;;
+  bool shapeOk = sscanf(line, &quot;%2s %15s %15s %15s %7s %15s %c&quot;, tag, number,
+                        verdict, probability, exercise, duration, &amp;trailing) == 6;
+  if (!awaitingVerdict || !shapeOk || strcmp(tag, &quot;R&quot;) != 0 ||
+      (strcmp(verdict, &quot;correct&quot;) != 0 &amp;&amp; strcmp(verdict, &quot;wrong&quot;) != 0) ||
+      (strcmp(exercise, &quot;EAH&quot;) != 0 &amp;&amp; strcmp(exercise, &quot;EFE&quot;) != 0 &amp;&amp;
+       strcmp(exercise, &quot;SQZ&quot;) != 0) || number[0] == &#x27;\0&#x27; ||
+      strspn(number, &quot;0123456789&quot;) != strlen(number)) {
+    note(F(&quot;ignored invalid or unsolicited rep result&quot;));
+    return;
+  }
+  unsigned long index = strtoul(number, NULL, 10);
+  char *pEnd = NULL, *dEnd = NULL;
+  double probabilityValue = strtod(probability, &amp;pEnd);
+  double durationValue = strtod(duration, &amp;dEnd);
+  if (index != receivedRepCount + 1 || pEnd == probability || *pEnd != &#x27;\0&#x27; ||
+      dEnd == duration || *dEnd != &#x27;\0&#x27; || !isfinite(probabilityValue) ||
+      probabilityValue &lt; 0 || probabilityValue &gt; 1 ||
+      !isfinite(durationValue) || durationValue &lt;= 0 || durationValue &gt; 600) {
+    note(F(&quot;ignored invalid or out-of-order rep result&quot;));
+    return;
+  }
+  latestRepResult.index = index;
+  latestRepResult.wrong = strcmp(verdict, &quot;wrong&quot;) == 0;
+  latestRepResult.pWrong = (float)probabilityValue;
+  latestRepResult.durationS = (float)durationValue;
+  strcpy(latestRepResult.exercise, exercise);
+  strcpy(repVerdictLine, line); // Caller supplies a bounded, complete line.
+  receivedRepCount = index;
+  verdictWaitStartMs = millis(); // Valid progress restarts the inactivity timer.
+  onRep();
+  // OLED / forwarding hook: latestRepResult holds this rep&#x27;s estimated result.
+  // Stay awaitingVerdict: only the final V line completes the set.
+}
+
+// Use this entry point if YOUR firmware already reads Serial1.
+// Pass one complete, null-terminated line; do not also call poll().
+<span id="fn-acceptLine" class="code-function">static void acceptLine(const char *line) {</span>
+  if (!line) return;
+  char complete[64];
+  size_t n = 0;
+  while (n &lt; sizeof(complete) &amp;&amp; line[n] != &#x27;\0&#x27;) ++n;
+  if (n == 0 || n &gt;= sizeof(complete)) return;
+  memcpy(complete, line, n);
+  while (n &gt; 0 &amp;&amp; (complete[n-1] == &#x27;\r&#x27; || complete[n-1] == &#x27;\n&#x27;)) --n;
+  complete[n] = &#x27;\0&#x27;;
+  if (strncmp(complete, &quot;R &quot;, 2) == 0) processRepVerdict(complete);
+  else if (strncmp(complete, &quot;V &quot;, 2) == 0) processVerdict(complete);
+}
+
+<span id="fn-poll" class="code-function">static void poll() {</span>
+  // The tally script&#x27;s reply arrives on the same UART that carries samples.
+  // Bound work per loop and discard overlong lines through their newline.
+  for (uint8_t processed = 0; processed &lt; 16 &amp;&amp; Serial1.available() &gt; 0; ++processed) {
+    char c = (char)Serial1.read();
+    if (c == &#x27;\r&#x27;) continue;
+    if (c == &#x27;\n&#x27;) {
+      if (!discardReplyLine) {
+        replyInputLine[replyInputLength] = &#x27;\0&#x27;;
+        acceptLine(replyInputLine);
+      }
+      replyInputLength = 0;
+      discardReplyLine = false;
+    } else if (discardReplyLine) {
+      continue;
+    } else if (replyInputLength + 1 &lt; sizeof(replyInputLine)) {
+      replyInputLine[replyInputLength++] = c;
+    } else {
+      replyInputLength = 0;
+      discardReplyLine = true;
+      note(F(&quot;reply line too long; discarded&quot;));
+    }
+  }
+}
+
+} // namespace ModelResults
+
+/* MERGE POINTS — add these statements to YOUR existing handlers.
+   Do not paste a second setup() or loop().
+
+   Existing setup(), once:
+     Serial1.begin(115200);
+     Serial.begin(115200);  // Optional USB diagnostics used by onRep/onSet.
+
+   Existing Start event:
+     If already recording or ModelResults::busy() is true, ignore Start.
+     Otherwise send the header and begin your existing 10 ms sample loop.
+
+   Existing Done event, AFTER stopping sample transmission:
+     if (ModelResults::beginWait()) Serial1.println(&quot;E done&quot;);
+     For Cancel/failure, use the same guard and E aborted / E overflow.
+
+   Existing loop(), called frequently without delay:
+     ModelResults::poll();
+     If ModelResults::timedOut(), show Unable to score; keep Start locked.
+
+   Alternative when your existing UART reader already assembles lines:
+     ModelResults::acceptLine(yourCompleteLine);
+     Use this INSTEAD of poll().
+
+   Edit onRep() and onSet() above for your OLED/save/forwarding output.
+   Handle each onRep() immediately; the next rep overwrites latestRepResult.
+   Timeout recovery: restart Python AND reset Arduino before the next set.
+*/
+</code></pre></details><p class="small">Inside ModelResults, latestRepResult holds index, wrong, pWrong, exercise and durationS. Only the latest rep stays in Arduino RAM: save/forward each onRep() call to keep all results. Do not delay inside callbacks. The raw set result stays in verdictLine.</p><div class="callout"><strong>No result?</strong> ModelResults::timedOut() becomes true after 30 seconds without a valid result while waiting. Show “Unable to score” and keep Start locked. Restart Python and reset Arduino together before retrying; there are no transaction IDs. Runtime startup failures may send no V at all.</div></section>
+<section class="chapter" id="exercises"><h2><small>05</small>Exercise codes: what to perform</h2><table><thead><tr><th>Code</th><th>Physical movement</th></tr></thead><tbody><tr><td>EFE · elbow bends</td><td>Start with both arms straight. Keep shoulders still; bend elbows to bring hands toward shoulders, then straighten again.</td></tr><tr><td>EAH · arms overhead</td><td>Hands together, arms as straight as possible. Raise arms in an arc overhead, then lower to repeat.</td></tr><tr><td>SQZ · cloth wringing</td><td>Hold a cloth with both hands, arms straight forward. Twist wrists in opposite directions as if wringing a towel. This is not stress-ball squeezing.</td></tr></tbody></table><p class="small">Source: study <a href="https://www.nature.com/articles/s41597-022-01387-2/tables/2">Table 2</a> and <a href="https://www.nature.com/articles/s41597-022-01387-2/figures/3">Figure 3</a>. The recorded exercises use both arms; this project’s selected sensor pair observes one arm.</p></section>
+<section class="chapter" id="verify"><h2><small>06</small>Check the integration</h2><ul class="checks"><li>A valid, scorable set produces R 1…R n in order, then exactly one V. onRep() runs for every accepted rep; onSet() runs once at the end.</li><li>Cancel or an insufficient set produces only V unknown nan -. The OLED shows “Unable to score”.</li><li>Start is blocked while waiting. Timeout does not silently start the next set.</li><li>On the actual hardware: verify sensor calibration/orientation, power, pin conflicts, UART levels, and a sustained 10 ms sampling interval.</li></ul><p class="small">Verified on host: Python parser tests and the receiver extracted from this HTML. Arduino-core compilation, OLED integration and shield runtime still need target testing. Python does not repair missing samples.</p></section>
+<footer>This handoff defines the paired Python-model interface. Firmware owns hardware and its main loop; use §4 to merge receiver code into that project.</footer></main><script>const panel = document.getElementById('receiver-panel');
+document.querySelectorAll('[data-code-target]').forEach(link => {
+  link.addEventListener('click', event => {
+    event.preventDefault(); panel.open = true;
+    const target = document.getElementById(link.dataset.codeTarget);
+    target.scrollIntoView({ block: 'center', behavior: 'auto' });
+    history.replaceState(null, '', '#' + target.id);
+  });
+});
+document.getElementById('copy-receiver').addEventListener('click', async () => {
+  const source = document.getElementById('receiver-code');
+  const status = document.getElementById('copy-status');
+  try {
+    if (!navigator.clipboard) throw new Error('Clipboard unavailable');
+    await navigator.clipboard.writeText(source.textContent);
+    status.textContent = 'Copied: full receiver and merge-point guide.';
+  } catch (_) {
+    const range = document.createRange(); range.selectNodeContents(source);
+    const selection = window.getSelection(); selection.removeAllRanges(); selection.addRange(range);
+    status.textContent = 'Code selected. Press Ctrl+C or Cmd+C to copy.';
+  }
+});</script></body></html>
