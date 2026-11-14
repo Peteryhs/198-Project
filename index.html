@@ -5,31 +5,57 @@
 <section class="chapter" id="system"><h2><small>01</small>What runs where</h2>
 <div class="diagram" role="img" aria-label="Two sensors feed Arduino. Arduino streams paired samples to Python on the shield. Python returns repetition estimates and a set verdict to Arduino."><div class="device"><strong>Two accelerometers</strong><span>Upper arm + forearm</span></div><div class="arrow" aria-hidden="true">→</div><div class="device"><strong>Arduino firmware</strong><span>Read six axes every 10 ms</span></div><div class="arrow" aria-hidden="true">→</div><div class="device"><strong>Shield · Python + model</strong><span>Find repetitions → 61 features → predict</span></div></div><div class="return">Results return to Arduino over Serial1 → OLED, storage, or forwarding</div>
 <div class="roles"><div><strong>Firmware team owns</strong><p class="small">Sensors, calibration, timing, buttons, existing loop, UART, OLED and onward transmission.</p></div><div><strong>AI side supplies</strong><p class="small">scripts/tally_stdlib.py + scripts/stdlib_runtime.py, paired model weights and the receiver code in §4. Python loads the .npz model directly; no separate C model call.</p></div></div></section>
-<section class="chapter" id="prepare"><h2><small>02</small>Before recording</h2>
-<h3>Mount both sensors on the same arm</h3><table><thead><tr><th>Sensor</th><th>Position and data order</th></tr></thead><tbody><tr><td>Upper arm</td><td>Outer side, between shoulder and elbow. Send its x/y/z first.</td></tr><tr><td>Forearm</td><td>Outer side, between elbow and wrist. Send its x/y/z second.</td></tr></tbody></table><p class="small">Standing with arms down: study X points up; Y runs front–back; Z side-to-side. Check signs against the study convention and your board. <a href="https://www.nature.com/articles/s41597-022-01387-2/figures/1">Figure 1</a> gives approximate sites, not exact distances. The current reported g values are nominal and uncalibrated; sensor calibration is still open.</p>
-<h3>Provision the shield before recording</h3>
-<p class="small">The device is an UNO R4 Minima plus an AR9331 shield. Inference runs on the shield's OpenWrt Linux with <code>python3-light</code> 3.10.13; NumPy, SciPy and scikit-learn are unavailable. Use only <code>tally_stdlib.py</code> and <code>stdlib_runtime.py</code> with the side model. The desktop reference is not a deployable runtime. Read <a href="SHIELD-HARDENING.md">SHIELD-HARDENING.md</a> for installation, procd enablement, logs, restart recovery and required physical acceptance tests.</p>
-<p class="small">Sensor 1 is wired to A0–A2 (upper arm), sensor 2 to A3–A5 (forearm), on one limb. The sketch configures a 10-bit ADC; the UNO R4 Minima operates at nominal 5 V. USB supplies roughly 4.7 V to the MCU through a Schottky diode, which is not a measurement of the ADC reference on this stack. Sources: <a href="HARDWARE-RESEARCH.md">hardware source audit, U/C evidence</a> and <code>hardware/198project/198project.ino</code>. The inherited conversion <code>(ADC - 338) * 0.0148</code> is uncalibrated. <code>unit=g range=3</code> are protocol metadata; reported g is nominal and unverified. Pass through reported values without clamping at ±3 g. The intended <code>Serial1</code> to <code>/dev/ttyATH0</code> mapping and logic levels must be confirmed on the board. Nothing has executed on the real shield or MCU.</p>
-<p class="small">The model path is relative to the scripts: <code>root/model/paired-synchronized-offline/&lt;side&gt;/realtime_model.npz</code>, where <code>root</code> contains <code>scripts/</code>. A three-file single-side payload requires <code>--side L</code> or <code>--side R</code>; without a guard, install both model files. Also install the service template when using procd and verify the exact image supplies the required stdlib modules.</p>
-<table><thead><tr><th>File</th><th>Destination on the shield</th><th>What it does</th></tr></thead><tbody>
-<tr><td><code>scripts/tally_stdlib.py</code></td><td><code>/root/tally/scripts/</code></td><td>Shield entry point: strict framing, bounded logs and live deadlines; valid-set R/V bytes match the desktop reference.</td></tr>
-<tr><td><code>scripts/stdlib_runtime.py</code></td><td><code>/root/tally/scripts/</code></td><td>Cycle cutting, the 61 features and the model, in plain Python.</td></tr>
-<tr><td><code>model/paired-synchronized-offline/L/realtime_model.npz</code></td><td><code>/root/tally/model/paired-synchronized-offline/L/</code></td><td>Left-arm weights; file size measured by wc -c: 2,114 bytes.</td></tr>
-<tr><td><code>model/paired-synchronized-offline/R/realtime_model.npz</code></td><td><code>/root/tally/model/paired-synchronized-offline/R/</code></td><td>Right-arm weights; file size measured by wc -c: 2,111 bytes.</td></tr>
-</tbody></table>
-<p class="small">Current measured file bytes: 28,396 for the two scripts plus the L model, or 30,507 with both models, from <code>wc -c scripts/tally_stdlib.py scripts/stdlib_runtime.py model/paired-synchronized-offline/{L,R}/realtime_model.npz</code>. The earlier 24 KiB inventory predates hardening. Filesystem allocation, the init script and Python installation cost more; 16 MB is total flash, not available overlay. Do not copy the repository, venv, datasets or other model exports onto the shield.</p>
-<p class="small">On the shield, create the destination directories first:</p>
-<pre>mkdir -p /root/tally/scripts /root/tally/model/paired-synchronized-offline/L /root/tally/model/paired-synchronized-offline/R</pre>
-<p class="small">From the provisioning computer, transfer only the runtime and model files:</p>
-<pre>scp scripts/tally_stdlib.py scripts/stdlib_runtime.py root@&lt;shield&gt;:/root/tally/scripts/
-scp model/paired-synchronized-offline/L/realtime_model.npz root@&lt;shield&gt;:/root/tally/model/paired-synchronized-offline/L/
-scp model/paired-synchronized-offline/R/realtime_model.npz root@&lt;shield&gt;:/root/tally/model/paired-synchronized-offline/R/</pre>
-<p class="small">After the import/model checks and UART reservation in the operations handover, stop any existing service before a manual run on the shield:</p>
-<pre>cd /root/tally
-python3 -B -u scripts/tally_stdlib.py --port /dev/ttyATH0 --quiet \
-  --out /tmp/tally-results.jsonl --reply both --reply-file /tmp/tally-verdicts.log</pre>
-<p class="small">Wait for the ready diagnostic before permitting Start. It confirms model loading and serial configuration, not physical connectivity. For normal operation, use the supplied procd unit rather than keeping this manual process alongside it.</p>
-<div class="callout"><strong>Physical acceptance is still open.</strong> Host Python 3.10 tests and desktop reference parity do not establish MIPS memory headroom, UART throughput, ADC timing, real sensor values or power-cut behavior. The historical 0.15–0.3 s/set AR9331 figure is an arithmetic estimate, not a target measurement. The firmware's configured wait is 30 s; after a lost end/verdict or timeout, restart Python and reset the MCU together before a new set. The committed receiver handles V only and logs R as invalid; validate reply bursts with USB attached and absent. Receiver code below is a merge aid, not a change to the committed sketch. Per-repetition labels are estimates inherited from whole-set labels, not independently validated findings.</div>
+<section class="chapter" id="prepare"><style>
+#prepare .lede{font-size:19px;line-height:1.5;max-width:52ch}
+#prepare .placement{display:grid;grid-template-columns:1.05fr 1fr;gap:22px;align-items:center;margin:20px 0 8px}
+#prepare .armcard{border:2px solid var(--teal);border-radius:10px;padding:16px 18px;background:#fff}
+#prepare .armcard span{display:block;font-size:12px;letter-spacing:1.4px;font-weight:750;color:var(--teal)}
+#prepare .armcard strong{display:block;font-size:27px;line-height:1.15;margin:6px 0 6px;letter-spacing:-.4px}
+#prepare .armcard em{display:block;font-style:normal;font-size:16px;line-height:1.4}
+#prepare .armcard.second{margin-top:16px;border-color:var(--amber)}
+#prepare .armcard.second span{color:var(--amber)}
+#prepare .axes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0 4px}
+#prepare .axis{background:#f0f1e9;border-radius:8px;padding:12px;text-align:center}
+#prepare .axis b{display:block;font-size:24px;color:var(--teal)}
+#prepare .axis span{font-size:14px}
+#prepare .steps{list-style:none;counter-reset:s;padding:0;margin:18px 0 0}
+#prepare .steps>li{counter-increment:s;position:relative;padding:4px 0 20px 52px;font-size:16px}
+#prepare .steps>li:before{content:counter(s);position:absolute;left:0;top:-2px;width:34px;height:34px;border-radius:50%;background:var(--teal);color:#fff;font-weight:800;font-size:17px;text-align:center;line-height:34px}
+#prepare .steps b{font-size:17px}
+#prepare .gate{margin-top:14px;border-left:4px solid var(--amber);background:#fbefdc;padding:12px 14px;font-size:15px}
+@media(max-width:700px){#prepare .placement{grid-template-columns:1fr}#prepare .axes{grid-template-columns:1fr}#prepare .armcard strong{font-size:23px}}
+</style>
+<h2><small>02</small>Mount the sensors, then start Python</h2>
+<p class="lede"><strong>Both sensors go on the same arm.</strong> One above the elbow, one below. That pairing is what the model was trained on.</p>
+<div class="placement">
+<svg viewBox="0 0 210 300" role="img" aria-label="An arm drawn from shoulder to wrist, with a sensor square on the outer upper arm and another on the outer forearm">
+<path d="M62 18 q-16 34 -10 74 q4 26 16 42 l-6 62 q-2 34 6 86 l44 0 q-8 -52 -6 -86 l-4 -62 q14 -18 18 -44 q6 -40 -10 -72 z" fill="#e7efe9" stroke="#14675d" stroke-width="3"/>
+<circle cx="86" cy="30" r="9" fill="#14675d" opacity=".25"/>
+<rect x="30" y="96" width="30" height="30" rx="5" fill="#14675d"/>
+<text x="12" y="116" font-size="15" font-weight="700" fill="#14675d">1</text>
+<rect x="34" y="196" width="26" height="26" rx="5" fill="#8e4619"/>
+<text x="14" y="215" font-size="15" font-weight="700" fill="#8e4619">2</text>
+</svg>
+<div>
+<div class="armcard"><span>SENSOR 1 · SEND FIRST</span><strong>Upper arm</strong><em>Outer side, between shoulder and elbow. Wired to A0–A2.</em></div>
+<div class="armcard second"><span>SENSOR 2 · SEND SECOND</span><strong>Forearm</strong><em>Outer side, between elbow and wrist. Wired to A3–A5.</em></div>
+</div>
+</div>
+<p class="small" style="margin-top:-8px">Both squares sit on the <strong>outer</strong> side of the same arm — the side facing away from the body.</p>
+<h3>Which way is which</h3>
+<p style="font-size:16px">Standing, arms down:</p>
+<div class="axes"><div class="axis"><b>X</b><span>points up</span></div><div class="axis"><b>Y</b><span>front to back</span></div><div class="axis"><b>Z</b><span>side to side</span></div></div>
+<p class="small">Check the signs against your board before the first recording.</p>
+<h3>Start it on the shield</h3>
+<ol class="steps">
+<li><b>Copy three files.</b> <code>scripts/tally_stdlib.py</code>, <code>scripts/stdlib_runtime.py</code> and the model(s) into <code>/root/tally</code> — about 30 KB with both arms. No install step, no NumPy.</li>
+<li><b>Run one command.</b>
+<pre>cd /root/tally &amp;&amp; python3 -B -u scripts/tally_stdlib.py \
+  --port /dev/ttyATH0 --quiet --out /tmp/tally-results.jsonl \
+  --reply both --reply-file /tmp/tally-verdicts.log</pre></li>
+<li><b>Wait for the ready line,</b> then let the firmware send <code>START L</code> or <code>START R</code>. For unattended use, start it with the supplied procd unit instead of a manual shell.</li>
+</ol>
+<p class="gate"><strong>Not yet proven on hardware:</strong> the <code>Serial1</code> → <code>/dev/ttyATH0</code> route and logic levels, per-axis calibration, and the sustained 10 ms sampling. Verify those on the bench first. Detail: <code>docs/SHIELD-RUNTIME.md</code> and <code>docs/MASTER-FIX-LIST.md</code>.</p>
 </section>
 <section class="chapter" id="protocol"><h2><small>03</small>One set: send, score, receive</h2><p class="small">A repetition is one movement and return. A set is the group between Start and Done, such as 10 elbow bends. A longer session contains multiple sets; the firmware cap is 60,000 samples (derived: 600 seconds at 100 Hz). Six capped sets give 60 minutes of acquisition; replies and rests add elapsed time. Reaching the cap ends the active set with <code>E overflow</code> and discards it; stop with <code>E done</code> before the cap for a score. Every wire record ends with a newline.</p>
 <ol class="timeline"><li data-step="1"><span class="direction">BEFORE START</span><strong>Wait with no sensor stream.</strong><p>Python must be listening. Do not begin another set while a previous one awaits its final verdict.</p></li><li data-step="2"><span class="direction">ARDUINO → PYTHON · START</span><strong>Send a fresh header for every accepted set start; reset sequence and set clock.</strong><div class="record">#TALLY2 fs=100 unit=g range=3 side=L</div><p>Specified paired format · every 10 ms · nominal, uncalibrated g · ADXL335 ±3 g metadata · left arm. Use side=R for the right arm. Python sends no header acknowledgement.</p></li><li data-step="3"><span class="direction">ARDUINO → PYTHON · EVERY 10 MILLISECONDS</span><strong>Read both sensors together; send all six values on one line.</strong><div class="record">S sequence time_ms upper_x upper_y upper_z forearm_x forearm_y forearm_z</div><div class="record">S 0 0 +0.05123456 -0.01834567 +0.99321234 +0.10769876 -0.02915432 +0.97180000<br>S 1 10 +0.05123456 -0.01834567 +0.99321234 +0.10769876 -0.02915432 +0.97180000</div><p>Sequence +1; actual elapsed milliseconds must increase. Nominal g, gravity included; the inherited conversion is uncalibrated. The sender prints signed values with eight decimals. Continue between repetitions. Keep sample lines ≤128 characters; no debug text on this link.</p></li><li data-step="4"><span class="direction">ARDUINO → PYTHON · DONE</span><strong>Stop sampling, arm the receiver, then send one end marker.</strong><div class="record">E done</div><p>Not after each repetition. The committed sketch sends E aborted for cancellation, non-finite readings or a missed sampling deadline, and E overflow at its sample cap. These discard the set.</p></li><li data-step="5"><span class="direction">PYTHON → ARDUINO · AFTER DONE</span><strong>Read every R line, then the final V line.</strong><p>Python now finds repetitions and scores them. These are end-of-set results, not live exercise cues.</p></li></ol>
