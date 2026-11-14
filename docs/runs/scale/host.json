@@ -1,0 +1,6 @@
+{
+  "cpu": "AMD Ryzen 7 9700X 8-Core Processor",
+  "platform": "Linux-7.1.10-100.fc43.x86_64-x86_64-with-glibc2.42",
+  "machine": "x86_64",
+  "compiler": "cc (GCC) 15.3.1 20260722 (Red Hat 15.3.1-1)"
+}

@@ -38,7 +38,7 @@ The embedded firmware and host model remain scaffolds. The Tally Android app bui
 | `Tally/` | Android Studio source: generic Arduino telemetry channels, charts, recordings, CSV export, and Material 3 Expressive UI. |
 | `hardware/198project/` | Sketch entry point and an `Accelerometer` class header. The sketch is a stub. |
 | `model/model.py` | Empty file. |
-| Data transfer | Not started. `data_transfer.h` and `data_transfer.cpp` are placeholders. |
+| Data transfer | Paired text stream, implemented: `scripts/tally_paired_stream.py` reads six values per sample from `Serial1` and scores the set. Line contract in `docs/BOARD-TO-PARSER.html`. |
 | WiFi path | Under evaluation with the Arduino Yún shield. |
 | Bill of materials | Drafted. No parts are ordered. |
 
@@ -53,6 +53,9 @@ A repetition is a shape in the signal. The limb rises, it returns, and a counter
 The screen shows the count and the pace during the session. Three buttons start a session, calibrate the sensors, and reset the count.
 
 The host model reads the samples, scores each repetition, and writes one summary for the instructor.
+
+The model for the sensor pair is `model/paired-synchronized-offline/{L,R}`: 61 inputs, 992 parameter bytes, 91.03 % quality accuracy on the left side over 30 held-out volunteers. `docs/PIPELINE.md` traces a set from the accelerometers to the verdict.
+
 
 ## Hardware
 

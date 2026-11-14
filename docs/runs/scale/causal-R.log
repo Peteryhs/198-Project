@@ -1,0 +1,20 @@
+2026-11-13T16:21:01-0500 start causal/R/hgb-leaves15-iter50
+2026-11-13T16:21:19-0500 finished causal/R/hgb-leaves15-iter50: quality=0.901961, exercise=0.967320
+2026-11-13T16:21:19-0500 start causal/R/hgb-leaves15-iter200
+2026-11-13T16:22:22-0500 finished causal/R/hgb-leaves15-iter200: quality=0.895425, exercise=0.964052
+2026-11-13T16:22:22-0500 start causal/R/hgb-leaves31-iter50
+2026-11-13T16:22:52-0500 finished causal/R/hgb-leaves31-iter50: quality=0.898693, exercise=0.957516
+2026-11-13T16:22:52-0500 start causal/R/hgb-leaves31-iter200
+2026-11-13T16:24:40-0500 finished causal/R/hgb-leaves31-iter200: quality=0.895425, exercise=0.960784
+2026-11-13T16:24:40-0500 start causal/R/hgb-leaves63-iter50
+2026-11-13T16:25:25-0500 finished causal/R/hgb-leaves63-iter50: quality=0.895425, exercise=0.960784
+2026-11-13T16:25:25-0500 start causal/R/hgb-leaves63-iter200
+2026-11-13T16:27:43-0500 finished causal/R/hgb-leaves63-iter200: quality=0.895425, exercise=0.970588
+2026-11-13T16:27:43-0500 start causal/R/mlp-64
+2026-11-13T16:30:00-0500 finished causal/R/mlp-64: quality=0.888889, exercise=0.964052
+2026-11-13T16:30:00-0500 start causal/R/mlp-128-64
+2026-11-13T16:32:24-0500 finished causal/R/mlp-128-64: quality=0.888889, exercise=0.970588
+2026-11-13T16:32:24-0500 start causal/R/mlp-256-128
+2026-11-13T16:35:54-0500 finished causal/R/mlp-256-128: quality=0.882353, exercise=0.973856
+2026-11-13T16:35:54-0500 start causal/R/extratrees-32-leaves256
+2026-11-13T16:36:00-0500 finished causal/R/extratrees-32-leaves256: quality=0.888889, exercise=0.973856

@@ -1,0 +1,10 @@
+{
+  "variant_results": 40,
+  "numeric_models_checked": 40,
+  "protected_files_byte_identical": 61,
+  "accepted_input_hashes_unchanged": true,
+  "source_hashes_match": true,
+  "selected_statistics_recomputed": true,
+  "max_export_probability_error": 2.05498645933222e-06,
+  "deployed_scaled_models": 0
+}

@@ -1,0 +1,20 @@
+2026-11-13T16:21:01-0500 start offline/R/hgb-leaves15-iter50
+2026-11-13T16:21:17-0500 finished offline/R/hgb-leaves15-iter50: quality=0.915033, exercise=0.964052
+2026-11-13T16:21:17-0500 start offline/R/hgb-leaves15-iter200
+2026-11-13T16:22:15-0500 finished offline/R/hgb-leaves15-iter200: quality=0.905229, exercise=0.970588
+2026-11-13T16:22:15-0500 start offline/R/hgb-leaves31-iter50
+2026-11-13T16:22:41-0500 finished offline/R/hgb-leaves31-iter50: quality=0.905229, exercise=0.967320
+2026-11-13T16:22:41-0500 start offline/R/hgb-leaves31-iter200
+2026-11-13T16:24:10-0500 finished offline/R/hgb-leaves31-iter200: quality=0.905229, exercise=0.967320
+2026-11-13T16:24:10-0500 start offline/R/hgb-leaves63-iter50
+2026-11-13T16:24:50-0500 finished offline/R/hgb-leaves63-iter50: quality=0.915033, exercise=0.964052
+2026-11-13T16:24:50-0500 start offline/R/hgb-leaves63-iter200
+2026-11-13T16:26:42-0500 finished offline/R/hgb-leaves63-iter200: quality=0.901961, exercise=0.967320
+2026-11-13T16:26:42-0500 start offline/R/mlp-64
+2026-11-13T16:28:24-0500 finished offline/R/mlp-64: quality=0.911765, exercise=0.964052
+2026-11-13T16:28:24-0500 start offline/R/mlp-128-64
+2026-11-13T16:30:06-0500 finished offline/R/mlp-128-64: quality=0.898693, exercise=0.970588
+2026-11-13T16:30:06-0500 start offline/R/mlp-256-128
+2026-11-13T16:32:33-0500 finished offline/R/mlp-256-128: quality=0.901961, exercise=0.970588
+2026-11-13T16:32:33-0500 start offline/R/extratrees-32-leaves256
+2026-11-13T16:32:38-0500 finished offline/R/extratrees-32-leaves256: quality=0.898693, exercise=0.973856

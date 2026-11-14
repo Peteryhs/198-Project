@@ -1,0 +1,11 @@
+["/home/peter/work/198-Project/.venv/bin/python", "scripts/scale_paired_model.py", "--jobs", "4"]
+["/home/peter/work/198-Project/.venv/bin/python", "/home/peter/work/198-Project/scripts/scale_paired_model.py", "--mode", "causal", "--side", "R"]
+["/home/peter/work/198-Project/.venv/bin/python", "/home/peter/work/198-Project/scripts/scale_paired_model.py", "--mode", "offline", "--side", "L"]
+["/home/peter/work/198-Project/.venv/bin/python", "/home/peter/work/198-Project/scripts/scale_paired_model.py", "--mode", "causal", "--side", "L"]
+["/home/peter/work/198-Project/.venv/bin/python", "/home/peter/work/198-Project/scripts/scale_paired_model.py", "--mode", "offline", "--side", "R"]
+.venv/bin/python -m py_compile scripts/scale_paired_model.py scripts/scale_paired_features.py scripts/scale_paired_models.py
+["/home/peter/work/198-Project/.venv/bin/python", "scripts/scale_paired_model.py", "--self-check"]
+.venv/bin/python scripts/scale_paired_features.py  # feature agent: rebuild + baseline LOSO parity
+["/home/peter/work/198-Project/.venv/bin/python", "scripts/scale_paired_model.py", "--finalize"]
+["/home/peter/work/198-Project/.venv/bin/python", "scripts/scale_paired_model.py", "--finalize"]
+["/home/peter/work/198-Project/.venv/bin/python", "scripts/scale_paired_model.py", "--self-check"]

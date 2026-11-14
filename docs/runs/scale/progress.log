@@ -1,0 +1,127 @@
+2026-11-13 protocol read; feature and model agents started; external progress.log append failed read-only filesystem
+2026-11-13T16:21:01-0500 start offline/L/hgb-leaves15-iter50
+2026-11-13T16:21:01-0500 start causal/R/hgb-leaves15-iter50
+2026-11-13T16:21:01-0500 start offline/R/hgb-leaves15-iter50
+2026-11-13T16:21:01-0500 start causal/L/hgb-leaves15-iter50
+2026-11-13T16:21:17-0500 finished offline/L/hgb-leaves15-iter50: quality=0.913621, exercise=0.983389
+2026-11-13T16:21:17-0500 start offline/L/hgb-leaves15-iter200
+2026-11-13T16:21:17-0500 finished offline/R/hgb-leaves15-iter50: quality=0.915033, exercise=0.964052
+2026-11-13T16:21:17-0500 start offline/R/hgb-leaves15-iter200
+2026-11-13T16:21:19-0500 finished causal/L/hgb-leaves15-iter50: quality=0.913621, exercise=0.976744
+2026-11-13T16:21:19-0500 start causal/L/hgb-leaves15-iter200
+2026-11-13T16:21:19-0500 finished causal/R/hgb-leaves15-iter50: quality=0.901961, exercise=0.967320
+2026-11-13T16:21:19-0500 start causal/R/hgb-leaves15-iter200
+2026-11-13T16:22:15-0500 finished offline/L/hgb-leaves15-iter200: quality=0.916944, exercise=0.986711
+2026-11-13T16:22:15-0500 start offline/L/hgb-leaves31-iter50
+2026-11-13T16:22:15-0500 finished offline/R/hgb-leaves15-iter200: quality=0.905229, exercise=0.970588
+2026-11-13T16:22:15-0500 start offline/R/hgb-leaves31-iter50
+2026-11-13T16:22:22-0500 finished causal/L/hgb-leaves15-iter200: quality=0.920266, exercise=0.976744
+2026-11-13T16:22:22-0500 start causal/L/hgb-leaves31-iter50
+2026-11-13T16:22:22-0500 finished causal/R/hgb-leaves15-iter200: quality=0.895425, exercise=0.964052
+2026-11-13T16:22:22-0500 start causal/R/hgb-leaves31-iter50
+2026-11-13T16:22:41-0500 finished offline/L/hgb-leaves31-iter50: quality=0.903654, exercise=0.976744
+2026-11-13T16:22:41-0500 start offline/L/hgb-leaves31-iter200
+2026-11-13T16:22:41-0500 finished offline/R/hgb-leaves31-iter50: quality=0.905229, exercise=0.967320
+2026-11-13T16:22:41-0500 start offline/R/hgb-leaves31-iter200
+2026-11-13T16:22:51-0500 finished causal/L/hgb-leaves31-iter50: quality=0.913621, exercise=0.973422
+2026-11-13T16:22:51-0500 start causal/L/hgb-leaves31-iter200
+2026-11-13T16:22:52-0500 finished causal/R/hgb-leaves31-iter50: quality=0.898693, exercise=0.957516
+2026-11-13T16:22:52-0500 start causal/R/hgb-leaves31-iter200
+2026-11-13T16:23:31-0500 paired statistics, cohort counts, cache hashes, baseline accuracies self-check passed
+2026-11-13T16:24:08-0500 finished offline/L/hgb-leaves31-iter200: quality=0.916944, exercise=0.980066
+2026-11-13T16:24:08-0500 start offline/L/hgb-leaves63-iter50
+2026-11-13T16:24:10-0500 finished offline/R/hgb-leaves31-iter200: quality=0.905229, exercise=0.967320
+2026-11-13T16:24:10-0500 start offline/R/hgb-leaves63-iter50
+2026-11-13 implementation: staged causal L cache after all workers loaded it, so initial coordinator stops before finalization with its stale in-memory exporter; fresh finalization will restore and validate every exported model
+2026-11-13T16:24:38-0500 finished causal/L/hgb-leaves31-iter200: quality=0.926910, exercise=0.973422
+2026-11-13T16:24:38-0500 start causal/L/hgb-leaves63-iter50
+2026-11-13T16:24:40-0500 finished causal/R/hgb-leaves31-iter200: quality=0.895425, exercise=0.960784
+2026-11-13T16:24:40-0500 start causal/R/hgb-leaves63-iter50
+2026-11-13T16:24:48-0500 finished offline/L/hgb-leaves63-iter50: quality=0.913621, exercise=0.980066
+2026-11-13T16:24:48-0500 start offline/L/hgb-leaves63-iter200
+2026-11-13T16:24:50-0500 finished offline/R/hgb-leaves63-iter50: quality=0.915033, exercise=0.964052
+2026-11-13T16:24:50-0500 start offline/R/hgb-leaves63-iter200
+2026-11-13T16:25:23-0500 finished causal/L/hgb-leaves63-iter50: quality=0.923588, exercise=0.973422
+2026-11-13T16:25:23-0500 start causal/L/hgb-leaves63-iter200
+2026-11-13T16:25:25-0500 finished causal/R/hgb-leaves63-iter50: quality=0.895425, exercise=0.960784
+2026-11-13T16:25:25-0500 start causal/R/hgb-leaves63-iter200
+2026-11-13T16:26:42-0500 finished offline/L/hgb-leaves63-iter200: quality=0.916944, exercise=0.980066
+2026-11-13T16:26:42-0500 start offline/L/mlp-64
+2026-11-13T16:26:42-0500 finished offline/R/hgb-leaves63-iter200: quality=0.901961, exercise=0.967320
+2026-11-13T16:26:42-0500 start offline/R/mlp-64
+2026-11-13T16:27:39-0500 finished causal/L/hgb-leaves63-iter200: quality=0.916944, exercise=0.973422
+2026-11-13T16:27:39-0500 start causal/L/mlp-64
+2026-11-13T16:27:43-0500 finished causal/R/hgb-leaves63-iter200: quality=0.895425, exercise=0.970588
+2026-11-13T16:27:43-0500 start causal/R/mlp-64
+2026-11-13T16:28:20-0500 finished offline/L/mlp-64: quality=0.916944, exercise=0.976744
+2026-11-13T16:28:20-0500 start offline/L/mlp-128-64
+2026-11-13T16:28:24-0500 finished offline/R/mlp-64: quality=0.911765, exercise=0.964052
+2026-11-13T16:28:24-0500 start offline/R/mlp-128-64
+2026-11-13T16:29:52-0500 finished causal/L/mlp-64: quality=0.883721, exercise=0.976744
+2026-11-13T16:29:52-0500 start causal/L/mlp-128-64
+2026-11-13T16:30:00-0500 finished causal/R/mlp-64: quality=0.888889, exercise=0.964052
+2026-11-13T16:30:00-0500 start causal/R/mlp-128-64
+2026-11-13T16:30:06-0500 finished offline/R/mlp-128-64: quality=0.898693, exercise=0.970588
+2026-11-13T16:30:06-0500 start offline/R/mlp-256-128
+2026-11-13T16:30:10-0500 finished offline/L/mlp-128-64: quality=0.906977, exercise=0.976744
+2026-11-13T16:30:10-0500 start offline/L/mlp-256-128
+2026-11-13T16:32:17-0500 finished causal/L/mlp-128-64: quality=0.890365, exercise=0.976744
+2026-11-13T16:32:17-0500 start causal/L/mlp-256-128
+2026-11-13T16:32:24-0500 finished causal/R/mlp-128-64: quality=0.888889, exercise=0.970588
+2026-11-13T16:32:24-0500 start causal/R/mlp-256-128
+2026-11-13T16:32:33-0500 finished offline/R/mlp-256-128: quality=0.901961, exercise=0.970588
+2026-11-13T16:32:33-0500 start offline/R/extratrees-32-leaves256
+2026-11-13T16:32:38-0500 finished offline/R/extratrees-32-leaves256: quality=0.898693, exercise=0.973856
+2026-11-13T16:32:51-0500 finished offline/L/mlp-256-128: quality=0.906977, exercise=0.973422
+2026-11-13T16:32:51-0500 start offline/L/extratrees-32-leaves256
+2026-11-13T16:32:56-0500 finished offline/L/extratrees-32-leaves256: quality=0.913621, exercise=0.976744
+2026-11-13T16:35:47-0500 finished causal/L/mlp-256-128: quality=0.897010, exercise=0.976744
+2026-11-13T16:35:47-0500 start causal/L/extratrees-32-leaves256
+2026-11-13T16:35:53-0500 finished causal/L/extratrees-32-leaves256: quality=0.913621, exercise=0.980066
+2026-11-13T16:35:54-0500 finished causal/R/mlp-256-128: quality=0.882353, exercise=0.973856
+2026-11-13T16:35:54-0500 start causal/R/extratrees-32-leaves256
+2026-11-13T16:36:00-0500 finished causal/R/extratrees-32-leaves256: quality=0.888889, exercise=0.973856
+2026-11-13T16:36:44-0500 measured full fit/export/inference causal/L/hgb-leaves15-iter50
+2026-11-13T16:36:47-0500 measured full fit/export/inference causal/L/hgb-leaves15-iter200
+2026-11-13T16:36:49-0500 measured full fit/export/inference causal/L/hgb-leaves31-iter50
+2026-11-13T16:36:54-0500 measured full fit/export/inference causal/L/hgb-leaves31-iter200
+2026-11-13T16:36:56-0500 measured full fit/export/inference causal/L/hgb-leaves63-iter50
+2026-11-13T16:37:03-0500 measured full fit/export/inference causal/L/hgb-leaves63-iter200
+2026-11-13T16:37:07-0500 measured full fit/export/inference causal/L/mlp-64
+2026-11-13T16:37:12-0500 measured full fit/export/inference causal/L/mlp-128-64
+2026-11-13T16:37:20-0500 measured full fit/export/inference causal/L/mlp-256-128
+2026-11-13T16:37:20-0500 measured full fit/export/inference causal/L/extratrees-32-leaves256
+2026-11-13T16:37:21-0500 measured full fit/export/inference causal/R/hgb-leaves15-iter50
+2026-11-13T16:37:25-0500 measured full fit/export/inference causal/R/hgb-leaves15-iter200
+2026-11-13T16:37:26-0500 measured full fit/export/inference causal/R/hgb-leaves31-iter50
+2026-11-13T16:37:31-0500 measured full fit/export/inference causal/R/hgb-leaves31-iter200
+2026-11-13T16:37:33-0500 measured full fit/export/inference causal/R/hgb-leaves63-iter50
+2026-11-13T16:37:40-0500 measured full fit/export/inference causal/R/hgb-leaves63-iter200
+2026-11-13T16:37:45-0500 measured full fit/export/inference causal/R/mlp-64
+2026-11-13T16:37:50-0500 measured full fit/export/inference causal/R/mlp-128-64
+2026-11-13T16:37:57-0500 measured full fit/export/inference causal/R/mlp-256-128
+2026-11-13T16:37:58-0500 measured full fit/export/inference causal/R/extratrees-32-leaves256
+2026-11-13T16:37:59-0500 measured full fit/export/inference offline/L/hgb-leaves15-iter50
+2026-11-13T16:38:02-0500 measured full fit/export/inference offline/L/hgb-leaves15-iter200
+2026-11-13T16:38:03-0500 measured full fit/export/inference offline/L/hgb-leaves31-iter50
+2026-11-13T16:38:07-0500 measured full fit/export/inference offline/L/hgb-leaves31-iter200
+2026-11-13T16:38:09-0500 measured full fit/export/inference offline/L/hgb-leaves63-iter50
+2026-11-13T16:38:14-0500 measured full fit/export/inference offline/L/hgb-leaves63-iter200
+2026-11-13T16:38:18-0500 measured full fit/export/inference offline/L/mlp-64
+2026-11-13T16:38:21-0500 measured full fit/export/inference offline/L/mlp-128-64
+2026-11-13T16:38:27-0500 measured full fit/export/inference offline/L/mlp-256-128
+2026-11-13T16:38:27-0500 measured full fit/export/inference offline/L/extratrees-32-leaves256
+2026-11-13T16:38:28-0500 measured full fit/export/inference offline/R/hgb-leaves15-iter50
+2026-11-13T16:38:31-0500 measured full fit/export/inference offline/R/hgb-leaves15-iter200
+2026-11-13T16:38:33-0500 measured full fit/export/inference offline/R/hgb-leaves31-iter50
+2026-11-13T16:38:37-0500 measured full fit/export/inference offline/R/hgb-leaves31-iter200
+2026-11-13T16:38:39-0500 measured full fit/export/inference offline/R/hgb-leaves63-iter50
+2026-11-13T16:38:44-0500 measured full fit/export/inference offline/R/hgb-leaves63-iter200
+2026-11-13T16:38:47-0500 measured full fit/export/inference offline/R/mlp-64
+2026-11-13T16:38:51-0500 measured full fit/export/inference offline/R/mlp-128-64
+2026-11-13T16:38:56-0500 measured full fit/export/inference offline/R/mlp-256-128
+2026-11-13T16:38:56-0500 measured full fit/export/inference offline/R/extratrees-32-leaves256
+2026-11-13T16:38:56-0500 report and deployment decision complete
+2026-11-13T16:39:40-0500 report and deployment decision complete
+2026-11-13T16:39:41-0500 paired statistics, cohort counts, cache hashes, baseline accuracies self-check passed
+2026-11-13T16:40:10-0500 final verification passed: 40 numeric models, unchanged protected files and accepted data, recomputed selected statistics; affine retained
