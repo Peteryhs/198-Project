@@ -3,8 +3,17 @@ package com.jeevan.tally.sensors
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-/** One labelled reading at a point in time: elapsed seconds since the stream started, plus one value per axis. */
-data class SensorSample(val t: Float, val values: FloatArray, val segment: Int = 0, val receivedAtNanos: Long? = null)
+/**
+ * One labelled reading at a point in time: elapsed seconds since the stream started, plus one value per axis.
+ * [deviceMillis] is the board's own timestamp when the frame carried one (the synchronized pair row).
+ */
+data class SensorSample(
+    val t: Float,
+    val values: FloatArray,
+    val segment: Int = 0,
+    val receivedAtNanos: Long? = null,
+    val deviceMillis: Long? = null,
+)
 
 /**
  * A single physics "experiment": a named set of axes (e.g. x, y, z, magnitude) with a unit,

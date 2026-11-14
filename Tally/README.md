@@ -1,6 +1,6 @@
 # Tally
 
-An Arduino-first telemetry viewer for Android, inspired by phyphox. Connect to a board over Wi-Fi/TCP, discover its sensor plugs, record a run, inspect graphs and statistics, and export CSV. Phone sensors and full phyphox experiment compatibility are not implemented.
+An Arduino-first exercise logger and telemetry viewer for Android, inspired by phyphox. Connect to a board over Wi-Fi/TCP, count and log exercise sets, or discover its sensor plugs, record a run, inspect graphs and statistics, and export CSV. Phone sensors and full phyphox experiment compatibility are not implemented.
 
 Tally accompanies the ECE 198 Home Exercise Monitoring project. The UNO R4 Minima / Yún shield transport remains subject to hardware validation.
 
@@ -12,6 +12,48 @@ Tally accompanies the ECE 198 Home Exercise Monitoring project. The UNO R4 Minim
 4. Record, pause to inspect, then save locally or export CSV.
 
 Timed runs and start delays are available. Pauses create separate graph segments; saved recordings can reopen without the original board. Recording currently stops at 20,000 samples.
+
+## Exercise sets
+
+The **Exercise** tab is the app's main screen. It does what the project README asks of the device: count each repetition, keep the pace honest, tell a full repetition from a shallow one, and produce one summary for the instructor.
+
+1. Connect to the board, then tap **Set up exercise**.
+2. Choose the exercise (arms over head, elbow flexion or squeeze, the EAH/EFE/SQZ codes in `feedback.h`), the target count and, if the instructor prescribed one, a pace range in seconds per repetition. There is no default pace range.
+3. **Calibrate**: hold the start position, then the end position, for two seconds each.
+4. **Start**, exercise, **Pause**/**Resume** for rests, **Finish**. **Reset count** discards the set.
+5. Enter the count you actually observed, then **Save** and **Share** the report.
+
+### Who counts
+
+| Source | When | What Tally logs |
+| --- | --- | --- |
+| Board firmware | The board sends `TALLY` status frames | The firmware's count, per-cycle duration and cue, active time, fault bitmask, and at finish the model's exercise probabilities and series label. The board's Start/Pause/Finish buttons drive the app's set. |
+| Tally app estimate | Only synchronized arm-pair rows arrive | Its own count from the two sensors, following the project README: the angle the exercise moves through, a hysteresis band (a rep starts above 40% of the calibrated range and completes back below 20%), and peaks at 80% or more counted as full. A rep can only start after the arm has been seen at rest, so a pause mid-movement never completes a rep. |
+
+The board's count always wins: when the first `TALLY` frame arrives, the app's estimate for that set is dropped.
+
+Calibration measures three candidate angles from gravity (upper-arm tilt, forearm tilt and the angle between the segments) and uses whichever changes most between the two poses. Gravity-based angles are only valid for movements slow enough that gravity dominates.
+
+### What each set logs
+
+| Metric | Definition |
+| --- | --- |
+| Repetitions, completion | Count, and count ÷ target |
+| Full / shallow, range efficiency | Peak ≥ 80% of the calibrated range is full; range efficiency = full ÷ reps with a range reading |
+| Pace | Seconds since the previous repetition (the same quantity as the board's `cycle_seconds`); last, mean, fastest, slowest, reps per minute |
+| Pace check | Each rep on pace, too fast or too slow against the inclusive prescribed range |
+| **Efficiency** | Reps that were neither shallow nor off-pace ÷ reps logged. Unavailable when no rep has a range reading or a pace check |
+| Active time, pauses | Pauses excluded; from the board's `active_ms` when it reports |
+| Samples recorded | Rows received ÷ rows expected at 100 Hz, on the board's clock (`time_ms`) |
+| Timing gaps, clipped, dropped | Steps over 12 ms (the `tally_push` limit), values at or beyond ±3 g, phone-side buffer evictions |
+| Faults | Board bits (bad sample, timing gap, clipped, overflow, model error) plus app bits (samples dropped, connection lost) |
+| Calibration | Chosen signal, range in degrees, number of calibrations |
+| Model assessment | Only when the board's `assessment_available` is 1: likely exercise and the 0.5-threshold series label. Not a per-repetition or clinical judgment |
+| Counting error | \|counted − observed\| per 10 observed repetitions |
+
+The summary checks itself against the project's design targets: at most 1 counting error per 10 repetitions, at least 95% of samples recorded, and 60 minutes of continuous running. These remain requirements; a passing set on a phone is not a validated device measurement. Repetition boundaries come from a detector, not from validated observation (see `docs/BASIC-FEEDBACK.md`), so pace and range are estimates.
+
+Saved sets are plain-text `TALLY-SET-1` files in app storage. **Share** sends the readable summary as the message body with a CSV attached: one row per metric, then one row per repetition.
 
 ## Generic sensor plugs
 
@@ -70,6 +112,19 @@ D,<plug-id>,<value1>,<value2>,...
 
 A reading must match the advertised axis count and interpretation. Unknown IDs, malformed frames, nonfinite values, and dimension mismatches are ignored. The line carries no device timestamp, sequence number, or checksum; those remain protocol work for precision acquisition.
 
+### Exercise frames
+
+```text
+time_ms,upper_ax_g,upper_ay_g,upper_az_g,forearm_ax_g,forearm_ay_g,forearm_az_g
+TALLY,<state>,<cycles>,<target>,<active_ms>,<faults>,<cycle_s>,<duration_available>,<cue>,<timing_reason>,<assessment_available>,<p_eah>,<p_efe>,<p_sqz>,<p_incorrect>
+TALLYCFG,<exercise 1-3>,<count>,<min_s>,<target_s>,<max_s>,<prescribed 0|1>[,<prescription_id>]
+CAL,<1|0>[,<detail>]
+```
+
+The first is the documented replay row from `docs/BASIC-FEEDBACK.md`, without its header: a synchronized six-channel frame in g with the board's timestamp. `D,arm_pair,<6 values>` from an advertised `arm_pair:6` plug also feeds exercise sets, but without a board clock coverage falls back to arrival time.
+
+`TALLY` copies `TallyOutput` field for field: `state` 0–4 (idle, ready, running, paused, finished), `cue` 0–3 (abstain, on target, too fast, too slow), `timing_reason` 0–6, and the `TALLY_*` fault bits. Probabilities may be `nan` unless `assessment_available` is 1; any other malformed value drops the frame. Send one after each output change and at least once a second while running. `TALLYCFG` echoes the board's `C` command so a set started on the board uses its prescription; `CAL` reports the calibrate button. `arduino_example/tally_exercise_bridge.ino` shows all of them.
+
 ### Older sketches
 
 ```text
@@ -116,6 +171,12 @@ Samples carry monotonic TCP-arrival timestamps into the session. These preserve 
 | `recording/RecordingStore.kt` | Versioned local recording persistence |
 | `ui/LiveChart.kt` | Time plot and sample inspection |
 | `export/CsvFormatter.kt` | Pure CSV formatting |
+| `exercise/ExerciseModel.kt` | Exercise, prescription, board status and repetition types mirroring `tally_app.h` |
+| `exercise/RepCounter.kt` | Calibration and the app's hysteresis repetition estimate |
+| `exercise/SetTracker.kt` | Set lifecycle, board mirroring, data quality, and every derived metric |
+| `exercise/SetStore.kt`, `SetReport.kt` | `TALLY-SET-1` persistence and the instructor report |
+| `recording/ExerciseSetSession.kt` | Routes connection feeds into a set; mirrors board buttons |
+| `ui/ExerciseScreen.kt`, `SetSummaryView.kt`, `ExerciseHome.kt` | Set setup, live count, summary and history |
 
 ## Theme and toolchain
 
@@ -134,7 +195,7 @@ Open this folder in Android Studio and use a compatible Gradle JDK (Java 21 is v
 ./gradlew assembleDebug lintDebug
 ```
 
-Tests cover parsing, metadata validation, variable-axis recordings, old file compatibility, buffer overflow and cancellation, session timing, reconnect races, statistics, and CSV formatting. Hardware calibration, throughput, and frame-time benchmarks require separate device testing.
+Tests cover parsing, metadata validation, variable-axis recordings, old file compatibility, buffer overflow and cancellation, session timing, reconnect races, statistics, and CSV formatting. Exercise tests drive synthetic 100 Hz elbow-flexion frames through calibration and counting (full, shallow, too small, wobble near the threshold, pause mid-movement, starting with the arm raised), check every set metric in both app and board modes, parse every exercise frame and its malformed variants, and round-trip saved sets. Hardware calibration, throughput, and frame-time benchmarks require separate device testing.
 
 ## Arduino example
 

@@ -8,7 +8,8 @@ object CsvFormatter {
     fun headerRow(axisNames: List<String>): String =
         "t_seconds," + axisNames.joinToString(",") { csvCell(it) }
 
-    private fun csvCell(value: String): String {
+    /** Escapes one cell and neutralises spreadsheet formula prefixes. */
+    fun csvCell(value: String): String {
         val safe = if (value.firstOrNull() in listOf('=', '+', '-', '@')) "'" + value else value
         return if (safe.any { it == ',' || it == '"' || it == '\n' || it == '\r' })
             "\"" + safe.replace("\"", "\"\"") + "\"" else safe

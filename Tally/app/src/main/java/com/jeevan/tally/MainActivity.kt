@@ -11,6 +11,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import androidx.lifecycle.ViewModelProvider
 import com.jeevan.tally.recording.ExperimentSession
+import com.jeevan.tally.recording.ExerciseSetSession
+import com.jeevan.tally.ui.ExerciseScreen
+import com.jeevan.tally.ui.SetDetailScreen
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -40,7 +43,20 @@ class MainActivity : ComponentActivity() {
                                 navController.navigate("experiment/$id")
                             }, onOpenRecording = { id, recording ->
                                 navController.navigate("experiment/$id?recording=$recording")
+                            }, onStartSet = {
+                                navController.navigate("set")
+                            }, onOpenSet = { id ->
+                                navController.navigate("set/$id")
                             })
+                        }
+                        composable("set") { backStackEntry ->
+                            ExerciseScreen(session = ViewModelProvider(backStackEntry)[ExerciseSetSession::class.java]) {
+                                navController.popBackStack()
+                            }
+                        }
+                        composable("set/{id}", arguments = listOf(navArgument("id") { type = NavType.StringType })) { backStackEntry ->
+                            val id = backStackEntry.arguments?.getString("id") ?: return@composable
+                            SetDetailScreen(id) { navController.popBackStack() }
                         }
                         composable(
                             route = "experiment/{id}?recording={recording}",

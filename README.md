@@ -35,7 +35,7 @@ The embedded firmware and host model remain scaffolds. The Tally Android app bui
 
 | Part | State |
 | --- | --- |
-| `Tally/` | Android Studio source: generic Arduino telemetry channels, charts, recordings, CSV export, and Material 3 Expressive UI. |
+| `Tally/` | Android Studio source: exercise sets (repetition count, pace, range, efficiency, data quality, instructor report), generic Arduino telemetry channels, charts, recordings, CSV export, and Material 3 Expressive UI. |
 | `hardware/198project/` | Sketch entry point and an `Accelerometer` class header. The sketch is a stub. |
 | `model/model.py` | Empty file. |
 | Data transfer | Paired text stream, implemented: `scripts/tally_paired_stream.py` reads six values per sample from `Serial1` and scores the set. Line contract in `docs/BOARD-TO-PARSER.html`. |
@@ -99,7 +99,7 @@ These numbers are requirements, not results. No measurement exists yet.
 
 Open [`Tally/`](Tally/) as the project folder in Android Studio. See the [app README](Tally/README.md) for connection setup, the plug advertisement protocol, and build instructions.
 
-The app supports data-driven sensor channels, legacy accelerometer/gyroscope messages, buffered acquisition, live plots, saved recordings, and CSV export. It uses Material3 1.5.0-rc01, Gradle 9.3.1, AGP 9.1.1, and compile SDK 37. Local validation: 50 JVM tests pass, debug assembly succeeds, and lint has no errors. Real-board timing and measurement accuracy remain unverified.
+The app's Exercise tab counts repetitions and logs each set: count against the prescribed target, pace per repetition against the prescribed range, full versus shallow range of motion, efficiency, active time and pauses, samples recorded, timing gaps, clipping and faults, counting error against an observed count, and the board's end-of-set model verdict. It uses the firmware's count when the board sends `TALLY` status frames and its own two-sensor estimate otherwise, and checks every set against the design targets above. It also keeps data-driven sensor channels, legacy accelerometer/gyroscope messages, buffered acquisition, live plots, saved recordings, and CSV export. It uses Material3 1.5.0-rc01, Gradle 9.3.1, AGP 9.1.1, and compile SDK 37. Local validation: 50 JVM tests pass, debug assembly succeeds, and lint has no errors. Real-board timing and measurement accuracy remain unverified.
 
 `Tally/` is the maintained source. `Tally.zip` is an older uploaded snapshot.
 
