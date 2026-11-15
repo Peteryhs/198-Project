@@ -2,10 +2,15 @@ package com.jeevan.tally.ui
 
 import android.content.Context
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -45,12 +50,12 @@ fun LazyListScope.exerciseSection(context: Context, sets: List<SavedSet>?, wide:
     item {
         val start: @Composable (Modifier) -> Unit = { modifier ->
             Surface(modifier, color = MaterialTheme.colorScheme.primaryContainer, shape = MaterialTheme.shapes.extraLarge) {
-                Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                Column(Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     Icon(Icons.Filled.FitnessCenter, null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(32.dp))
                     Text("Ready when you are", style = MaterialTheme.typography.titleLargeEmphasized)
                     Text("Choose your exercise. Tally will guide you through setup.",
                         style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onPrimaryContainer)
-                    Button(onClick = onStartSet, shapes = ButtonDefaults.shapes(), modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp)) {
+                    TallyAction(onClick = onStartSet, shapes = ButtonDefaults.shapes(), modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp)) {
                         Text("Begin exercise")
                     }
                 }
@@ -58,27 +63,35 @@ fun LazyListScope.exerciseSection(context: Context, sets: List<SavedSet>?, wide:
         }
         if (wide && instructorView) Row(horizontalArrangement = Arrangement.spacedBy(24.dp)) {
             ArduinoConnectionBar(context, Modifier.weight(1f)); start(Modifier.weight(1f))
-        } else Column(verticalArrangement = Arrangement.spacedBy(20.dp)) {
+        } else Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
             start(Modifier.fillMaxWidth())
             if (instructorView) ArduinoConnectionBar(context)
         }
     }
     item { Text("Saved sessions", style = MaterialTheme.typography.titleMediumEmphasized) }
     when {
-        sets == null -> item { LinearProgressIndicator(Modifier.fillMaxWidth()) }
+        sets == null -> item { LoadingRows("Loading saved sessions") }
         sets.isEmpty() -> item {
             Text("Finished sets you save appear here.", style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
-        else -> items(sets, key = { it.id }) { set -> SavedSetRow(set) { onOpenSet(set.id) } }
+        else -> itemsIndexed(sets, key = { _, set -> set.id }) { index, set ->
+            SavedSetRow(set, Modifier.animateItem(
+                fadeInSpec = tween(180, delayMillis = index.coerceAtMost(4) * 30),
+                placementSpec = spring(stiffness = Spring.StiffnessLow),
+            )) { onOpenSet(set.id) }
+        }
     }
 }
 
 @Composable
-private fun SavedSetRow(set: SavedSet, onClick: () -> Unit) {
+private fun SavedSetRow(set: SavedSet, modifier: Modifier, onClick: () -> Unit) {
     val s = set.summary
     val scheme = MaterialTheme.colorScheme
-    ListItem(modifier = Modifier.clickable(onClick = onClick),
+    val press = remember { MutableInteractionSource() }
+    ListItem(modifier = modifier.pressScale(press).clickable(
+        interactionSource = press, indication = LocalIndication.current, onClick = onClick,
+    ),
         content = { Text(set.name) },
         supportingContent = {
             Column {
@@ -123,14 +136,14 @@ fun SetDetailScreen(id: String, onBack: () -> Unit) {
                 }) { Icon(Icons.Filled.IosShare, "Share report") }
                 IconButton(enabled = set != null, onClick = { deleteDialog = true }) { Icon(Icons.Filled.DeleteOutline, "Delete set") }
             },
-            colors = TopAppBarDefaults.topAppBarColors(containerColor = scheme.primary, titleContentColor = scheme.onPrimary,
-                navigationIconContentColor = scheme.onPrimary, actionIconContentColor = scheme.onPrimary))
+            colors = TopAppBarDefaults.topAppBarColors(containerColor = scheme.surfaceContainer, titleContentColor = scheme.onSurface,
+                navigationIconContentColor = scheme.onSurface, actionIconContentColor = scheme.onSurface))
     }) { padding ->
-        Column(Modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState()).padding(20.dp),
+        Column(Modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState()).padding(24.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp), horizontalAlignment = Alignment.Start) {
             error?.let { Text(it, color = scheme.error) }
             val current = set
-            if (current == null && error == null) LinearProgressIndicator(Modifier.fillMaxWidth())
+            if (current == null && error == null) LoadingRows("Loading session")
             if (current != null) {
                 Text(SimpleDateFormat("EEEE, MMM d, yyyy · HH:mm", LocalConfiguration.current.locales[0]).format(Date(current.summary.startedAtMillis)),
                     style = MaterialTheme.typography.bodyMedium, color = scheme.onSurfaceVariant)

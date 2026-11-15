@@ -1,10 +1,17 @@
 package com.jeevan.tally.ui
 
 import android.content.Context
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
@@ -53,6 +60,13 @@ fun HomeScreen(
     var retry by remember { mutableStateOf(0) }
     var showMenu by remember { mutableStateOf(false) }
     var showHelp by remember { mutableStateOf(false) }
+    val haptics = LocalHapticFeedback.current
+    fun selectSection(index: Int) {
+        if (section != index) {
+            haptics.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+            section = index
+        }
+    }
     val scheme = MaterialTheme.colorScheme
     val experimentsScroll = rememberLazyListState()
     val recordingsScroll = rememberLazyListState()
@@ -71,14 +85,14 @@ fun HomeScreen(
         val wide = maxWidth >= 600.dp
         Scaffold(containerColor = scheme.surface, bottomBar = {
             if (!wide && instructorView) NavigationBar(containerColor = scheme.surfaceContainer, tonalElevation = 0.dp) {
-                NavigationBarItem(selected = section == 2, onClick = { section = 2 }, icon = { Icon(Icons.Filled.FitnessCenter, null) }, label = { Text("Exercise") })
-                NavigationBarItem(selected = section == 0, onClick = { section = 0 }, icon = { Icon(Icons.Filled.Science, null) }, label = { Text("Experiments") })
-                NavigationBarItem(selected = section == 1, onClick = { section = 1 }, icon = { Icon(Icons.Filled.FolderOpen, null) }, label = { Text("Recordings") })
+                NavigationBarItem(selected = section == 2, onClick = { selectSection(2) }, icon = { Icon(Icons.Filled.FitnessCenter, null) }, label = { Text("Exercise") })
+                NavigationBarItem(selected = section == 0, onClick = { selectSection(0) }, icon = { Icon(Icons.Filled.Science, null) }, label = { Text("Experiments") })
+                NavigationBarItem(selected = section == 1, onClick = { selectSection(1) }, icon = { Icon(Icons.Filled.FolderOpen, null) }, label = { Text("Recordings") })
             }
         }, topBar = {
             TopAppBar(title = {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    TallyMark(color = scheme.onPrimary, size = 20.dp)
+                    TallyMark(color = scheme.primary, size = 20.dp)
                     Text("Tally", style = MaterialTheme.typography.titleLarge)
                 }
             }, actions = {
@@ -94,15 +108,15 @@ fun HomeScreen(
                     DropdownMenuItem(text = { Text("Connection help") },
                         onClick = { showMenu = false; showHelp = true })
                 }
-            }, colors = TopAppBarDefaults.topAppBarColors(containerColor = scheme.primary, titleContentColor = scheme.onPrimary, navigationIconContentColor = scheme.onPrimary, actionIconContentColor = scheme.onPrimary))
+            }, colors = TopAppBarDefaults.topAppBarColors(containerColor = scheme.surfaceContainer, titleContentColor = scheme.onSurface, navigationIconContentColor = scheme.onSurface, actionIconContentColor = scheme.onSurface))
         }) { padding ->
             Row(Modifier.fillMaxSize().padding(padding)) {
                 if (wide && instructorView) NavigationRail(containerColor = scheme.surfaceContainer, modifier = Modifier.fillMaxHeight()) {
-                    NavigationRailItem(selected = section == 2, onClick = { section = 2 }, icon = { Icon(Icons.Filled.FitnessCenter, null) }, label = { Text("Exercise") })
-                    NavigationRailItem(selected = section == 0, onClick = { section = 0 }, icon = { Icon(Icons.Filled.Science, null) }, label = { Text("Experiments") })
-                    NavigationRailItem(selected = section == 1, onClick = { section = 1 }, icon = { Icon(Icons.Filled.FolderOpen, null) }, label = { Text("Recordings") })
+                    NavigationRailItem(selected = section == 2, onClick = { selectSection(2) }, icon = { Icon(Icons.Filled.FitnessCenter, null) }, label = { Text("Exercise") })
+                    NavigationRailItem(selected = section == 0, onClick = { selectSection(0) }, icon = { Icon(Icons.Filled.Science, null) }, label = { Text("Experiments") })
+                    NavigationRailItem(selected = section == 1, onClick = { selectSection(1) }, icon = { Icon(Icons.Filled.FolderOpen, null) }, label = { Text("Recordings") })
                 }
-                LazyColumn(Modifier.weight(1f), state = when (section) { 0 -> experimentsScroll; 1 -> recordingsScroll; else -> exerciseScroll }, contentPadding = PaddingValues(20.dp), verticalArrangement = Arrangement.spacedBy(20.dp)) {
+                LazyColumn(Modifier.weight(1f), state = when (section) { 0 -> experimentsScroll; 1 -> recordingsScroll; else -> exerciseScroll }, contentPadding = PaddingValues(24.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
                     item {
                         Text(when (section) { 0 -> "Experiments"; 1 -> "Recordings"; else -> if (instructorView) "Exercise sessions" else "Your exercise" }, style = MaterialTheme.typography.headlineMedium, modifier = Modifier.semantics { heading() })
                         Text(when (section) { 0 -> "Raw Arduino channels"; 1 -> "Saved on this device"; else -> if (instructorView) "Review saved sets and exercise reports" else "Set up, exercise, and save your progress" },
@@ -121,7 +135,7 @@ fun HomeScreen(
                             item { SensorList(context, onSelect) }
                         }
                     } else {
-                        if (loading) item { LinearProgressIndicator(Modifier.fillMaxWidth()) }
+                        if (loading) item { LoadingRows("Loading recordings") }
                         if (loadError) item {
                             Column {
                                 Text("Recordings could not be loaded.", color = scheme.error)
@@ -134,12 +148,18 @@ fun HomeScreen(
                                     Icon(Icons.Filled.FolderOpen, null, tint = scheme.primary, modifier = Modifier.size(40.dp))
                                     Text("No saved recordings", style = MaterialTheme.typography.titleLarge)
                                     Text("Record a run, then tap Save to keep it here.", style = MaterialTheme.typography.bodyMedium, color = scheme.onSurfaceVariant)
-                                    FilledTonalButton(onClick = { section = 0 }) { Text("Open experiments") }
+                                    FilledTonalButton(onClick = { selectSection(0) }) { Text("Open experiments") }
                                 }
                             }
                         }
-                        items(recordings, key = { it.id }) { recording ->
-                            ListItem(modifier = Modifier.animateItem().clickable { onOpenRecording(recording.experimentId, recording.id) },
+                        itemsIndexed(recordings, key = { _, recording -> recording.id }) { index, recording ->
+                            val press = remember { MutableInteractionSource() }
+                            ListItem(modifier = Modifier.animateItem(
+                                fadeInSpec = tween(180, delayMillis = index.coerceAtMost(4) * 30),
+                                placementSpec = spring(stiffness = Spring.StiffnessLow),
+                            ).pressScale(press).clickable(interactionSource = press, indication = LocalIndication.current) {
+                                onOpenRecording(recording.experimentId, recording.id)
+                            },
                                 content = { Text(recording.name) },
                                 supportingContent = { Column {
                                     Text("${recording.count} samples · ${"%.1f".format(recording.elapsed)} s", style = ReadoutSmall)

@@ -1,6 +1,15 @@
 package com.jeevan.tally.ui
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.foundation.BorderStroke
@@ -73,6 +82,7 @@ fun ExperimentScreen(entry: ExperimentEntry, session: ExperimentSession, recordi
     var exporting by remember { mutableStateOf(false) }
     var saveAndLeave by rememberSaveable { mutableStateOf(false) }
     val darkSurface = MaterialTheme.colorScheme.surface.luminance() < 0.3f
+    val haptics = LocalHapticFeedback.current
     val colors = remember(entry.id, darkSurface) { stream.axisColorsHex.map {
         val channel = Color(android.graphics.Color.parseColor(it))
         if (darkSurface) lerp(channel, Color.White, 0.3f) else channel
@@ -129,7 +139,7 @@ fun ExperimentScreen(entry: ExperimentEntry, session: ExperimentSession, recordi
             }) { Text("Save") } }, dismissButton = { TextButton(onClick = { saveDialog = false; saveAndLeave = false }) { Text("Cancel") } })
     }
     if (connectionSheet) ModalBottomSheet(onDismissRequest = { connectionSheet = false }) {
-        Column(Modifier.fillMaxWidth().imePadding().verticalScroll(rememberScrollState()).padding(20.dp),
+        Column(Modifier.fillMaxWidth().imePadding().verticalScroll(rememberScrollState()).padding(24.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)) {
             Text("Connect your board", style = MaterialTheme.typography.headlineSmall)
             Text("Connect to the same Wi-Fi network as your board.", style = MaterialTheme.typography.bodyMedium)
@@ -155,7 +165,7 @@ fun ExperimentScreen(entry: ExperimentEntry, session: ExperimentSession, recordi
     }
     Scaffold(containerColor = MaterialTheme.colorScheme.surface, topBar = {
         TopAppBar(title = { Text(stream.title) },
-            subtitle = { Text(session.savedName ?: "Arduino · Wi-Fi", color = MaterialTheme.colorScheme.onPrimary, maxLines = 1) }, navigationIcon = { IconButton(onClick = { if (!session.busy) leave() }) { Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back to experiments") } },
+            subtitle = { Text(session.savedName ?: "Arduino · Wi-Fi", color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1) }, navigationIcon = { IconButton(onClick = { if (!session.busy) leave() }) { Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back to experiments") } },
             actions = {
                 IconButton(onClick = { export() }, enabled = history.isNotEmpty() && !session.active && !session.busy && !exporting) {
                     Icon(Icons.Filled.IosShare, "Export CSV")
@@ -167,7 +177,7 @@ fun ExperimentScreen(entry: ExperimentEntry, session: ExperimentSession, recordi
                     DropdownMenuItem(text = { Text("Clear measurements") }, leadingIcon = { Icon(Icons.Filled.DeleteOutline, null) }, enabled = history.isNotEmpty() && !session.active,
                         onClick = { menu = false; clearDialog = true })
                 }
-            }, colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primary, titleContentColor = MaterialTheme.colorScheme.onPrimary, navigationIconContentColor = MaterialTheme.colorScheme.onPrimary, actionIconContentColor = MaterialTheme.colorScheme.onPrimary))
+            }, colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.surfaceContainer, titleContentColor = MaterialTheme.colorScheme.onSurface, navigationIconContentColor = MaterialTheme.colorScheme.onSurface, actionIconContentColor = MaterialTheme.colorScheme.onSurface))
     }, bottomBar = {
         Surface(color = MaterialTheme.colorScheme.surfaceContainerLow) {
             Column(Modifier.navigationBarsPadding().padding(horizontal = 20.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
@@ -178,7 +188,7 @@ fun ExperimentScreen(entry: ExperimentEntry, session: ExperimentSession, recordi
                     TextButton(onClick = { timing = true }, enabled = !session.active && !session.busy) { Text("Recording timer") }
                 }
                 Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Button(onClick = { if (session.active) session.pause() else session.start(stream) },
+                    TallyAction(onClick = { if (session.active) session.pause() else session.start(stream) },
                         enabled = !session.busy && (session.active || matchingPlug), modifier = Modifier.weight(1f).heightIn(min = 56.dp), shapes = ButtonDefaults.shapes(
                             shape = if (session.active) MaterialTheme.shapes.large else MaterialTheme.shapes.extraLarge,
                             pressedShape = MaterialTheme.shapes.medium)) {
@@ -196,15 +206,22 @@ fun ExperimentScreen(entry: ExperimentEntry, session: ExperimentSession, recordi
     }) { padding ->
         Column(Modifier.fillMaxSize().padding(padding)) {
             Row(Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
-                StatusLed(if (session.running) StatusConnected else if (session.countdown > 0) StatusConnecting else StatusOff, session.running)
+                StatusLed(when {
+                    session.running -> MaterialTheme.colorScheme.primary
+                    session.countdown > 0 -> MaterialTheme.colorScheme.tertiary
+                    else -> MaterialTheme.colorScheme.outline
+                }, session.running)
                 Text(when { session.countdown > 0 -> "Starts in ${session.countdown} s"; session.running -> "Recording"; history.isNotEmpty() && !session.dirty -> "Saved"; history.isNotEmpty() -> "Unsaved run"; connected && !matchingPlug -> "Channel unavailable"; !connected -> "Disconnected"; else -> "Ready to record" },
                     modifier = Modifier.weight(1f).padding(start = 8.dp), style = MaterialTheme.typography.labelLarge)
                 Text("${history.size} samples  /  ${"%.1f".format(session.elapsed)} s", style = ReadoutSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
             PrimaryTabRow(selectedTabIndex = tab, containerColor = MaterialTheme.colorScheme.surface) {
-                listOf("Graph", "Readings", "Statistics").forEachIndexed { i, label -> Tab(selected = tab == i, onClick = { tab = i }, text = { Text(label) }) }
+                listOf("Graph", "Readings", "Statistics").forEachIndexed { i, label -> Tab(selected = tab == i, onClick = {
+                    if (tab != i) haptics.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                    tab = i
+                }, text = { Text(label) }) }
             }
-            Column(Modifier.weight(1f).verticalScroll(when (tab) { 0 -> graphScroll; 1 -> readingsScroll; else -> statisticsScroll }).padding(20.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+            Column(Modifier.weight(1f).verticalScroll(when (tab) { 0 -> graphScroll; 1 -> readingsScroll; else -> statisticsScroll }).padding(24.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
                 if (session.busy || exporting) LinearProgressIndicator(Modifier.fillMaxWidth())
                 session.message?.let { message ->
                     Surface(color = MaterialTheme.colorScheme.surfaceContainerLowest, shape = RoundedCornerShape(8.dp), border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)) {
@@ -248,9 +265,14 @@ fun ExperimentScreen(entry: ExperimentEntry, session: ExperimentSession, recordi
                     Icon(if (details) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore, null)
                     Text("Experiment notes")
                 }
-                if (details) {
-                    Text(if (entry.id == "accelerometer") "Keep the sensor still to establish a baseline. Move it along one axis at a time. Gravity may be included, depending on your sketch." else if (entry.id == "gyroscope") "Rotate the sensor around one axis at a time. Compare clockwise and counterclockwise motion with the sensor held in the same orientation." else "Check the plug’s units, axis order, and calibration against the board configuration before interpreting measurements.", style = MaterialTheme.typography.bodyMedium)
-                    Text("Values and units come from the plug definition. Legacy motion plugs also include vector magnitude. Tally does not convert your board's units. Pauses are excluded from elapsed time and shown as separate graph segments. Recording stops at 20,000 samples.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                AnimatedVisibility(visible = details,
+                    enter = expandVertically(spring(Spring.DampingRatioMediumBouncy, Spring.StiffnessLow)) + fadeIn(),
+                    exit = shrinkVertically(spring(stiffness = Spring.StiffnessLow)) + fadeOut(),
+                ) {
+                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Text(if (entry.id == "accelerometer") "Keep the sensor still to establish a baseline. Move it along one axis at a time. Gravity may be included, depending on your sketch." else if (entry.id == "gyroscope") "Rotate the sensor around one axis at a time. Compare clockwise and counterclockwise motion with the sensor held in the same orientation." else "Check the plug’s units, axis order, and calibration against the board configuration before interpreting measurements.", style = MaterialTheme.typography.bodyMedium)
+                        Text("Values and units come from the plug definition. Legacy motion plugs also include vector magnitude. Tally does not convert your board's units. Pauses are excluded from elapsed time and shown as separate graph segments. Recording stops at 20,000 samples.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
                 }
             }
         }

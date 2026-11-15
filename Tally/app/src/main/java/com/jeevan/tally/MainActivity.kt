@@ -15,6 +15,16 @@ import com.jeevan.tally.recording.ExerciseSetSession
 import com.jeevan.tally.ui.ExerciseScreen
 import com.jeevan.tally.ui.SetDetailScreen
 import androidx.activity.ComponentActivity
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.AnimatedContentTransitionScope.SlideDirection
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.unit.dp
+import com.jeevan.tally.ui.LoadingRows
 import androidx.activity.compose.setContent
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.compose.foundation.layout.fillMaxSize
@@ -33,11 +43,27 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContent {
             TallyTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
                     val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = "home") {
+                    NavHost(
+                        navController = navController,
+                        startDestination = "home",
+                        enterTransition = {
+                            slideIntoContainer(SlideDirection.Start, spring(stiffness = Spring.StiffnessLow)) { it / 8 } + fadeIn()
+                        },
+                        exitTransition = {
+                            slideOutOfContainer(SlideDirection.Start, spring(stiffness = Spring.StiffnessLow)) { it / 8 } + fadeOut()
+                        },
+                        popEnterTransition = {
+                            slideIntoContainer(SlideDirection.End, spring(stiffness = Spring.StiffnessLow)) { it / 8 } + fadeIn()
+                        },
+                        popExitTransition = {
+                            slideOutOfContainer(SlideDirection.End, spring(stiffness = Spring.StiffnessLow)) { it / 8 } + fadeOut()
+                        },
+                    ) {
                         composable("home") {
                             HomeScreen(context = this@MainActivity, onSelect = { id ->
                                 navController.navigate("experiment/$id")
@@ -74,8 +100,9 @@ class MainActivity : ComponentActivity() {
                                 } else ExperimentRegistry.find(id)
                             }
                             if (entry == null) {
-                                Column {
-                                    Text(if (loadError) "Recording could not be opened." else "Loading sensor…")
+                                Column(Modifier.safeDrawingPadding().padding(24.dp)) {
+                                    if (loadError) Text("Recording could not be opened.")
+                                    else LoadingRows("Loading sensor")
                                     TextButton(onClick = { navController.popBackStack() }) { Text("Back") }
                                 }
                                 return@composable

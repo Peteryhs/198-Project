@@ -100,7 +100,7 @@ fun ArduinoConnectionBar(context: Context, modifier: Modifier = Modifier) {
             if (connected || connecting) OutlinedButton(onClick = { ArduinoLink.disconnect() },
                 shapes = ButtonDefaults.shapes(), modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
                 Text(if (connecting) "Cancel connection" else "Disconnect")
-            } else Button(onClick = connect, enabled = canConnect, shapes = ButtonDefaults.shapes(),
+            } else TallyAction(onClick = connect, enabled = canConnect, shapes = ButtonDefaults.shapes(),
                 modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp)) { Text("Connect to board") }
         }
     }

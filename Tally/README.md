@@ -196,9 +196,9 @@ Samples carry monotonic TCP-arrival timestamps into the session. These preserve 
 
 The app uses Material3 **1.5.0-rc01** (release candidate), Compose BOM **2026.09.00**, Kotlin/Compose compiler plugin **2.4.10**, Android Gradle Plugin **9.1.1**, Gradle **9.3.1**, and compile SDK **37**. The minimum Android version remains API 26.
 
-The app uses the public `MaterialExpressiveTheme`, `MotionScheme.expressive()`, emphasized typography with Atkinson Hyperlegible, and Material animated button shapes for Record/Pause. The fixed brand palette and monospace numeric readouts are preserved. Material3 is deliberately pinned to a release candidate to enable these APIs; see the [official release notes](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-rc01).
+The app uses the public `MaterialExpressiveTheme`, `MotionScheme.expressive()`, emphasized typography with Atkinson Hyperlegible, and Material animated button shapes for Record/Pause. The app follows Android’s light and dark theme setting with a Tally palette for each. Navigation uses short spring slides, and primary controls use press feedback and Android haptics. Material3 is deliberately pinned to a release candidate to enable these APIs; see the [official release notes](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.5.0-rc01).
 
-All typography roles use the bundled Atkinson Hyperlegible family; live numeric readouts retain monospace with tabular numerals. The fixed light brand theme uses Ink `#26372C`, Paper `#F5F1E8`, Oat `#D9C9A8`, Clay `#995438`, and White `#FFFFFF`. Chart series may also use muted olive `#586442` and brown `#72523D`. Dynamic wallpaper colors and automatic dark recoloring are disabled to preserve the requested palette. Launcher and splash assets use the same brand tokens.
+All typography roles use the bundled Atkinson Hyperlegible family; live numeric readouts retain monospace with tabular numerals. The fixed light brand theme uses Ink `#26372C`, Paper `#F5F1E8`, Oat `#D9C9A8`, Clay `#995438`, and White `#FFFFFF`. Chart series may also use muted olive `#586442` and brown `#72523D`. Dark mode uses moss surfaces and lighter foreground colors. Both palettes are defined in the app theme. Launcher and splash assets use the same brand tokens.
 
 ## Build and tests
 

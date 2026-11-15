@@ -1,6 +1,8 @@
 package com.jeevan.tally.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.ui.graphics.Color
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.font.FontWeight
@@ -9,20 +11,38 @@ import androidx.compose.ui.unit.dp
 // Fixed brand colors: wallpaper-derived dynamic colors must never replace this palette.
 private val TallyColors = lightColorScheme(
     primary = Ink, onPrimary = Paper, primaryContainer = Oat, onPrimaryContainer = Ink,
-    secondary = Clay, onSecondary = White, secondaryContainer = Paper, onSecondaryContainer = Ink,
+    secondary = Clay, onSecondary = White, secondaryContainer = Color(0xFFE9E2D1), onSecondaryContainer = Ink,
     tertiary = Clay, onTertiary = White, tertiaryContainer = Oat, onTertiaryContainer = Ink,
     background = Paper, onBackground = Ink,
     surface = Paper, onSurface = Ink, surfaceVariant = White, onSurfaceVariant = Ink,
     surfaceContainerLowest = White, surfaceContainerLow = White,
-    surfaceContainer = Paper, surfaceContainerHigh = White, surfaceContainerHighest = Oat,
+    surfaceContainer = Color(0xFFEDE8DB), surfaceContainerHigh = Color(0xFFE6DFD0), surfaceContainerHighest = Oat,
     surfaceBright = White, surfaceDim = Oat, surfaceTint = Ink,
-    outline = Oat, outlineVariant = Oat,
+    outline = Color(0xFF797363), outlineVariant = Oat,
     inverseSurface = Ink, inverseOnSurface = Paper, inversePrimary = Paper,
     error = Clay, onError = White, errorContainer = Paper, onErrorContainer = Clay,
     scrim = Ink,
     primaryFixed = Paper, primaryFixedDim = Oat, onPrimaryFixed = Ink, onPrimaryFixedVariant = Ink,
     secondaryFixed = Paper, secondaryFixedDim = Oat, onSecondaryFixed = Clay, onSecondaryFixedVariant = Ink,
     tertiaryFixed = Paper, tertiaryFixedDim = Oat, onTertiaryFixed = Clay, onTertiaryFixedVariant = Ink,
+)
+private val TallyDarkColors = darkColorScheme(
+    primary = Color(0xFFC2DBBF), onPrimary = Ink,
+    primaryContainer = Color(0xFF304738), onPrimaryContainer = Color(0xFFE1F1DE),
+    secondary = Oat, onSecondary = Color(0xFF332D20),
+    secondaryContainer = Color(0xFF3D4032), onSecondaryContainer = Paper,
+    tertiary = Color(0xFFFFB69B), onTertiary = Color(0xFF4B2515),
+    background = Color(0xFF161C17), onBackground = Paper,
+    surface = Color(0xFF161C17), onSurface = Paper,
+    surfaceVariant = Color(0xFF3E483E), onSurfaceVariant = Color(0xFFCED5C8),
+    surfaceContainerLowest = Color(0xFF111712), surfaceContainerLow = Color(0xFF1D251E),
+    surfaceContainer = Color(0xFF252E26), surfaceContainerHigh = Color(0xFF303A31),
+    surfaceContainerHighest = Color(0xFF3C483D),
+    surfaceBright = Color(0xFF3C483D), surfaceDim = Color(0xFF161C17),
+    outline = Color(0xFF9DA89A), outlineVariant = Color(0xFF505D50),
+    error = Color(0xFFFFB4A5), onError = Color(0xFF541C11),
+    errorContainer = Color(0xFF572A20), onErrorContainer = Color(0xFFFFDAD1),
+    inverseSurface = Paper, inverseOnSurface = Ink, inversePrimary = Ink,
 )
 private val TallyTypography = Typography().let { base -> base.copy(
     displayLarge = base.displayLarge.copy(fontFamily = UiFontFamily, fontWeight = FontWeight.Bold),
@@ -58,10 +78,10 @@ private val TallyTypography = Typography().let { base -> base.copy(
 ) }
 private val TallyShapes = Shapes(
     extraSmall = RoundedCornerShape(4.dp), small = RoundedCornerShape(8.dp),
-    medium = RoundedCornerShape(12.dp), large = RoundedCornerShape(16.dp), extraLarge = RoundedCornerShape(28.dp),
+    medium = RoundedCornerShape(12.dp), large = RoundedCornerShape(16.dp), extraLarge = RoundedCornerShape(24.dp),
 )
 
 @Composable
 fun TallyTheme(content: @Composable () -> Unit) {
-    MaterialExpressiveTheme(motionScheme = MotionScheme.expressive(), colorScheme = TallyColors, typography = TallyTypography, shapes = TallyShapes, content = content)
+    MaterialExpressiveTheme(motionScheme = MotionScheme.expressive(), colorScheme = if (isSystemInDarkTheme()) TallyDarkColors else TallyColors, typography = TallyTypography, shapes = TallyShapes, content = content)
 }
