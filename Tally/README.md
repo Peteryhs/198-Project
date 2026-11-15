@@ -4,19 +4,12 @@ An Arduino-first exercise logger and telemetry viewer for Android, inspired by p
 
 Tally accompanies the ECE 198 Home Exercise Monitoring project. The UNO R4 Minima / Yún shield transport remains subject to hardware validation.
 
-## Connect over Wi-Fi
+## Connect and record
 
-On the Yún shield, run the existing Tally receiver with Wi-Fi streaming enabled. Use the shield's serial device in place of `/dev/ttyATH0` if its UART mapping differs. If the receiver is already running as a service, stop it before running this command so only one process reads the Arduino.
-
-```sh
-python3 -B -u scripts/tally_stdlib.py --port /dev/ttyATH0 --wifi-port 5555 --quiet
-```
-
-1. Put your phone and shield on the same trusted Wi-Fi network.
-2. In Tally, tap **Begin exercise**. Enter the shield’s IP address and port **5555**, then tap **Connect to board**.
-3. Start sensor streaming on the Arduino. In Tally, choose an exercise, calibrate, and start the set.
-
-The shield forwards paired sensor readings as the Arduino sends them. Generic charts in **Instructor view → Experiments** use the separately advertised sensor format below. The Wi-Fi connection accepts one phone at a time. The final board and shield should be tested together.
+1. Join the same network as the board.
+2. Enter the board's IP address and TCP port (example: `5555`) and connect.
+3. Open one of the advertised plugs. With an older sketch that sends no advertisement, Accelerometer and Gyroscope remain available.
+4. Record, pause to inspect, then save locally or export CSV.
 
 Timed runs and start delays are available. Pauses create separate graph segments; saved recordings can reopen without the original board. Recording currently stops at 20,000 samples.
 
@@ -144,7 +137,7 @@ E done
 
 Each `S` row contains a sequence number, device time in milliseconds, and six acceleration values in upper-arm then forearm XYZ order. These samples feed the exercise estimator and its device-clock coverage checks without a plug advertisement. Sequence and time must fit unsigned 32-bit integers, and all six readings must be finite.
 
-The shield receiver’s optional Wi-Fi port forwards these rows to the app. Start, pause, and finish the app's set using its exercise controls. Header, end, and Python verdict lines are ignored, and sequence numbers are validated without tracking continuity. The linked firmware sketch currently leaves `sendData()` empty, so its documented stream still requires implementation and hardware verification.
+A serial-to-TCP bridge must forward the stream to the app. Start, pause, and finish the app's set using its exercise controls. Header, end, and Python verdict lines are ignored, and sequence numbers are validated without tracking continuity. The linked firmware sketch currently leaves `sendData()` empty, so its documented stream still requires implementation and hardware verification.
 
 ### Older sketches
 
