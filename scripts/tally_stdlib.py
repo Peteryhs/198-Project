@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 import select
 import signal
+import socket
 import stat
 import sys
 import time
@@ -140,7 +141,7 @@ def scoring_budget(seconds):
 
 
 def run(stream, side_override=None, out=None, emit=True, reply=None,
-        models=None, live=False, reply_log=None):
+        models=None, live=False, reply_log=None, wifi_listener=None):
     header = None
     values = []
     fault = None
@@ -185,7 +186,8 @@ def run(stream, side_override=None, out=None, emit=True, reply=None,
         return {'end': end, 'sample_count': count, 'side': header['side'] if header else None,
                 'status': 'rejected', 'verdict': None, 'diagnostics': [reason]}
 
-    for raw in stream:
+    incoming = forward_wifi(stream, wifi_listener) if wifi_listener is not None else stream
+    for raw in incoming:
         now = time.monotonic()
         if live and header is not None and (now - activity >= IDLE_SECONDS or
                                             now - started >= SET_SECONDS):
@@ -404,6 +406,38 @@ def open_port(path):
     return SerialPort(path)
 
 
+def forward_wifi(stream, listener):
+    """Mirror paired samples to the newest phone without waiting on its socket."""
+    client = None
+    try:
+        for raw in stream:
+            try:
+                new_client, _ = listener.accept()
+            except BlockingIOError:
+                pass
+            else:
+                if client is not None:
+                    client.close()
+                client = new_client
+                client.setblocking(False)
+                client.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+
+            if client is not None and raw is not None and raw.startswith(b'S '):
+                frame = raw.rstrip(b'\r\n') + b'\n'
+                try:
+                    if client.send(frame) != len(frame):
+                        # Close on partial writes so the next row can't corrupt framing.
+                        client.close()
+                        client = None
+                except OSError:
+                    client.close()
+                    client = None
+            yield raw
+    finally:
+        if client is not None:
+            client.close()
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description='Score paired sets without NumPy or SciPy.')
     source = ap.add_mutually_exclusive_group(required=True)
@@ -414,12 +448,15 @@ def main(argv=None):
     ap.add_argument('--out', type=Path, help='bounded JSONL log (prefer /tmp)')
     ap.add_argument('--reply', choices=('port', 'file', 'both', 'none'), default=None)
     ap.add_argument('--reply-file', type=Path, default=Path('verdicts.log'))
+    ap.add_argument('--wifi-port', type=int, help='forward paired samples to Tally on this TCP port')
     ap.add_argument('--quiet', action='store_true', help='suppress JSON records on stdout')
     args = ap.parse_args(argv)
     mode = args.reply or ('port' if args.port else 'none')
     if mode in ('port', 'both') and not args.port:
         ap.error('--reply port/both requires --port')
-    port = capture = None
+    if args.wifi_port is not None and (not args.port or not 1 <= args.wifi_port <= 65535):
+        ap.error('--wifi-port requires --port and a TCP port between 1 and 65535')
+    port = capture = listener = None
     try:
         # Discover missing/corrupt/wrong models before accepting a set, not at E.
         models = {side: load_model(side) for side in ([args.side] if args.side else SIDES)}
@@ -428,18 +465,27 @@ def main(argv=None):
         if args.port:
             port = open_port(args.port)
             stream = port
+            if args.wifi_port is not None:
+                listener = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                listener.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+                listener.bind(('0.0.0.0', args.wifi_port))
+                listener.listen(1)
+                listener.setblocking(False)
+                print(f'tally: Wi-Fi TCP port {args.wifi_port}', file=sys.stderr, flush=True)
             print('tally: ready; waiting for a fresh #TALLY2 header', file=sys.stderr, flush=True)
         else:
             capture = args.file.open('rb') if args.file else sys.stdin.buffer
             stream = bounded_lines(capture)
         return run(stream, side_override=args.side, out=out, emit=not args.quiet,
                    reply=port.write if mode in ('port', 'both') else None,
-                   models=models, live=bool(port), reply_log=reply_log)
+                   models=models, live=bool(port), reply_log=reply_log, wifi_listener=listener)
     except (StreamError, OSError, ValueError, KeyError, ImportError) as exc:
         print(f'tally: fatal: {exc}; if a set was active, restart parser and MCU together',
               file=sys.stderr, flush=True)
         return 2
     finally:
+        if listener is not None:
+            listener.close()
         if port is not None:
             port.close()
         if capture is not None and args.file:
