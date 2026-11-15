@@ -41,28 +41,29 @@ fun rememberSavedSets(context: Context, refreshKey: Any?): State<List<SavedSet>?
     }
 
 /** The Exercise tab body, emitted into HomeScreen's LazyColumn. */
-fun LazyListScope.exerciseSection(context: Context, sets: List<SavedSet>?, wide: Boolean, onStartSet: () -> Unit, onOpenSet: (String) -> Unit) {
+fun LazyListScope.exerciseSection(context: Context, sets: List<SavedSet>?, wide: Boolean, onStartSet: () -> Unit, onOpenSet: (String) -> Unit, instructorView: Boolean = false) {
     item {
         val start: @Composable (Modifier) -> Unit = { modifier ->
             Surface(modifier, color = MaterialTheme.colorScheme.primaryContainer, shape = MaterialTheme.shapes.extraLarge) {
                 Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     Icon(Icons.Filled.FitnessCenter, null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(32.dp))
-                    Text("Start a set", style = MaterialTheme.typography.titleLargeEmphasized)
-                    Text("Counts repetitions and logs pace, range, efficiency and data quality for the instructor.",
+                    Text("Ready when you are", style = MaterialTheme.typography.titleLargeEmphasized)
+                    Text("Choose your exercise. Tally will guide you through setup.",
                         style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onPrimaryContainer)
                     Button(onClick = onStartSet, shapes = ButtonDefaults.shapes(), modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp)) {
-                        Text("Set up exercise")
+                        Text("Begin exercise")
                     }
                 }
             }
         }
-        if (wide) Row(horizontalArrangement = Arrangement.spacedBy(24.dp)) {
+        if (wide && instructorView) Row(horizontalArrangement = Arrangement.spacedBy(24.dp)) {
             ArduinoConnectionBar(context, Modifier.weight(1f)); start(Modifier.weight(1f))
         } else Column(verticalArrangement = Arrangement.spacedBy(20.dp)) {
-            start(Modifier.fillMaxWidth()); ArduinoConnectionBar(context)
+            start(Modifier.fillMaxWidth())
+            if (instructorView) ArduinoConnectionBar(context)
         }
     }
-    item { Text("History", style = MaterialTheme.typography.titleMediumEmphasized) }
+    item { Text("Saved sessions", style = MaterialTheme.typography.titleMediumEmphasized) }
     when {
         sets == null -> item { LinearProgressIndicator(Modifier.fillMaxWidth()) }
         sets.isEmpty() -> item {

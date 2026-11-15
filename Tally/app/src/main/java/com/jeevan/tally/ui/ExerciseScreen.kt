@@ -18,8 +18,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.liveRegion
@@ -27,7 +31,6 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jeevan.tally.exercise.*
@@ -40,7 +43,6 @@ import com.jeevan.tally.recording.ExerciseSetSession.CalibrationStep
 import com.jeevan.tally.recording.ExerciseSetSession.Phase
 import com.jeevan.tally.sensors.ArduinoLink
 import com.jeevan.tally.ui.theme.ReadoutMedium
-import kotlinx.coroutines.delay
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -52,23 +54,31 @@ fun ExerciseScreen(session: ExerciseSetSession, onBack: () -> Unit) {
     val context = LocalContext.current
     val scheme = MaterialTheme.colorScheme
     val store = remember { SetStore(File(context.filesDir, "sets")) }
+    val scrollState = rememberScrollState()
+    var setupStep by rememberSaveable { mutableStateOf(0) }
     var leaveDialog by remember { mutableStateOf(false) }
     var resetDialog by remember { mutableStateOf(false) }
     var saveDialog by remember { mutableStateOf(false) }
     var menu by remember { mutableStateOf(false) }
     val linkStatus by ArduinoLink.status.collectAsState()
-    val unsaved = session.phase != Phase.SETUP && session.savedName == null && (session.summary?.counted ?: 0) > 0
+    val unsaved = session.phase != Phase.SETUP && session.savedName == null
+    LaunchedEffect(session.phase) { if (session.phase == Phase.SETUP) setupStep = 0 }
+    LaunchedEffect(setupStep, session.phase) { scrollState.scrollTo(0) }
     val view = LocalView.current
     DisposableEffect(session.phase, view) {
         val previous = view.keepScreenOn
         if (session.phase == Phase.RUNNING) view.keepScreenOn = true
         onDispose { view.keepScreenOn = previous }
     }
-    fun leave() { if (unsaved) leaveDialog = true else onBack() }
+    fun leave() {
+        if (session.phase == Phase.SETUP && setupStep > 0) setupStep--
+        else if (unsaved) leaveDialog = true
+        else onBack()
+    }
     BackHandler { leave() }
 
     if (leaveDialog) AlertDialog(onDismissRequest = { leaveDialog = false }, title = { Text("Leave this set?") },
-        text = { Text("The repetitions logged so far have not been saved.") },
+        text = { Text("This set and its measurements have not been saved.") },
         confirmButton = { TextButton(onClick = { leaveDialog = false; onBack() }) { Text("Discard", color = scheme.error) } },
         dismissButton = { TextButton(onClick = { leaveDialog = false }) { Text("Stay") } })
     if (resetDialog) AlertDialog(onDismissRequest = { resetDialog = false }, title = { Text("Reset the count?") },
@@ -137,7 +147,7 @@ fun ExerciseScreen(session: ExerciseSetSession, onBack: () -> Unit) {
             }
         }
     }) { padding ->
-        Column(Modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState()).padding(20.dp),
+        Column(Modifier.fillMaxSize().padding(padding).imePadding().verticalScroll(scrollState).padding(20.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)) {
             session.message?.let { message ->
                 Surface(color = scheme.surfaceContainerLowest, shape = MaterialTheme.shapes.medium, border = BorderStroke(1.dp, scheme.outlineVariant)) {
@@ -149,9 +159,9 @@ fun ExerciseScreen(session: ExerciseSetSession, onBack: () -> Unit) {
                 }
             }
             when (session.phase) {
-                Phase.SETUP -> SetupPane(session)
+                Phase.SETUP -> SetupPane(session, setupStep) { setupStep = it }
                 Phase.RUNNING, Phase.PAUSED -> LivePane(session)
-                Phase.FINISHED -> FinishedPane(session)
+                Phase.FINISHED -> FinishedPane(session) { resetDialog = true }
             }
         }
     }
@@ -160,7 +170,7 @@ fun ExerciseScreen(session: ExerciseSetSession, onBack: () -> Unit) {
 // ---- Setup ---------------------------------------------------------------------------------
 
 @Composable
-private fun SetupPane(session: ExerciseSetSession) {
+private fun SetupPane(session: ExerciseSetSession, step: Int, onStep: (Int) -> Unit) {
     val scheme = MaterialTheme.colorScheme
     val boardConfig by ArduinoLink.boardConfig.collectAsState()
     var exercise by rememberSaveable { mutableStateOf(boardConfig?.exercise ?: Exercise.EFE) }
@@ -175,24 +185,64 @@ private fun SetupPane(session: ExerciseSetSession) {
         else Prescription(exercise, count, prescriptionId = rxId.trim())
     }
 
-    SourceCard(session)
+    val context = LocalContext.current
+    val status by ArduinoLink.status.collectAsState()
+    Text(when (step) { 0 -> "Connect your board"; 1 -> "Plan your set"; else -> "Get ready" },
+        style = MaterialTheme.typography.headlineMedium)
+    Text("Step ${step + 1} of 3", style = MaterialTheme.typography.labelLarge, color = scheme.onSurfaceVariant)
+    LinearProgressIndicator(progress = { (step + 1) / 3f }, modifier = Modifier.fillMaxWidth())
 
-    Text("Prescription", style = MaterialTheme.typography.titleMedium)
-    SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
-        Exercise.entries.forEachIndexed { i, e ->
-            SegmentedButton(selected = exercise == e, onClick = { exercise = e },
-                shape = SegmentedButtonDefaults.itemShape(i, Exercise.entries.size), icon = {}) {
-                Text(when (e) { Exercise.EAH -> "Arms up"; Exercise.EFE -> "Elbow flex"; Exercise.SQZ -> "Squeeze" },
-                    maxLines = 1, overflow = TextOverflow.Ellipsis)
+    if (step == 0) {
+        Text("Turn on your board and join its Wi-Fi network.", style = MaterialTheme.typography.bodyLarge)
+        ArduinoConnectionBar(context)
+        Button(onClick = { onStep(1) }, enabled = status == ArduinoLink.Status.CONNECTED,
+            modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp)) { Text("Continue") }
+        TextButton(onClick = { onStep(1) }, modifier = Modifier.fillMaxWidth()) { Text("Set up first, connect later") }
+        return
+    }
+    if (step == 2) {
+        Text("${exercise.label} · $count repetitions", style = MaterialTheme.typography.titleLarge)
+        if (status != ArduinoLink.Status.CONNECTED) {
+            Text("Connect your board to record this set.", style = MaterialTheme.typography.bodyLarge)
+            ArduinoConnectionBar(context)
+        } else CalibrationCard(session)
+        session.calibration?.let {
+            Text("Calibration complete. Start when you are ready.", color = scheme.primary,
+                style = MaterialTheme.typography.bodyLarge)
+        }
+        Button(onClick = { prescription.getOrNull()?.let(session::start) },
+            enabled = prescription.isSuccess && status == ArduinoLink.Status.CONNECTED &&
+                (session.calibration != null || ArduinoLink.boardStatus.collectAsState().value != null),
+            modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp)) {
+            Icon(Icons.Filled.PlayArrow, null); Spacer(Modifier.width(8.dp)); Text("Start set")
+        }
+        TextButton(onClick = { onStep(1) }, modifier = Modifier.fillMaxWidth()) { Text("Edit exercise") }
+        return
+    }
+
+    Text("Choose your exercise", style = MaterialTheme.typography.titleMedium)
+    Column {
+        Exercise.entries.forEach { option ->
+            Surface(onClick = { exercise = option }, modifier = Modifier.fillMaxWidth().semantics {
+                role = Role.RadioButton
+                selected = exercise == option
+            },
+                shape = MaterialTheme.shapes.medium,
+                color = if (exercise == option) scheme.secondaryContainer else scheme.surface) {
+                Row(Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically) {
+                    RadioButton(selected = exercise == option, onClick = null)
+                    Text(option.label, style = MaterialTheme.typography.bodyLarge,
+                        modifier = Modifier.padding(start = 12.dp))
+                }
             }
         }
     }
-    Text(exercise.label, style = MaterialTheme.typography.bodySmall, color = scheme.onSurfaceVariant)
     Row(verticalAlignment = Alignment.CenterVertically) {
         Text("Target repetitions", style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
-        FilledTonalIconButton(onClick = { count = (count - 1).coerceAtLeast(1) }) { Icon(Icons.Filled.Remove, "Fewer") }
+        FilledTonalIconButton(enabled = count > 1, onClick = { count = (count - 1).coerceAtLeast(1) }, modifier = Modifier.size(48.dp)) { Icon(Icons.Filled.Remove, "Fewer") }
         Text("$count", style = ReadoutMedium, modifier = Modifier.padding(horizontal = 16.dp).semantics { contentDescription = "$count repetitions" })
-        FilledTonalIconButton(onClick = { count = (count + 1).coerceAtMost(999) }) { Icon(Icons.Filled.Add, "More") }
+        FilledTonalIconButton(enabled = count < 999, onClick = { count = (count + 1).coerceAtMost(999) }, modifier = Modifier.size(48.dp)) { Icon(Icons.Filled.Add, "More") }
     }
     Row(verticalAlignment = Alignment.CenterVertically) {
         Column(Modifier.weight(1f)) {
@@ -200,26 +250,35 @@ private fun SetupPane(session: ExerciseSetSession) {
             Text("Seconds per repetition, from the instructor. There is no default range.",
                 style = MaterialTheme.typography.bodySmall, color = scheme.onSurfaceVariant)
         }
-        Switch(checked = pacePrescribed, onCheckedChange = { pacePrescribed = it })
+        Switch(checked = pacePrescribed, onCheckedChange = { pacePrescribed = it },
+            modifier = Modifier.semantics { contentDescription = "Prescribed pace" })
     }
-    if (pacePrescribed) Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-        PaceField("Min s", min, { min = it }, Modifier.weight(1f))
-        PaceField("Target s", target, { target = it }, Modifier.weight(1f))
-        PaceField("Max s", max, { max = it }, Modifier.weight(1f))
+    if (pacePrescribed) BoxWithConstraints {
+        if (maxWidth < 360.dp || LocalDensity.current.fontScale > 1.3f) {
+            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                PaceField("Minimum seconds", min, { min = it }, Modifier.fillMaxWidth())
+                PaceField("Target seconds", target, { target = it }, Modifier.fillMaxWidth())
+                PaceField("Maximum seconds", max, { max = it }, Modifier.fillMaxWidth())
+            }
+        } else Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            PaceField("Min s", min, { min = it }, Modifier.weight(1f))
+            PaceField("Target s", target, { target = it }, Modifier.weight(1f))
+            PaceField("Max s", max, { max = it }, Modifier.weight(1f))
+        }
     }
-    OutlinedTextField(rxId, { rxId = it.filter { c -> c != ',' && c != '\n' }.take(47) }, label = { Text("Prescription ID (optional)") },
+    var showPrescriptionId by rememberSaveable { mutableStateOf(rxId.isNotEmpty()) }
+    if (!showPrescriptionId) TextButton(onClick = { showPrescriptionId = true }) { Text("Add prescription ID") }
+    if (showPrescriptionId) OutlinedTextField(rxId, { rxId = it.filter { c -> c != ',' && c != '\n' }.take(47) }, label = { Text("Prescription ID (optional)") },
         singleLine = true, modifier = Modifier.fillMaxWidth(), shape = MaterialTheme.shapes.medium)
     prescription.exceptionOrNull()?.let {
         Text(if (it is NumberFormatException) "Enter all three pace values." else it.message.orEmpty(),
             color = scheme.error, style = MaterialTheme.typography.bodySmall)
     }
 
-    CalibrationCard(session)
+    Button(onClick = { onStep(2) }, enabled = prescription.isSuccess,
+        modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp)) { Text("Continue to calibration") }
+    TextButton(onClick = { onStep(0) }, modifier = Modifier.fillMaxWidth()) { Text("Back to connection") }
 
-    Button(onClick = { prescription.getOrNull()?.let(session::start) }, enabled = prescription.isSuccess,
-        modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp), shapes = ButtonDefaults.shapes()) {
-        Icon(Icons.Filled.PlayArrow, null, Modifier.size(20.dp)); Spacer(Modifier.width(8.dp)); Text("Start set")
-    }
 }
 
 @Composable
@@ -227,33 +286,6 @@ private fun PaceField(label: String, value: String, onChange: (String) -> Unit, 
     OutlinedTextField(value, { onChange(it.filter { c -> c.isDigit() || c == '.' }.take(5)) }, label = { Text(label) },
         singleLine = true, modifier = modifier, shape = MaterialTheme.shapes.medium,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal))
-}
-
-/** Says who is counting: the board firmware, the app's estimate, or nobody yet. */
-@Composable
-private fun SourceCard(session: ExerciseSetSession) {
-    val scheme = MaterialTheme.colorScheme
-    val status by ArduinoLink.status.collectAsState()
-    val board by ArduinoLink.boardStatus.collectAsState()
-    var now by remember { mutableStateOf(System.nanoTime() / 1_000_000) }
-    LaunchedEffect(Unit) { while (true) { delay(1000); now = System.nanoTime() / 1_000_000 } }
-    val streaming = session.lastFrameMillis?.let { now - it < 2000 } == true
-    val (title, body) = when {
-        status != ArduinoLink.Status.CONNECTED -> "No board connected" to "Connect from the Exercise tab. Sets can still be set up now."
-        board != null -> "The board is counting" to "Tally logs the firmware's count, pace, faults and end-of-set model verdict. Board state: ${board!!.state.label.lowercase()}."
-        streaming -> "Arm-pair data is arriving" to "The firmware is not counting yet, so Tally estimates repetitions from the two sensors. Calibrate first."
-        else -> "Connected, no arm-pair data" to "The board must send TALLY status lines or synchronized time_ms,upper xyz,forearm xyz rows."
-    }
-    Surface(color = scheme.surfaceContainerLow, shape = MaterialTheme.shapes.extraLarge) {
-        Row(Modifier.fillMaxWidth().padding(16.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-            StatusLed(if (board != null || streaming) com.jeevan.tally.ui.theme.StatusConnected else com.jeevan.tally.ui.theme.StatusOff,
-                board != null || streaming, Modifier.padding(top = 6.dp))
-            Column {
-                Text(title, style = MaterialTheme.typography.titleSmall)
-                Text(body, style = MaterialTheme.typography.bodySmall, color = scheme.onSurfaceVariant)
-            }
-        }
-    }
 }
 
 @Composable
@@ -267,8 +299,8 @@ private fun CalibrationCard(session: ExerciseSetSession) {
                 Text("Calibration", style = MaterialTheme.typography.titleSmall, modifier = Modifier.weight(1f).padding(start = 10.dp))
                 OutlinedButton(onClick = session::startCalibration, shapes = ButtonDefaults.shapes()) { Text(if (c == null) "Calibrate" else "Recalibrate") }
             }
-            Text(c?.let { "Measuring ${it.signal.label.lowercase()} over a ${it.rangeDegrees.toInt()}° range. Reps reaching 80% of it count as full." }
-                ?: "Hold the start position, then the end position, for two seconds each. Needed for the app's own count; the board calibrates with its own button.",
+            Text(c?.let { "Ready to measure your movement across a ${it.rangeDegrees.toInt()}° range." }
+                ?: "Tap Calibrate, then follow the two poses on screen. Keep your arm still while each pose is measured.",
                 style = MaterialTheme.typography.bodySmall, color = scheme.onSurfaceVariant)
             session.calibrationError?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = scheme.error) }
         }
@@ -414,7 +446,7 @@ private fun DataQualityRow(s: SetSummary) {
 // ---- Finished ------------------------------------------------------------------------------
 
 @Composable
-private fun FinishedPane(session: ExerciseSetSession) {
+private fun FinishedPane(session: ExerciseSetSession, onDiscard: () -> Unit) {
     val scheme = MaterialTheme.colorScheme
     val s = session.summary ?: return
     var observed by rememberSaveable { mutableStateOf(s.observedCount?.toString() ?: "") }
@@ -435,7 +467,7 @@ private fun FinishedPane(session: ExerciseSetSession) {
 
     SetSummaryView(s, session.reps)
 
-    OutlinedButton(onClick = session::reset, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp), shapes = ButtonDefaults.shapes()) {
+    OutlinedButton(onClick = { if (session.savedName == null) onDiscard() else session.reset() }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp), shapes = ButtonDefaults.shapes()) {
         Text(if (session.savedName == null) "Discard and start a new set" else "Start a new set")
     }
 }

@@ -15,12 +15,12 @@ Timed runs and start delays are available. Pauses create separate graph segments
 
 ## Exercise sets
 
-The **Exercise** tab is the app's main screen. It does what the project README asks of the device: count each repetition, keep the pace honest, tell a full repetition from a shallow one, and produce one summary for the instructor.
+The app opens in **Participant view**, with Begin exercise and saved sessions. The app-options menu switches to **Instructor view**, which also provides Exercise, Experiments, and Recordings navigation. The choice is saved on this device. Both views share the same local records. The exercise screen does what the project README asks of the device: count each repetition, keep the pace honest, tell a full repetition from a shallow one, and produce one summary for the instructor.
 
-1. Connect to the board, then tap **Set up exercise**.
+1. Tap **Begin exercise**. In the first setup step, connect to your board or choose to configure the exercise first.
 2. Choose the exercise (arms over head, elbow flexion or squeeze, the EAH/EFE/SQZ codes in `feedback.h`), the target count and, if the instructor prescribed one, a pace range in seconds per repetition. There is no default pace range.
-3. **Calibrate**: hold the start position, then the end position, for two seconds each.
-4. **Start**, exercise, **Pause**/**Resume** for rests, **Finish**. **Reset count** discards the set.
+3. Continue to the final setup step. **Calibrate**: hold the start position, then the end position, for two seconds each.
+4. Start after connecting and completing calibration, or when the board provides its own count. Exercise, **Pause**/**Resume** for rests, **Finish**. **Reset count** discards the set.
 5. Enter the count you actually observed, then **Save** and **Share** the report.
 
 ### Who counts

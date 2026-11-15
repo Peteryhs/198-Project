@@ -13,6 +13,7 @@ import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.FitnessCenter
 import androidx.compose.material.icons.filled.FolderOpen
 import androidx.compose.material.icons.filled.Science
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -40,12 +41,17 @@ fun HomeScreen(
     onStartSet: () -> Unit = {},
     onOpenSet: (String) -> Unit = {},
 ) {
+    val preferences = remember { context.getSharedPreferences("tally_prefs", Context.MODE_PRIVATE) }
+    var instructorView by rememberSaveable {
+        mutableStateOf(preferences.getBoolean("instructor_view", false))
+    }
     // 2 = Exercise, 0 = Experiments, 1 = Recordings. Exercise is the project's main job, so it opens first.
     var section by rememberSaveable { mutableStateOf(2) }
     var recordings by remember { mutableStateOf<List<RecordingInfo>>(emptyList()) }
     var loading by remember { mutableStateOf(true) }
     var loadError by remember { mutableStateOf(false) }
     var retry by remember { mutableStateOf(0) }
+    var showMenu by remember { mutableStateOf(false) }
     var showHelp by remember { mutableStateOf(false) }
     val scheme = MaterialTheme.colorScheme
     val experimentsScroll = rememberLazyListState()
@@ -64,7 +70,7 @@ fun HomeScreen(
     BoxWithConstraints {
         val wide = maxWidth >= 600.dp
         Scaffold(containerColor = scheme.surface, bottomBar = {
-            if (!wide) NavigationBar(containerColor = scheme.surfaceContainer, tonalElevation = 0.dp) {
+            if (!wide && instructorView) NavigationBar(containerColor = scheme.surfaceContainer, tonalElevation = 0.dp) {
                 NavigationBarItem(selected = section == 2, onClick = { section = 2 }, icon = { Icon(Icons.Filled.FitnessCenter, null) }, label = { Text("Exercise") })
                 NavigationBarItem(selected = section == 0, onClick = { section = 0 }, icon = { Icon(Icons.Filled.Science, null) }, label = { Text("Experiments") })
                 NavigationBarItem(selected = section == 1, onClick = { section = 1 }, icon = { Icon(Icons.Filled.FolderOpen, null) }, label = { Text("Recordings") })
@@ -75,22 +81,35 @@ fun HomeScreen(
                     TallyMark(color = scheme.onPrimary, size = 20.dp)
                     Text("Tally", style = MaterialTheme.typography.titleLarge)
                 }
-            }, actions = { TextButton(onClick = { showHelp = true }, colors = ButtonDefaults.textButtonColors(contentColor = scheme.onPrimary)) { Text("Setup help") } }, colors = TopAppBarDefaults.topAppBarColors(containerColor = scheme.primary, titleContentColor = scheme.onPrimary, navigationIconContentColor = scheme.onPrimary, actionIconContentColor = scheme.onPrimary))
+            }, actions = {
+                IconButton(onClick = { showMenu = true }) { Icon(Icons.Filled.MoreVert, "App options") }
+                DropdownMenu(expanded = showMenu, onDismissRequest = { showMenu = false }) {
+                    DropdownMenuItem(text = { Text(if (instructorView) "Participant view" else "Instructor view") },
+                        onClick = {
+                            showMenu = false
+                            instructorView = !instructorView
+                            section = 2
+                            preferences.edit().putBoolean("instructor_view", instructorView).apply()
+                        })
+                    DropdownMenuItem(text = { Text("Connection help") },
+                        onClick = { showMenu = false; showHelp = true })
+                }
+            }, colors = TopAppBarDefaults.topAppBarColors(containerColor = scheme.primary, titleContentColor = scheme.onPrimary, navigationIconContentColor = scheme.onPrimary, actionIconContentColor = scheme.onPrimary))
         }) { padding ->
             Row(Modifier.fillMaxSize().padding(padding)) {
-                if (wide) NavigationRail(containerColor = scheme.surfaceContainer, modifier = Modifier.fillMaxHeight()) {
+                if (wide && instructorView) NavigationRail(containerColor = scheme.surfaceContainer, modifier = Modifier.fillMaxHeight()) {
                     NavigationRailItem(selected = section == 2, onClick = { section = 2 }, icon = { Icon(Icons.Filled.FitnessCenter, null) }, label = { Text("Exercise") })
                     NavigationRailItem(selected = section == 0, onClick = { section = 0 }, icon = { Icon(Icons.Filled.Science, null) }, label = { Text("Experiments") })
                     NavigationRailItem(selected = section == 1, onClick = { section = 1 }, icon = { Icon(Icons.Filled.FolderOpen, null) }, label = { Text("Recordings") })
                 }
                 LazyColumn(Modifier.weight(1f), state = when (section) { 0 -> experimentsScroll; 1 -> recordingsScroll; else -> exerciseScroll }, contentPadding = PaddingValues(20.dp), verticalArrangement = Arrangement.spacedBy(20.dp)) {
                     item {
-                        Text(when (section) { 0 -> "Experiments"; 1 -> "Recordings"; else -> "Exercise" }, style = MaterialTheme.typography.headlineMedium, modifier = Modifier.semantics { heading() })
-                        Text(when (section) { 0 -> "Raw Arduino channels"; 1 -> "Saved on this device"; else -> "Count repetitions and log every set" },
+                        Text(when (section) { 0 -> "Experiments"; 1 -> "Recordings"; else -> if (instructorView) "Exercise sessions" else "Your exercise" }, style = MaterialTheme.typography.headlineMedium, modifier = Modifier.semantics { heading() })
+                        Text(when (section) { 0 -> "Raw Arduino channels"; 1 -> "Saved on this device"; else -> if (instructorView) "Review saved sets and exercise reports" else "Set up, exercise, and save your progress" },
                             style = MaterialTheme.typography.bodyMedium, color = scheme.onSurfaceVariant, modifier = Modifier.padding(top = 4.dp))
                     }
                     if (section == 2) {
-                        exerciseSection(context, sets, wide, onStartSet, onOpenSet)
+                        exerciseSection(context, sets, wide, onStartSet, onOpenSet, instructorView)
                     } else if (section == 0) {
                         if (wide) item {
                             Row(horizontalArrangement = Arrangement.spacedBy(24.dp), verticalAlignment = Alignment.Top) {
