@@ -123,7 +123,7 @@ CAL,<1|0>[,<detail>]
 
 The first is the documented replay row from `docs/BASIC-FEEDBACK.md`, without its header: a synchronized six-channel frame in g with the board's timestamp. `D,arm_pair,<6 values>` from an advertised `arm_pair:6` plug also feeds exercise sets, but without a board clock coverage falls back to arrival time.
 
-`TALLY` copies `TallyOutput` field for field: `state` 0–4 (idle, ready, running, paused, finished), `cue` 0–3 (abstain, on target, too fast, too slow), `timing_reason` 0–6, and the `TALLY_*` fault bits. Probabilities may be `nan` unless `assessment_available` is 1; any other malformed value drops the frame. Send one after each output change and at least once a second while running. `TALLYCFG` echoes the board's `C` command so a set started on the board uses its prescription; `CAL` reports the calibrate button. `arduino_example/tally_exercise_bridge.ino` shows all of them.
+`TALLY` copies `TallyOutput` field for field: `state` 0–4 (idle, ready, running, paused, finished), `cue` 0–3 (abstain, on target, too fast, too slow), `timing_reason` 0–6, and the `TALLY_*` fault bits. Probabilities may be `nan` unless `assessment_available` is 1; any other malformed value drops the frame. Send one after each output change and at least once a second while running. `TALLYCFG` echoes the board's `C` command so a set started on the board uses its prescription; `CAL` reports the calibrate button.
 
 ### Paired firmware stream
 
@@ -210,10 +210,6 @@ Open this folder in Android Studio and use a compatible Gradle JDK (Java 21 is v
 ```
 
 Tests cover parsing, metadata validation, variable-axis recordings, old file compatibility, buffer overflow and cancellation, session timing, reconnect races, statistics, and CSV formatting. Exercise tests drive synthetic 100 Hz elbow-flexion frames through calibration and counting (full, shallow, too small, wobble near the threshold, pause mid-movement, starting with the arm raised), check every set metric in both app and board modes, parse every exercise frame and its malformed variants, and round-trip saved sets. Hardware calibration, throughput, and frame-time benchmarks require separate device testing.
-
-## Arduino example
-
-`arduino_example/tally_bridge.ino` advertises one 3-axis accelerometer and streams raw 12-bit ADC counts from A0–A2. It does not claim calibrated acceleration. It differs from the ECE 198 four-sensor, single-axis proposal. Confirm ADXL335 module power requirements and board/shield/library compatibility before using it; the example has not been compiled against a verified UNO R4/Yún toolchain.
 
 ## Remaining platform work
 

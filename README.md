@@ -101,7 +101,7 @@ Open [`Tally/`](Tally/) as the project folder in Android Studio. See the [app RE
 
 The app's Exercise tab counts repetitions and logs each set: count against the prescribed target, pace per repetition against the prescribed range, full versus shallow range of motion, efficiency, active time and pauses, samples recorded, timing gaps, clipping and faults, counting error against an observed count, and the board's end-of-set model verdict. It uses the firmware's count when the board sends `TALLY` status frames and its own two-sensor estimate otherwise, and checks every set against the design targets above. It also keeps data-driven sensor channels, legacy accelerometer/gyroscope messages, buffered acquisition, live plots, saved recordings, and CSV export. It uses Material3 1.5.0-rc01, Gradle 9.3.1, AGP 9.1.1, and compile SDK 37. Local validation: 50 JVM tests pass, debug assembly succeeds, and lint has no errors. Real-board timing and measurement accuracy remain unverified.
 
-`Tally/` is the maintained source. `Tally.zip` is an older uploaded snapshot.
+`Tally/` is the Android Studio project.
 
 ## Build and upload
 
