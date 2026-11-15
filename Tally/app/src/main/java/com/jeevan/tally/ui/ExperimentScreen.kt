@@ -66,7 +66,7 @@ fun ExperimentScreen(entry: ExperimentEntry, session: ExperimentSession, recordi
     val plugs by ArduinoLink.plugs.collectAsState()
     val connected = status == ArduinoLink.Status.CONNECTED
     val matchingPlug = connected && plugs.any { it == entry.spec }
-    val history = session.samples
+    val history = session.samples.toList()
     var tab by rememberSaveable { mutableStateOf(0) }
     val graphScroll = rememberScrollState()
     val readingsScroll = rememberScrollState()
@@ -316,7 +316,7 @@ private fun GraphPanel(history: List<SensorSample>, colors: List<Color>, names: 
     var window by rememberSaveable { mutableStateOf(10f) }
     var position by remember { mutableStateOf<Float?>(null) }
     var selected by remember { mutableStateOf<SensorSample?>(null) }
-    LaunchedEffect(active, history.size) { if (active || history.isEmpty()) { position = null; selected = null } }
+    LaunchedEffect(active, history.isEmpty()) { if (active || history.isEmpty()) { position = null; selected = null } }
     val last = history.lastOrNull()?.t ?: 0f
     val span = if (window == 0f) last.coerceAtLeast(1f) else window
     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
@@ -378,7 +378,7 @@ private fun StatisticsPanel(history: List<SensorSample>, names: List<String>, un
     Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
         names.forEachIndexed { i, name -> FilterChip(selected = axis == i, onClick = { axis = i }, label = { Text(name.replaceFirstChar { it.uppercase() }) }) }
     }
-    val stats = axisStatistics(history, axis)
+    val stats = remember(history, axis) { axisStatistics(history, axis) }
     Surface(color = MaterialTheme.colorScheme.surfaceContainerLowest, shape = MaterialTheme.shapes.large, border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)) {
         Column(Modifier.padding(horizontal = 16.dp)) {
             listOf("Minimum" to stats?.min, "Maximum" to stats?.max, "Mean" to stats?.mean, "RMS" to stats?.rms, "Standard deviation" to stats?.deviation).forEachIndexed { index, (label, value) ->

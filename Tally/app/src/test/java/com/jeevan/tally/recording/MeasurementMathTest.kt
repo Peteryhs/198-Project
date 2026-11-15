@@ -14,6 +14,27 @@ class MeasurementMathTest {
         assertEquals(sqrt(8.0 / 3), result.rms, 1e-10)
         assertEquals(result.rms, result.deviation, 1e-10)
     }
+    @Test fun `plot window preserves duplicate timestamps at both boundaries`() {
+        val samples = listOf(0f, 2f, 2f, 3f, 4f, 4f, 6f).mapIndexed { i, time ->
+            SensorSample(time, floatArrayOf(i.toFloat()))
+        }
+        assertEquals(samples.subList(1, 6), samplesInWindow(samples, 2f, 4f))
+        assertEquals(samples.subList(4, 6), samplesInWindow(samples, 4f, 4f))
+        assertEquals(samples, samplesInWindow(samples, -1f, 7f))
+        assertTrue(samplesInWindow(samples, 4.5f, 5f).isEmpty())
+        assertTrue(samplesInWindow(samples, 7f, 8f).isEmpty())
+        assertTrue(samplesInWindow(emptyList(), 0f, 1f).isEmpty())
+    }
+    @Test fun `statistics ignore missing readings and retain small variation at large offsets`() {
+        val samples = listOf(floatArrayOf(), floatArrayOf(Float.NaN), floatArrayOf(1_000_000f),
+            floatArrayOf(1_000_001f), floatArrayOf(1_000_002f)).mapIndexed { index, values ->
+            SensorSample(index.toFloat(), values)
+        }
+        val result = axisStatistics(samples, 0)!!
+        assertEquals(1_000_001.0, result.mean, 0.0)
+        assertEquals(sqrt(2.0 / 3.0), result.deviation, 1e-10)
+        assertEquals(PlotBounds(999_999.8f, 1_000_002.2f), plotBounds(samples, setOf(0)))
+    }
     @Test fun `constant signal has zero deviation and nonzero range on plot`() {
         val samples = listOf(SensorSample(0f, floatArrayOf(9.8f)), SensorSample(1f, floatArrayOf(9.8f)))
         assertEquals(0.0, axisStatistics(samples, 0)!!.deviation, 0.0)

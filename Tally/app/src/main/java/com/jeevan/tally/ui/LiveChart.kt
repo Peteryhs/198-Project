@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -20,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jeevan.tally.recording.nearestSample
 import com.jeevan.tally.recording.plotBounds
+import com.jeevan.tally.recording.samplesInWindow
 import com.jeevan.tally.sensors.SensorSample
 import com.jeevan.tally.ui.theme.*
 import kotlin.math.abs
@@ -51,20 +54,21 @@ fun LiveChart(
     val span = windowSeconds.coerceAtLeast(0.1f)
     val end = (endTime ?: history.lastOrNull()?.t ?: span).coerceAtLeast(span)
     val start = (end - span).coerceAtLeast(0f)
-    val visible = history.filter { it.t in start..end }
-    val bounds = plotBounds(visible, axes)
+    val visible = remember(history, start, end) { samplesInWindow(history, start, end) }
+    val bounds = remember(visible, axes) { plotBounds(visible, axes) }
+    val currentOnSelect = rememberUpdatedState(onSelect)
     Box(modifier.fillMaxWidth().height(chartHeight).background(surfaceColor)) {
         Canvas(Modifier.fillMaxSize().semantics {
             contentDescription = "Time graph, ${"%.1f".format(start)} to ${"%.1f".format(end)} seconds, ${axes.size} visible traces."
-        }.pointerInput(visible, start, end, interactive) {
-            if (interactive) detectTapGestures { point ->
+        }.then(if (interactive) Modifier.pointerInput(visible, start, end) {
+            detectTapGestures { point ->
                 val left = 62.dp.toPx(); val right = size.width - 16.dp.toPx()
                 if (point.x in left..right && right > left) {
                     val t = start + (point.x - left) / (right - left) * span
-                    onSelect(nearestSample(visible, t))
+                    currentOnSelect.value(nearestSample(visible, t))
                 }
             }
-        }) {
+        } else Modifier)) {
             val left = 62.dp.toPx(); val top = 18.dp.toPx()
             val right = size.width - 16.dp.toPx(); val bottom = size.height - 36.dp.toPx()
             val width = right - left; val height = bottom - top
