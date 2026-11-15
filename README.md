@@ -20,7 +20,7 @@ Sensors for older adults who exercise at home alone. The device counts repetitio
 - [Known gaps](#known-gaps)
 - [Roadmap](#roadmap)
 - [Team](#team)
-- [AI assistance](#ai-assistance)
+- [Project sources](#project-sources)
 - [Course](#course)
 
 ## What the project does
@@ -136,9 +136,9 @@ Note: the Arduino core calls `loop()` after `setup()`. The sketch declares `main
 
 ECE 198 Design Project team, University of Waterloo.
 
-## AI assistance
+## Project sources
 
-Hermes Agent, with a DeepSeek V4.1 model, drafted this README and drew the figure. The design facts come from the team's Solution 2 report, the ECE 198 parts list, and the code in this repository.
+The design comes from the team's Solution 2 report, the ECE 198 parts list, and the code in this repository.
 
 ## Course
 
