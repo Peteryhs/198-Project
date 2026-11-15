@@ -31,7 +31,7 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
-import java.util.Locale
+import androidx.compose.ui.platform.LocalConfiguration
 
 /** Loads saved sets for the Exercise tab. Reloads whenever [refreshKey] changes. */
 @Composable
@@ -82,7 +82,7 @@ private fun SavedSetRow(set: SavedSet, onClick: () -> Unit) {
         supportingContent = {
             Column {
                 Text("${s.counted}/${s.prescription.targetCount} reps · efficiency ${percent(s.efficiency)} · samples ${percent(s.coverage)}", style = ReadoutSmall)
-                Text(SimpleDateFormat("MMM d, yyyy · HH:mm", Locale.getDefault()).format(Date(s.startedAtMillis)))
+                Text(SimpleDateFormat("MMM d, yyyy · HH:mm", LocalConfiguration.current.locales[0]).format(Date(s.startedAtMillis)))
             }
         },
         leadingContent = { Icon(Icons.Filled.FitnessCenter, null, tint = scheme.primary) },
@@ -131,7 +131,7 @@ fun SetDetailScreen(id: String, onBack: () -> Unit) {
             val current = set
             if (current == null && error == null) LinearProgressIndicator(Modifier.fillMaxWidth())
             if (current != null) {
-                Text(SimpleDateFormat("EEEE, MMM d, yyyy · HH:mm", Locale.getDefault()).format(Date(current.summary.startedAtMillis)),
+                Text(SimpleDateFormat("EEEE, MMM d, yyyy · HH:mm", LocalConfiguration.current.locales[0]).format(Date(current.summary.startedAtMillis)),
                     style = MaterialTheme.typography.bodyMedium, color = scheme.onSurfaceVariant)
                 SetSummaryView(current.summary, current.reps)
             }

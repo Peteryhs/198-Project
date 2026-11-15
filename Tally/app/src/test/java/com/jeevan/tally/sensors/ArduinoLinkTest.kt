@@ -8,6 +8,26 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.first
 
 class ArduinoLinkTest {
+    @Test fun `firmware stream reaches the exercise bus without a plug advertisement`() = runBlocking {
+        ServerSocket(0).use { server ->
+            server.soTimeout = 3000
+            ArduinoLink.connect("127.0.0.1", server.localPort)
+            server.accept().use { client ->
+                awaitStatus(ArduinoLink.Status.CONNECTED)
+                val reading = async(start = CoroutineStart.UNDISPATCHED) {
+                    withTimeout(3000) { ArduinoLink.samples("arm_pair").first() }
+                }
+                client.getOutputStream().write(
+                    "#TALLY2 fs=100 unit=g range=3 side=L\nS 42 420 1 2 3 0.1 0.2 0.3\n".toByteArray()
+                )
+                client.getOutputStream().flush()
+                val sample = reading.await()
+                assertEquals(420L, sample.deviceMillis)
+                assertArrayEquals(floatArrayOf(1f, 2f, 3f, 0.1f, 0.2f, 0.3f), sample.values, 0f)
+            }
+        }
+    }
+
     @After fun disconnect() { ArduinoLink.disconnect() }
     private fun awaitStatus(status: ArduinoLink.Status) {
         val deadline = System.nanoTime() + 3_000_000_000L

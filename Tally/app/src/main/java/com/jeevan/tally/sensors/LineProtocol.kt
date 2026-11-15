@@ -94,14 +94,21 @@ object LineProtocol {
         val exercise = Exercise.fromCode(f[1].toInt())!!
         return Message.BoardConfig(
             Prescription(exercise, f[2].toInt(), f[3].toFloat(), f[4].toFloat(), f[5].toFloat(), f.getOrNull(7).orEmpty()),
-            prescribed = f[6] == "1",
+            prescribed = f[6].also { require(it in setOf("0", "1")) } == "1",
         )
     }
 
     /** PLUGS is an atomic catalog replacement; any malformed descriptor rejects the line. */
     fun parseMessage(raw: String): Message? = runCatching {
         if (raw.length > 8192) return null
-        val fields = raw.trim().split(',').map(String::trim)
+        val line = raw.trim()
+        if (line.startsWith("S ")) {
+            val sample = line.split(Regex("\\s+"))
+            require(sample.size == 9)
+            require(numericRow.matches(sample[1]) && sample[1].toLong() <= 0xFFFF_FFFFL)
+            return pairFrame(sample.drop(2))
+        }
+        val fields = line.split(',').map(String::trim)
         pairFrame(fields)?.let { return it }
         when (fields.firstOrNull()?.uppercase()) {
             "TALLY" -> boardStatus(fields)

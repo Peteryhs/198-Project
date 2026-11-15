@@ -7,6 +7,28 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class ExerciseProtocolTest {
+    @Test fun `paired firmware samples preserve the device clock and axis order`() {
+        val frame = LineProtocol.parseMessage("S 42 12340 0.01 -0.98 0.12 0.5 -0.85 0.02\r") as LineProtocol.Message.PairFrame
+        assertEquals(12340L, frame.deviceMillis)
+        assertArrayEquals(floatArrayOf(0.01f, -0.98f, 0.12f, 0.5f, -0.85f, 0.02f), frame.values, 0f)
+        assertNotNull(LineProtocol.parseMessage("S  0  0 0 0 0 0 0 0"))
+    }
+
+    @Test fun `malformed firmware samples and control lines are ignored`() {
+        for (line in listOf(
+            "S -1 0 0 0 0 0 0 0", "S 4294967296 0 0 0 0 0 0 0",
+            "S 0 4294967296 0 0 0 0 0 0", "S 0 0 0 0 0 0 0 NaN",
+            "S 0 0 0 0 0 0 0 Infinity", "S 0 0 0 0 0 0 0",
+            "S 0 0 0 0 0 0 0 0 extra", "#TALLY2 fs=100 unit=g range=3 side=L",
+            "E done", "E aborted", "V unknown nan -"
+        )) assertNull(line, LineProtocol.parseMessage(line))
+    }
+
+    @Test fun `invalid prescription flag cannot silently disable pace checks`() {
+        assertNull(LineProtocol.parseMessage("TALLYCFG,2,10,1.8,2,2.2,yes"))
+        assertNull(LineProtocol.parseMessage("TALLYCFG,2,10,1.8,2,2.2,2"))
+    }
+
     @Test fun `documented CSV row becomes a synchronized pair frame`() {
         val m = LineProtocol.parseMessage("12340,0.01,-0.98,0.12,0.5,-0.85,0.02\r") as LineProtocol.Message.PairFrame
         assertEquals(12340L, m.deviceMillis)

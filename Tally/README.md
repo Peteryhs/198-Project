@@ -125,6 +125,20 @@ The first is the documented replay row from `docs/BASIC-FEEDBACK.md`, without it
 
 `TALLY` copies `TallyOutput` field for field: `state` 0–4 (idle, ready, running, paused, finished), `cue` 0–3 (abstain, on target, too fast, too slow), `timing_reason` 0–6, and the `TALLY_*` fault bits. Probabilities may be `nan` unless `assessment_available` is 1; any other malformed value drops the frame. Send one after each output change and at least once a second while running. `TALLYCFG` echoes the board's `C` command so a set started on the board uses its prescription; `CAL` reports the calibrate button. `arduino_example/tally_exercise_bridge.ino` shows all of them.
 
+### Paired firmware stream
+
+The app also accepts the sample format documented in [Tally-Firmware](https://github.com/Sassy33893/Tally-Firmware/tree/main/198project) and used by the project's paired-stream pipeline.
+
+```text
+#TALLY2 fs=100 unit=g range=3 side=L
+S 42 420 0.01 -0.98 0.12 0.5 -0.85 0.02
+E done
+```
+
+Each `S` row contains a sequence number, device time in milliseconds, and six acceleration values in upper-arm then forearm XYZ order. These samples feed the exercise estimator and its device-clock coverage checks without a plug advertisement. Sequence and time must fit unsigned 32-bit integers, and all six readings must be finite.
+
+A serial-to-TCP bridge must forward the stream to the app. Start, pause, and finish the app's set using its exercise controls. Header, end, and Python verdict lines are ignored, and sequence numbers are validated without tracking continuity. The linked firmware sketch currently leaves `sendData()` empty, so its documented stream still requires implementation and hardware verification.
+
 ### Older sketches
 
 ```text
