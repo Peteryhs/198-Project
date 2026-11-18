@@ -3,8 +3,8 @@
 Sensors for older adults who exercise at home alone. The device counts repetitions and keeps the pace honest.
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Peteryhs/198-Project/main/assets/data-flow-dark.svg">
-  <img src="https://raw.githubusercontent.com/Peteryhs/198-Project/main/assets/data-flow-light.svg" alt="Data path: four ADXL335 accelerometers on one matched pair of limbs feed an Arduino UNO R4 Minima, which counts repetitions and drives an OLED screen. A planned Python model on a host computer scores each session." width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Peteryhs/198-Project/main/MISC/assets/data-flow-dark.svg">
+  <img src="https://raw.githubusercontent.com/Peteryhs/198-Project/main/MISC/assets/data-flow-light.svg" alt="Data path: four ADXL335 accelerometers on one matched pair of limbs feed an Arduino UNO R4 Minima, which counts repetitions and drives an OLED screen. A planned Python model on a host computer scores each session." width="100%">
 </picture>
 
 ## Table of contents
@@ -35,10 +35,10 @@ The embedded firmware and host model remain scaffolds. The Tally Android app has
 
 | Part | State |
 | --- | --- |
-| `Tally/` | Android Studio project in three modules (`contract`, `backend`, `app`): joins the board's WiFi link, records six-channel sets, counts repetitions, scores each set with the shipped model, guides an on-arm calibration, keeps history, and exports CSV. |
-| `hardware/198project/` | Sketch entry point and an `Accelerometer` class header. The sketch is a stub. |
-| `model/model.py` | Empty file. |
-| Data transfer | Paired text stream, implemented: `scripts/tally_paired_stream.py` reads six values per sample from `Serial1` and scores the set. Line contract in `docs/BOARD-TO-PARSER.html`. |
+| `App/` | Android Studio project in three modules (`contract`, `backend`, `app`): joins the board's WiFi link, records six-channel sets, counts repetitions, scores each set with the shipped model, guides an on-arm calibration, keeps history, and exports CSV. |
+| `Firmware/198project/` | Sketch entry point and an `Accelerometer` class header. The sketch is a stub. |
+| `Model/model.py` | Empty file. |
+| Data transfer | Paired text stream, implemented: `MISC/scripts/tally_paired_stream.py` reads six values per sample from `Serial1` and scores the set. Line contract in `MISC/docs/BOARD-TO-PARSER.html`. |
 | WiFi path | Under evaluation with the Arduino Yún shield. |
 | Bill of materials | Drafted. No parts are ordered. |
 
@@ -54,7 +54,7 @@ The screen shows the count and the pace during the session. Three buttons start 
 
 The host model reads the samples, scores each repetition, and writes one summary for the instructor.
 
-The model for the sensor pair is `model/paired-synchronized-offline/{L,R}`: 61 inputs, 992 parameter bytes, 91.03 % quality accuracy on the left side over 30 held-out volunteers. `docs/PIPELINE.md` traces a set from the accelerometers to the verdict.
+The model for the sensor pair is `Model/paired-synchronized-offline/{L,R}`: 61 inputs, 992 parameter bytes, 91.03 % quality accuracy on the left side over 30 held-out volunteers. `MISC/docs/PIPELINE.md` traces a set from the accelerometers to the verdict.
 
 
 ## Hardware
@@ -68,7 +68,7 @@ The model for the sensor pair is `model/paired-synchronized-offline/{L,R}`: 61 i
 | Pushbutton | 3 | Start, calibrate, reset. |
 | Armband | 4 | Holds each sensor in the same position on every session. |
 
-Datasheets for the board and the shield are in `hardware/resources/`.
+Datasheets for the board and the shield are in `Firmware/resources/`.
 
 ## Design targets
 
@@ -84,20 +84,17 @@ These numbers are requirements, not results. No measurement exists yet.
 
 ```text
 198-Project/
-├── Tally/                   Android Studio project (current app source)
-├── hardware/
-│   ├── 198project/          Arduino sketch and source files
-│   ├── resources/           datasheets for the board and the WiFi shield
-│   └── notes.txt            pin notes for the Yún shield
-├── model/
-│   └── model.py             host model, empty
-├── assets/                  the figure above, light and dark versions
-└── README.md
+├── Firmware/          Arduino sketch and source files, board datasheets, pin notes
+├── App/               Android Studio project: contract, backend, app modules
+├── Model/             model artefacts, the C streaming runtime, the empty host-model
+│                     stub, and the PHYTMO training data
+└── MISC/              research docs, scripts, configs, data samples, figures, papers,
+                      assets, simulation, tests, tools
 ```
 
 ## Tally Android app
 
-Open [`Tally/`](Tally/) as the project folder in Android Studio. `settings.gradle.kts` includes three modules: `contract` holds the backend interface and a fake backend for previews and tests, `backend` holds the WiFi link, recording, calibration, scoring and CSV export, and `app` holds the Compose UI. The link, hop by hop with the unit at every step, is in [`Tally/docs/LINK.md`](Tally/docs/LINK.md); the frame format is in [`Tally/docs/ESP32-WIRE-V1.md`](Tally/docs/ESP32-WIRE-V1.md), and the firmware side in [`Tally/docs/FIRMWARE-HANDOFF.md`](Tally/docs/FIRMWARE-HANDOFF.md).
+Open [`App/`](App/) as the project folder in Android Studio. `settings.gradle.kts` includes three modules: `contract` holds the backend interface and a fake backend for previews and tests, `backend` holds the WiFi link, recording, calibration, scoring and CSV export, and `app` holds the Compose UI. The link, hop by hop with the unit at every step, is in [`App/docs/LINK.md`](App/docs/LINK.md); the frame format is in [`App/docs/ESP32-WIRE-V1.md`](App/docs/ESP32-WIRE-V1.md), and the firmware side in [`App/docs/FIRMWARE-HANDOFF.md`](App/docs/FIRMWARE-HANDOFF.md).
 
 The app joins the board's WiFi access point — network names start with `Tally-`, and the current firmware uses WPA2 — and records six channels at 100 Hz from a TCP stream at `192.168.4.1:5198`. Millivolts travel on the wire; the app converts to g once, in `Calibration.toG`, so the model always sees g.
 
@@ -112,7 +109,7 @@ The sketch does not run yet. These steps describe the intended loop.
 1. Install the Arduino IDE, version 2.x.
 2. Add the *Arduino UNO R4 Boards* package in the board manager.
 3. Select **Arduino UNO R4 Minima** and the port of the board.
-4. Open `hardware/198project/198project.ino`.
+4. Open `Firmware/198project/198project.ino`.
 5. Upload the sketch.
 
 Note: the Arduino core calls `loop()` after `setup()`. The sketch declares `main()` instead, so the link step fails. See [Known gaps](#known-gaps).

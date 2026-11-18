@@ -19,7 +19,7 @@ def main():
     assert np.allclose(f[9:12], [3, 14, 108])
 
     # Actual sample cache associations, including repetitions per manifest row.
-    root = Path(__file__).resolve().parents[1] / "training-data"
+    root = Path(__file__).resolve().parents[2] / "Model" / "training-data"
     bags, y, subjects, exs, names = rp.load_cache(root, "Larm")
     assert len(bags) == len(names) == len(y)
     assert all(len(b) > 0 and b.shape[1] == 31 for b in bags)

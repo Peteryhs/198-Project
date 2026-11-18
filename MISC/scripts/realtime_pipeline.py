@@ -1,6 +1,6 @@
 """Bounded, reproducible repetition-feature baseline and tiny linear export.
 
-Example: python scripts/realtime_pipeline.py training-data --features-root
+Example: python MISC/scripts/realtime_pipeline.py Model/training-data --features-root
 """
 from __future__ import annotations
 
@@ -187,8 +187,8 @@ def export_c_header(path, means, scales, em, qm):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("dataset_root", type=Path, help="raw PHYTMO root, or training-data when --features-root")
-    ap.add_argument("--features-root", action="store_true", help="load training-data feature cache; clipping unavailable")
+    ap.add_argument("dataset_root", type=Path, help="raw PHYTMO root, or Model/training-data when --features-root")
+    ap.add_argument("--features-root", action="store_true", help="load the Model/training-data feature cache; clipping unavailable")
     ap.add_argument("--sensor", default="all", help="sensor folder to use (default all; e.g. Larm)")
     ap.add_argument("--smoke-test", action="store_true", help="mark sample-sized data as smoke-test only")
     ap.add_argument("--clip-g", type=float, default=None)

@@ -3,7 +3,7 @@
 #include <cmath>
 #include "arduino/Arduino.h"
 HardwareSerial Serial;
-#include "../hardware/198project/198project.ino"
+#include "../../Firmware/198project/198project.ino"
 static void send(const std::string &text) {
     Serial.input = text; Serial.cursor = 0; loop();
 }

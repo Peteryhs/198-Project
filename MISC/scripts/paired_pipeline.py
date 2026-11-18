@@ -118,7 +118,7 @@ def evaluate(data,out,source):
 
 
 def main():
-    ap=argparse.ArgumentParser();ap.add_argument('root',type=Path);ap.add_argument('--out',type=Path,default=Path('model/paired-synchronized-offline'))
+    ap=argparse.ArgumentParser();ap.add_argument('root',type=Path);ap.add_argument('--out',type=Path,default=Path('Model/paired-synchronized-offline'))
     args=ap.parse_args()
     for side in 'LR':
         evaluate(collect(args.root,side),args.out/side,f'real recordings; {side} upper arm + forearm; ±3 g; offline common boundaries')

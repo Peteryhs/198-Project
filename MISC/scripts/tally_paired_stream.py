@@ -18,7 +18,7 @@ Run:
     python3 scripts/tally_paired_stream.py --stdin --side L
     python3 scripts/tally_paired_stream.py --self-test --series 25 --side L
 
-The model files live in model/paired-synchronized-offline/<side>/realtime_model.npz and
+The model files live in Model/paired-synchronized-offline/<side>/realtime_model.npz and
 hold an affine quality head plus a three-way exercise head. Feature extraction and the
 cycle rule are imported from scripts/harness.py, scripts/reps.py and
 scripts/paired_pipeline.py, so the parser cannot drift from training.
@@ -32,8 +32,8 @@ from pathlib import Path
 
 import numpy as np
 
-REPO = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(REPO / 'scripts'))
+REPO = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(REPO / 'MISC' / 'scripts'))
 
 from paired_pipeline import offline_features  # noqa: E402
 
@@ -41,7 +41,7 @@ FS = 100
 MAX_LINE = 128
 MAX_SAMPLES = 60_000
 RATE_LOW, RATE_HIGH = 95.0, 105.0
-MODEL_DIR = REPO / 'model'
+MODEL_DIR = REPO / 'Model'
 DATA_ROOT = REPO / 'data/phytmo/inertial/upper'
 SIDES = ('L', 'R')
 

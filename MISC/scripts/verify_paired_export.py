@@ -40,7 +40,7 @@ def verify(data,model_dir):
 
 
 def main():
-    ap=argparse.ArgumentParser();ap.add_argument('root',type=Path);ap.add_argument('--model',type=Path,default=Path('model/paired-synchronized-offline'));ap.add_argument('--causal',action='store_true');args=ap.parse_args()
+    ap=argparse.ArgumentParser();ap.add_argument('root',type=Path);ap.add_argument('--model',type=Path,default=Path('Model/paired-synchronized-offline'));ap.add_argument('--causal',action='store_true');args=ap.parse_args()
     if args.causal:
         from streaming_pipeline import StreamExtractor
         with StreamExtractor() as extractor:

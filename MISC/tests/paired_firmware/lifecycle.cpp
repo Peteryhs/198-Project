@@ -1,6 +1,6 @@
 #include "Arduino.h"
 FakeSerial Serial, Serial1;
-#include "../../hardware/198project/198project.ino"
+#include "../../../Firmware/198project/198project.ino"
 #include <cassert>
 #include <iostream>
 int main() {

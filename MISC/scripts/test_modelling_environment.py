@@ -6,7 +6,7 @@ import modelling_environment as env
 
 def main():
     pins=env.check_environment()
-    root=Path(__file__).resolve().parents[1]
+    root=Path(__file__).resolve().parents[2]
     project=tomllib.loads((root/'pyproject.toml').read_text())
     assert dict(x.split('==') for x in project['project']['dependencies'])==pins
     lock=tomllib.loads((root/'uv.lock').read_text())

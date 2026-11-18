@@ -8,5 +8,5 @@ compatibility, UART throughput, ADC wiring, or sensor calibration.
 From the repository root:
 
 ```sh
-g++ -std=c++11 -Wall -Wextra -Itests/paired_firmware tests/paired_firmware/lifecycle.cpp hardware/198project/accelerometer_reading.cpp -o /tmp/paired-firmware-check && /tmp/paired-firmware-check
+g++ -std=c++11 -Wall -Wextra -IMISC/tests/paired_firmware MISC/tests/paired_firmware/lifecycle.cpp Firmware/198project/accelerometer_reading.cpp -o /tmp/paired-firmware-check && /tmp/paired-firmware-check
 ```

@@ -4,7 +4,7 @@ Two exports remain. Both take the same 61 inputs from a pair of accelerometers o
 
 ## What runs
 
-`paired-synchronized-offline/{L,R}` is the deployed model. `scripts/tally_paired_stream.py` loads it:
+`paired-synchronized-offline/{L,R}` is the deployed model. `MISC/scripts/tally_paired_stream.py` loads it:
 
 - `realtime_model.npz` — `quality_coef` (1, 61), `quality_intercept`, `exercise_coef` (3, 61),
   `exercise_intercept`, `exercise_classes`. Coefficients are pre-scaled, so feed raw features.
@@ -24,8 +24,8 @@ per-repetition correctness is claimed.
 
 `paired-synchronized-causal/{L,R}` is the same model trained on causal cycle boundaries. It scores
 92.36 % (L) and 89.87 % (R), but only when the cycles come from the causal detector, so the Python
-script does not use it. It is kept because `scripts/measure_feedback_target.py`,
-`scripts/measure_tally_target.py`, `scripts/round2_summary.py` and `scripts/test_paired_runtime.py`
+script does not use it. It is kept because `MISC/scripts/measure_feedback_target.py`,
+`MISC/scripts/measure_tally_target.py`, `MISC/scripts/round2_summary.py` and `MISC/scripts/test_paired_runtime.py`
 run against it.
 
 `streaming/` holds the C runtime those scripts compile: `paired_stream.c` and `paired_runtime.c`.
@@ -52,4 +52,4 @@ of the set and call the set wrong at 0.5 or above. The exercise head is a three-
 `small` (single mount), `realtime-linear` and its three variants, `rnn-experiment`, `application`,
 `feedback`, `paired-causal` and `paired-offline` (invalid clock alignment), and `placement-controls`
 (single-sensor ablations that were never a deployment candidate). All of them live in git history at
-commit `f7fb8ac`. Historical reports under `docs/` still cite them by name.
+commit `f7fb8ac`. Historical reports under `MISC/docs/` still cite them by name.
