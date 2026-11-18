@@ -31,11 +31,11 @@ This project measures those exercises. Four accelerometers sit on one pair of li
 
 ## Status
 
-The embedded firmware and host model remain scaffolds. The Tally Android app builds and has JVM tests; end-to-end validation with the final hardware is still pending.
+The embedded firmware and host model remain scaffolds. The Tally Android app has JVM tests across its three modules; end-to-end validation with the final hardware is still pending.
 
 | Part | State |
 | --- | --- |
-| `Tally/` | Android Studio source: exercise sets (repetition count, pace, range, efficiency, data quality, instructor report), generic Arduino telemetry channels, charts, recordings, CSV export, and Material 3 Expressive UI. |
+| `Tally/` | Android Studio project in three modules (`contract`, `backend`, `app`): joins the board's WiFi link, records six-channel sets, counts repetitions, scores each set with the shipped model, guides an on-arm calibration, keeps history, and exports CSV. |
 | `hardware/198project/` | Sketch entry point and an `Accelerometer` class header. The sketch is a stub. |
 | `model/model.py` | Empty file. |
 | Data transfer | Paired text stream, implemented: `scripts/tally_paired_stream.py` reads six values per sample from `Serial1` and scores the set. Line contract in `docs/BOARD-TO-PARSER.html`. |
@@ -97,11 +97,13 @@ These numbers are requirements, not results. No measurement exists yet.
 
 ## Tally Android app
 
-Open [`Tally/`](Tally/) as the project folder in Android Studio. See the [app README](Tally/README.md) for connection setup, the plug advertisement protocol, and build instructions.
+Open [`Tally/`](Tally/) as the project folder in Android Studio. `settings.gradle.kts` includes three modules: `contract` holds the backend interface and a fake backend for previews and tests, `backend` holds the WiFi link, recording, calibration, scoring and CSV export, and `app` holds the Compose UI. The link, hop by hop with the unit at every step, is in [`Tally/docs/LINK.md`](Tally/docs/LINK.md); the frame format is in [`Tally/docs/ESP32-WIRE-V1.md`](Tally/docs/ESP32-WIRE-V1.md), and the firmware side in [`Tally/docs/FIRMWARE-HANDOFF.md`](Tally/docs/FIRMWARE-HANDOFF.md).
 
-The app's Exercise tab counts repetitions and logs each set: count against the prescribed target, pace per repetition against the prescribed range, full versus shallow range of motion, efficiency, active time and pauses, samples recorded, timing gaps, clipping and faults, counting error against an observed count, and the board's end-of-set model verdict. It uses the firmware's count when the board sends `TALLY` status frames and its own two-sensor estimate otherwise, and checks every set against the design targets above. It also keeps data-driven sensor channels, legacy accelerometer/gyroscope messages, buffered acquisition, live plots, saved recordings, and CSV export. It uses Material3 1.5.0-rc01, Gradle 9.3.1, AGP 9.1.1, and compile SDK 37. Local validation: 50 JVM tests pass, debug assembly succeeds, and lint has no errors. Real-board timing and measurement accuracy remain unverified.
+The app joins the board's WiFi access point — network names start with `Tally-`, and the current firmware uses WPA2 — and records six channels at 100 Hz from a TCP stream at `192.168.4.1:5198`. Millivolts travel on the wire; the app converts to g once, in `Calibration.toG`, so the model always sees g.
 
-`Tally/` is the Android Studio project.
+Each recorded set is counted and scored on the phone. A repetition is an excursion window around the quietest half-second of the set. The `paired-synchronized-offline` model gives every repetition a p(wrong) and an exercise class, and the set verdict is the mean p(wrong) against 0.5. Screens name exercises in words — arms raised overhead, elbow bend and straighten, squeezing — never a class code. Result screens show the scores first and provenance under Details, history keeps past sets, and any set exports to CSV.
+
+Calibration is on-arm: the sensors stay strapped on through seven body holds — hang, forward palm-up, side palm-forward, overhead, an independent check, then the first two holds again. A stillness gate and a 1 g sphere-fit check refuse unsteady or ill-fitted captures. Entering a Gemini API key in settings sends a recorded set to Google Gemini for scoring; without a key, the phone scores locally.
 
 ## Build and upload
 
