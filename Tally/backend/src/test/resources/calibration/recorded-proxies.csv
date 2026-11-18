@@ -1,0 +1,11 @@
+# Derived means of measured 100-sample exercise windows, NOT recorded calibration postures.
+# source=05-our-data/1183368908.csv sha256=4e2821b49fe37bc928ef7a291a64232f45514e8d1fd047d6ae0ebfa361a610da
+# provenance={"model_kind":"paired-synchronized-offline","model_sha256":{"L":"334111ce74e5c3f4ba0c24d0a5f9d27263ddae802ea275eab3903d45b247089c","R":"a3a5d43c7be7dcdd94bd33a2b2969577d16fbf62605987d1ec9f84646d1d1fed"},"scorer_sha256":"3c7af82589ee5832fe180e2abfbf2fc4cb55806a47d86e8292903d97c459244c","git_rev":"fee3565b5d663c32c927ec52d92a6bc78f5bd1a8","fw_version":1,"mac":"88:57:21:AC:EE:49","reset_reason":1,"adc_attenuation_code":3,"calibration_id":"nominal","app_version":"1.0"}
+hold,first_seq,last_seq,upper_x_mv,upper_y_mv,upper_z_mv,forearm_x_mv,forearm_y_mv,forearm_z_mv
+HANG,0,99,1287.19,1008.73,1310.8,1396.44,1048.15,1273.07
+FORWARD_PALM_UP,400,499,1189.04,1183.07,1445.56,1210.35,1121.4,1441.73
+SIDE_PALM_FORWARD,800,899,1330.52,1047.76,1231.98,1370.34,1044.66,1355.81
+OVERHEAD,1200,1299,1289.06,1046.02,1223.58,1333.22,1036.64,1332.52
+CHECK,1600,1699,1273.43,1038.87,1251.9,1331.11,1037.93,1348.17
+HANG,2000,2099,1275.1,1050.48,1261.39,1332.9,1057.16,1389.19
+FORWARD_PALM_UP,1530,1629,1278.48,1038.13,1243.18,1334.19,1037.64,1348.58

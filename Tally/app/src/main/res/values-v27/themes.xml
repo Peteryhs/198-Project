@@ -1,6 +1,0 @@
-<resources>
-    <style name="Theme.Tally.Main" parent="Theme.Tally.Main.Base">
-        <item name="android:navigationBarColor">@color/tally_paper</item>
-        <item name="android:windowLightNavigationBar">true</item>
-    </style>
-</resources>
