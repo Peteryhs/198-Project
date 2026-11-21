@@ -1,4 +1,4 @@
-# Telly
+# Tally
 
 [![Android 10+](https://img.shields.io/badge/Android-10%2B-26372C?logo=android&logoColor=white)](App/)
 [![Kotlin](https://img.shields.io/badge/Kotlin-26372C?logo=kotlin&logoColor=white)](App/)
@@ -7,7 +7,7 @@
 
 **A clear record of movement.**
 
-Telly is a prototype that helps older adults track arm exercises at home. An ESP32 streams motion from two accelerometers, one on the upper arm and one on the forearm, to an Android phone over Wi-Fi. After each set, the app estimates rep count and movement quality, saves the result, and lets you export it as CSV.
+Tally is a prototype that helps older adults track arm exercises at home. An ESP32 streams motion from two accelerometers, one on the upper arm and one on the forearm, to an Android phone over Wi-Fi. After each set, the app estimates rep count and movement quality, saves the result, and lets you export it as CSV.
 
 ## Get started
 
