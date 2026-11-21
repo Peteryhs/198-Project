@@ -1,144 +1,25 @@
-# ECE 198: Home Exercise Monitoring
+# Tally
 
-Sensors for older adults who exercise at home alone. The device counts repetitions and keeps the pace honest.
+[![Android 10+](https://img.shields.io/badge/Android-10%2B-26372C?logo=android&logoColor=white)](App/)
+[![Kotlin](https://img.shields.io/badge/Kotlin-26372C?logo=kotlin&logoColor=white)](App/)
+[![ESP32](https://img.shields.io/badge/ESP32-26372C?logo=espressif&logoColor=white)](Firmware/TallyFirmwareV2/)
+[![Python](https://img.shields.io/badge/Python-26372C?logo=python&logoColor=white)](Model/)
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Peteryhs/198-Project/main/MISC/assets/data-flow-dark.svg">
-  <img src="https://raw.githubusercontent.com/Peteryhs/198-Project/main/MISC/assets/data-flow-light.svg" alt="Data path: four ADXL335 accelerometers on one matched pair of limbs feed an Arduino UNO R4 Minima, which counts repetitions and drives an OLED screen. A planned Python model on a host computer scores each session." width="100%">
-</picture>
+**A clear record of movement.**
 
-## Table of contents
+Tally is a prototype that helps older adults track arm exercises at home. An ESP32 streams motion from two accelerometers, one on the upper arm and one on the forearm, to an Android phone over Wi-Fi. After each set, the app estimates rep count and movement quality, saves the result, and lets you export it as CSV.
 
-- [What the project does](#what-the-project-does)
-- [Status](#status)
-- [How it works](#how-it-works)
-- [Hardware](#hardware)
-- [Design targets](#design-targets)
-- [Repository layout](#repository-layout)
-- [Tally Android app](#tally-android-app)
-- [Build and upload](#build-and-upload)
-- [Known gaps](#known-gaps)
-- [Roadmap](#roadmap)
-- [Team](#team)
-- [Project sources](#project-sources)
-- [Course](#course)
+## Get started
 
-## What the project does
+- **Android app:** Open [`App/`](App/) in Android Studio with JDK 21 and Android SDK 37. Run on an ARM64 device with Android 10 or later, or build a debug APK with `./gradlew assembleDebug` from `App/`.
+- **ESP32 firmware:** Open [`Firmware/TallyFirmwareV2/`](Firmware/TallyFirmwareV2/) in PlatformIO. Follow the [sensor wiring guide](App/docs/FIRMWARE-HANDOFF.md#hardware), then build and upload for the `esp32doit-devkit-v1` board.
 
-CCCARE (Centre for Community, Clinical and Applied Research Excellence) runs supervised exercise programs for older adults at the University of Waterloo. One instructor supervises up to 30 participants in one session. When a participant goes home, no one measures the exercises.
+## Learn more
 
-This project measures those exercises. Four accelerometers sit on one pair of limbs. An Arduino UNO R4 Minima reads the sensors, counts each repetition, and shows the count and the pace on a small screen. A Python model on a host computer scores the quality of the session and writes a summary for the instructor.
+[Data flow](App/docs/LINK.md) · [Scoring model](Model/README.md) · [Research notes](MISC/docs/README.md)
 
-## Status
+## Makers
 
-The embedded firmware and host model remain scaffolds. The Tally Android app has JVM tests across its three modules; end-to-end validation with the final hardware is still pending.
+Raghav, Sasvin, Jeevan, and Peter
 
-| Part | State |
-| --- | --- |
-| `App/` | Android Studio project in three modules (`contract`, `backend`, `app`): joins the board's WiFi link, records six-channel sets, counts repetitions, scores each set with the shipped model, guides an on-arm calibration, keeps history, and exports CSV. |
-| `Firmware/198project/` | Sketch entry point and an `Accelerometer` class header. The sketch is a stub. |
-| `Model/model.py` | Empty file. |
-| Data transfer | Paired text stream, implemented: `MISC/scripts/tally_paired_stream.py` reads six values per sample from `Serial1` and scores the set. Line contract in `MISC/docs/BOARD-TO-PARSER.html`. |
-| WiFi path | Under evaluation with the Arduino Yún shield. |
-| Bill of materials | Drafted. No parts are ordered. |
-
-## How it works
-
-The UNO R4 Minima has six analog inputs. The design uses four of them, one for each sensor, on pins A0 to A3. Two inputs stay free.
-
-Two sensors on one limb measure the angle between its segments. One sensor on a limb shows only that the limb moved. The pair is the reason the device can tell a full repetition from a shallow one.
-
-A repetition is a shape in the signal. The limb rises, it returns, and a counter passes its threshold. A hysteresis band stops the same motion from counting twice.
-
-The screen shows the count and the pace during the session. Three buttons start a session, calibrate the sensors, and reset the count.
-
-The host model reads the samples, scores each repetition, and writes one summary for the instructor.
-
-The model for the sensor pair is `Model/paired-synchronized-offline/{L,R}`: 61 inputs, 992 parameter bytes, 91.03 % quality accuracy on the left side over 30 held-out volunteers. `MISC/docs/PIPELINE.md` traces a set from the accelerometers to the verdict.
-
-
-## Hardware
-
-| Part | Qty | Role |
-| --- | --- | --- |
-| Arduino UNO R4 Minima (`ABX00080`) | 1 | Reads four analog channels and counts repetitions. RA4M1 at 48 MHz, 5 V logic, 256 kB flash. |
-| ADXL335 3-axis accelerometer | 4 | Two per limb on one matched pair. Analog output on three axes, sensor range ±3 g. |
-| Arduino Yún shield | 1 | WiFi 802.11 b/g/n and a LAN port, for the link to the host model. Under evaluation. |
-| OLED display | 1 | Shows the repetition count and the pace. |
-| Pushbutton | 3 | Start, calibrate, reset. |
-| Armband | 4 | Holds each sensor in the same position on every session. |
-
-Datasheets for the board and the shield are in `Firmware/resources/`.
-
-## Design targets
-
-| Measure | Target |
-| --- | --- |
-| Counting error | At most 1 error per 10 repetitions |
-| Samples recorded | 95% or more of the session |
-| Continuous run | 60 minutes without a reset |
-
-These numbers are requirements, not results. No measurement exists yet.
-
-## Repository layout
-
-```text
-198-Project/
-├── Firmware/          Arduino sketch and source files, board datasheets, pin notes
-├── App/               Android Studio project: contract, backend, app modules
-├── Model/             model artefacts, the C streaming runtime, the empty host-model
-│                     stub, and the PHYTMO training data
-└── MISC/              research docs, scripts, configs, data samples, figures, papers,
-                      assets, simulation, tests, tools
-```
-
-## Tally Android app
-
-Open [`App/`](App/) as the project folder in Android Studio. `settings.gradle.kts` includes three modules: `contract` holds the backend interface and a fake backend for previews and tests, `backend` holds the WiFi link, recording, calibration, scoring and CSV export, and `app` holds the Compose UI. The link, hop by hop with the unit at every step, is in [`App/docs/LINK.md`](App/docs/LINK.md); the frame format is in [`App/docs/ESP32-WIRE-V1.md`](App/docs/ESP32-WIRE-V1.md), and the firmware side in [`App/docs/FIRMWARE-HANDOFF.md`](App/docs/FIRMWARE-HANDOFF.md).
-
-The app joins the board's WiFi access point — network names start with `Tally-`, and the current firmware uses WPA2 — and records six channels at 100 Hz from a TCP stream at `192.168.4.1:5198`. Millivolts travel on the wire; the app converts to g once, in `Calibration.toG`, so the model always sees g.
-
-Each recorded set is counted and scored on the phone. A repetition is an excursion window around the quietest half-second of the set. The `paired-synchronized-offline` model gives every repetition a p(wrong) and an exercise class, and the set verdict is the mean p(wrong) against 0.5. Screens name exercises in words — arms raised overhead, elbow bend and straighten, squeezing — never a class code. Result screens show the scores first and provenance under Details, history keeps past sets, and any set exports to CSV.
-
-Calibration is on-arm: the sensors stay strapped on through seven body holds — hang, forward palm-up, side palm-forward, overhead, an independent check, then the first two holds again. A stillness gate and a 1 g sphere-fit check refuse unsteady or ill-fitted captures. Entering a Gemini API key in settings sends a recorded set to Google Gemini for scoring; without a key, the phone scores locally.
-
-## Build and upload
-
-The sketch does not run yet. These steps describe the intended loop.
-
-1. Install the Arduino IDE, version 2.x.
-2. Add the *Arduino UNO R4 Boards* package in the board manager.
-3. Select **Arduino UNO R4 Minima** and the port of the board.
-4. Open `Firmware/198project/198project.ino`.
-5. Upload the sketch.
-
-Note: the Arduino core calls `loop()` after `setup()`. The sketch declares `main()` instead, so the link step fails. See [Known gaps](#known-gaps).
-
-## Known gaps
-
-- The sketch declares `main()`. The Arduino core needs `loop()`.
-- `accelerometer_reading.cpp`, `data_transfer.h`, and `data_transfer.cpp` are empty.
-- The host model is an empty file.
-- The WiFi path is untested. The Yún shield manual asks for power on the VIN pin and the SPI pins in the ICSP header. Both conditions appear to hold on the UNO R4 Minima. No one has tested the pair.
-
-## Roadmap
-
-- [ ] Rename `main()` to `loop()` and get the sketch building
-- [ ] Implement `accelerometer_reading.cpp` and read all four channels
-- [ ] Implement `data_transfer.h` / `data_transfer.cpp`
-- [ ] Order the bill of materials
-- [ ] Test the Yún shield WiFi path end to end
-- [ ] Write `model/model.py` and define the scoring output format
-- [ ] Run the design targets above against a real session and record results
-
-## Team
-
-ECE 198 Design Project team, University of Waterloo.
-
-## Project sources
-
-The design comes from the team's Solution 2 report, the ECE 198 parts list, and the code in this repository.
-
-## Course
-
-ECE 198 Design Project, University of Waterloo, Fall 2026.
+*ECE 198 Design Project · University of Waterloo*
